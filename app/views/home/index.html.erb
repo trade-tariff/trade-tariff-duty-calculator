@@ -1,7 +1,7 @@
 <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">     
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
-      <%= form_for :data, url: '/question_1' do |f| %>
+      <%= form_for :data, url: '/question_1', builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
         <span class="govuk-caption-xl">Calculate import duties</span>                          
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset" role="group" aria-describedby="import_date-hint">
@@ -24,29 +24,24 @@
             <div class="govuk-date-input">
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
-                  <%= f.label :day, 'Day', class: 'govuk-label' %>
-                  <%= f.number_field :day, class: css_classes_for_input(@data, :date, 'govuk-input--width-2'), data: { cy: 'pid-dob-day-field' } %>
+                  <%= f.govuk_number_field :day %>
                 </div>
               </div>
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
-                  <%= f.label :month, 'Month', class: 'govuk-label' %>
-                  <%= f.number_field :month, class: css_classes_for_input(@data, :date, 'govuk-input--width-2'), data: { cy: 'pid-dob-month-field' } %>
+                  <%= f.govuk_number_field :month %>
                 </div>
               </div>
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
-                  <%= f.label :year, 'Year', class: 'govuk-label' %>
-                  <%= f.number_field :year, class: css_classes_for_input(@data, :date, 'govuk-input--width-4'), data: { cy: 'pid-dob-year-field' } %>
+                  <%= f.govuk_number_field :year %>
                 </div>
               </div>
             </div>
   
           </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">
-          Continue
-        </button>          
+        <%= f.govuk_submit %>        
       <% end %>
       <details class="govuk-details" data-module="govuk-details" open="">
         <summary class="govuk-details__summary">
