@@ -20,29 +20,29 @@
 
             <%= error_summary(@data) %>
 
-
-            <%= errors_tag @data, :day %>
-
-            <div class="govuk-date-input">
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <%= f.label :day, 'Day', class: 'govuk-label' %>
-                  <%= f.number_field :day, class: css_classes_for_input(@data, :day, 'govuk-input--width-2'), data: { cy: 'pid-dob-day-field' } %>
+            <%= form_group_tag @data, :day do %>
+              <%= errors_tag @data, :day %>
+              <div class="govuk-date-input">
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <%= f.label :day, 'Day', class: 'govuk-label' %>
+                    <%= f.number_field :day, class: css_classes_for_input(@data, :day, 'govuk-input--width-2'), data: { cy: 'pid-dob-day-field' } %>
+                  </div>
+                </div>
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <%= f.label :month, 'Month', class: 'govuk-label' %>
+                    <%= f.number_field :month, class: css_classes_for_input(@data, :month, 'govuk-input--width-2'), data: { cy: 'pid-dob-month-field' } %>
+                  </div>
+                </div>
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <%= f.label :year, 'Year', class: 'govuk-label' %>
+                    <%= f.number_field :year, class: css_classes_for_input(@data, :year, 'govuk-input--width-4'), data: { cy: 'pid-dob-year-field' } %>
+                  </div>
                 </div>
               </div>
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <%= f.label :month, 'Month', class: 'govuk-label' %>
-                  <%= f.number_field :month, class: css_classes_for_input(@data, :month, 'govuk-input--width-2'), data: { cy: 'pid-dob-month-field' } %>
-                </div>
-              </div>
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <%= f.label :year, 'Year', class: 'govuk-label' %>
-                  <%= f.number_field :year, class: css_classes_for_input(@data, :year, 'govuk-input--width-4'), data: { cy: 'pid-dob-year-field' } %>
-                </div>
-              </div>
-            </div>
+            <% end %>
   
           </fieldset>
         </div>
