@@ -1,7 +1,7 @@
 <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">     
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
-      <%= form_for :data, url: '/question_1' do |f| %>
+      <%= form_for @data, url: '/question_1' do |f| %>
         <span class="govuk-caption-xl">Calculate import duties</span>                          
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset" role="group" aria-describedby="import_date-hint">
@@ -18,26 +18,28 @@
                                     For example, 27&nbsp;&nbsp;3&nbsp;&nbsp;2021
             </div>
 
+            <%= error_summary(@data) %>
 
-            <%= errors_tag nil, :date %>
+
+            <%= errors_tag @data, :day %>
 
             <div class="govuk-date-input">
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                   <%= f.label :day, 'Day', class: 'govuk-label' %>
-                  <%= f.number_field :day, class: css_classes_for_input(@data, :date, 'govuk-input--width-2'), data: { cy: 'pid-dob-day-field' } %>
+                  <%= f.number_field :day, class: css_classes_for_input(@data, :day, 'govuk-input--width-2'), data: { cy: 'pid-dob-day-field' } %>
                 </div>
               </div>
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                   <%= f.label :month, 'Month', class: 'govuk-label' %>
-                  <%= f.number_field :month, class: css_classes_for_input(@data, :date, 'govuk-input--width-2'), data: { cy: 'pid-dob-month-field' } %>
+                  <%= f.number_field :month, class: css_classes_for_input(@data, :month, 'govuk-input--width-2'), data: { cy: 'pid-dob-month-field' } %>
                 </div>
               </div>
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                   <%= f.label :year, 'Year', class: 'govuk-label' %>
-                  <%= f.number_field :year, class: css_classes_for_input(@data, :date, 'govuk-input--width-4'), data: { cy: 'pid-dob-year-field' } %>
+                  <%= f.number_field :year, class: css_classes_for_input(@data, :year, 'govuk-input--width-4'), data: { cy: 'pid-dob-year-field' } %>
                 </div>
               </div>
             </div>

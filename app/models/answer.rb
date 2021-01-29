@@ -1,5 +1,9 @@
 class Answer
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
+  include ActiveModel::Validations
+
   attr_accessor :day, :month, :year
 
-  validate  :dob_format, unless: -> { dob.present? }
+  validates :day, presence: true
 end
