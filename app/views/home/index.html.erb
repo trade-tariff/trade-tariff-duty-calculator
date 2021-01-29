@@ -1,7 +1,7 @@
 <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">     
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
-      <%= form_for :data, url: '/question_1', builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+      <%= form_for @data, url: '/question_1', builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
         <span class="govuk-caption-xl">Calculate import duties</span>                          
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset" role="group" aria-describedby="import_date-hint">
@@ -19,7 +19,7 @@
             </div>
 
 
-            <%= errors_tag nil, :date %>
+            <%= f.govuk_error_summary %>
 
             <div class="govuk-date-input">
               <div class="govuk-date-input__item">
