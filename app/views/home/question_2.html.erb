@@ -14,7 +14,7 @@
         Read more about the <a href="https://www.gov.uk/government/publications/notice-252-valuation-of-imported-goods-for-customs-purposes-vat-and-trade-statistics/notice-252-valuation-of-imported-goods-for-customs-purposes-vat-and-trade-statistics" class="govuk-link">
         valuation of imported goods for customs purposes, VAT and trade statistics</a>.
         </span>
-        <%= f.govuk_text_field :monetary_value, width: 'one-quarter', label: { text: 'What is the value in GBP of the goods being imported?' }, prefix_text: '£' %>
+        <%= f.govuk_text_field :monetary_value, width: 'one-quarter', label: { text: '<b>What is the value in GBP of the goods being imported?</b>'.html_safe }, prefix_text: '£' %>
 
         <%= f.govuk_text_field :shipping_cost, width: 'one-quarter', label: { text: 'What is the shipping cost?' }, hint: {text: 'Only insurance costs up to the place of introduction of the imported goods into the UK border need to be included.'}, prefix_text: '£' %>
 

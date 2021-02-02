@@ -21,23 +21,7 @@
 
             <%= f.govuk_error_summary %>
 
-            <div class="govuk-date-input">
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <%= f.govuk_number_field :day %>
-                </div>
-              </div>
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <%= f.govuk_number_field :month %>
-                </div>
-              </div>
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <%= f.govuk_number_field :year %>
-                </div>
-              </div>
-            </div>
+            <%= f.govuk_date_field :date_of_birth, date_of_birth: true, legend: { text: 'Enter your date of birth' }, hint: { text: 'For example, 31 3 1980' } %>
   
           </fieldset>
         </div>

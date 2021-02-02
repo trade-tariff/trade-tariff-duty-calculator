@@ -3,7 +3,7 @@ class Answer
   include ActiveModel::Conversion
   include ActiveModel::Validations
   
-  attr_accessor :day, :month, :year
+  attr_accessor :date_of_birth
 
-  validates :day, presence: true
+  validates :date_of_birth, presence: true
 end
