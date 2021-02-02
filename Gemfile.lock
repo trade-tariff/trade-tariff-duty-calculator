@@ -245,6 +245,8 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
+    rspec_junit_formatter (0.4.1)
+      rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.9.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
@@ -359,9 +361,11 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   puma (~> 4.1)
+  rack-test
   rails (~> 6.0.3, >= 6.0.3.4)
   rails_12factor
   rspec-rails
+  rspec_junit_formatter
   rubocop
   rubocop-rspec
   sass-rails (>= 6)
@@ -373,7 +377,7 @@ DEPENDENCIES
   webpacker (~> 4.0)
 
 RUBY VERSION
-   ruby 2.7.1p83
+   ruby 2.7.2
 
 BUNDLED WITH
    2.1.4
