@@ -22,7 +22,7 @@ services:
     environment:
       - RAILS_ENV=production
       - DB_HOST=db
-      - DB_DATABASE=rails-boilerplate
+      - DB_DATABASE=trade-tariff-duty-calculator
       - DB_USERNAME=postgres
       - DB_PASSWORD=developmentpassword
       - SECRET_KEY_BASE=abcd1234

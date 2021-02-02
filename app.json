@@ -1,5 +1,5 @@
 {
-  "name": "govuk-rails-boilerplate",
+  "name": "trade-tariff-duty-calculator",
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate db:seed"
   },

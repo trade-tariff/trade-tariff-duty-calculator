@@ -1,6 +1,4 @@
-![Deploy](https://github.com/DFE-Digital/govuk-rails-boilerplate/workflows/Deploy/badge.svg)
-
-# GOV.UK Rails Boilerplate
+# Trade Tariff Duty Calculator
 
 ## Prerequisites
 
@@ -17,7 +15,7 @@
 4. Run `bundle exec rails server` to launch the app on http://localhost:3000
 5. Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
 
-## Whats included in this boilerplate?
+## Whats included?
 
 - Rails 6.0 with Webpacker
 - [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend)
@@ -102,4 +100,3 @@ Open: http://localhost:3000
 
 Check the file `manifest.yml` for customisation of name (you may need to change it as there could be a conflict on that name), buildpacks and eventual services (PostgreSQL needs to be [set up](https://docs.cloud.service.gov.uk/deploying_services/postgresql/)).
 
-The app should be available at https://govuk-rails-boilerplate.london.cloudapps.digital
