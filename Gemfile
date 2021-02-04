@@ -57,6 +57,7 @@ group :development do
 end
 
 group :test do
+  gem "rspec_junit_formatter"
   gem "webdrivers", "~> 4.5"
 end
 
