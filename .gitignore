@@ -22,7 +22,7 @@
 /public/packs
 /public/packs-test
 /node_modules
-/vendor/cache
+/vendor/
 yarn-debug.log*
 .yarn-integrity
 
