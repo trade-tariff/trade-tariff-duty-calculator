@@ -47,4 +47,9 @@ workflows:
       - test:
           requires:
             - build
-
+      - cloudfoundry/push:
+          appname: tariff-duty-calculator-dev
+          endpoint: api.london.cloud.service.gov.uk
+          org: trade-tariff
+          space: development
+          manifest: manifest.yml
