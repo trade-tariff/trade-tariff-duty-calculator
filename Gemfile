@@ -25,8 +25,8 @@ gem "foreman"
 gem "canonical-rails"
 
 # Logging
-gem 'lograge'
-gem 'logstash-event'
+gem "lograge"
+gem "logstash-event"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
