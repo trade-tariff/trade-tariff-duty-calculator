@@ -1,0 +1,24 @@
+<%= link_to('Back', '#', class: "govuk-back-link") %>
+
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <%= form_for @import_date, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: { controller: 'wizard/steps/import_dates', action: 'create' } do |f| %>
+        <%= f.govuk_error_summary %>
+        <span class="govuk-caption-xl">Calculate import duties</span>
+        <%= f.govuk_date_field :import_date, legend: { text: 'When will the goods be imported?', size: 'xl', tag: 'h1' }, hint: { text: 'As duties and quotas change over time, it may be important to enter the proposed import date. For example, 27  3  2021' } %>
+        <%= f.govuk_submit %>
+      <% end %>
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+          About this commodity code
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Commodity code <strong>0101210000</strong><br>Pure-bred breeding animals<br><br><a class="govuk-link" href="/commodities/0101210000">View commodity 0101210000</a>
+        </div>
+      </details>
+    </div>
+  </div>
+</main>

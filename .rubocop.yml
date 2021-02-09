@@ -3,11 +3,38 @@ inherit_gem:
     - config/default.yml
     - config/rails.yml
 
+require: rubocop-rspec
+
 AllCops:
+  TargetRubyVersion: 2.7.1
   Exclude:
-    - 'bin/*'
     - 'db/schema.rb'
-    - 'node_modules/**/*'
-    - 'config/application.rb'
-    - 'config/puma.rb'
     - 'vendor/**/*'
+    - 'bin/**'
+    - 'db/**/*'
+    - 'tmp/**/*'
+    - 'config/puma.rb'
+Layout/LineLength:
+  Max: 120
+Layout/AccessModifierIndentation:
+  Enabled: false
+Metrics/AbcSize:
+  Max: 20
+Metrics/BlockLength:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+Rails/SaveBang:
+  Enabled: false
+Rails/FilePath:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/GuardClause:
+  MinBodyLength: 2
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
