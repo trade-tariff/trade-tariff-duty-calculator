@@ -92,7 +92,11 @@ GEM
     foreman (0.87.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    i18n (1.8.8)
+    govuk_design_system_formbuilder (2.1.7)
+      actionview (>= 5.2)
+      activemodel (>= 5.2)
+      activesupport (>= 5.2)
+    i18n (1.8.7)
       concurrent-ruby (~> 1.0)
     listen (3.4.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -278,6 +282,7 @@ DEPENDENCIES
   capybara (~> 3.35)
   dotenv-rails
   foreman
+  govuk_design_system_formbuilder
   listen (>= 3.0.5, < 3.5)
   lograge
   logstash-event
