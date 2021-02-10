@@ -1,12 +1,22 @@
 module Wizard
   module Steps
     class ImportDate < Base
-      attr_reader :import_date
+      attribute 'import_date(3i)', :string
+      attribute 'import_date(2i)', :string
+      attribute 'import_date(1i)', :string
 
       validate :import_date_in_future
 
-      def save!
-        session[:import_date] = input_date.strftime('%d/%m/%Y')
+      def import_date
+        session[:import_date]
+      end
+
+      def import_date=(value)
+        session[:import_date] = value
+      end
+
+      def save
+        self.import_date = input_date.strftime('%Y-%m-%d')
       end
 
     private
@@ -19,9 +29,9 @@ module Wizard
 
       def input_date
         Date.civil(
-          attributes[:'import_date(1i)'].to_i,
-          attributes[:'import_date(2i)'].to_i,
-          attributes[:'import_date(3i)'].to_i,
+          attributes['import_date(1i)'].to_i,
+          attributes['import_date(2i)'].to_i,
+          attributes['import_date(3i)'].to_i,
         )
       end
     end

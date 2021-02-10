@@ -9,7 +9,7 @@ RSpec.describe Wizard::Steps::ImportDate do
       'import_date(3i)' => '12',
       'import_date(2i)' => '12',
       'import_date(1i)' => 1.year.from_now.year.to_s,
-    )
+    ).permit!
   end
 
   describe '#validations' do
@@ -19,7 +19,7 @@ RSpec.describe Wizard::Steps::ImportDate do
           'import_date(3i)' => '',
           'import_date(2i)' => '',
           'import_date(1i)' => '',
-        )
+        ).permit!
       end
 
       it 'is not a valid object' do
@@ -39,7 +39,7 @@ RSpec.describe Wizard::Steps::ImportDate do
           'import_date(3i)' => '',
           'import_date(2i)' => '12',
           'import_date(1i)' => '',
-        )
+        ).permit!
       end
 
       it 'is not a valid object' do
@@ -59,7 +59,7 @@ RSpec.describe Wizard::Steps::ImportDate do
           'import_date(3i)' => '12',
           'import_date(2i)' => '12',
           'import_date(1i)' => '@@',
-        )
+        ).permit!
       end
 
       it 'is not a valid object' do
@@ -79,7 +79,7 @@ RSpec.describe Wizard::Steps::ImportDate do
           'import_date(3i)' => '12',
           'import_date(2i)' => '12',
           'import_date(1i)' => '2001',
-        )
+        ).permit!
       end
 
       it 'is not a valid object' do
@@ -99,7 +99,7 @@ RSpec.describe Wizard::Steps::ImportDate do
           'import_date(3i)' => '12',
           'import_date(2i)' => '34',
           'import_date(1i)' => '3000',
-        )
+        ).permit!
       end
 
       it 'is not a valid object' do
@@ -126,15 +126,15 @@ RSpec.describe Wizard::Steps::ImportDate do
     end
   end
 
-  describe '#save!' do
+  describe '#save' do
     let(:expected_session) do
       {
-        import_date: "12/12/#{1.year.from_now.year}",
+        import_date: "#{1.year.from_now.year}-12-12",
       }
     end
 
     it 'saves the import_date to the session' do
-      import_date.save!
+      import_date.save
 
       expect(import_date.session).to eq(expected_session)
     end

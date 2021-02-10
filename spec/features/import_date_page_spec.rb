@@ -22,6 +22,6 @@ RSpec.describe 'Import Date Page', type: :feature do
 
     click_on('Continue')
 
-    expect(Capybara.current_session.driver.request.session[:import_date]).to eq('12/12/3000')
+    expect(Capybara.current_session.driver.request.session[:import_date]).to eq('3000-12-12')
   end
 end

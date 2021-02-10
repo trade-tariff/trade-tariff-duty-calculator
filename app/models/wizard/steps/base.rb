@@ -2,13 +2,14 @@ module Wizard
   module Steps
     class Base
       include ActiveModel::Model
+      include ActiveModel::Attributes
 
-      attr_reader :session,
-                  :attributes
+      attr_reader :session
 
       def initialize(session, attributes = {})
+        super(attributes)
+
         @session = session
-        @attributes = attributes
       end
 
       def persisted?

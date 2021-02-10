@@ -1,7 +1,7 @@
 module Wizard
   module Steps
     class ImportDatesController < BaseController
-      def index
+      def show
         @import_date = Wizard::Steps::ImportDate.new(session)
       end
 
@@ -9,12 +9,12 @@ module Wizard
         @import_date = Wizard::Steps::ImportDate.new(session, permitted_params)
 
         if @import_date.valid?
-          @import_date.save!
+          @import_date.save
 
           # TO DO: Update the path to the next question
-          redirect_to "/duty-calculator/#{params[:commodity]}/next-question"
+          # redirect_to "/duty-calculator/#{params[:commodity]}/next-question"
         else
-          render 'index'
+          render 'show'
         end
       end
 
