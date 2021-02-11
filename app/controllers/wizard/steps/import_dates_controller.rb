@@ -11,8 +11,7 @@ module Wizard
         if @import_date.valid?
           @import_date.save
 
-          # TO DO: Update the path to the next question
-          # redirect_to "/duty-calculator/#{params[:commodity]}/next-question"
+          redirect_to "/duty-calculator/#{params[:commodity]}/import-destination"
         else
           render 'show'
         end
