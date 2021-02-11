@@ -31,5 +31,7 @@ module TradeTariffDutyCalculator
     config.exceptions_app = routes
 
     config.middleware.use Rack::Deflater
+
+    config.trade_tariff_frontend_origin = ENV['TRADE_TARIFF_FRONTEND_ORIGIN']
   end
 end
