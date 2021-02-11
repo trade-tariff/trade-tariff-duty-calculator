@@ -28,7 +28,7 @@ RSpec/ExampleLength:
   Enabled: false
 Rails/SaveBang:
   Enabled: false
-Rails/FilePath:
+RSpec/FilePath:
   Enabled: false
 Style/Documentation:
   Enabled: false
