@@ -1,7 +1,4 @@
 {
-  "engines": {
-    "node": "12.x"
-  },
   "dependencies": {
     "@rails/webpacker": "^5.2.1",
     "govuk-frontend": "^3.10.2",

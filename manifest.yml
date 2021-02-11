@@ -3,7 +3,7 @@ applications:
 - name: tariff-duty-calculator-dev
   buildpacks:
     - https://github.com/cloudfoundry/ruby-buildpack.git
-    - https://github.com/cloudfoundry/nodejs-buildpack
+  stack: cflinuxfs3
   routes:
   - route: tariff-duty-calculator-dev.london.cloudapps.digital
   processes:
