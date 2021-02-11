@@ -14,6 +14,7 @@ AllCops:
     - 'db/**/*'
     - 'tmp/**/*'
     - 'config/puma.rb'
+    - 'node_modules/**/*'
 Layout/LineLength:
   Max: 120
 Layout/AccessModifierIndentation:
@@ -28,7 +29,7 @@ RSpec/ExampleLength:
   Enabled: false
 Rails/SaveBang:
   Enabled: false
-Rails/FilePath:
+RSpec/FilePath:
   Enabled: false
 Style/Documentation:
   Enabled: false
