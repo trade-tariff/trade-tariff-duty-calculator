@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "/duty-calculator/:commodity/import-date", to: "wizard/steps/import_dates#show"
+  get "/duty-calculator/:commodity/import-date/", to: "wizard/steps/import_dates#show"
   post "/duty-calculator/:commodity/import-date", to: "wizard/steps/import_dates#create"
 
   get "/404", to: "errors#not_found", via: :all
