@@ -37,7 +37,7 @@ RSpec.describe Wizard::Steps::ImportDestination do
       it 'has no validation errors' do
         import_destination.valid?
 
-        expect(import_destination.errors.messages[:import_date]).to be_empty
+        expect(import_destination.errors.messages[:import_destination]).to be_empty
       end
     end
   end
