@@ -1,3 +1,36 @@
 <%= link_to('Back', :back, class: "govuk-back-link") %>
 
-<h1>Import Destination Placeholder Page</h1>
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <%= form_for @import_destination, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: { controller: 'wizard/steps/import_destinations', action: 'create' } do |f| %>
+        <%= f.govuk_error_summary %>
+        <span class="govuk-caption-xl">Calculate import duties</span>
+
+        <%= f.govuk_collection_radio_buttons :import_destination, Wizard::Steps::ImportDestination::OPTIONS, :id, :name, legend: { text: 'Which part of the UK are you importing into?', size: 'xl', tag: 'h1' }, hint: { text: 'The duty you are charged may be dependent on the part of the UK to which you are importing.' }, include_hidden: true %>
+
+        <%= f.govuk_submit %>
+      <% end %>
+
+      <%= render 'shared/commodity_details' %>
+      <div class="gem-c-contextual-footer">
+        <div class="gem-c-related-navigation">
+          <nav role="navigation" class="gem-c-related-navigation__nav-section">
+            <h2 id="related-nav-topics-c7e51674" class="gem-c-related-navigation__sub-heading gem-c-related-navigation__sub-heading--footer">Explore the
+              topic
+            </h2>
+            <ul class="gem-c-related-navigation__link-list">
+              <li class="gem-c-related-navigation__link">
+                <a class="gem-c-related-navigation__section-link gem-c-related-navigation__section-link--footer" href="https://www.gov.uk/import-goods-into-uk">Import goods into the UK: step by step</a>
+              </li>
+              <li class="gem-c-related-navigation__link">
+                <a class="gem-c-related-navigation__section-link gem-c-related-navigation__section-link--footer" href="https://www.gov.uk/guidance/trading-and-moving-goods-in-and-out-of-northern-ireland-from-1-january-2021">Trading
+                and moving goods in and out of Northern Ireland</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

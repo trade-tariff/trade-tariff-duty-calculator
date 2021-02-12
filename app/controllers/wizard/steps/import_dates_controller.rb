@@ -11,7 +11,7 @@ module Wizard
         if @import_date.valid?
           @import_date.save
 
-          redirect_to "/duty-calculator/#{params[:commodity]}/import-destination"
+          redirect_to "/duty-calculator/#{params[:commodity_code]}/import-destination"
         else
           render 'show'
         end

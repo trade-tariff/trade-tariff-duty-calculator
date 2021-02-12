@@ -37,3 +37,8 @@ en:
           attributes:
             import_date:
               invalid_date: Enter a valid, future date
+        wizard/steps/import_destination:
+            attributes:
+              import_destination:
+                blank: Select a destination
+              
