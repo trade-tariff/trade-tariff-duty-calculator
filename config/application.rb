@@ -5,7 +5,6 @@ require 'active_model/railtie'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'action_view/railtie'
-# require 'trade_tariff_duty_calculator/service_chooser'
 
 Bundler.require(*Rails.groups)
 
