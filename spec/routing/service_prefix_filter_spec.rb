@@ -66,5 +66,46 @@ RSpec.describe RoutingFilter::ServicePrefixFilter, type: :routing do
       end
     end
   end
+
+  describe 'path generation' do
+    let(:commodity_code) { '0101210000' }
+    let(:service_default) { 'uk' }
+
+    before do
+      TradeTariffDutyCalculator::ServiceChooser.service_choice = choice
+    end
+
+    context 'when the service choice is not the default' do
+      let(:choice) { 'xi' }
+
+      it 'prepends the choice to the url' do
+        result = import_date_url(commodity_code: commodity_code)
+
+        expect(result).to eq('http://localhost/xi/duty_calculator/0101210000/import_date')
+      end
+
+      it 'prepends the choice to the path' do
+        result = import_date_path(commodity_code: commodity_code)
+
+        expect(result).to eq('/xi/duty_calculator/0101210000/import_date')
+      end
+    end
+
+    context 'when the service choice is the default' do
+      let(:choice) { 'uk' }
+
+      it 'does not prepend the choice to the url' do
+        result = import_date_url(commodity_code: commodity_code)
+
+        expect(result).to eq('http://localhost/duty_calculator/0101210000/import_date')
+      end
+
+      it 'does not prepend the choice to the path' do
+        result = import_date_path(commodity_code: commodity_code)
+
+        expect(result).to eq('/duty_calculator/0101210000/import_date')
+      end
+    end
+  end
   # rubocop:enable RSpec/MultipleExpectations
 end
