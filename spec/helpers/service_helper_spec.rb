@@ -2,12 +2,20 @@ require 'rails_helper'
 
 RSpec.describe ServiceHelper do
   before do
-    allow(Rails.configuration).to receive(:trade_tariff_frontend_origin).and_return(environment)
+    allow(Rails.configuration).to receive(:trade_tariff_frontend_url).and_return(frontend_url)
+
+    allow(controller).to receive(:params).and_return(params)
+  end
+
+  let(:params) do
+    ActionController::Parameters.new(
+      'service_choice' => 'uk',
+    ).permit!
   end
 
   describe 'trade_tariff_url' do
-    context 'when TRADE_TARIFF_FRONTEND_ORIGIN is set to development' do
-      let(:environment) { 'development' }
+    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
 
       it 'returns the dev trade tariff url' do
         expect(helper.trade_tariff_url).to eq(
@@ -16,30 +24,18 @@ RSpec.describe ServiceHelper do
       end
     end
 
-    context 'when TRADE_TARIFF_FRONTEND_ORIGIN is set to staging' do
-      let(:environment) { 'staging' }
+    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
+      let(:frontend_url) { nil }
 
       it 'returns the staging trade tariff url' do
-        expect(helper.trade_tariff_url).to eq(
-          'https://staging.trade-tariff.service.gov.uk/sections',
-        )
-      end
-    end
-
-    context 'when TRADE_TARIFF_FRONTEND_ORIGIN is set to production' do
-      let(:environment) { 'production' }
-
-      it 'returns the production trade tariff url' do
-        expect(helper.trade_tariff_url).to eq(
-          'https://www.trade-tariff.service.gov.uk/sections',
-        )
+        expect(helper.trade_tariff_url).to eq('#')
       end
     end
   end
 
   describe 'a_to_z_url' do
-    context 'when TRADE_TARIFF_FRONTEND_ORIGIN is set to development' do
-      let(:environment) { 'development' }
+    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
 
       it 'returns the dev trade tariff a to z url' do
         expect(helper.a_to_z_url).to eq(
@@ -48,30 +44,18 @@ RSpec.describe ServiceHelper do
       end
     end
 
-    context 'when TRADE_TARIFF_FRONTEND_ORIGIN is set to staging' do
-      let(:environment) { 'staging' }
+    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
+      let(:frontend_url) { nil }
 
-      it 'returns the staging trade tariff a to z url' do
-        expect(helper.a_to_z_url).to eq(
-          'https://staging.trade-tariff.service.gov.uk/a-z-index/a',
-        )
-      end
-    end
-
-    context 'when TRADE_TARIFF_FRONTEND_ORIGIN is set to production' do
-      let(:environment) { 'production' }
-
-      it 'returns the production trade tariff a to z url' do
-        expect(helper.a_to_z_url).to eq(
-          'https://www.trade-tariff.service.gov.uk/a-z-index/a',
-        )
+      it 'returns the dev trade tariff a to z url' do
+        expect(helper.a_to_z_url).to eq('#')
       end
     end
   end
 
   describe 'tools_url' do
-    context 'when TRADE_TARIFF_FRONTEND_ORIGIN is set to development' do
-      let(:environment) { 'development' }
+    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
 
       it 'returns the dev trade tariff tools url' do
         expect(helper.tools_url).to eq(
@@ -80,23 +64,11 @@ RSpec.describe ServiceHelper do
       end
     end
 
-    context 'when TRADE_TARIFF_FRONTEND_ORIGIN is set to staging' do
-      let(:environment) { 'staging' }
+    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
+      let(:frontend_url) { nil }
 
-      it 'returns the staging trade tariff tools url' do
-        expect(helper.tools_url).to eq(
-          'https://staging.trade-tariff.service.gov.uk/tools',
-        )
-      end
-    end
-
-    context 'when TRADE_TARIFF_FRONTEND_ORIGIN is set to production' do
-      let(:environment) { 'production' }
-
-      it 'returns the production trade tariff tools url' do
-        expect(helper.tools_url).to eq(
-          'https://www.trade-tariff.service.gov.uk/tools',
-        )
+      it 'returns the dev trade tariff tools url' do
+        expect(helper.tools_url).to eq('#')
       end
     end
   end

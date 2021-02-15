@@ -12,9 +12,6 @@ gem 'puma', '~> 5.2'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker'
 
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
