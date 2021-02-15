@@ -10,6 +10,10 @@ module Wizard
 
       validates :import_destination, presence: true
 
+      def import_destination
+        super || session[:import_destination]
+      end
+
       def save
         session[:import_destination] = import_destination
       end
