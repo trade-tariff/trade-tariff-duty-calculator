@@ -4,16 +4,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read('.ruby-version').chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3'
+gem 'rails', '~> 6.1.1'
 
 # Use Puma as the app server
 gem 'puma', '~> 5.2'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker'
-
-# Adds support for dynamic routing when recognising a path or using a path helper
-gem 'routing-filter'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

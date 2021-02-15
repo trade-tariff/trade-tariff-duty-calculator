@@ -3,7 +3,7 @@
 <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
-      <%= form_for @import_date, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: import_date_url do |f| %>
+      <%= form_for @import_date, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: import_date_path do |f| %>
         <%= f.govuk_error_summary %>
         <span class="govuk-caption-xl">Calculate import duties</span>
         <%= f.govuk_date_field :import_date, legend: { text: 'When will the goods be imported?', size: 'xl', tag: 'h1' }, hint: { text: 'As duties and quotas change over time, it may be important to enter the proposed import date. For example, 27  3  2021' } %>

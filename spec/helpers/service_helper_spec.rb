@@ -3,6 +3,14 @@ require 'rails_helper'
 RSpec.describe ServiceHelper do
   before do
     allow(Rails.configuration).to receive(:trade_tariff_frontend_url).and_return(frontend_url)
+
+    allow(controller).to receive(:params).and_return(params)
+  end
+
+  let(:params) do
+    ActionController::Parameters.new(
+      'service_choice' => 'uk',
+    ).permit!
   end
 
   describe 'trade_tariff_url' do
