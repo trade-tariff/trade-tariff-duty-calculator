@@ -1,9 +1,13 @@
-Rails.application.routes.draw do
-  get '/duty-calculator/:commodity_code/import-date', to: 'wizard/steps/import_dates#show'
-  post '/duty-calculator/:commodity_code/import-date', to: 'wizard/steps/import_dates#create'
+require 'routing_filter/service_prefix_filter'
 
-  get '/duty-calculator/:commodity_code/import-destination', to: 'wizard/steps/import_destinations#show'
-  post '/duty-calculator/:commodity_code/import-destination', to: 'wizard/steps/import_destinations#create'
+Rails.application.routes.draw do
+  filter :service_prefix_filter
+  default_url_options(host: Rails.application.config.duty_calculator_host)
+
+  scope path: '/duty_calculator/:commodity_code' do
+    resource :import_date, only: %i[show create], controller: 'wizard/steps/import_dates'
+    resource :import_destination, only: %i[show create], controller: 'wizard/steps/import_destinations'
+  end
 
   get '/404', to: 'errors#not_found', via: :all
   get '/422', to: 'errors#unprocessable_entity', via: :all

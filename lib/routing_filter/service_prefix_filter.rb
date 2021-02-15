@@ -22,7 +22,6 @@ module RoutingFilter
     end
 
     def around_generate(_params)
-      binding.pry
       yield.tap do |path, _params|
         service_choice = ::TradeTariffDutyCalculator::ServiceChooser.service_choice
 
