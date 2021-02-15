@@ -7,9 +7,9 @@ module Wizard
       attr_reader :session
 
       def initialize(session, attributes = {})
-        super(attributes)
-
         @session = session
+
+        super(attributes)
       end
 
       def persisted?
