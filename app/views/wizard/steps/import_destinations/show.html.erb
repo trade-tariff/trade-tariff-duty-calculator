@@ -13,24 +13,17 @@
       <% end %>
 
       <%= render 'shared/commodity_details' %>
-      <div class="gem-c-contextual-footer">
-        <div class="gem-c-related-navigation">
-          <nav role="navigation" class="gem-c-related-navigation__nav-section">
-            <h2 id="related-nav-topics-c7e51674" class="gem-c-related-navigation__sub-heading gem-c-related-navigation__sub-heading--footer">Explore the
-              topic
-            </h2>
-            <ul class="gem-c-related-navigation__link-list">
-              <li class="gem-c-related-navigation__link">
-                <a class="gem-c-related-navigation__section-link gem-c-related-navigation__section-link--footer" href="https://www.gov.uk/import-goods-into-uk">Import goods into the UK: step by step</a>
-              </li>
-              <li class="gem-c-related-navigation__link">
-                <a class="gem-c-related-navigation__section-link gem-c-related-navigation__section-link--footer" href="https://www.gov.uk/guidance/trading-and-moving-goods-in-and-out-of-northern-ireland-from-1-january-2021">Trading
-                and moving goods in and out of Northern Ireland</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+
+      <h2 class="govuk-heading-m">Explore the topic</h2>
+      <ul class="govuk-list">
+        <li>
+          <%= link_to('Import goods into the UK: step by step', 'https://www.gov.uk/import-goods-into-uk', class: 'govuk-link') %>
+        </li>
+        <li>
+          <%= link_to('Trading
+          and moving goods in and out of Northern Ireland', 'https://www.gov.uk/guidance/trading-and-moving-goods-in-and-out-of-northern-ireland-from-1-january-2021', class: 'govuk-link') %>
+        </li>
+      </ul>
     </div>
   </div>
 </main>
