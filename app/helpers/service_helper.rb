@@ -1,10 +1,4 @@
 module ServiceHelper
-  TRADE_TARIFF_DOMAINS = {
-    development: 'https://dev.trade-tariff.service.gov.uk',
-    staging: 'https://staging.trade-tariff.service.gov.uk',
-    production: 'https://www.trade-tariff.service.gov.uk',
-  }.freeze
-
   def trade_tariff_url
     full_path_for('/sections')
   end
@@ -20,12 +14,12 @@ module ServiceHelper
   private
 
   def full_path_for(relative_path)
-    return '#' if trade_tariff_frontend_origin.blank?
+    return '#' if trade_tariff_frontend_url.blank?
 
-    "#{TRADE_TARIFF_DOMAINS[trade_tariff_frontend_origin.to_sym]}#{relative_path}"
+    "#{trade_tariff_frontend_url}#{relative_path}"
   end
 
-  def trade_tariff_frontend_origin
-    @trade_tariff_frontend_origin ||= Rails.configuration.trade_tariff_frontend_origin
+  def trade_tariff_frontend_url
+    @trade_tariff_frontend_url ||= Rails.configuration.trade_tariff_frontend_url
   end
 end
