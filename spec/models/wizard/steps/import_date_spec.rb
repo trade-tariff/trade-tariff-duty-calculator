@@ -129,7 +129,7 @@ RSpec.describe Wizard::Steps::ImportDate do
   describe '#save' do
     let(:expected_session) do
       {
-        import_date: "#{1.year.from_now.year}-12-12",
+        Wizard::Steps::ImportDate::STEP_ID => "#{1.year.from_now.year}-12-12",
       }
     end
 

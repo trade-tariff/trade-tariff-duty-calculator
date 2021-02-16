@@ -6,16 +6,18 @@ module Wizard
         OpenStruct.new(id: 2, name: 'Northern Ireland'),
       ].freeze
 
+      STEP_ID = 2
+
       attribute 'import_destination', :string
 
       validates :import_destination, presence: true
 
       def import_destination
-        super || session[:import_destination]
+        super || session[STEP_ID]
       end
 
       def save
-        session[:import_destination] = import_destination
+        session[STEP_ID] = import_destination
       end
     end
   end

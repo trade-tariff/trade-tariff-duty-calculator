@@ -11,6 +11,8 @@ module Wizard
 
       validate :import_date_in_future
 
+      STEP_ID = 1
+
       def initialize(session, attributes = {})
         check_attributes_validity(attributes)
 
@@ -22,7 +24,7 @@ module Wizard
       end
 
       def save
-        session[:import_date] = input_date.strftime('%Y-%m-%d')
+        session[STEP_ID] = input_date.strftime('%Y-%m-%d')
       end
 
     private
@@ -34,9 +36,9 @@ module Wizard
       end
 
       def date_from_session
-        return unless session.key?(:import_date)
+        return unless session.key?(STEP_ID)
 
-        Date.parse(session[:import_date])
+        Date.parse(session[STEP_ID])
       end
 
       def valid_date?(attributes)
