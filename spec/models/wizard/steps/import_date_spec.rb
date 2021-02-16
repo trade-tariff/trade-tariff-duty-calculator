@@ -29,7 +29,7 @@ RSpec.describe Wizard::Steps::ImportDate do
       it 'adds the correct validation error message' do
         import_date.valid?
 
-        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid, future date'])
+        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid future date'])
       end
     end
 
@@ -49,7 +49,7 @@ RSpec.describe Wizard::Steps::ImportDate do
       it 'adds the correct validation error message' do
         import_date.valid?
 
-        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid, future date'])
+        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid future date'])
       end
     end
 
@@ -69,7 +69,7 @@ RSpec.describe Wizard::Steps::ImportDate do
       it 'adds the correct validation error message' do
         import_date.valid?
 
-        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid, future date'])
+        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid future date'])
       end
     end
 
@@ -89,7 +89,7 @@ RSpec.describe Wizard::Steps::ImportDate do
       it 'adds the correct validation error message' do
         import_date.valid?
 
-        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid, future date'])
+        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid future date'])
       end
     end
 
@@ -109,7 +109,7 @@ RSpec.describe Wizard::Steps::ImportDate do
       it 'adds the correct validation error message' do
         import_date.valid?
 
-        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid, future date'])
+        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid future date'])
       end
     end
 
