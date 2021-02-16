@@ -11,6 +11,9 @@
 /log/*
 /tmp/*
 
+# Ignore simplecov files
+/coverage/*
+
 # Ignore uploaded files in development
 /storage/*
 
