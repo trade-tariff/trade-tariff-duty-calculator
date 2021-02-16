@@ -5,6 +5,6 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-    Commodity code <strong>0101210000</strong><br>Pure-bred breeding animals<br><br><a class="govuk-link" href="/commodities/0101210000">View commodity 0101210000</a>
+    Commodity code <strong><%= locals[:commodity_code] %></strong><br><%= locals[:commodity_description]%><br><br><a class="govuk-link" href="/commodities/<%= locals[:commodity_code] %>">View commodity <%= locals[:commodity_code] %></a>
   </div>
 </details>

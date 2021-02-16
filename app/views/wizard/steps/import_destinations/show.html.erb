@@ -12,7 +12,7 @@
         <%= f.govuk_submit %>
       <% end %>
 
-      <%= render 'shared/commodity_details' %>
+      <%= render 'shared/commodity_details', locals: { commodity_code: @commodity.code, commodity_description: @commodity.description } %>
 
       <h2 class="govuk-heading-m">Explore the topic</h2>
       <ul class="govuk-list">

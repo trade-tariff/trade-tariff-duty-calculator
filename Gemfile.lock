@@ -1,7 +1,6 @@
 GIT
   remote: https://github.com/TransformCore/uktt.git
-  revision: 4ca491869eca737d72afebb2958004595388bdb4
-  ref: 4ca491869eca737d72afebb2958004595388bdb4
+  revision: 8250121a87d3f2373e39b490fe3f104d77e0cf90
   specs:
     uktt (0.3.0)
       faraday

@@ -9,7 +9,7 @@
         <%= f.govuk_date_field :import_date, legend: { text: 'When will the goods be imported?', size: 'xl', tag: 'h1' }, hint: { text: 'As duties and quotas change over time, it may be important to enter the proposed import date. For example, 27  3  2021' } %>
         <%= f.govuk_submit %>
       <% end %>
-      <%= render 'shared/commodity_details' %>
+      <%= render 'shared/commodity_details', locals: { commodity_code: @commodity.code, commodity_description: @commodity.description } %>
     </div>
   </div>
 </main>

@@ -1,4 +1,6 @@
 class Commodity
+  attr_reader :code
+
   def initialize(code:, service: :uk)
     @code = code
     @service = service
@@ -8,10 +10,6 @@ class Commodity
     fetch.data.attributes.description
   end
 
-  private
-
-  attr_reader :response, :code, :service
-
   def fetch
     @fetch ||= begin
                  commodity = Uktt::Commodity.new(options)
@@ -19,6 +17,10 @@ class Commodity
                  commodity.response
                end
   end
+
+  private
+
+  attr_reader :response, :service
 
   def options
     @options = OptionBuilder.new(service).call

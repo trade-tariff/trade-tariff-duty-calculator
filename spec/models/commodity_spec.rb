@@ -4,21 +4,70 @@ RSpec.describe Commodity do
   subject(:commodity) { described_class.new(code: commodity_code) }
 
   let(:commodity_code) { '0702000007' }
-  let(:url) { "/api/v2/commodities/#{commodity_code}" }
-  let(:stubs) do
-    Faraday::Adapter::Test::Stubs.new do |stub|
-      stub.get(url) { |_env| [200, {}, 'egg'] }
+  let(:uktt_commodity) { instance_double('Uktt::Commodity') }
+
+  let(:response) { double }
+
+  before do
+    allow(Uktt::Commodity).to receive(:new).and_return(uktt_commodity)
+    allow(uktt_commodity).to receive(:retrieve)
+    allow(uktt_commodity).to receive(:response).and_return(response)
+    allow(response).to receive_message_chain(:data, :attributes, :description).and_return('Cherry Tomatoes')
+  end
+
+  describe 'description' do
+    it 'returns the expected description' do
+      expect(commodity.description).to eq('Cherry Tomatoes')
     end
   end
 
-  before do
-    stubs
-  end
-
   describe 'fetch' do
-    it 'foo' do
-      binding.pry
+    it 'calls Uktt::Commodity#retrieve' do
       commodity.fetch
+
+      expect(uktt_commodity).to have_received(:retrieve)
+    end
+
+    it 'calls Uktt::Commodity#response' do
+      commodity.fetch
+
+      expect(uktt_commodity).to have_received(:response)
+    end
+
+    it 'returns Uktt::Commodity#response' do
+      expect(commodity.fetch).to eq(response)
+    end
+
+    context 'when the xi service is specified' do
+      subject(:commodity) { described_class.new(code: commodity_code, service: :xi) }
+
+      it 'calls Uktt::Commodity.new with the correct options' do
+        commodity.fetch
+
+        expect(Uktt::Commodity).to have_received(:new).with(
+          host: 'https://dev.trade-tariff.service.gov.uk/xi',
+          version: 'v2',
+          debug: false,
+          commodity_id: commodity_code,
+          return_json: false,
+        )
+      end
+    end
+
+    context 'when no service is specified' do
+      subject(:commodity) { described_class.new(code: commodity_code) }
+
+      it 'calls Uktt::Commodity.new with the correct options' do
+        commodity.fetch
+
+        expect(Uktt::Commodity).to have_received(:new).with(
+          host: 'https://dev.trade-tariff.service.gov.uk',
+          version: 'v2',
+          debug: false,
+          commodity_id: commodity_code,
+          return_json: false,
+        )
+      end
     end
   end
 end
