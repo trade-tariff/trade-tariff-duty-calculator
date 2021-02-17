@@ -13,7 +13,7 @@ RSpec.describe ServiceHelper do
     ).permit!
   end
 
-  describe 'trade_tariff_url' do
+  describe '#trade_tariff_url' do
     context 'when TRADE_TARIFF_FRONTEND_URL is set' do
       let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
 
@@ -33,7 +33,7 @@ RSpec.describe ServiceHelper do
     end
   end
 
-  describe 'a_to_z_url' do
+  describe '#a_to_z_url' do
     context 'when TRADE_TARIFF_FRONTEND_URL is set' do
       let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
 
@@ -53,7 +53,7 @@ RSpec.describe ServiceHelper do
     end
   end
 
-  describe 'tools_url' do
+  describe '#tools_url' do
     context 'when TRADE_TARIFF_FRONTEND_URL is set' do
       let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
 
@@ -69,6 +69,28 @@ RSpec.describe ServiceHelper do
 
       it 'returns the dev trade tariff tools url' do
         expect(helper.tools_url).to eq('#')
+      end
+    end
+  end
+
+  describe '#commodity_url' do
+    let(:commodity_code) { '1234567890' }
+
+    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
+
+      it 'returns the dev trade tariff tools url' do
+        expect(helper.commodity_url(commodity_code)).to eq(
+          "https://dev.trade-tariff.service.gov.uk/commodities/#{commodity_code}",
+        )
+      end
+    end
+
+    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
+      let(:frontend_url) { nil }
+
+      it 'returns the dev trade tariff tools url' do
+        expect(helper.commodity_url(commodity_code)).to eq('#')
       end
     end
   end

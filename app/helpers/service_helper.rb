@@ -11,6 +11,10 @@ module ServiceHelper
     service_url_for('/tools')
   end
 
+  def commodity_url(commodity_code)
+    service_url_for("/commodities/#{commodity_code}")
+  end
+
   private
 
   def service_url_for(relative_path)

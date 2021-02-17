@@ -19,7 +19,7 @@ module Wizard
       end
 
       def service_choice
-        params[:service_choice]
+        params[:service_choice].to_sym
       end
     end
   end
