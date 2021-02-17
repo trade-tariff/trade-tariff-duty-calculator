@@ -59,6 +59,7 @@ end
 
 group :test do
   gem 'rspec_junit_formatter'
+  gem 'simplecov', require: false
   gem 'webdrivers', '~> 4.5'
 end
 

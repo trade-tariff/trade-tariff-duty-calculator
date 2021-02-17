@@ -25,6 +25,16 @@ RSpec.describe 'Import Destination Page', type: :feature do
 
     click_on('Continue')
 
-    expect(Capybara.current_session.driver.request.session[:import_destination]).to eq('2')
+    expect(Capybara.current_session.driver.request.session[Wizard::Steps::ImportDestination::STEP_ID]).to eq('2')
+  end
+
+  it 'loses its session key when going back to the previous question' do
+    choose(option: '2')
+
+    click_on('Continue')
+
+    visit import_date_path(commodity_code: commodity_code, service_choice: service_choice)
+
+    expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::ImportDestination::STEP_ID)).to be false
   end
 end

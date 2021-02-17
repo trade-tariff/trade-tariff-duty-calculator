@@ -45,7 +45,7 @@ RSpec.describe Wizard::Steps::ImportDestination do
   describe '#save' do
     let(:expected_session) do
       {
-        import_destination: '2',
+        Wizard::Steps::ImportDestination::STEP_ID => '2',
       }
     end
 
