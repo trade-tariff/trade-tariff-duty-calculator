@@ -1,13 +1,14 @@
 GIT
   remote: https://github.com/TransformCore/uktt.git
-  revision: 8250121a87d3f2373e39b490fe3f104d77e0cf90
+  revision: dfb386949340bcb079a80c5a39d9e9bce3bad13f
   specs:
-    uktt (0.3.0)
+    uktt (0.3.1)
       faraday
       faraday_middleware
       nokogiri
       prawn
       prawn-table
+      pry-byebug
       thor
 
 GEM
@@ -331,7 +332,7 @@ DEPENDENCIES
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
-  uktt (~> 0.3.0)!
+  uktt (~> 0.3.1)!
   web-console (>= 3.3.0)
   webdrivers (~> 4.5)
   webpacker
