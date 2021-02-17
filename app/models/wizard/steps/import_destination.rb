@@ -6,7 +6,7 @@ module Wizard
         OpenStruct.new(id: 2, name: 'Northern Ireland'),
       ].freeze
 
-      STEP_ID = 2
+      STEP_ID = '2'.freeze
 
       attribute 'import_destination', :string
 

@@ -11,7 +11,7 @@ module Wizard
 
       validate :import_date_in_future
 
-      STEP_ID = 1
+      STEP_ID = '1'.freeze
 
       def initialize(session, attributes = {})
         check_attributes_validity(attributes)

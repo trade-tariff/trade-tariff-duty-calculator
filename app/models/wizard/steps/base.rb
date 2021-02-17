@@ -27,7 +27,7 @@ module Wizard
       end
 
       def keys_to_remove
-        session.keys.map(&:to_i).uniq.select { |key| key > self.class::STEP_ID }
+        session.keys.map(&:to_i).uniq.select { |key| key > self.class::STEP_ID.to_i }
       end
     end
   end
