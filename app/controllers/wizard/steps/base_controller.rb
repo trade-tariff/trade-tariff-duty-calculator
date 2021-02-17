@@ -6,13 +6,20 @@ module Wizard
       before_action :assign_commodity
 
       def assign_commodity
-        @commodity = Commodity.new(code: commodity_code)
+        @commodity = Commodity.new(
+          code: commodity_code,
+          service: service_choice,
+        )
       end
 
       protected
 
       def commodity_code
         params[:commodity_code]
+      end
+
+      def service_choice
+        params[:service_choice]
       end
     end
   end
