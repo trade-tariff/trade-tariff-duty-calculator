@@ -24,6 +24,8 @@ module ServiceHelper
   end
 
   def service_choice
-    params[:service_choice] == 'uk' ? '' : params[:service_choice]
+    return '' if params[:service_choice] == 'uk' || params[:service_choice].nil?
+
+    params[:service_choice]
   end
 end
