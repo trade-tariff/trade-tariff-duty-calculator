@@ -7,20 +7,20 @@ class Commodity
   end
 
   def description
-    fetch.data.attributes.description
+    response.data.attributes.description
   end
 
-  def fetch
-    @fetch ||= begin
-                 commodity = Uktt::Commodity.new(options)
-                 commodity.retrieve
-                 commodity.response
-               end
+  def response
+    @response ||= begin
+                    commodity = Uktt::Commodity.new(options)
+                    commodity.retrieve
+                    commodity.response
+                  end
   end
 
   private
 
-  attr_reader :response, :service
+  attr_reader :service
 
   def options
     @options = OptionBuilder.new(service).call

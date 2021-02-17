@@ -15,34 +15,34 @@ RSpec.describe Commodity do
     allow(response).to receive_message_chain(:data, :attributes, :description).and_return('Cherry Tomatoes')
   end
 
-  describe 'description' do
+  describe '#description' do
     it 'returns the expected description' do
       expect(commodity.description).to eq('Cherry Tomatoes')
     end
   end
 
-  describe 'fetch' do
+  describe '#response' do
     it 'calls Uktt::Commodity#retrieve' do
-      commodity.fetch
+      commodity.response
 
       expect(uktt_commodity).to have_received(:retrieve)
     end
 
     it 'calls Uktt::Commodity#response' do
-      commodity.fetch
+      commodity.response
 
       expect(uktt_commodity).to have_received(:response)
     end
 
     it 'returns Uktt::Commodity#response' do
-      expect(commodity.fetch).to eq(response)
+      expect(commodity.response).to eq(response)
     end
 
     context 'when the xi service is specified' do
       subject(:commodity) { described_class.new(code: commodity_code, service: :xi) }
 
       it 'calls Uktt::Commodity.new with the correct options' do
-        commodity.fetch
+        commodity.response
 
         expect(Uktt::Commodity).to have_received(:new).with(
           host: 'https://dev.trade-tariff.service.gov.uk/xi',
@@ -58,7 +58,7 @@ RSpec.describe Commodity do
       subject(:commodity) { described_class.new(code: commodity_code) }
 
       it 'calls Uktt::Commodity.new with the correct options' do
-        commodity.fetch
+        commodity.response
 
         expect(Uktt::Commodity).to have_received(:new).with(
           host: 'https://dev.trade-tariff.service.gov.uk',
