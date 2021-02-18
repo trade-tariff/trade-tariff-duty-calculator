@@ -1,18 +1,19 @@
-class Commodity
+class Country
   attr_reader :code
 
-  def initialize(code:, service: :uk)
-    @code = code
+  def initialize(service: :uk)
     @service = service
   end
 
-  def description
-    response.data.attributes.description
+  def list
+    @formatted_countries ||= response.data.map { |country|
+      country.attributes.description
+    }.sort
   end
 
   def response
     @response ||= begin
-                    commodity = Uktt::Commodity.new(options)
+                    commodity = Uktt::Country.new(options)
                     commodity.retrieve
                     commodity.response
                   end
@@ -24,6 +25,5 @@ class Commodity
 
   def options
     OptionBuilder.new(service).call
-      .merge(commodity_id: code)
   end
 end
