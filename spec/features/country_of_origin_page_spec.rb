@@ -24,7 +24,7 @@ RSpec.describe 'Country of Origin Page', type: :feature do
     expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::CountryOfOrigin::STEP_ID)).to be false
   end
 
-  xit 'looses its session key when going back to the previous question' do
+  xit 'loses its session key when going back to the previous question' do
     # TODO: add steps for here when the next page is available
   end
 end
