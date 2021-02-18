@@ -3,6 +3,8 @@ module Wizard
     class ImportDate < Base
       include ActiveRecord::AttributeAssignment
 
+      STEP_ID = '1'.freeze
+
       attribute :import_date, :date
 
       attribute 'import_date(3i)', :string
@@ -10,8 +12,6 @@ module Wizard
       attribute 'import_date(1i)', :string
 
       validate :import_date_in_future
-
-      STEP_ID = '1'.freeze
 
       def initialize(session, attributes = {})
         check_attributes_validity(attributes)

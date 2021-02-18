@@ -17,7 +17,7 @@ RSpec.describe 'Import Destination Page', type: :feature do
   it 'does not store an invalid import destination on the session' do
     click_on('Continue')
 
-    expect(Capybara.current_session.driver.request.session.key?(:import_destination)).to be false
+    expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::ImportDestination::STEP_ID)).to be false
   end
 
   it 'does store a invalid import date on the session' do
@@ -28,7 +28,7 @@ RSpec.describe 'Import Destination Page', type: :feature do
     expect(Capybara.current_session.driver.request.session[Wizard::Steps::ImportDestination::STEP_ID]).to eq('2')
   end
 
-  it 'loses its session key when going back to the previous question' do
+  it 'looses its session key when going back to the previous question' do
     choose(option: '2')
 
     click_on('Continue')
