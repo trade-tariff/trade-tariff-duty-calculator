@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 
     get 'import-destination', to: 'wizard/steps/import_destinations#show'
     post 'import-destination', to: 'wizard/steps/import_destinations#create'
+
+    get 'country-of-origin', to: 'wizard/steps/country_of_origin#show'
+    post 'country-of-origin', to: 'wizard/steps/country_of_origin#create'
   end
 
   get '404', to: 'errors#not_found', via: :all

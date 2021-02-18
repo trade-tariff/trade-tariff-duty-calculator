@@ -10,6 +10,8 @@ module Wizard
 
         if @import_destination.valid?
           @import_destination.save
+
+          redirect_to country_of_origin_path
         else
           render 'show'
         end

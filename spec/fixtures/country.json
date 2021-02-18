@@ -1,0 +1,13 @@
+{
+  "data": [
+    {
+      "id": "NI",
+      "type": "geographical_area",
+      "attributes": {
+        "id": "NI",
+        "description": "Nicaragua",
+        "geographical_area_id": "NI"
+      }
+    }
+  ]
+}

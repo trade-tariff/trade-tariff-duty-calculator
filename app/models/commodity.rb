@@ -12,10 +12,10 @@ class Commodity
 
   def response
     @response ||= begin
-                    commodity = Uktt::Commodity.new(options)
-                    commodity.retrieve
-                    commodity.response
-                  end
+      commodity = Uktt::Commodity.new(options)
+      commodity.retrieve
+      commodity.response
+    end
   end
 
   private
