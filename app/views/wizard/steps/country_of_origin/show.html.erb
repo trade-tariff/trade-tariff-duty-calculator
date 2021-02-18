@@ -16,7 +16,7 @@
             <div id="destination-hint" class="govuk-hint">
               The duty you are charged may be dependent on the country of dispatch of the goods being imported.
             </div>
-            <%= f.govuk_collection_select :geographical_area_id, Wizard::Steps::CountryOfOrigin.options_for(params[:service_choice]), :id, :name, options: { prompt: true }, label: { text: 'Enter the country of dispatch:' } %>
+            <%= f.govuk_collection_select :geographical_area_id, Wizard::Steps::CountryOfOrigin.options_for(service_choice), :id, :name, options: { prompt: true }, label: { text: 'Enter the country of dispatch:' } %>
             
             <p class="govuk-!-margin-top-3 govuk-hint">When autocomplete results are available,
               use up and down arrows to review and
