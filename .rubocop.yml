@@ -33,6 +33,8 @@ Rails/SaveBang:
   Enabled: false
 RSpec/FilePath:
   Enabled: false
+RSpec/VerifiedDoubles:
+  Enabled: false
 Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:

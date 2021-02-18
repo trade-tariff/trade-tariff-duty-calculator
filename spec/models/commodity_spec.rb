@@ -5,14 +5,12 @@ RSpec.describe Commodity do
 
   let(:commodity_code) { '0702000007' }
   let(:uktt_commodity) { instance_double('Uktt::Commodity') }
-
-  let(:response) { double }
+  let(:response) { double(data: double(attributes: double(description: 'Cherry Tomatoes'))) }
 
   before do
     allow(Uktt::Commodity).to receive(:new).and_return(uktt_commodity)
     allow(uktt_commodity).to receive(:retrieve)
     allow(uktt_commodity).to receive(:response).and_return(response)
-    allow(response).to receive_message_chain(:data, :attributes, :description).and_return('Cherry Tomatoes')
   end
 
   describe '#description' do

@@ -6,7 +6,7 @@ class Country
   end
 
   def list
-    @formatted_countries ||= response.data.map { |country|
+    @list ||= response.data.map { |country|
       country.attributes.description
     }.sort
   end
