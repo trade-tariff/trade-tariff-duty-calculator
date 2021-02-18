@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe OptionBuilder do
-  subject(:builder) { described_class.new(service) }
+  subject(:builder) { described_class.new(service, commodity_code) }
 
   let(:api_options) do
     { uk: 'http://uk.localhost:3018', xi: 'http://xi.localhost:3019' }
@@ -12,6 +12,8 @@ RSpec.describe OptionBuilder do
   end
 
   describe '#call' do
+    let(:commodity_code) { '1234567890' }
+
     context 'when the service is uk' do
       let(:service) { :uk }
 
@@ -21,6 +23,7 @@ RSpec.describe OptionBuilder do
           version: 'v2',
           debug: false,
           return_json: false,
+          commodity_id: commodity_code,
         )
       end
     end
@@ -34,6 +37,7 @@ RSpec.describe OptionBuilder do
           version: 'v2',
           debug: false,
           return_json: false,
+          commodity_id: commodity_code,
         )
       end
     end

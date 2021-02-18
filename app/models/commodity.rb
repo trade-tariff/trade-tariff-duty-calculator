@@ -23,7 +23,6 @@ class Commodity
   attr_reader :service
 
   def options
-    @options = OptionBuilder.new(service).call
-      .merge(commodity_id: code)
+    OptionBuilder.new(service, code).call
   end
 end
