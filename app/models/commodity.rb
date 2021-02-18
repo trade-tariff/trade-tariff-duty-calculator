@@ -7,7 +7,7 @@ class Commodity
   end
 
   def description
-    response.data.attributes.description
+    response.data.attributes.description.html_safe
   end
 
   def response
