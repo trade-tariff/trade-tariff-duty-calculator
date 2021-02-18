@@ -4,8 +4,13 @@ require File.expand_path('../config/environment', __dir__)
 require 'rspec/rails'
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
-require 'simplecov'
-SimpleCov.start
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.start do
+    minimum_coverage 90
+    maximum_coverage_drop 0.25
+  end
+end
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true
