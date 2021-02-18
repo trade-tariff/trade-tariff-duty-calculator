@@ -6,7 +6,6 @@ require 'active_record/attribute_assignment'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'action_view/railtie'
-require 'uktt'
 
 Bundler.require(*Rails.groups)
 

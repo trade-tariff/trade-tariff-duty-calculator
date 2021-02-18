@@ -1,5 +1,3 @@
-require 'uktt'
-
 class FakeUkttHttp
   def initialize(host = nil, version = nil, debug = false, conn = nil); end
 
