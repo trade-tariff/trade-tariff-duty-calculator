@@ -11,6 +11,10 @@ module ServiceHelper
     service_url_for('/tools')
   end
 
+  def commodity_url(commodity_code)
+    service_url_for("/commodities/#{commodity_code}")
+  end
+
   private
 
   def service_url_for(relative_path)
@@ -24,6 +28,8 @@ module ServiceHelper
   end
 
   def service_choice
-    params[:service_choice] == 'uk' ? '' : params[:service_choice]
+    return '' if params[:service_choice] == 'uk'
+
+    params[:service_choice]
   end
 end
