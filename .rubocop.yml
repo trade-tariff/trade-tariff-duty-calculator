@@ -27,8 +27,6 @@ Metrics/ModuleLength:
   Enabled: false
 RSpec/ExampleLength:
   Enabled: false
-RSpec/MessageChain:
-  Enabled: false
 Rails/SaveBang:
   Enabled: false
 RSpec/FilePath:
