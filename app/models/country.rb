@@ -1,29 +1,33 @@
 class Country
   attr_reader :code
 
-  def initialize(service: :uk)
-    @service = service
+  def initialize(attributes)
+    @attributes = attributes
   end
 
-  def list
-    @list ||= response.data.map { |country|
-      country.attributes.description
-    }.sort
+  def id
+    @attributes.geographical_area_id
   end
 
-  def response
-    @response ||= begin
-                    commodity = Uktt::Country.new(options)
-                    commodity.retrieve
-                    commodity.response
-                  end
+  def name
+    @attributes.description
   end
 
-  private
+  def self.list(service = :uk)
+    countries = response(service).data.map do |country|
+      Country.new(country.attributes)
+    end
+    countries.sort_by(&:name)
+  end
 
-  attr_reader :service
+  def self.response(service)
+    options = options(service)
+    commodity = Uktt::Country.new(options)
+    commodity.retrieve
+    commodity.response
+  end
 
-  def options
+  def self.options(service)
     OptionBuilder.new(service).call
   end
 end
