@@ -1,4 +1,4 @@
-<%= link_to('Back', :back, class: "govuk-back-link") %>
+<%= link_to('Back', import_destination_path(service_choice: params[:service_choice], commodity_code: params[:commodity_code]), class: "govuk-back-link") %>
 
 <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
   <div class="govuk-grid-row">
@@ -26,12 +26,14 @@
         </fieldset>
       <% end %>
       <%= render 'shared/commodity_details' %>
-      <h2 class="govuk-heading-m">Explore the topic</h2>
-      <ul class="govuk-list">
-        <li>
-          <%= link_to('Check your goods meet the rules of origin', 'https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin', class: 'govuk-link') %>
-        </li>
-      </ul>
+      <div class="explore-topics-section">
+        <h2 class="govuk-heading-m govuk-!-margin-top-3">Explore the topic</h2>
+        <ul class="govuk-list">
+          <li>
+            <%= link_to('Check your goods meet the rules of origin', 'https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin', class: 'govuk-link') %>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </main>

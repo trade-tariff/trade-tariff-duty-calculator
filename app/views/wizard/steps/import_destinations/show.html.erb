@@ -1,4 +1,4 @@
-<%= link_to('Back', :back, class: "govuk-back-link") %>
+<%= link_to('Back', import_date_path(service_choice: params[:service_choice], commodity_code: params[:commodity_code]), class: "govuk-back-link") %>
 
 <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
   <div class="govuk-grid-row">
@@ -14,16 +14,18 @@
 
       <%= render 'shared/commodity_details' %>
 
-      <h2 class="govuk-heading-m">Explore the topic</h2>
-      <ul class="govuk-list">
-        <li>
-          <%= link_to('Import goods into the UK: step by step', 'https://www.gov.uk/import-goods-into-uk', class: 'govuk-link') %>
-        </li>
-        <li>
-          <%= link_to('Trading
-          and moving goods in and out of Northern Ireland', 'https://www.gov.uk/guidance/trading-and-moving-goods-in-and-out-of-northern-ireland-from-1-january-2021', class: 'govuk-link') %>
-        </li>
-      </ul>
+      <div class="explore-topics-section">
+        <h2 class="govuk-heading-m govuk-!-margin-top-3">Explore the topic</h2>
+        <ul class="govuk-list">
+          <li>
+            <%= link_to('Import goods into the UK: step by step', 'https://www.gov.uk/import-goods-into-uk', class: 'govuk-link') %>
+          </li>
+          <li>
+            <%= link_to('Trading
+            and moving goods in and out of Northern Ireland', 'https://www.gov.uk/guidance/trading-and-moving-goods-in-and-out-of-northern-ireland-from-1-january-2021', class: 'govuk-link') %>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </main>
