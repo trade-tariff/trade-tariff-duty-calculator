@@ -20,14 +20,14 @@ module ServiceHelper
   def service_url_for(relative_path)
     return '#' if trade_tariff_frontend_url.blank?
 
-    File.join(trade_tariff_frontend_url, service_choice, relative_path)
+    URI.join(trade_tariff_frontend_url, service_choice_url, relative_path).to_s
   end
 
   def trade_tariff_frontend_url
     @trade_tariff_frontend_url ||= Rails.configuration.trade_tariff_frontend_url
   end
 
-  def service_choice
+  def service_choice_url
     return '' if params[:service_choice] == 'uk'
 
     params[:service_choice]
