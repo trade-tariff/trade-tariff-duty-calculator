@@ -44,5 +44,5 @@ en:
         wizard/steps/country_of_origin:
           attributes:
             geographical_area_id:
-              blank: Select a country of dispatch
+              blank: Enter a valid origin for this import
               
