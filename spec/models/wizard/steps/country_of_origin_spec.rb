@@ -20,7 +20,7 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
       it 'adds the correct validation error message' do
         country.valid?
 
-        expect(country.errors.messages[:geographical_area_id]).to eq(['Select a country of dispatch'])
+        expect(country.errors.messages[:geographical_area_id]).to eq(['Enter a valid origin for this import'])
       end
     end
 
