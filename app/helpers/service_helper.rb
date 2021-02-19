@@ -20,7 +20,7 @@ module ServiceHelper
   def service_url_for(relative_path)
     return '#' if trade_tariff_frontend_url.blank?
 
-    URI.join(trade_tariff_frontend_url, service_choice_url, relative_path).to_s
+    File.join(trade_tariff_frontend_url, service_choice_url, relative_path)
   end
 
   def trade_tariff_frontend_url
