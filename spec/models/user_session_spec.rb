@@ -17,9 +17,7 @@ RSpec.describe Wizard::Steps::UserSession do
         }
       end
 
-      let(:expected_date) do
-        Date.parse('2025-01-01')
-      end
+      let(:expected_date) { Date.parse('2025-01-01') }
 
       it 'returns the date from the session' do
         expect(user_session.import_date).to eq(expected_date)
@@ -28,9 +26,7 @@ RSpec.describe Wizard::Steps::UserSession do
   end
 
   describe '#import_date=' do
-    let(:expected_date) do
-      '2025-01-01'
-    end
+    let(:expected_date) { '2025-01-01' }
 
     it 'sets the key on the session' do
       user_session.import_date = '2025-01-01'

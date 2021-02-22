@@ -128,12 +128,12 @@ RSpec.describe Wizard::Steps::ImportDate do
   end
 
   describe '#save' do
-    let(:expected_date) { "#{1.year.from_now.year}-12-12" }
+    let(:expected_date) { Date.parse("#{1.year.from_now.year}-12-12") }
 
     it 'saves the import_date to the session' do
       import_date.save
 
-      expect(user_session.import_date).to eq(Date.parse(expected_date))
+      expect(user_session.import_date).to eq(expected_date)
     end
   end
 end
