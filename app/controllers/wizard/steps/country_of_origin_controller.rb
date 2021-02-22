@@ -2,11 +2,11 @@ module Wizard
   module Steps
     class CountryOfOriginController < BaseController
       def show
-        @country = Wizard::Steps::CountryOfOrigin.new(session)
+        @country = Wizard::Steps::CountryOfOrigin.new(user_session)
       end
 
       def create
-        @country = Wizard::Steps::CountryOfOrigin.new(session, permitted_params)
+        @country = Wizard::Steps::CountryOfOrigin.new(user_session, permitted_params)
 
         if @country.valid?
           @country.save

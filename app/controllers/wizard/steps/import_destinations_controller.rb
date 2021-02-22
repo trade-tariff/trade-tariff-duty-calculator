@@ -2,11 +2,11 @@ module Wizard
   module Steps
     class ImportDestinationsController < BaseController
       def show
-        @import_destination = Wizard::Steps::ImportDestination.new(session)
+        @import_destination = Wizard::Steps::ImportDestination.new(user_session)
       end
 
       def create
-        @import_destination = Wizard::Steps::ImportDestination.new(session, permitted_params)
+        @import_destination = Wizard::Steps::ImportDestination.new(user_session, permitted_params)
 
         if @import_destination.valid?
           @import_destination.save

@@ -8,11 +8,11 @@ module Wizard
       validates :geographical_area_id, presence: true
 
       def geographical_area_id
-        super || session[STEP_ID]
+        super || user_session.geographical_area_id
       end
 
       def save
-        session[STEP_ID] = geographical_area_id
+        user_session.geographical_area_id = geographical_area_id
       end
 
       def self.options_for(service)

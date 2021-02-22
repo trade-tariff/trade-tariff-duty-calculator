@@ -13,11 +13,11 @@ module Wizard
       validates :import_destination, presence: true
 
       def import_destination
-        super || session[STEP_ID]
+        super || user_session.import_destination
       end
 
       def save
-        session[STEP_ID] = import_destination
+        user_session.import_destination = import_destination
       end
     end
   end
