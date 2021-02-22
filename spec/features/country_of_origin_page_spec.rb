@@ -13,7 +13,7 @@ RSpec.describe 'Country of Origin Page', type: :feature do
 
     click_on('Continue')
 
-    choose(option: '2')
+    choose(option: 'ni')
 
     click_on('Continue')
   end

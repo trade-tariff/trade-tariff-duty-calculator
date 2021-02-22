@@ -21,15 +21,15 @@ RSpec.describe 'Import Destination Page', type: :feature do
   end
 
   it 'does store a invalid import date on the session' do
-    choose(option: '2')
+    choose(option: 'ni')
 
     click_on('Continue')
 
-    expect(Capybara.current_session.driver.request.session[Wizard::Steps::ImportDestination::STEP_ID]).to eq('2')
+    expect(Capybara.current_session.driver.request.session[Wizard::Steps::ImportDestination::STEP_ID]).to eq('ni')
   end
 
   it 'loses its session key when going back to the previous question' do
-    choose(option: '2')
+    choose(option: 'ni')
 
     click_on('Continue')
 

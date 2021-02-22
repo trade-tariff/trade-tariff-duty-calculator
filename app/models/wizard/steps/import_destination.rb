@@ -2,8 +2,8 @@ module Wizard
   module Steps
     class ImportDestination < Base
       OPTIONS = [
-        OpenStruct.new(id: 1, name: 'England, Scotland or Wales (GB)'),
-        OpenStruct.new(id: 2, name: 'Northern Ireland'),
+        OpenStruct.new(id: 'gb', name: 'England, Scotland or Wales (GB)'),
+        OpenStruct.new(id: 'ni', name: 'Northern Ireland'),
       ].freeze
 
       STEP_ID = '2'.freeze
