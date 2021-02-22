@@ -5,6 +5,8 @@ applications:
     - https://github.com/cloudfoundry/ruby-buildpack.git
   stack: cflinuxfs3
   routes:
+  - route: dev.trade-tariff.service.gov.uk/uk/duty-calculator
+  - route: dev.trade-tariff.service.gov.uk/xi/duty-calculator
   - route: tariff-duty-calculator-dev.london.cloudapps.digital
   processes:
   - type: web
