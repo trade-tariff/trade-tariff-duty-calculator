@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Wizard::Steps::CountryOfOrigin do
-  subject(:country) { described_class.new(user_session, attributes) }
+  subject(:step) { described_class.new(user_session, attributes) }
 
   let(:session) { {} }
   let(:user_session) { UserSession.new(session) }
@@ -15,13 +15,13 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
   describe '#validations' do
     context 'when geographical_area_id is blank' do
       it 'is not a valid object' do
-        expect(country.valid?).to be false
+        expect(step.valid?).to be false
       end
 
       it 'adds the correct validation error message' do
-        country.valid?
+        step.valid?
 
-        expect(country.errors.messages[:geographical_area_id]).to eq(['Enter a valid origin for this import'])
+        expect(step.errors.messages[:geographical_area_id]).to eq(['Enter a valid origin for this import'])
       end
     end
 
@@ -33,13 +33,13 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
       end
 
       it 'is a valid object' do
-        expect(country.valid?).to be true
+        expect(step.valid?).to be true
       end
 
       it 'has no validation errors' do
-        country.valid?
+        step.valid?
 
-        expect(country.errors.messages[:geographical_area_id]).to be_empty
+        expect(step.errors.messages[:geographical_area_id]).to be_empty
       end
     end
   end
@@ -52,9 +52,48 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
     end
 
     it 'saves the geographical_area_id to the session' do
-      country.save
+      step.save
 
       expect(user_session.geographical_area_id).to eq '2'
+    end
+  end
+
+  describe '#previous_step_path' do
+    include Rails.application.routes.url_helpers
+
+    let(:service_choice) { 'uk' }
+    let(:commodity_code) { '1233455' }
+
+    it 'returns import_destination_path' do
+      expect(
+        step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+      ).to eq(
+        import_destination_path(service_choice: service_choice, commodity_code: commodity_code),
+      )
+    end
+  end
+
+  describe '#next_step_path' do
+    include Rails.application.routes.url_helpers
+
+    let(:service_choice) { 'uk' }
+    let(:commodity_code) { '1233455' }
+
+    let(:session) do
+      {
+        '2' => 'GB',
+        '3' => 'XI',
+      }
+    end
+
+    context 'when on NI to GB route' do
+      it 'returns duty_path' do
+        expect(
+          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        ).to eq(
+          duty_path(service_choice: service_choice, commodity_code: commodity_code),
+        )
+      end
     end
   end
 end

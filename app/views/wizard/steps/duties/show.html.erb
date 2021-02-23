@@ -1,0 +1,17 @@
+<%= link_to('Back', :back, class: "govuk-back-link") %>
+
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <span class="govuk-caption-xl">Calculate import duties</span>
+      <% if @duty.zero? %>
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+            <h1 class="govuk-fieldset__heading">There is no import duty to pay</h1>
+          </legend>
+        </fieldset>
+        <%= render 'no_duty' %>
+      <% end %>
+    </div>
+  </div>
+</main>

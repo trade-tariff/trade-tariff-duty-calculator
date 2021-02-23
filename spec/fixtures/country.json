@@ -8,6 +8,15 @@
         "description": "Nicaragua",
         "geographical_area_id": "NI"
       }
+    },
+    {
+      "id": "XI",
+      "type": "geographical_area",
+      "attributes": {
+        "id": "XI",
+        "description": "United Kingdom (Northern Ireland)",
+        "geographical_area_id": "XI"
+      }
     }
   ]
 }

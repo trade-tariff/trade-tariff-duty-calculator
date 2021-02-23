@@ -18,6 +18,14 @@ module Wizard
       def self.options_for(service)
         Country.list(service.to_sym)
       end
+
+      def next_step_path(service_choice:, commodity_code:)
+        duty_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.ni_to_gb_route?
+      end
+
+      def previous_step_path(service_choice:, commodity_code:)
+        import_destination_path(service_choice: service_choice, commodity_code: commodity_code)
+      end
     end
   end
 end

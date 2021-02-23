@@ -2,14 +2,14 @@ module Wizard
   module Steps
     class ImportDatesController < BaseController
       def show
-        @import_date = Wizard::Steps::ImportDate.new(user_session)
+        @step = Wizard::Steps::ImportDate.new(user_session)
       end
 
       def create
-        @import_date = Wizard::Steps::ImportDate.new(user_session, permitted_params)
+        @step = Wizard::Steps::ImportDate.new(user_session, permitted_params)
 
-        if @import_date.valid?
-          @import_date.save
+        if @step.valid?
+          @step.save
 
           redirect_to import_destination_path
         else
