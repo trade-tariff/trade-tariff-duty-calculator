@@ -22,7 +22,7 @@ module Wizard
       protected
 
       def next_step_path(*)
-        raise('Must implement this method')
+        raise NotImplementedError
       end
 
       def previous_step_path(*)
