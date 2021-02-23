@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Wizard::Steps::ImportDate do
-  subject(:import_date) { described_class.new(session, attributes) }
+  subject(:import_date) { described_class.new(user_session, attributes) }
 
   let(:session) { {} }
+  let(:user_session) { UserSession.new(session) }
   let(:attributes) do
     ActionController::Parameters.new(
       'import_date(3i)' => '12',
@@ -127,16 +128,12 @@ RSpec.describe Wizard::Steps::ImportDate do
   end
 
   describe '#save' do
-    let(:expected_session) do
-      {
-        Wizard::Steps::ImportDate::STEP_ID => "#{1.year.from_now.year}-12-12",
-      }
-    end
+    let(:expected_date) { Date.parse("#{1.year.from_now.year}-12-12") }
 
     it 'saves the import_date to the session' do
       import_date.save
 
-      expect(import_date.session).to eq(expected_session)
+      expect(user_session.import_date).to eq(expected_date)
     end
   end
 end

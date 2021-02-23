@@ -13,18 +13,18 @@ module Wizard
 
       validate :import_date_in_future
 
-      def initialize(session, attributes = {})
+      def initialize(user_session, attributes = {})
         check_attributes_validity(attributes)
 
         super
       end
 
       def import_date
-        super || date_from_session
+        super || user_session.import_date
       end
 
       def save
-        session[STEP_ID] = input_date.strftime('%Y-%m-%d')
+        user_session.import_date = input_date.strftime('%Y-%m-%d')
       end
 
     private
@@ -33,12 +33,6 @@ module Wizard
         return if input_date.present? && input_date >= Time.zone.today
 
         errors.add(:import_date, :invalid_date)
-      end
-
-      def date_from_session
-        return unless session.key?(STEP_ID)
-
-        Date.parse(session[STEP_ID])
       end
 
       def valid_date?(attributes)

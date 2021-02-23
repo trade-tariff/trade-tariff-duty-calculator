@@ -12,6 +12,10 @@ module Wizard
         )
       end
 
+      def user_session
+        @user_session ||= UserSession.new(session)
+      end
+
       protected
 
       def commodity_code

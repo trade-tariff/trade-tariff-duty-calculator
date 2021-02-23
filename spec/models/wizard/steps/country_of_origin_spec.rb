@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Wizard::Steps::CountryOfOrigin do
-  subject(:country) { described_class.new(session, attributes) }
+  subject(:country) { described_class.new(user_session, attributes) }
 
   let(:session) { {} }
+  let(:user_session) { UserSession.new(session) }
 
   let(:attributes) do
     ActionController::Parameters.new(
@@ -44,12 +45,6 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
   end
 
   describe '#save' do
-    let(:expected_session) do
-      {
-        Wizard::Steps::CountryOfOrigin::STEP_ID => '2',
-      }
-    end
-
     let(:attributes) do
       ActionController::Parameters.new(
         'geographical_area_id' => '2',
@@ -59,7 +54,7 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
     it 'saves the geographical_area_id to the session' do
       country.save
 
-      expect(country.session).to eq(expected_session)
+      expect(user_session.geographical_area_id).to eq '2'
     end
   end
 end

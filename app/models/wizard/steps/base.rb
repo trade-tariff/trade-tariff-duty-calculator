@@ -4,12 +4,12 @@ module Wizard
       include ActiveModel::Model
       include ActiveModel::Attributes
 
-      attr_reader :session
+      attr_reader :user_session
 
-      def initialize(session, attributes = {})
-        @session = session
+      def initialize(user_session, attributes = {})
+        @user_session = user_session
 
-        clean_session if attributes.empty?
+        clean_user_session if attributes.empty?
 
         super(attributes)
       end
@@ -20,14 +20,8 @@ module Wizard
 
       private
 
-      def clean_session
-        return if keys_to_remove.empty?
-
-        session.delete(*keys_to_remove)
-      end
-
-      def keys_to_remove
-        session.keys.map(&:to_i).uniq.select { |key| key > self.class::STEP_ID.to_i }
+      def clean_user_session
+        @user_session.remove_keys_after(self.class::STEP_ID.to_i)
       end
     end
   end
