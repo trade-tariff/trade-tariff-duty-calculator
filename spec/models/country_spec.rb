@@ -35,6 +35,16 @@ RSpec.describe Country do
     end
   end
 
+  describe '.eu_member?' do
+    it 'returns true if the country is part of EU' do
+      expect(described_class.eu_member?('IE')).to be true
+    end
+
+    it 'returns false if the country is not part of EU' do
+      expect(described_class.eu_member?('GB')).to be false
+    end
+  end
+
   describe '.response' do
     it 'calls Uktt::Country#retrieve' do
       described_class.response(:xi)

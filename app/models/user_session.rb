@@ -42,4 +42,8 @@ class UserSession
   def ni_to_gb_route?
     import_destination == 'GB' && geographical_area_id == 'XI'
   end
+
+  def eu_to_ni_route?
+    import_destination == 'XI' && Country.eu_member?(geographical_area_id)
+  end
 end

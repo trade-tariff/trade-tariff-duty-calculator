@@ -6,6 +6,6 @@ class DutyCalculator
   end
 
   def result
-    0 if user_session.ni_to_gb_route?
+    0 if user_session.ni_to_gb_route? || user_session.eu_to_ni_route?
   end
 end
