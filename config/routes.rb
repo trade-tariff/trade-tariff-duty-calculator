@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
     get 'country-of-origin', to: 'wizard/steps/country_of_origin#show'
     post 'country-of-origin', to: 'wizard/steps/country_of_origin#create'
+
+    get 'duty', to: 'wizard/steps/duties#show'
   end
 
   get '404', to: 'errors#not_found', via: :all

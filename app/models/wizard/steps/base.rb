@@ -3,6 +3,7 @@ module Wizard
     class Base
       include ActiveModel::Model
       include ActiveModel::Attributes
+      include Rails.application.routes.url_helpers
 
       attr_reader :user_session
 
@@ -16,6 +17,16 @@ module Wizard
 
       def persisted?
         false
+      end
+
+      protected
+
+      def next_step_path(*)
+        raise('Must implement this method')
+      end
+
+      def previous_step_path(*)
+        raise('Must implement this method')
       end
 
       private

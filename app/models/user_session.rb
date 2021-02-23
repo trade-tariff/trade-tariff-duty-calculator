@@ -38,4 +38,8 @@ class UserSession
   def geographical_area_id=(value)
     session[Wizard::Steps::CountryOfOrigin::STEP_ID] = value
   end
+
+  def ni_to_gb_route?
+    import_destination == 'GB' && geographical_area_id == 'XI'
+  end
 end

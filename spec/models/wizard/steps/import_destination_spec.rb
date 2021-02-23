@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Wizard::Steps::ImportDestination do
-  subject(:country) { described_class.new(user_session, attributes) }
+  subject(:step) { described_class.new(user_session, attributes) }
 
   let(:session) { {} }
   let(:user_session) { UserSession.new(session) }
@@ -14,13 +14,13 @@ RSpec.describe Wizard::Steps::ImportDestination do
   describe '#validations' do
     context 'when import destination is blank' do
       it 'is not a valid object' do
-        expect(country.valid?).to be false
+        expect(step.valid?).to be false
       end
 
       it 'adds the correct validation error message' do
-        country.valid?
+        step.valid?
 
-        expect(country.errors.messages[:import_destination]).to eq(['Select a destination'])
+        expect(step.errors.messages[:import_destination]).to eq(['Select a destination'])
       end
     end
 
@@ -32,13 +32,13 @@ RSpec.describe Wizard::Steps::ImportDestination do
       end
 
       it 'is a valid object' do
-        expect(country.valid?).to be true
+        expect(step.valid?).to be true
       end
 
       it 'has no validation errors' do
-        country.valid?
+        step.valid?
 
-        expect(country.errors.messages[:import_destination]).to be_empty
+        expect(step.errors.messages[:import_destination]).to be_empty
       end
     end
   end
@@ -51,9 +51,39 @@ RSpec.describe Wizard::Steps::ImportDestination do
     end
 
     it 'saves the import_date to the session' do
-      country.save
+      step.save
 
       expect(user_session.import_destination).to eq('ni')
+    end
+  end
+
+  describe '#next_step_path' do
+    include Rails.application.routes.url_helpers
+
+    let(:service_choice) { 'uk' }
+    let(:commodity_code) { '1233455' }
+
+    it 'returns country_of_origin_path' do
+      expect(
+        step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+      ).to eq(
+        country_of_origin_path(service_choice: service_choice, commodity_code: commodity_code),
+      )
+    end
+  end
+
+  describe '#previous_step_path' do
+    include Rails.application.routes.url_helpers
+
+    let(:service_choice) { 'uk' }
+    let(:commodity_code) { '1233455' }
+
+    it 'returns import_date_path' do
+      expect(
+        step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+      ).to eq(
+        import_date_path(service_choice: service_choice, commodity_code: commodity_code),
+      )
     end
   end
 end

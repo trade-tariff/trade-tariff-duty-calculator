@@ -1,0 +1,4 @@
+<% if @user_session.ni_to_gb_route? %>
+  <p class="govuk-body govuk-!-margin-top-5">There are no import duties applicable to the movement of goods from Northern Ireland to England, Scotland and Wales.</p>
+  <p class="govuk-body">Find out more about <%= link_to('trading and moving goods in and out of Northern Ireland(opens in a new window).', 'https://www.gov.uk/guidance/trading-and-moving-goods-in-and-out-of-northern-ireland', class: 'govuk-link', target: '_blank') %></p>
+<% end %>

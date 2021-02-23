@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Wizard::Steps::ImportDate do
-  subject(:import_date) { described_class.new(user_session, attributes) }
+  subject(:step) { described_class.new(user_session, attributes) }
 
   let(:session) { {} }
   let(:user_session) { UserSession.new(session) }
@@ -24,13 +24,13 @@ RSpec.describe Wizard::Steps::ImportDate do
       end
 
       it 'is not a valid object' do
-        expect(import_date.valid?).to be false
+        expect(step.valid?).to be false
       end
 
       it 'adds the correct validation error message' do
-        import_date.valid?
+        step.valid?
 
-        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid future date'])
+        expect(step.errors.messages[:import_date]).to eq(['Enter a valid future date'])
       end
     end
 
@@ -44,13 +44,13 @@ RSpec.describe Wizard::Steps::ImportDate do
       end
 
       it 'is not a valid object' do
-        expect(import_date.valid?).to be false
+        expect(step.valid?).to be false
       end
 
       it 'adds the correct validation error message' do
-        import_date.valid?
+        step.valid?
 
-        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid future date'])
+        expect(step.errors.messages[:import_date]).to eq(['Enter a valid future date'])
       end
     end
 
@@ -64,13 +64,13 @@ RSpec.describe Wizard::Steps::ImportDate do
       end
 
       it 'is not a valid object' do
-        expect(import_date.valid?).to be false
+        expect(step.valid?).to be false
       end
 
       it 'adds the correct validation error message' do
-        import_date.valid?
+        step.valid?
 
-        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid future date'])
+        expect(step.errors.messages[:import_date]).to eq(['Enter a valid future date'])
       end
     end
 
@@ -84,13 +84,13 @@ RSpec.describe Wizard::Steps::ImportDate do
       end
 
       it 'is not a valid object' do
-        expect(import_date.valid?).to be false
+        expect(step.valid?).to be false
       end
 
       it 'adds the correct validation error message' do
-        import_date.valid?
+        step.valid?
 
-        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid future date'])
+        expect(step.errors.messages[:import_date]).to eq(['Enter a valid future date'])
       end
     end
 
@@ -104,25 +104,25 @@ RSpec.describe Wizard::Steps::ImportDate do
       end
 
       it 'is not a valid object' do
-        expect(import_date.valid?).to be false
+        expect(step.valid?).to be false
       end
 
       it 'adds the correct validation error message' do
-        import_date.valid?
+        step.valid?
 
-        expect(import_date.errors.messages[:import_date]).to eq(['Enter a valid future date'])
+        expect(step.errors.messages[:import_date]).to eq(['Enter a valid future date'])
       end
     end
 
     context 'when import date is valid and in future' do
       it 'is a valid object' do
-        expect(import_date.valid?).to be true
+        expect(step.valid?).to be true
       end
 
       it 'has no validation errors' do
-        import_date.valid?
+        step.valid?
 
-        expect(import_date.errors.messages[:import_date]).to be_empty
+        expect(step.errors.messages[:import_date]).to be_empty
       end
     end
   end
@@ -131,9 +131,24 @@ RSpec.describe Wizard::Steps::ImportDate do
     let(:expected_date) { Date.parse("#{1.year.from_now.year}-12-12") }
 
     it 'saves the import_date to the session' do
-      import_date.save
+      step.save
 
       expect(user_session.import_date).to eq(expected_date)
+    end
+  end
+
+  describe '#next_step_path' do
+    include Rails.application.routes.url_helpers
+
+    let(:service_choice) { 'uk' }
+    let(:commodity_code) { '1233455' }
+
+    it 'returns import_destination_path' do
+      expect(
+        step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+      ).to eq(
+        import_destination_path(service_choice: service_choice, commodity_code: commodity_code),
+      )
     end
   end
 end

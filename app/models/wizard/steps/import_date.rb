@@ -27,6 +27,10 @@ module Wizard
         user_session.import_date = input_date.strftime('%Y-%m-%d')
       end
 
+      def next_step_path(service_choice:, commodity_code:)
+        import_destination_path(service_choice: service_choice, commodity_code: commodity_code)
+      end
+
     private
 
       def import_date_in_future
