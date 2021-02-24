@@ -113,4 +113,23 @@ RSpec.describe Wizard::Steps::UserSession do
       expect(user_session.ni_to_gb_route?).to be false
     end
   end
+
+  describe '#eu_to_ni_route?' do
+    context 'when import country is NI and origin country is a EU Member' do
+      let(:session) do
+        {
+          '2' => 'XI',
+          '3' => 'RO',
+        }
+      end
+
+      it 'returns true' do
+        expect(user_session.eu_to_ni_route?).to be true
+      end
+    end
+
+    it 'returns false otherwise' do
+      expect(user_session.eu_to_ni_route?).to be false
+    end
+  end
 end
