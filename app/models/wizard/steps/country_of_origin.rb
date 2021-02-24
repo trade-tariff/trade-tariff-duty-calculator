@@ -3,16 +3,16 @@ module Wizard
     class CountryOfOrigin < Base
       STEP_ID = '3'.freeze
 
-      attribute 'geographical_area_id', :string
+      attribute 'country_of_origin', :string
 
-      validates :geographical_area_id, presence: true
+      validates :country_of_origin, presence: true
 
-      def geographical_area_id
-        super || user_session.geographical_area_id
+      def country_of_origin
+        super || user_session.country_of_origin
       end
 
       def save
-        user_session.geographical_area_id = geographical_area_id
+        user_session.country_of_origin = country_of_origin
       end
 
       def self.options_for(service)

@@ -24,7 +24,7 @@ module Wizard
 
       def permitted_params
         params.require(:wizard_steps_country_of_origin).permit(
-          :geographical_area_id,
+          :country_of_origin,
         )
       end
     end

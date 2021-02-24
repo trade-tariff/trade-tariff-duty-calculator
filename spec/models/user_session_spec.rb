@@ -65,9 +65,9 @@ RSpec.describe Wizard::Steps::UserSession do
     end
   end
 
-  describe '#geographical_area_id' do
+  describe '#country_of_origin' do
     it 'returns nil if the key is not on the session' do
-      expect(user_session.geographical_area_id).to be nil
+      expect(user_session.country_of_origin).to be nil
     end
 
     context 'when the key is present on the session' do
@@ -80,16 +80,16 @@ RSpec.describe Wizard::Steps::UserSession do
       let(:expected_country) { '1234' }
 
       it 'returns the date from the session' do
-        expect(user_session.geographical_area_id).to eq(expected_country)
+        expect(user_session.country_of_origin).to eq(expected_country)
       end
     end
   end
 
-  describe '#geographical_area_id=' do
+  describe '#country_of_origin=' do
     let(:expected_country) { '1234' }
 
     it 'sets the key on the session' do
-      user_session.geographical_area_id = '1234'
+      user_session.country_of_origin = '1234'
 
       expect(session[Wizard::Steps::CountryOfOrigin::STEP_ID]).to eq(expected_country)
     end
