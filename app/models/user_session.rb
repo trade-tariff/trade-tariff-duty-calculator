@@ -31,19 +31,19 @@ class UserSession
     session[Wizard::Steps::ImportDestination::STEP_ID] = value
   end
 
-  def geographical_area_id
+  def country_of_origin
     session[Wizard::Steps::CountryOfOrigin::STEP_ID]
   end
 
-  def geographical_area_id=(value)
+  def country_of_origin=(value)
     session[Wizard::Steps::CountryOfOrigin::STEP_ID] = value
   end
 
   def ni_to_gb_route?
-    import_destination == 'GB' && geographical_area_id == 'XI'
+    import_destination == 'GB' && country_of_origin == 'XI'
   end
 
   def eu_to_ni_route?
-    import_destination == 'XI' && Country.eu_member?(geographical_area_id)
+    import_destination == 'XI' && Country.eu_member?(country_of_origin)
   end
 end

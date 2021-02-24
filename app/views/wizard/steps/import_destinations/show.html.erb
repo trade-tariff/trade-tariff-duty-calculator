@@ -3,7 +3,7 @@
 <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
-      <%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: { controller: 'wizard/steps/import_destinations', action: 'create' } do |f| %>
+      <%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: import_destination_path do |f| %>
         <%= f.govuk_error_summary %>
         <span class="govuk-caption-xl">Calculate import duties</span>
 

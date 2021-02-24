@@ -43,6 +43,6 @@ en:
               blank: Select a destination
         wizard/steps/country_of_origin:
           attributes:
-            geographical_area_id:
+            country_of_origin:
               blank: Enter a valid origin for this import
               

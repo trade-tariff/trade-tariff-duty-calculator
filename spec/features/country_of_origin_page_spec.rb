@@ -26,7 +26,7 @@ RSpec.describe 'Country of Origin Page', type: :feature do
   end
 
   it 'does store the country of origin date on the session' do
-    select('United Kingdom (Northern Ireland)', from: 'wizard_steps_country_of_origin[geographical_area_id]')
+    select('United Kingdom (Northern Ireland)', from: 'wizard_steps_country_of_origin[country_of_origin]')
 
     click_on('Continue')
 
@@ -34,7 +34,7 @@ RSpec.describe 'Country of Origin Page', type: :feature do
   end
 
   it 'loses its session key when going back to the previous question' do
-    select('United Kingdom (Northern Ireland)', from: 'wizard_steps_country_of_origin[geographical_area_id]')
+    select('United Kingdom (Northern Ireland)', from: 'wizard_steps_country_of_origin[country_of_origin]')
 
     click_on('Continue')
 
@@ -46,7 +46,7 @@ RSpec.describe 'Country of Origin Page', type: :feature do
 
   context 'when importing from NI to GB' do
     it 'redirects to duty path' do
-      select('United Kingdom (Northern Ireland)', from: 'wizard_steps_country_of_origin[geographical_area_id]')
+      select('United Kingdom (Northern Ireland)', from: 'wizard_steps_country_of_origin[country_of_origin]')
 
       click_on('Continue')
 

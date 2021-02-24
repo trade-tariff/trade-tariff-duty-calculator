@@ -8,12 +8,12 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
 
   let(:attributes) do
     ActionController::Parameters.new(
-      'geographical_area_id' => '',
+      'country_of_origin' => '',
     ).permit!
   end
 
   describe '#validations' do
-    context 'when geographical_area_id is blank' do
+    context 'when country_of_origin is blank' do
       it 'is not a valid object' do
         expect(step.valid?).to be false
       end
@@ -21,14 +21,14 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:geographical_area_id]).to eq(['Enter a valid origin for this import'])
+        expect(step.errors.messages[:country_of_origin]).to eq(['Enter a valid origin for this import'])
       end
     end
 
-    context 'when geographical_area_id is present' do
+    context 'when country_of_origin is present' do
       let(:attributes) do
         ActionController::Parameters.new(
-          'geographical_area_id' => '1',
+          'country_of_origin' => '1',
         ).permit!
       end
 
@@ -39,7 +39,7 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
       it 'has no validation errors' do
         step.valid?
 
-        expect(step.errors.messages[:geographical_area_id]).to be_empty
+        expect(step.errors.messages[:country_of_origin]).to be_empty
       end
     end
   end
@@ -47,14 +47,14 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
   describe '#save' do
     let(:attributes) do
       ActionController::Parameters.new(
-        'geographical_area_id' => '2',
+        'country_of_origin' => '2',
       ).permit!
     end
 
-    it 'saves the geographical_area_id to the session' do
+    it 'saves the country_of_origin to the session' do
       step.save
 
-      expect(user_session.geographical_area_id).to eq '2'
+      expect(user_session.country_of_origin).to eq '2'
     end
   end
 
