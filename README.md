@@ -1,5 +1,7 @@
 # Trade Tariff Duty Calculator
 
+[![CircleCI](https://circleci.com/gh/trade-tariff/trade-tariff-duty-calculator.svg?style=shield)](https://app.circleci.com/pipelines/github/trade-tariff/trade-tariff-duty-calculator)
+
 ## Prerequisites
 
 - Ruby 2.7.1

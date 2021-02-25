@@ -95,6 +95,70 @@ RSpec.describe Wizard::Steps::UserSession do
     end
   end
 
+  describe '#insurance_cost' do
+    let(:session) do
+      {
+        Wizard::Steps::CustomsValue::STEP_ID => {
+          'monetary_value' => '12_000',
+          'shipping_cost' => '1_200',
+          'insurance_cost' => '340',
+        },
+      }
+    end
+
+    it 'returns the correct value from the session' do
+      expect(user_session.insurance_cost).to eq('340')
+    end
+  end
+
+  describe '#shipping_cost' do
+    let(:session) do
+      {
+        Wizard::Steps::CustomsValue::STEP_ID => {
+          'monetary_value' => '12_000',
+          'shipping_cost' => '1_200',
+          'insurance_cost' => '340',
+        },
+      }
+    end
+
+    it 'returns the correct value from the session' do
+      expect(user_session.shipping_cost).to eq('1_200')
+    end
+  end
+
+  describe '#monetary_value' do
+    let(:session) do
+      {
+        Wizard::Steps::CustomsValue::STEP_ID => {
+          'monetary_value' => '12_000',
+          'shipping_cost' => '1_200',
+          'insurance_cost' => '340',
+        },
+      }
+    end
+
+    it 'returns the correct value from the session' do
+      expect(user_session.monetary_value).to eq('12_000')
+    end
+  end
+
+  describe '#customs_value=' do
+    let(:value) do
+      {
+        'monetary_value' => '12_000',
+        'shipping_cost' => '1_200',
+        'insurance_cost' => '340',
+      }
+    end
+
+    it 'stores the hash on the session' do
+      user_session.customs_value = value
+
+      expect(session[Wizard::Steps::CustomsValue::STEP_ID]).to eq(value)
+    end
+  end
+
   describe '#ni_to_gb_route?' do
     context 'when import country is GB and origin country is NI' do
       let(:session) do
