@@ -26,7 +26,7 @@ module Wizard
       end
 
       def previous_step_path(*)
-        raise('Must implement this method')
+        raise NotImplementedError
       end
 
       private

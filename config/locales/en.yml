@@ -45,4 +45,13 @@ en:
           attributes:
             country_of_origin:
               blank: Enter a valid origin for this import
+        wizard/steps/customs_value:
+          attributes:
+            monetary_value:
+              blank: Enter a valid monetary value
+              not_a_number: Enter a numeric value
+            shipping_cost:
+              not_a_number: Enter a numeric value
+            insurance_cost:
+              not_a_number: Enter a numeric value
               

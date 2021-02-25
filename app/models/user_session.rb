@@ -39,6 +39,26 @@ class UserSession
     session[Wizard::Steps::CountryOfOrigin::STEP_ID] = value
   end
 
+  def customs_value=(values)
+    session[Wizard::Steps::CustomsValue::STEP_ID] = {
+      'monetary_value' => values['monetary_value'],
+      'shipping_cost' => values['shipping_cost'],
+      'insurance_cost' => values['insurance_cost'],
+    }
+  end
+
+  def monetary_value
+    session[Wizard::Steps::CustomsValue::STEP_ID].try(:[], 'monetary_value')
+  end
+
+  def shipping_cost
+    session[Wizard::Steps::CustomsValue::STEP_ID].try(:[], 'shipping_cost')
+  end
+
+  def insurance_cost
+    session[Wizard::Steps::CustomsValue::STEP_ID].try(:[], 'insurance_cost')
+  end
+
   def ni_to_gb_route?
     import_destination == 'GB' && country_of_origin == 'XI'
   end
