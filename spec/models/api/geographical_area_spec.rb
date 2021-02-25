@@ -57,7 +57,7 @@ RSpec.describe Api::GeographicalArea do
   end
 
   describe '.european_union_members' do
-    let(:expected_members)  do
+    let(:expected_members) do
       %w[AT BE BG CY CZ DE DK EE ES EU FI FR GR HR HU IE IT LT LU LV MT NL PL PT RO SE SI SK]
     end
 
