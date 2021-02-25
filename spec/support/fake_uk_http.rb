@@ -4,12 +4,13 @@ class FakeUkttHttp
   def retrieve(resource, _return_json = false)
     json = case resource
            when %r{^commodities/\d{10}.json$} then read('commodity.json')
-           when %r{^geographical_areas/countries$} then read('country.json')
+           when %r{^geographical_areas$} then read('geographical_areas.json')
+           when %r{^geographical_areas/countries$} then read('countries.json')
            else
              raise "Missing fixture. You will want to add a new fixture for resource #{resource}"
            end
 
-    JSON.parse(json, object_class: OpenStruct)
+    JSON.parse(json)
   end
 
   def config
