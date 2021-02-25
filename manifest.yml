@@ -2,7 +2,7 @@
 applications:
 - name: tariff-duty-calculator-dev
   buildpacks:
-    - https://github.com/cloudfoundry/ruby-buildpack.git
+    - https://github.com/cloudfoundry/ruby-buildpack.git#v1.8.30
   stack: cflinuxfs3
   routes:
   - route: dev.trade-tariff.service.gov.uk/uk/duty-calculator
