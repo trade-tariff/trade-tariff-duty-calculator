@@ -1,6 +1,6 @@
 # Trade Tariff Duty Calculator
 
-[![CircleCI](https://circleci.com/gh/trade-tariff/trade-tariff-duty-calculator.svg?style=shield)](https://app.circleci.com/pipelines/github/trade-tariff/trade-tariff-duty-calculator)
+[![CircleCI](https://circleci.com/gh/trade-tariff/trade-tariff-duty-calculator.svg?style=shield&circle-token=f1a191a029869bd8bb94a9fd721b663f4653ca49)](https://app.circleci.com/pipelines/github/trade-tariff/trade-tariff-duty-calculator)
 
 ## Prerequisites
 
