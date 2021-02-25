@@ -24,9 +24,7 @@ module Api
     end
 
     def self.resource_key(key)
-      define_singleton_method(:resource_key) do
-        key
-      end
+      define_singleton_method(:resource_key) { key }
     end
 
     def self.build(service, id)
