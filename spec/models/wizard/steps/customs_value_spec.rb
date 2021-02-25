@@ -30,7 +30,7 @@ RSpec.describe Wizard::Steps::CustomsValue do
         step.valid?
 
         expect(step.errors.messages[:monetary_value].to_a).to eq(
-          ['Enter a valid monetary value', 'Enter a numeric value'],
+          ['Enter a valid monetary value', 'Enter a numeric monetary value'],
         )
       end
     end
@@ -64,7 +64,7 @@ RSpec.describe Wizard::Steps::CustomsValue do
         step.valid?
 
         expect(step.errors.messages[:insurance_cost].to_a).to eq(
-          ['Enter a numeric value'],
+          ['Enter a numeric insurance cost or leave the field blank'],
         )
       end
     end
@@ -100,7 +100,7 @@ RSpec.describe Wizard::Steps::CustomsValue do
         step.valid?
 
         expect(step.errors.messages[:shipping_cost].to_a).to eq(
-          ['Enter a numeric value'],
+          ['Enter a numeric shipping cost or leave the field blank'],
         )
       end
     end
