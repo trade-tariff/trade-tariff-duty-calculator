@@ -1,6 +1,6 @@
 module Wizard
   module Steps
-    class CountryOfOrigin < Base
+    class CountryOfOrigin < Wizard::Steps::Base
       STEP_ID = '3'.freeze
 
       attribute 'country_of_origin', :string

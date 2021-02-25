@@ -28,5 +28,9 @@ module Api
     def description
       super.html_safe
     end
+
+    def code
+      goods_nomenclature_item_id
+    end
   end
 end

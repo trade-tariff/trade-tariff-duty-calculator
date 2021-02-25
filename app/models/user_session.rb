@@ -64,6 +64,6 @@ class UserSession
   end
 
   def eu_to_ni_route?
-    import_destination == 'XI' && Country.eu_member?(country_of_origin)
+    import_destination == 'XI' && Api::GeographicalArea.eu_member?(country_of_origin)
   end
 end

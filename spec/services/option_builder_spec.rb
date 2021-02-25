@@ -20,7 +20,7 @@ RSpec.describe OptionBuilder do
           host: 'http://uk.localhost:3018',
           version: 'v2',
           debug: false,
-          return_json: false,
+          format: 'jsonapi',
         )
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe OptionBuilder do
           host: 'http://xi.localhost:3019',
           version: 'v2',
           debug: false,
-          return_json: false,
+          format: 'jsonapi',
         )
       end
     end

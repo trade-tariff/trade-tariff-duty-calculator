@@ -26,6 +26,12 @@ RSpec.describe Api::Commodity, type: :model do
     end
   end
 
+  describe '#code' do
+    it 'returns the goods_nomenclature_item_id' do
+      expect(commodity.code).to eq(commodity.goods_nomenclature_item_id)
+    end
+  end
+
   describe '#import_measures' do
     it 'returns a list of measures' do
       all_are_measures = commodity.import_measures.all? { |resource| resource.is_a?(Api::Measure) }
