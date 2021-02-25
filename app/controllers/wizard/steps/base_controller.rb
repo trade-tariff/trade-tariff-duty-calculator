@@ -6,9 +6,9 @@ module Wizard
       before_action :assign_commodity
 
       def assign_commodity
-        @commodity = Commodity.new(
-          code: commodity_code,
-          service: service_choice,
+        @commodity = Api::Commodity.build(
+          service_choice,
+          commodity_code,
         )
       end
 

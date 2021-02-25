@@ -1,6 +1,6 @@
 module Wizard
   module Steps
-    class ImportDate < Base
+    class ImportDate < Wizard::Steps::Base
       include ActiveRecord::AttributeAssignment
 
       STEP_ID = '1'.freeze

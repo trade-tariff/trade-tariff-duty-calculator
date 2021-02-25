@@ -1,6 +1,6 @@
 module Wizard
   module Steps
-    class CountryOfOrigin < Base
+    class CountryOfOrigin < Wizard::Steps::Base
       STEP_ID = '3'.freeze
 
       attribute 'country_of_origin', :string
@@ -16,7 +16,7 @@ module Wizard
       end
 
       def self.options_for(service)
-        Country.list(service.to_sym)
+        Api::GeographicalArea.list_countries(service.to_sym)
       end
 
       def next_step_path(service_choice:, commodity_code:)

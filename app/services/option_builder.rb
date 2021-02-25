@@ -8,7 +8,7 @@ class OptionBuilder
       host: api_options[@service],
       version: 'v2',
       debug: debug?,
-      return_json: false,
+      format: 'jsonapi',
     }
   end
 
