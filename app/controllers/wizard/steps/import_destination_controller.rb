@@ -1,6 +1,6 @@
 module Wizard
   module Steps
-    class ImportDestinationsController < BaseController
+    class ImportDestinationController < BaseController
       def show
         @step = Wizard::Steps::ImportDestination.new(user_session)
       end
@@ -11,7 +11,10 @@ module Wizard
         if @step.valid?
           @step.save
 
-          redirect_to country_of_origin_path
+          redirect_to @step.next_step_path(
+            service_choice: params[:service_choice],
+            commodity_code: params[:commodity_code],
+          )
         else
           render 'show'
         end

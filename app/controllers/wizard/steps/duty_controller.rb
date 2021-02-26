@@ -1,6 +1,6 @@
 module Wizard
   module Steps
-    class DutiesController < BaseController
+    class DutyController < BaseController
       def show
         @duty = DutyCalculator.new(user_session).result
       end

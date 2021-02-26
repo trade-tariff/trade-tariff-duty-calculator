@@ -65,6 +65,36 @@ RSpec.describe Wizard::Steps::UserSession do
     end
   end
 
+  describe '#trader_scheme' do
+    it 'returns nil if the key is not on the session' do
+      expect(user_session.trader_scheme).to be nil
+    end
+
+    context 'when the key is present on the session' do
+      let(:session) do
+        {
+          Wizard::Steps::TraderScheme::STEP_ID => '1',
+        }
+      end
+
+      let(:expected_response) { '1' }
+
+      it 'returns the date from the session' do
+        expect(user_session.trader_scheme).to eq(expected_response)
+      end
+    end
+  end
+
+  describe '#trader_scheme=' do
+    let(:expected_response) { '1' }
+
+    it 'sets the key on the session' do
+      user_session.trader_scheme = '1'
+
+      expect(session[Wizard::Steps::TraderScheme::STEP_ID]).to eq(expected_response)
+    end
+  end
+
   describe '#country_of_origin' do
     it 'returns nil if the key is not on the session' do
       expect(user_session.country_of_origin).to be nil
@@ -194,6 +224,25 @@ RSpec.describe Wizard::Steps::UserSession do
 
     it 'returns false otherwise' do
       expect(user_session.eu_to_ni_route?).to be false
+    end
+  end
+
+  describe '#gb_to_ni_route?' do
+    context 'when import country is XI and origin country is GB' do
+      let(:session) do
+        {
+          '2' => 'XI',
+          '3' => 'GB',
+        }
+      end
+
+      it 'returns true' do
+        expect(user_session.gb_to_ni_route?).to be true
+      end
+    end
+
+    it 'returns false otherwise' do
+      expect(user_session.gb_to_ni_route?).to be false
     end
   end
 end
