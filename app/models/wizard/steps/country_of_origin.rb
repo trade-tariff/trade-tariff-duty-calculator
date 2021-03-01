@@ -3,7 +3,7 @@ module Wizard
     class CountryOfOrigin < Wizard::Steps::Base
       STEP_ID = '3'.freeze
 
-      attribute 'country_of_origin', :string
+      attribute :country_of_origin, :string
 
       validates :country_of_origin, presence: true
 

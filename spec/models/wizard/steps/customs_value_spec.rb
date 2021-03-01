@@ -35,6 +35,46 @@ RSpec.describe Wizard::Steps::CustomsValue do
       end
     end
 
+    context 'when monetary_value is 0' do
+      let(:attributes) do
+        ActionController::Parameters.new(
+          'monetary_value' => '0',
+        ).permit!
+      end
+
+      it 'is not a valid object' do
+        expect(step.valid?).to be false
+      end
+
+      it 'adds the correct validation error messages' do
+        step.valid?
+
+        expect(step.errors.messages[:monetary_value].to_a).to eq(
+          ['Enter a monetary value greater than zero'],
+        )
+      end
+    end
+
+    context 'when monetary_value is a negative number' do
+      let(:attributes) do
+        ActionController::Parameters.new(
+          'monetary_value' => '-999',
+        ).permit!
+      end
+
+      it 'is not a valid object' do
+        expect(step.valid?).to be false
+      end
+
+      it 'adds the correct validation error messages' do
+        step.valid?
+
+        expect(step.errors.messages[:monetary_value].to_a).to eq(
+          ['Enter a monetary value greater than zero'],
+        )
+      end
+    end
+
     context 'when insurance_cost is blank' do
       let(:attributes) do
         ActionController::Parameters.new(
@@ -45,6 +85,27 @@ RSpec.describe Wizard::Steps::CustomsValue do
 
       it 'is a valid object' do
         expect(step.valid?).to be true
+      end
+    end
+
+    context 'when insurance_cost is a negative number' do
+      let(:attributes) do
+        ActionController::Parameters.new(
+          'monetary_value' => '1234',
+          'insurance_cost' => '-999',
+        ).permit!
+      end
+
+      it 'is not a valid object' do
+        expect(step.valid?).to be false
+      end
+
+      it 'adds the correct validation error messages' do
+        step.valid?
+
+        expect(step.errors.messages[:insurance_cost].to_a).to eq(
+          ['Enter a insurance cost value greater than or equal to zero'],
+        )
       end
     end
 
@@ -101,6 +162,28 @@ RSpec.describe Wizard::Steps::CustomsValue do
 
         expect(step.errors.messages[:shipping_cost].to_a).to eq(
           ['Enter a numeric shipping cost or leave the field blank'],
+        )
+      end
+    end
+
+    context 'when shipping_cost is a negative number' do
+      let(:attributes) do
+        ActionController::Parameters.new(
+          'monetary_value' => '1234',
+          'insurance_cost' => '1234',
+          'shipping_cost' => '-999',
+        ).permit!
+      end
+
+      it 'is a not a valid object' do
+        expect(step.valid?).to be false
+      end
+
+      it 'adds the correct validation error messages' do
+        step.valid?
+
+        expect(step.errors.messages[:shipping_cost].to_a).to eq(
+          ['Enter a shipping cost value greater than or equal to zero'],
         )
       end
     end
