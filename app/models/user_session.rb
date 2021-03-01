@@ -6,7 +6,7 @@ class UserSession
   end
 
   def remove_step_ids(ids)
-    ids.map{ |id| session.delete(id) } unless ids.empty?
+    ids.map { |id| session.delete(id) } unless ids.empty?
   end
 
   def import_date
