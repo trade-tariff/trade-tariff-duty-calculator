@@ -4,6 +4,7 @@ module Wizard
       include ActiveRecord::AttributeAssignment
 
       STEP_ID = '1'.freeze
+      STEPS_TO_REMOVE_FROM_SESSION = %w[2 3 4].freeze
 
       attribute :import_date, :date
 

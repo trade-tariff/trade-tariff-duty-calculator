@@ -7,6 +7,7 @@ module Wizard
       ].freeze
 
       STEP_ID = '2'.freeze
+      STEPS_TO_REMOVE_FROM_SESSION = %w[3 4].freeze
 
       attribute :import_destination, :string
 

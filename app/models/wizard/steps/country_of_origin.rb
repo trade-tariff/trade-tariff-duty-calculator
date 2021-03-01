@@ -2,6 +2,7 @@ module Wizard
   module Steps
     class CountryOfOrigin < Wizard::Steps::Base
       STEP_ID = '3'.freeze
+      STEPS_TO_REMOVE_FROM_SESSION = %w[4].freeze
 
       attribute :country_of_origin, :string
 

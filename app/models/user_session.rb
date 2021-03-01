@@ -5,12 +5,8 @@ class UserSession
     @session = session
   end
 
-  def remove_keys_after(key)
-    keys_to_remove = session.keys.map(&:to_i).uniq.select { |k| k > key }
-
-    return if keys_to_remove.empty?
-
-    session.delete(*keys_to_remove)
+  def remove_step_ids(ids)
+    ids.map{ |id| session.delete(id) } unless ids.empty?
   end
 
   def import_date
