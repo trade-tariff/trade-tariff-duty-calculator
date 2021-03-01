@@ -8,7 +8,7 @@ module Wizard
 
       STEP_ID = '2'.freeze
 
-      attribute 'import_destination', :string
+      attribute :import_destination, :string
 
       validates :import_destination, presence: true
 

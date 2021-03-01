@@ -1,16 +1,16 @@
 module Wizard
   module Steps
-    class CustomsValue < Base
+    class CustomsValue < Wizard::Steps::Base
       STEP_ID = '4'.freeze
 
-      attribute 'monetary_value', :string
-      attribute 'shipping_cost', :string
-      attribute 'insurance_cost', :string
+      attribute :monetary_value, :string
+      attribute :shipping_cost, :string
+      attribute :insurance_cost, :string
 
       validates :monetary_value, presence: true
-      validates :monetary_value, numericality: true
-      validates :shipping_cost, numericality: true, allow_blank: true
-      validates :insurance_cost, numericality: true, allow_blank: true
+      validates :monetary_value, numericality: { greater_than: 0 }
+      validates :shipping_cost, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+      validates :insurance_cost, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
 
       def monetary_value
         super || user_session.monetary_value

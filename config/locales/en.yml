@@ -50,8 +50,11 @@ en:
             monetary_value:
               blank: Enter a valid monetary value
               not_a_number: Enter a numeric monetary value
+              greater_than: Enter a monetary value greater than zero
             shipping_cost:
               not_a_number: Enter a numeric shipping cost or leave the field blank
+              greater_than_or_equal_to: Enter a shipping cost value greater than or equal to zero
             insurance_cost:
+              greater_than_or_equal_to: Enter a insurance cost value greater than or equal to zero
               not_a_number: Enter a numeric insurance cost or leave the field blank
               
