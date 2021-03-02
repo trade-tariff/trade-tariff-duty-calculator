@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   scope path: '/:service_choice/duty-calculator/:commodity_code' do
-    get 'import-date', to: 'wizard/steps/import_dates#show'
-    post 'import-date', to: 'wizard/steps/import_dates#create'
+    get 'import-date', to: 'wizard/steps/import_date#show'
+    post 'import-date', to: 'wizard/steps/import_date#create'
 
-    get 'import-destination', to: 'wizard/steps/import_destinations#show'
-    post 'import-destination', to: 'wizard/steps/import_destinations#create'
+    get 'import-destination', to: 'wizard/steps/import_destination#show'
+    post 'import-destination', to: 'wizard/steps/import_destination#create'
 
     get 'country-of-origin', to: 'wizard/steps/country_of_origin#show'
     post 'country-of-origin', to: 'wizard/steps/country_of_origin#create'
@@ -12,7 +12,10 @@ Rails.application.routes.draw do
     get 'customs-value', to: 'wizard/steps/customs_value#show'
     post 'customs-value', to: 'wizard/steps/customs_value#create'
 
-    get 'duty', to: 'wizard/steps/duties#show'
+    get 'trader-scheme', to: 'wizard/steps/trader_scheme#show'
+    post 'trader-scheme', to: 'wizard/steps/trader_scheme#create'
+
+    get 'duty', to: 'wizard/steps/duty#show'
   end
 
   get '404', to: 'errors#not_found', via: :all

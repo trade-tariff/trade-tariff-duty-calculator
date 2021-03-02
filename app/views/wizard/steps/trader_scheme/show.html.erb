@@ -1,0 +1,29 @@
+<%= link_to('Back', @step.previous_step_path(service_choice: params[:service_choice], commodity_code: params[:commodity_code]), class: "govuk-back-link") %>
+
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: trader_scheme_path do |f| %>
+        <%= f.govuk_error_summary %>
+        <span class="govuk-caption-xl">Calculate import duties</span>
+
+        <%= f.govuk_collection_radio_buttons :trader_scheme, Wizard::Steps::TraderScheme::OPTIONS, :id, :name, legend: { text: 'Are you registered with the UK Trader Scheme?', size: 'xl', tag: 'h1' }, hint: { text: 'If you are importing goods or sale to, or final use by, end consumers located in the UK and you are a trader authorised under the UK Trader Scheme, then your goods may be treated as being \'not at risk\' of further movement into the EU and are not subject to EU import duties.' }, include_hidden: true %>
+
+        <%= f.govuk_submit %>
+      <% end %>
+
+      <p class='govuk-body'>If you are not yet registered with the Scheme, then <%= link_to('apply for authorisation for the UK Trader Scheme here', 'https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland-from-1-january-2021', class: 'govuk-link') %>.</p>
+
+      <%= render 'shared/commodity_details' %>
+
+      <div class="explore-topics-section">
+        <h2 class="govuk-heading-m govuk-!-margin-top-3">Explore the topic</h2>
+        <ul class="govuk-list">
+          <li>
+            <%= link_to('Apply for authorisation for the UK trader scheme', 'https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland', class: 'govuk-link') %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>

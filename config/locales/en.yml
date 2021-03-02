@@ -45,6 +45,10 @@ en:
           attributes:
             country_of_origin:
               blank: Enter a valid origin for this import
+        wizard/steps/trader_scheme:
+          attributes:
+            trader_scheme:
+              blank: Select one of the two options
         wizard/steps/customs_value:
           attributes:
             monetary_value:

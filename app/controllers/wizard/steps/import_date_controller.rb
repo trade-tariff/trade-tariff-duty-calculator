@@ -1,6 +1,6 @@
 module Wizard
   module Steps
-    class ImportDatesController < BaseController
+    class ImportDateController < BaseController
       def show
         @step = Wizard::Steps::ImportDate.new(user_session)
       end
@@ -11,7 +11,10 @@ module Wizard
         if @step.valid?
           @step.save
 
-          redirect_to import_destination_path
+          redirect_to @step.next_step_path(
+            service_choice: params[:service_choice],
+            commodity_code: params[:commodity_code],
+          )
         else
           render 'show'
         end

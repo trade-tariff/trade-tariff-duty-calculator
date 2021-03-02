@@ -39,6 +39,14 @@ class UserSession
     session[Wizard::Steps::CountryOfOrigin::STEP_ID] = value
   end
 
+  def trader_scheme
+    session[Wizard::Steps::TraderScheme::STEP_ID]
+  end
+
+  def trader_scheme=(value)
+    session[Wizard::Steps::TraderScheme::STEP_ID] = value
+  end
+
   def customs_value=(values)
     session[Wizard::Steps::CustomsValue::STEP_ID] = {
       'monetary_value' => values['monetary_value'],
@@ -61,6 +69,10 @@ class UserSession
 
   def ni_to_gb_route?
     import_destination == 'GB' && country_of_origin == 'XI'
+  end
+
+  def gb_to_ni_route?
+    import_destination == 'XI' && country_of_origin == 'GB'
   end
 
   def eu_to_ni_route?
