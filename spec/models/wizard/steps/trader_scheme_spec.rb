@@ -7,8 +7,8 @@ RSpec.describe Wizard::Steps::TraderScheme do
   let(:user_session) { UserSession.new(session) }
   let(:attributes) do
     ActionController::Parameters.new(
-      'trader_scheme' => '',
-    ).permit!
+      trader_scheme: '',
+    ).permit(:trader_scheme)
   end
 
   describe '#validations' do
@@ -27,8 +27,8 @@ RSpec.describe Wizard::Steps::TraderScheme do
     context 'when trader scheme answer is present' do
       let(:attributes) do
         ActionController::Parameters.new(
-          'trader_scheme' => '0',
-        ).permit!
+          trader_scheme: '0',
+        ).permit(:trader_scheme)
       end
 
       it 'is a valid object' do
@@ -46,8 +46,8 @@ RSpec.describe Wizard::Steps::TraderScheme do
   describe '#save' do
     let(:attributes) do
       ActionController::Parameters.new(
-        'trader_scheme' => '1',
-      ).permit!
+        trader_scheme: '1',
+      ).permit(:trader_scheme)
     end
 
     it 'saves the trader_scheme to the session' do

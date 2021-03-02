@@ -10,7 +10,11 @@ RSpec.describe Wizard::Steps::ImportDate do
       'import_date(3i)' => '12',
       'import_date(2i)' => '12',
       'import_date(1i)' => 1.year.from_now.year.to_s,
-    ).permit!
+    ).permit(
+      'import_date(3i)',
+      'import_date(2i)',
+      'import_date(1i)',
+    )
   end
 
   describe '#validations' do
@@ -20,7 +24,11 @@ RSpec.describe Wizard::Steps::ImportDate do
           'import_date(3i)' => '',
           'import_date(2i)' => '',
           'import_date(1i)' => '',
-        ).permit!
+        ).permit(
+          'import_date(3i)',
+          'import_date(2i)',
+          'import_date(1i)',
+        )
       end
 
       it 'is not a valid object' do
@@ -40,7 +48,11 @@ RSpec.describe Wizard::Steps::ImportDate do
           'import_date(3i)' => '',
           'import_date(2i)' => '12',
           'import_date(1i)' => '',
-        ).permit!
+        ).permit(
+          'import_date(3i)',
+          'import_date(2i)',
+          'import_date(1i)',
+        )
       end
 
       it 'is not a valid object' do
@@ -60,7 +72,11 @@ RSpec.describe Wizard::Steps::ImportDate do
           'import_date(3i)' => '12',
           'import_date(2i)' => '12',
           'import_date(1i)' => '@@',
-        ).permit!
+        ).permit(
+          'import_date(3i)',
+          'import_date(2i)',
+          'import_date(1i)',
+        )
       end
 
       it 'is not a valid object' do
@@ -80,7 +96,11 @@ RSpec.describe Wizard::Steps::ImportDate do
           'import_date(3i)' => '12',
           'import_date(2i)' => '12',
           'import_date(1i)' => '2001',
-        ).permit!
+        ).permit(
+          'import_date(3i)',
+          'import_date(2i)',
+          'import_date(1i)',
+        )
       end
 
       it 'is not a valid object' do
@@ -100,7 +120,11 @@ RSpec.describe Wizard::Steps::ImportDate do
           'import_date(3i)' => '12',
           'import_date(2i)' => '34',
           'import_date(1i)' => '3000',
-        ).permit!
+        ).permit(
+          'import_date(3i)',
+          'import_date(2i)',
+          'import_date(1i)',
+        )
       end
 
       it 'is not a valid object' do

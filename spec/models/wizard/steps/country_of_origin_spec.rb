@@ -8,8 +8,8 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
 
   let(:attributes) do
     ActionController::Parameters.new(
-      'country_of_origin' => '',
-    ).permit!
+      country_of_origin: '',
+    ).permit(:country_of_origin)
   end
 
   describe '#validations' do
@@ -28,8 +28,8 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
     context 'when country_of_origin is present' do
       let(:attributes) do
         ActionController::Parameters.new(
-          'country_of_origin' => '1',
-        ).permit!
+          country_of_origin: '1',
+        ).permit(:country_of_origin)
       end
 
       it 'is a valid object' do
@@ -47,8 +47,8 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
   describe '#save' do
     let(:attributes) do
       ActionController::Parameters.new(
-        'country_of_origin' => '2',
-      ).permit!
+        country_of_origin: '2',
+      ).permit(:country_of_origin)
     end
 
     it 'saves the country_of_origin to the session' do

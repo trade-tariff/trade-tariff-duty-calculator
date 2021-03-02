@@ -7,8 +7,8 @@ RSpec.describe Wizard::Steps::ImportDestination do
   let(:user_session) { UserSession.new(session) }
   let(:attributes) do
     ActionController::Parameters.new(
-      'import_destination' => '',
-    ).permit!
+      import_destination: '',
+    ).permit(:import_destination)
   end
 
   describe '#validations' do
@@ -27,8 +27,8 @@ RSpec.describe Wizard::Steps::ImportDestination do
     context 'when import destination is present' do
       let(:attributes) do
         ActionController::Parameters.new(
-          'import_destination' => 'gb',
-        ).permit!
+          import_destination: 'gb',
+        ).permit(:import_destination)
       end
 
       it 'is a valid object' do
@@ -46,8 +46,8 @@ RSpec.describe Wizard::Steps::ImportDestination do
   describe '#save' do
     let(:attributes) do
       ActionController::Parameters.new(
-        'import_destination' => 'ni',
-      ).permit!
+        import_destination: 'ni',
+      ).permit(:import_destination)
     end
 
     it 'saves the import_date to the session' do
