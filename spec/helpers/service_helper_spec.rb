@@ -9,8 +9,8 @@ RSpec.describe ServiceHelper do
 
   let(:params) do
     ActionController::Parameters.new(
-      'service_choice' => service,
-    ).permit!
+      service_choice: service,
+    ).permit(:service_choice)
   end
 
   let(:service) { 'uk' }
