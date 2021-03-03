@@ -49,6 +49,10 @@ en:
           attributes:
             trader_scheme:
               blank: Select one of the two options
+        wizard/steps/final_use:
+          attributes:
+            final_use:
+              blank: Select one of the two options
         wizard/steps/customs_value:
           attributes:
             monetary_value:

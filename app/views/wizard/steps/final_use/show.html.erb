@@ -1,0 +1,27 @@
+<%= link_to('Back', @step.previous_step_path(service_choice: params[:service_choice], commodity_code: params[:commodity_code]), class: "govuk-back-link") %>
+
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: final_use_path do |f| %>
+        <%= f.govuk_error_summary %>
+        <span class="govuk-caption-xl">Calculate import duties</span>
+
+        <%= f.govuk_collection_radio_buttons :final_use, Wizard::Steps::FinalUse::OPTIONS, :id, :name, legend: { text: 'Is your import for sale to, or final use by, end-consumers located in the United Kingdom?', size: 'xl', tag: 'h1' }, include_hidden: true %>
+
+        <%= f.govuk_submit %>
+      <% end %>
+
+      <%= render 'shared/commodity_details' %>
+
+      <div class="explore-topics-section">
+        <h2 class="govuk-heading-m govuk-!-margin-top-3">Explore the topic</h2>
+        <ul class="govuk-list">
+          <li>
+            <%= link_to('Check if you can declare goods you bring into Northern Ireland not ‘at risk’ of moving to the EU', 'https://www.gov.uk/guidance/check-if-you-can-declare-goods-you-bring-into-northern-ireland-not-at-risk-of-moving-to-the-eu', class: 'govuk-link') %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
