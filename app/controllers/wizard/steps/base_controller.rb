@@ -18,6 +18,19 @@ module Wizard
 
       protected
 
+      def validate(step)
+        if step.valid?
+          step.save
+
+          redirect_to step.next_step_path(
+            service_choice: params[:service_choice],
+            commodity_code: params[:commodity_code],
+          ) and return
+        else
+          render 'show'
+        end
+      end
+
       def commodity_code
         params[:commodity_code]
       end

@@ -8,16 +8,7 @@ module Wizard
       def create
         @step = Wizard::Steps::TraderScheme.new(user_session, permitted_params)
 
-        if @step.valid?
-          @step.save
-
-          redirect_to @step.next_step_path(
-            service_choice: params[:service_choice],
-            commodity_code: params[:commodity_code],
-          )
-        else
-          render 'show'
-        end
+        validate(@step)
       end
 
       private
