@@ -95,6 +95,36 @@ RSpec.describe Wizard::Steps::UserSession do
     end
   end
 
+  describe '#final_use' do
+    it 'returns nil if the key is not on the session' do
+      expect(user_session.final_use).to be nil
+    end
+
+    context 'when the key is present on the session' do
+      let(:session) do
+        {
+          Wizard::Steps::FinalUse.id => '1',
+        }
+      end
+
+      let(:expected_response) { '1' }
+
+      it 'returns the date from the session' do
+        expect(user_session.final_use).to eq(expected_response)
+      end
+    end
+  end
+
+  describe '#final_use=' do
+    let(:expected_response) { '1' }
+
+    it 'sets the key on the session' do
+      user_session.final_use = '1'
+
+      expect(session[Wizard::Steps::FinalUse.id]).to eq(expected_response)
+    end
+  end
+
   describe '#country_of_origin' do
     it 'returns nil if the key is not on the session' do
       expect(user_session.country_of_origin).to be nil

@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     get 'trader-scheme', to: 'wizard/steps/trader_scheme#show'
     post 'trader-scheme', to: 'wizard/steps/trader_scheme#create'
 
+    get 'final-use', to: 'wizard/steps/final_use#show'
+    post 'final-use', to: 'wizard/steps/final_use#create'
+
     get 'duty', to: 'wizard/steps/duty#show'
   end
 

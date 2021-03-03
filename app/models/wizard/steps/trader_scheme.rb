@@ -22,7 +22,9 @@ module Wizard
         user_session.trader_scheme = trader_scheme
       end
 
-      def next_step_path(service_choice:, commodity_code:); end
+      def next_step_path(service_choice:, commodity_code:)
+        # To be added on the ticket that creates the next step
+      end
 
       def previous_step_path(service_choice:, commodity_code:)
         country_of_origin_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.gb_to_ni_route?

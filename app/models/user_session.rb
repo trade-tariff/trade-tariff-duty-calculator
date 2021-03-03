@@ -43,6 +43,14 @@ class UserSession
     session[Wizard::Steps::TraderScheme.id] = value
   end
 
+  def final_use
+    session[Wizard::Steps::FinalUse.id]
+  end
+
+  def final_use=(value)
+    session[Wizard::Steps::FinalUse.id] = value
+  end
+
   def customs_value=(values)
     session[Wizard::Steps::CustomsValue.id] = {
       'monetary_value' => values['monetary_value'],
