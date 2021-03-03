@@ -6,8 +6,12 @@ module Wizard
         OpenStruct.new(id: 'XI', name: 'Northern Ireland'),
       ].freeze
 
-      STEP_ID = '2'.freeze
-      STEPS_TO_REMOVE_FROM_SESSION = %w[3 4].freeze
+      STEPS_TO_REMOVE_FROM_SESSION = %w[
+        country_of_origin
+        customs_value
+        trader_scehme
+        final_use
+      ].freeze
 
       attribute :import_destination, :string
 

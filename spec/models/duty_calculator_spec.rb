@@ -9,8 +9,8 @@ RSpec.describe DutyCalculator do
     context 'when importing from NI to GB' do
       let(:session) do
         {
-          '2' => 'GB',
-          '3' => 'XI',
+          'import_destination' => 'GB',
+          'country_of_origin' => 'XI',
         }
       end
 
@@ -22,8 +22,8 @@ RSpec.describe DutyCalculator do
     context 'when importing from an EU country to NI' do
       let(:session) do
         {
-          '2' => 'XI',
-          '3' => 'RO',
+          'import_destination' => 'XI',
+          'country_of_origin' => 'RO',
         }
       end
 

@@ -22,7 +22,7 @@ RSpec.describe 'Country of Origin Page', type: :feature do
   it 'does not store an empty geographical area id on the session' do
     click_on('Continue')
 
-    expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::CountryOfOrigin::STEP_ID)).to be false
+    expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::CountryOfOrigin.id)).to be false
   end
 
   it 'does store the country of origin date on the session' do
@@ -30,7 +30,7 @@ RSpec.describe 'Country of Origin Page', type: :feature do
 
     click_on('Continue')
 
-    expect(Capybara.current_session.driver.request.session[Wizard::Steps::CountryOfOrigin::STEP_ID]).to eq('XI')
+    expect(Capybara.current_session.driver.request.session[Wizard::Steps::CountryOfOrigin.id]).to eq('XI')
   end
 
   it 'loses its session key when going back to the previous question' do
@@ -41,7 +41,7 @@ RSpec.describe 'Country of Origin Page', type: :feature do
     click_on('Back')
     click_on('Back')
 
-    expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::CountryOfOrigin::STEP_ID)).to be false
+    expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::CountryOfOrigin.id)).to be false
   end
 
   context 'when importing from NI to GB' do

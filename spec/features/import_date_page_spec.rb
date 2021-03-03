@@ -13,7 +13,7 @@ RSpec.describe 'Import Date Page', type: :feature do
 
     click_on('Continue')
 
-    expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::ImportDate::STEP_ID)).to be false
+    expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::ImportDate.id)).to be false
   end
 
   it 'does store a invalid import date on the session' do
@@ -25,7 +25,7 @@ RSpec.describe 'Import Date Page', type: :feature do
 
     click_on('Continue')
 
-    expect(Capybara.current_session.driver.request.session[Wizard::Steps::ImportDate::STEP_ID]).to eq('3000-12-12')
+    expect(Capybara.current_session.driver.request.session[Wizard::Steps::ImportDate.id]).to eq('3000-12-12')
   end
 
   it 'redirects to import destination page if the validation is successful' do

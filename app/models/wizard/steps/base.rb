@@ -19,6 +19,10 @@ module Wizard
         false
       end
 
+      def self.id
+        name.split('::').last.underscore
+      end
+
       protected
 
       def next_step_path(*)
