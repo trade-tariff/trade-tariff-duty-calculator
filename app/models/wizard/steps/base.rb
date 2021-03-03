@@ -19,6 +19,10 @@ module Wizard
         false
       end
 
+      def self.id
+        name.split('::').last.underscore
+      end
+
       protected
 
       def next_step_path(*)
@@ -32,7 +36,7 @@ module Wizard
       private
 
       def clean_user_session
-        @user_session.remove_keys_after(self.class::STEP_ID.to_i)
+        @user_session.remove_step_ids(self.class::STEPS_TO_REMOVE_FROM_SESSION)
       end
     end
   end

@@ -69,8 +69,8 @@ RSpec.describe Wizard::Steps::TraderScheme do
     let(:commodity_code) { '1233455' }
     let(:session) do
       {
-        '2' => 'XI',
-        '3' => 'GB',
+        'import_destination' => 'XI',
+        'country_of_origin' => 'GB',
       }
     end
 

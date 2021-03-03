@@ -6,9 +6,11 @@ module Wizard
         OpenStruct.new(id: 0, name: 'No, I am not registered with the UK Trader Scheme'),
       ].freeze
 
-      STEP_ID = '5'.freeze
+      STEPS_TO_REMOVE_FROM_SESSION = %w[
+        final_use
+      ].freeze
 
-      attribute 'trader_scheme', :string
+      attribute :trader_scheme, :string
 
       validates :trader_scheme, presence: true
 

@@ -13,7 +13,7 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::ImportDate::STEP_ID => '2025-01-01',
+          Wizard::Steps::ImportDate.id => '2025-01-01',
         }
       end
 
@@ -31,7 +31,7 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'sets the key on the session' do
       user_session.import_date = '2025-01-01'
 
-      expect(session[Wizard::Steps::ImportDate::STEP_ID]).to eq(expected_date)
+      expect(session[Wizard::Steps::ImportDate.id]).to eq(expected_date)
     end
   end
 
@@ -43,7 +43,7 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::ImportDestination::STEP_ID => 'ni',
+          Wizard::Steps::ImportDestination.id => 'ni',
         }
       end
 
@@ -61,7 +61,7 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'sets the key on the session' do
       user_session.import_destination = 'ni'
 
-      expect(session[Wizard::Steps::ImportDestination::STEP_ID]).to eq(expected_country)
+      expect(session[Wizard::Steps::ImportDestination.id]).to eq(expected_country)
     end
   end
 
@@ -73,7 +73,7 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::TraderScheme::STEP_ID => '1',
+          Wizard::Steps::TraderScheme.id => '1',
         }
       end
 
@@ -91,7 +91,7 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'sets the key on the session' do
       user_session.trader_scheme = '1'
 
-      expect(session[Wizard::Steps::TraderScheme::STEP_ID]).to eq(expected_response)
+      expect(session[Wizard::Steps::TraderScheme.id]).to eq(expected_response)
     end
   end
 
@@ -103,7 +103,7 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::CountryOfOrigin::STEP_ID => '1234',
+          Wizard::Steps::CountryOfOrigin.id => '1234',
         }
       end
 
@@ -121,14 +121,14 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'sets the key on the session' do
       user_session.country_of_origin = '1234'
 
-      expect(session[Wizard::Steps::CountryOfOrigin::STEP_ID]).to eq(expected_country)
+      expect(session[Wizard::Steps::CountryOfOrigin.id]).to eq(expected_country)
     end
   end
 
   describe '#insurance_cost' do
     let(:session) do
       {
-        Wizard::Steps::CustomsValue::STEP_ID => {
+        Wizard::Steps::CustomsValue.id => {
           'monetary_value' => '12_000',
           'shipping_cost' => '1_200',
           'insurance_cost' => '340',
@@ -144,7 +144,7 @@ RSpec.describe Wizard::Steps::UserSession do
   describe '#shipping_cost' do
     let(:session) do
       {
-        Wizard::Steps::CustomsValue::STEP_ID => {
+        Wizard::Steps::CustomsValue.id => {
           'monetary_value' => '12_000',
           'shipping_cost' => '1_200',
           'insurance_cost' => '340',
@@ -160,7 +160,7 @@ RSpec.describe Wizard::Steps::UserSession do
   describe '#monetary_value' do
     let(:session) do
       {
-        Wizard::Steps::CustomsValue::STEP_ID => {
+        Wizard::Steps::CustomsValue.id => {
           'monetary_value' => '12_000',
           'shipping_cost' => '1_200',
           'insurance_cost' => '340',
@@ -185,7 +185,7 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'stores the hash on the session' do
       user_session.customs_value = value
 
-      expect(session[Wizard::Steps::CustomsValue::STEP_ID]).to eq(value)
+      expect(session[Wizard::Steps::CustomsValue.id]).to eq(value)
     end
   end
 
@@ -193,8 +193,8 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when import country is GB and origin country is NI' do
       let(:session) do
         {
-          '2' => 'GB',
-          '3' => 'XI',
+          'import_destination' => 'GB',
+          'country_of_origin' => 'XI',
         }
       end
 
@@ -212,8 +212,8 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when import country is NI and origin country is a EU Member' do
       let(:session) do
         {
-          '2' => 'XI',
-          '3' => 'RO',
+          'import_destination' => 'XI',
+          'country_of_origin' => 'RO',
         }
       end
 
@@ -231,8 +231,8 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when import country is XI and origin country is GB' do
       let(:session) do
         {
-          '2' => 'XI',
-          '3' => 'GB',
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
         }
       end
 

@@ -81,8 +81,8 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
 
     let(:session) do
       {
-        '2' => 'GB',
-        '3' => 'XI',
+        'import_destination' => 'GB',
+        'country_of_origin' => 'XI',
       }
     end
 

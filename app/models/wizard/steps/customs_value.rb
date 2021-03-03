@@ -1,7 +1,7 @@
 module Wizard
   module Steps
     class CustomsValue < Wizard::Steps::Base
-      STEP_ID = '4'.freeze
+      STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
 
       attribute :monetary_value, :string
       attribute :shipping_cost, :string

@@ -5,50 +5,46 @@ class UserSession
     @session = session
   end
 
-  def remove_keys_after(key)
-    keys_to_remove = session.keys.map(&:to_i).uniq.select { |k| k > key }
-
-    return if keys_to_remove.empty?
-
-    session.delete(*keys_to_remove)
+  def remove_step_ids(ids)
+    ids.map { |id| session.delete(id) } unless ids.empty?
   end
 
   def import_date
-    return unless session.key?(Wizard::Steps::ImportDate::STEP_ID)
+    return unless session.key?(Wizard::Steps::ImportDate.id)
 
-    Date.parse(session[Wizard::Steps::ImportDate::STEP_ID])
+    Date.parse(session[Wizard::Steps::ImportDate.id])
   end
 
   def import_date=(value)
-    session[Wizard::Steps::ImportDate::STEP_ID] = value
+    session[Wizard::Steps::ImportDate.id] = value
   end
 
   def import_destination
-    session[Wizard::Steps::ImportDestination::STEP_ID]
+    session[Wizard::Steps::ImportDestination.id]
   end
 
   def import_destination=(value)
-    session[Wizard::Steps::ImportDestination::STEP_ID] = value
+    session[Wizard::Steps::ImportDestination.id] = value
   end
 
   def country_of_origin
-    session[Wizard::Steps::CountryOfOrigin::STEP_ID]
+    session[Wizard::Steps::CountryOfOrigin.id]
   end
 
   def country_of_origin=(value)
-    session[Wizard::Steps::CountryOfOrigin::STEP_ID] = value
+    session[Wizard::Steps::CountryOfOrigin.id] = value
   end
 
   def trader_scheme
-    session[Wizard::Steps::TraderScheme::STEP_ID]
+    session[Wizard::Steps::TraderScheme.id]
   end
 
   def trader_scheme=(value)
-    session[Wizard::Steps::TraderScheme::STEP_ID] = value
+    session[Wizard::Steps::TraderScheme.id] = value
   end
 
   def customs_value=(values)
-    session[Wizard::Steps::CustomsValue::STEP_ID] = {
+    session[Wizard::Steps::CustomsValue.id] = {
       'monetary_value' => values['monetary_value'],
       'shipping_cost' => values['shipping_cost'],
       'insurance_cost' => values['insurance_cost'],
@@ -56,15 +52,15 @@ class UserSession
   end
 
   def monetary_value
-    session[Wizard::Steps::CustomsValue::STEP_ID].try(:[], 'monetary_value')
+    session[Wizard::Steps::CustomsValue.id].try(:[], 'monetary_value')
   end
 
   def shipping_cost
-    session[Wizard::Steps::CustomsValue::STEP_ID].try(:[], 'shipping_cost')
+    session[Wizard::Steps::CustomsValue.id].try(:[], 'shipping_cost')
   end
 
   def insurance_cost
-    session[Wizard::Steps::CustomsValue::STEP_ID].try(:[], 'insurance_cost')
+    session[Wizard::Steps::CustomsValue.id].try(:[], 'insurance_cost')
   end
 
   def ni_to_gb_route?
