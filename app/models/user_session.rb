@@ -59,6 +59,14 @@ class UserSession
     session[Wizard::Steps::CertificateOfOrigin.id] = value
   end
 
+  def planned_processing
+    session[Wizard::Steps::PlannedProcessing.id]
+  end
+
+  def planned_processing=(value)
+    session[Wizard::Steps::PlannedProcessing.id] = value
+  end
+
   def customs_value=(values)
     session[Wizard::Steps::CustomsValue.id] = {
       'monetary_value' => values['monetary_value'],

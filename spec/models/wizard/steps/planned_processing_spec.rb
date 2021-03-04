@@ -12,6 +12,19 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
   end
 
   describe '#validations' do
+
+    it 'should contain options ' do
+      options_ids = ['without_any_processing', 'annual_turnover', 'commercial_processing', 'commercial_purposes'  ]
+
+      contains_required_options = described_class::OPTIONS.map do |element|
+        if element.id
+          element.id
+        end
+      end
+
+      expect(contains_required_options).to eq(options_ids)
+    end
+
     context 'when planned processing answer is blank' do
       it 'is not a valid object' do
         expect(step.valid?).to be false
@@ -43,7 +56,7 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
     end
   end
 
-  xdescribe '#save' do
+  describe '#save' do
     let(:attributes) do
       ActionController::Parameters.new(
           'planned_processing' => '1',
@@ -62,16 +75,16 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
     end
   end
 
-  xdescribe '#previous_step_path' do
+  describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
     let(:service_choice) { 'uk' }
     let(:commodity_code) { '1233455' }
     let(:session) do
       {
-          '2' => 'XI',
-          '3' => 'GB',
-          '5' => '1',
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+          'trader_scheme' => '1',
       }
     end
 
