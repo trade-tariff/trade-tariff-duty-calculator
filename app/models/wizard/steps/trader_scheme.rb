@@ -2,12 +2,14 @@ module Wizard
   module Steps
     class TraderScheme < Wizard::Steps::Base
       OPTIONS = [
-        OpenStruct.new(id: 1, name: 'Yes, I am registered with the UK Trader Scheme'),
-        OpenStruct.new(id: 0, name: 'No, I am not registered with the UK Trader Scheme'),
+        OpenStruct.new(id: 'yes', name: 'Yes, I am registered with the UK Trader Scheme'),
+        OpenStruct.new(id: 'no', name: 'No, I am not registered with the UK Trader Scheme'),
       ].freeze
 
       STEPS_TO_REMOVE_FROM_SESSION = %w[
         final_use
+        certificate_of_origin
+        customs_value
       ].freeze
 
       attribute :trader_scheme, :string

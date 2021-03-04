@@ -53,6 +53,10 @@ en:
           attributes:
             final_use:
               blank: Select one of the two options
+        wizard/steps/certificate_of_origin:
+          attributes:
+            certificate_of_origin:
+              blank: Select one of the two options
         wizard/steps/customs_value:
           attributes:
             monetary_value:

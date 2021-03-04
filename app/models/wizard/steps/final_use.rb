@@ -2,11 +2,14 @@ module Wizard
   module Steps
     class FinalUse < Wizard::Steps::Base
       OPTIONS = [
-        OpenStruct.new(id: 1, name: 'Yes, I am importing this good into Northern Ireland for its sale to, or final use by, end-consumers located in the United Kingdom'),
-        OpenStruct.new(id: 0, name: 'No, this import will not be for final use in the United Kingdom'),
+        OpenStruct.new(id: 'yes', name: 'Yes, I am importing this good into Northern Ireland for its sale to, or final use by, end-consumers located in the United Kingdom'),
+        OpenStruct.new(id: 'no', name: 'No, this import will not be for final use in the United Kingdom'),
       ].freeze
 
-      STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
+      STEPS_TO_REMOVE_FROM_SESSION = %w[
+        certificate_of_origin
+        customs_value
+      ].freeze
 
       attribute :final_use, :string
 

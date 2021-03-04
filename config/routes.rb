@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     get 'final-use', to: 'wizard/steps/final_use#show'
     post 'final-use', to: 'wizard/steps/final_use#create'
 
+    get 'certificate-of-origin', to: 'wizard/steps/certificate_of_origin#show'
+    post 'certificate-of-origin', to: 'wizard/steps/certificate_of_origin#create'
+
     get 'duty', to: 'wizard/steps/duty#show'
   end
 

@@ -11,6 +11,17 @@ RSpec.describe Wizard::Steps::FinalUse do
     ).permit(:final_use)
   end
 
+  describe 'STEPS_TO_REMOVE_FROM_SESSION' do
+    it 'returns the correct list of steps' do
+      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
+        %w[
+          certificate_of_origin
+          customs_value
+        ],
+      )
+    end
+  end
+
   describe '#validations' do
     context 'when final use answer is blank' do
       it 'is not a valid object' do
@@ -27,7 +38,7 @@ RSpec.describe Wizard::Steps::FinalUse do
     context 'when final use answer is present' do
       let(:attributes) do
         ActionController::Parameters.new(
-          'final_use' => '0',
+          'final_use' => 'no',
         ).permit(:final_use)
       end
 
@@ -46,14 +57,14 @@ RSpec.describe Wizard::Steps::FinalUse do
   describe '#save' do
     let(:attributes) do
       ActionController::Parameters.new(
-        'final_use' => '1',
+        'final_use' => 'yes',
       ).permit(:final_use)
     end
 
     it 'saves the trader_scheme to the session' do
       step.save
 
-      expect(user_session.final_use).to eq('1')
+      expect(user_session.final_use).to eq('yes')
     end
   end
 
@@ -71,7 +82,7 @@ RSpec.describe Wizard::Steps::FinalUse do
       {
         'import_destination' => 'XI',
         'country_of_origin' => 'GB',
-        'trader_scheme' => '1',
+        'trader_scheme' => 'yes',
       }
     end
 
