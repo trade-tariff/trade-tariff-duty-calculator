@@ -69,4 +69,4 @@ en:
             insurance_cost:
               greater_than_or_equal_to: Enter a insurance cost value greater than or equal to zero
               not_a_number: Enter a numeric insurance cost or leave the field blank
-              
+            
