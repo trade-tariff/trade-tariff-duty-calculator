@@ -73,11 +73,11 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::TraderScheme.id => '1',
+          Wizard::Steps::TraderScheme.id => 'yes',
         }
       end
 
-      let(:expected_response) { '1' }
+      let(:expected_response) { 'yes' }
 
       it 'returns the date from the session' do
         expect(user_session.trader_scheme).to eq(expected_response)
@@ -86,10 +86,10 @@ RSpec.describe Wizard::Steps::UserSession do
   end
 
   describe '#trader_scheme=' do
-    let(:expected_response) { '1' }
+    let(:expected_response) { 'yes' }
 
     it 'sets the key on the session' do
-      user_session.trader_scheme = '1'
+      user_session.trader_scheme = 'yes'
 
       expect(session[Wizard::Steps::TraderScheme.id]).to eq(expected_response)
     end
@@ -103,11 +103,11 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::FinalUse.id => '1',
+          Wizard::Steps::FinalUse.id => 'yes',
         }
       end
 
-      let(:expected_response) { '1' }
+      let(:expected_response) { 'yes' }
 
       it 'returns the date from the session' do
         expect(user_session.final_use).to eq(expected_response)
@@ -116,10 +116,10 @@ RSpec.describe Wizard::Steps::UserSession do
   end
 
   describe '#final_use=' do
-    let(:expected_response) { '1' }
+    let(:expected_response) { 'yes' }
 
     it 'sets the key on the session' do
-      user_session.final_use = '1'
+      user_session.final_use = 'yes'
 
       expect(session[Wizard::Steps::FinalUse.id]).to eq(expected_response)
     end
@@ -133,11 +133,11 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::CertificateOfOrigin.id => '1',
+          Wizard::Steps::CertificateOfOrigin.id => 'yes',
         }
       end
 
-      let(:expected_response) { '1' }
+      let(:expected_response) { 'yes' }
 
       it 'returns the date from the session' do
         expect(user_session.certificate_of_origin).to eq(expected_response)
@@ -146,10 +146,10 @@ RSpec.describe Wizard::Steps::UserSession do
   end
 
   describe '#certificate_of_origin=' do
-    let(:expected_response) { '1' }
+    let(:expected_response) { 'yes' }
 
     it 'sets the key on the session' do
-      user_session.certificate_of_origin = '1'
+      user_session.certificate_of_origin = 'yes'
 
       expect(session[Wizard::Steps::CertificateOfOrigin.id]).to eq(expected_response)
     end
