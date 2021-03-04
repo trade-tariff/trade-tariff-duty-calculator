@@ -11,6 +11,7 @@ module Wizard
         customs_value
         trader_scheme
         final_use
+        certificate_of_origin
       ].freeze
 
       attribute :import_destination, :string

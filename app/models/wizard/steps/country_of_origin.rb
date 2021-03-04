@@ -5,6 +5,7 @@ module Wizard
         customs_value
         trader_scheme
         final_use
+        certificate_of_origin
       ].freeze
 
       attribute :country_of_origin, :string
