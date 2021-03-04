@@ -51,6 +51,14 @@ class UserSession
     session[Wizard::Steps::FinalUse.id] = value
   end
 
+  def certificate_of_origin
+    session[Wizard::Steps::CertificateOfOrigin.id]
+  end
+
+  def certificate_of_origin=(value)
+    session[Wizard::Steps::CertificateOfOrigin.id] = value
+  end
+
   def customs_value=(values)
     session[Wizard::Steps::CustomsValue.id] = {
       'monetary_value' => values['monetary_value'],

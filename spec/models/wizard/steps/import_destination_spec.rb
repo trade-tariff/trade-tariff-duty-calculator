@@ -11,6 +11,19 @@ RSpec.describe Wizard::Steps::ImportDestination do
     ).permit(:import_destination)
   end
 
+  describe 'STEPS_TO_REMOVE_FROM_SESSION' do
+    it 'returns the correct list of steps' do
+      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
+        %w[
+          country_of_origin
+          customs_value
+          trader_scheme
+          final_use
+        ],
+      )
+    end
+  end
+
   describe '#validations' do
     context 'when import destination is blank' do
       it 'is not a valid object' do

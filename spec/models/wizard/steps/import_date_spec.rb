@@ -17,6 +17,21 @@ RSpec.describe Wizard::Steps::ImportDate do
     )
   end
 
+  describe 'STEPS_TO_REMOVE_FROM_SESSION' do
+    it 'returns the correct list of steps' do
+      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
+        %w[
+          import_destination
+          country_of_origin
+          customs_value
+          trader_scheme
+          final_use
+          certificate_of_origin
+        ],
+      )
+    end
+  end
+
   describe '#validations' do
     context 'when import date is blank' do
       let(:attributes) do

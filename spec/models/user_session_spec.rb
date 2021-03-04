@@ -125,6 +125,36 @@ RSpec.describe Wizard::Steps::UserSession do
     end
   end
 
+  describe '#certificate_of_origin' do
+    it 'returns nil if the key is not on the session' do
+      expect(user_session.certificate_of_origin).to be nil
+    end
+
+    context 'when the key is present on the session' do
+      let(:session) do
+        {
+          Wizard::Steps::CertificateOfOrigin.id => '1',
+        }
+      end
+
+      let(:expected_response) { '1' }
+
+      it 'returns the date from the session' do
+        expect(user_session.certificate_of_origin).to eq(expected_response)
+      end
+    end
+  end
+
+  describe '#certificate_of_origin=' do
+    let(:expected_response) { '1' }
+
+    it 'sets the key on the session' do
+      user_session.certificate_of_origin = '1'
+
+      expect(session[Wizard::Steps::CertificateOfOrigin.id]).to eq(expected_response)
+    end
+  end
+
   describe '#country_of_origin' do
     it 'returns nil if the key is not on the session' do
       expect(user_session.country_of_origin).to be nil

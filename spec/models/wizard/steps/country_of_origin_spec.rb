@@ -12,6 +12,18 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
     ).permit(:country_of_origin)
   end
 
+  describe 'STEPS_TO_REMOVE_FROM_SESSION' do
+    it 'returns the correct list of steps' do
+      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
+        %w[
+          customs_value
+          trader_scheme
+          final_use
+        ],
+      )
+    end
+  end
+
   describe '#validations' do
     context 'when country_of_origin is blank' do
       it 'is not a valid object' do

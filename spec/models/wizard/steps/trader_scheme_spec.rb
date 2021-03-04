@@ -11,6 +11,18 @@ RSpec.describe Wizard::Steps::TraderScheme do
     ).permit(:trader_scheme)
   end
 
+  describe 'STEPS_TO_REMOVE_FROM_SESSION' do
+    it 'returns the correct list of steps' do
+      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
+        %w[
+          final_use
+          certificate_of_origin
+          customs_value
+        ],
+      )
+    end
+  end
+
   describe '#validations' do
     context 'when trader scheme answer is blank' do
       it 'is not a valid object' do
@@ -27,7 +39,7 @@ RSpec.describe Wizard::Steps::TraderScheme do
     context 'when trader scheme answer is present' do
       let(:attributes) do
         ActionController::Parameters.new(
-          trader_scheme: '0',
+          trader_scheme: 'no',
         ).permit(:trader_scheme)
       end
 
@@ -46,14 +58,14 @@ RSpec.describe Wizard::Steps::TraderScheme do
   describe '#save' do
     let(:attributes) do
       ActionController::Parameters.new(
-        trader_scheme: '1',
+        trader_scheme: 'yes',
       ).permit(:trader_scheme)
     end
 
     it 'saves the trader_scheme to the session' do
       step.save
 
-      expect(user_session.trader_scheme).to eq('1')
+      expect(user_session.trader_scheme).to eq('yes')
     end
   end
 

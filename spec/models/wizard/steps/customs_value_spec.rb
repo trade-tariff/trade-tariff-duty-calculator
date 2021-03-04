@@ -18,6 +18,14 @@ RSpec.describe Wizard::Steps::CustomsValue do
     )
   end
 
+  describe 'STEPS_TO_REMOVE_FROM_SESSION' do
+    it 'returns the correct list of steps' do
+      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
+        %w[],
+      )
+    end
+  end
+
   describe '#validations' do
     context 'when monetary_value is blank' do
       let(:attributes) do
