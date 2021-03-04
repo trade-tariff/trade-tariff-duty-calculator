@@ -5,6 +5,9 @@ module Api
     has_many :import_measures, Measure
     has_many :export_measures, Measure
 
+    meta_attribute :duty_calculator, :zero_mfn_duty
+    meta_attribute :duty_calculator, :trade_defence
+
     attributes :producline_suffix,
                :number_indents,
                :description,

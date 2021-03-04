@@ -1,4 +1,10 @@
 {
+  "meta": {
+    "duty_calculator": {
+      "zero_mfn_duty": false,
+      "trade_defence": true
+    }
+  },
   "producline_suffix": "80",
   "description": "Cherry Tomatoes",
   "number_indents": 1,
