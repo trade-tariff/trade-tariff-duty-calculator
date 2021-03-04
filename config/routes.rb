@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     post 'certificate-of-origin', to: 'wizard/steps/certificate_of_origin#create'
 
     get 'duty', to: 'wizard/steps/duty#show'
+
+    get 'trade-remedies', to: 'pages#trade_remedies'
   end
 
   get '404', to: 'errors#not_found', via: :all

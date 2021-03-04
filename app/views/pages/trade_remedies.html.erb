@@ -1,0 +1,13 @@
+<%= link_to('Back', country_of_origin_path(service_choice: params[:service_choice], commodity_code: params[:commodity_code]), class: "govuk-back-link") %>
+
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <span class="govuk-caption-xl">Calculate import duties</span>
+      <h1 class="govuk-heading-xl">EU duties apply to this import</h1>
+      <p class="govuk-body">Because trade defence measures are applied to this commodity code on the European Union's tariff, imports of this commodity are treated as 'at risk' under all circumstances. The EU's import duties will be payable on this import to Northern Ireland.</p>
+      <p class="govuk-body">Click on the 'Continue' button to enter the monetary value of your import, to help to calculate the applicable import duties.</p>
+    </div>
+  </div>
+  <%= link_to('Continue', '#', class: 'govuk-button') %>
+</main>
