@@ -45,7 +45,7 @@ module Wizard
 
       private
 
-      def next_step_for_gb_to_ni(service_choice:, commodity_code: )
+      def next_step_for_gb_to_ni(service_choice:, commodity_code:)
         return trade_remedy_path(service_choice: service_choice, commodity_code: commodity_code) if trade_defence
         return duty_path(service_choice: service_choice, commodity_code: commodity_code) if zero_mfn_duty
 
