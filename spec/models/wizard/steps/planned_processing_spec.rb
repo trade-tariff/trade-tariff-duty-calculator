@@ -16,11 +16,7 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
     it 'should contain options ' do
       options_ids = ['without_any_processing', 'annual_turnover', 'commercial_processing', 'commercial_purposes'  ]
 
-      contains_required_options = described_class::OPTIONS.map do |element|
-        if element.id
-          element.id
-        end
-      end
+      contains_required_options = described_class::OPTIONS.map(&:id)
 
       expect(contains_required_options).to eq(options_ids)
     end
