@@ -40,11 +40,11 @@ module Api
       define_singleton_method(:resource_key) { key }
     end
 
-    def self.build(service, id)
+    def self.build(service, id, query = {})
       options = OptionBuilder.new(service).call
 
       resource = "Uktt::#{name.demodulize}".constantize
-      resource = resource.new(options.merge(resource_key => id))
+      resource = resource.new(options.merge(resource_key => id, query: query))
       resource.retrieve
 
       new(resource.response)

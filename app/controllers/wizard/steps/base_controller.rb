@@ -13,10 +13,12 @@ module Wizard
       end
 
       def xi_commodity_for(geographical_area_id)
+        query = { 'filter[geographical_area_id]' => geographical_area_id }
+
         Api::Commodity.build(
           :xi,
           commodity_code,
-          geographical_area_id,
+          query,
         )
       end
 
