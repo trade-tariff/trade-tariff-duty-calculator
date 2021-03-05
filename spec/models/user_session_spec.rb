@@ -13,7 +13,7 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-            Wizard::Steps::ImportDate.id => '2025-01-01',
+          Wizard::Steps::ImportDate.id => '2025-01-01',
         }
       end
 
@@ -43,7 +43,7 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-            Wizard::Steps::ImportDestination.id => 'ni',
+          Wizard::Steps::ImportDestination.id => 'ni',
         }
       end
 
@@ -73,7 +73,7 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-            Wizard::Steps::TraderScheme.id => 'yes',
+          Wizard::Steps::TraderScheme.id => 'yes',
         }
       end
 
@@ -103,7 +103,7 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-            Wizard::Steps::FinalUse.id => 'yes',
+          Wizard::Steps::FinalUse.id => 'yes',
         }
       end
 
@@ -125,12 +125,6 @@ RSpec.describe Wizard::Steps::UserSession do
     end
   end
 
-  describe '#certificate_of_origin' do
-    it 'returns nil if the key is not on the session' do
-      expect(user_session.certificate_of_origin).to be nil
-    end
-  end
-
   describe '#planned_processing' do
     it 'returns nil if the key is not on the session' do
       expect(user_session.planned_processing).to be nil
@@ -139,7 +133,7 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-            Wizard::Steps::PlannedProcessing.id => 'yes',
+          Wizard::Steps::PlannedProcessing.id => 'yes',
         }
       end
 
@@ -169,7 +163,7 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-            Wizard::Steps::CertificateOfOrigin.id => 'yes',
+          Wizard::Steps::CertificateOfOrigin.id => 'yes',
         }
       end
 
@@ -199,7 +193,7 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-            Wizard::Steps::CountryOfOrigin.id => '1234',
+          Wizard::Steps::CountryOfOrigin.id => '1234',
         }
       end
 
@@ -224,11 +218,11 @@ RSpec.describe Wizard::Steps::UserSession do
   describe '#insurance_cost' do
     let(:session) do
       {
-          Wizard::Steps::CustomsValue.id => {
-              'monetary_value' => '12_000',
-              'shipping_cost' => '1_200',
-              'insurance_cost' => '340',
-          },
+        Wizard::Steps::CustomsValue.id => {
+          'monetary_value' => '12_000',
+          'shipping_cost' => '1_200',
+          'insurance_cost' => '340',
+        },
       }
     end
 
@@ -240,11 +234,11 @@ RSpec.describe Wizard::Steps::UserSession do
   describe '#shipping_cost' do
     let(:session) do
       {
-          Wizard::Steps::CustomsValue.id => {
-              'monetary_value' => '12_000',
-              'shipping_cost' => '1_200',
-              'insurance_cost' => '340',
-          },
+        Wizard::Steps::CustomsValue.id => {
+          'monetary_value' => '12_000',
+          'shipping_cost' => '1_200',
+          'insurance_cost' => '340',
+        },
       }
     end
 
@@ -256,11 +250,11 @@ RSpec.describe Wizard::Steps::UserSession do
   describe '#monetary_value' do
     let(:session) do
       {
-          Wizard::Steps::CustomsValue.id => {
-              'monetary_value' => '12_000',
-              'shipping_cost' => '1_200',
-              'insurance_cost' => '340',
-          },
+        Wizard::Steps::CustomsValue.id => {
+          'monetary_value' => '12_000',
+          'shipping_cost' => '1_200',
+          'insurance_cost' => '340',
+        },
       }
     end
 
@@ -272,9 +266,9 @@ RSpec.describe Wizard::Steps::UserSession do
   describe '#customs_value=' do
     let(:value) do
       {
-          'monetary_value' => '12_000',
-          'shipping_cost' => '1_200',
-          'insurance_cost' => '340',
+        'monetary_value' => '12_000',
+        'shipping_cost' => '1_200',
+        'insurance_cost' => '340',
       }
     end
 
@@ -289,8 +283,8 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when import country is GB and origin country is NI' do
       let(:session) do
         {
-            'import_destination' => 'GB',
-            'country_of_origin' => 'XI',
+          'import_destination' => 'GB',
+          'country_of_origin' => 'XI',
         }
       end
 
@@ -308,8 +302,8 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when import country is NI and origin country is a EU Member' do
       let(:session) do
         {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'RO',
+          'import_destination' => 'XI',
+          'country_of_origin' => 'RO',
         }
       end
 
@@ -327,8 +321,8 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when import country is XI and origin country is GB' do
       let(:session) do
         {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
         }
       end
 

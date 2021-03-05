@@ -16,7 +16,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-  config.example_status_persistence_file_path = "rspec.txt"
+  config.example_status_persistence_file_path = 'rspec.txt'
 
   config.before do
     stub_const('Uktt::Http', FakeUkttHttp)

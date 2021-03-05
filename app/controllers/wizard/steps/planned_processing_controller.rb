@@ -12,9 +12,9 @@ module Wizard
           @step.save
 
           redirect_to @step.next_step_path(
-              service_choice: params[:service_choice],
-              commodity_code: params[:commodity_code],
-              )
+            service_choice: params[:service_choice],
+            commodity_code: params[:commodity_code],
+          )
         else
           render 'show'
         end
@@ -24,8 +24,8 @@ module Wizard
 
       def permitted_params
         params.require(:wizard_steps_planned_processing).permit(
-            :planned_processing,
-            )
+          :planned_processing,
+        )
       end
     end
   end
