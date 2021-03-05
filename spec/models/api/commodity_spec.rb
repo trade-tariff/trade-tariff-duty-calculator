@@ -47,4 +47,16 @@ RSpec.describe Api::Commodity, type: :model do
       expect(all_are_measures).to be(true)
     end
   end
+
+  describe '#zero_mfn_duty' do
+    it 'returns false' do
+      expect(commodity.zero_mfn_duty).to be(false)
+    end
+  end
+
+  describe '#trade_defence' do
+    it 'returns true' do
+      expect(commodity.trade_defence).to be(true)
+    end
+  end
 end

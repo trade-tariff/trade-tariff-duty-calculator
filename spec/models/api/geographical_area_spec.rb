@@ -18,6 +18,12 @@ RSpec.describe Api::GeographicalArea do
     allow(Uktt::GeographicalArea).to receive(:new).and_call_original
   end
 
+  describe '#meta' do
+    it 'returns nil' do
+      expect(geographical_area.meta).to be_nil
+    end
+  end
+
   describe '#id' do
     it 'returns the name from the attributes' do
       expect(geographical_area.id).to eq('NI')

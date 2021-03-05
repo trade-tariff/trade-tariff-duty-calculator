@@ -1,7 +1,20 @@
 module Api
   class Base
-    include ActiveModel::Model
-    include ActiveModel::Attributes
+    def self.inherited(child)
+      child.include ActiveModel::Model
+      child.include ActiveModel::Attributes
+
+      child.attribute :meta
+    end
+
+    def self.meta_attribute(*attribute_path)
+      attribute_path = attribute_path.map(&:to_s)
+      method_name = attribute_path.last
+
+      define_method(method_name) do
+        meta.dig(*attribute_path)
+      end
+    end
 
     def self.attributes(*attribute_list)
       attribute_list.each do |resource_attribute|
