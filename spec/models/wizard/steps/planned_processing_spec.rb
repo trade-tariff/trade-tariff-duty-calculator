@@ -79,7 +79,7 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
       {
         'import_destination' => 'XI',
         'country_of_origin' => 'GB',
-        'trader_scheme' => '1',
+        'trader_scheme' => 'yes',
       }
     end
 
@@ -88,7 +88,7 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
         expect(
           step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
         ).to eq(
-          trader_scheme_path(service_choice: service_choice, commodity_code: commodity_code),
+          final_use_path(service_choice: service_choice, commodity_code: commodity_code),
         )
       end
     end

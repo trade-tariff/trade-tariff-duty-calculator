@@ -146,10 +146,10 @@ RSpec.describe Wizard::Steps::UserSession do
   end
 
   describe '#planned_processing=' do
-    let(:expected_response) { '1' }
+    let(:expected_response) { 'without_any_processing' }
 
-    it 'sets the key on the session' do
-      user_session.planned_processing = '1'
+    it 'sets the key for without any processing in the session' do
+      user_session.planned_processing = 'without_any_processing'
 
       expect(session[Wizard::Steps::PlannedProcessing.id]).to eq(expected_response)
     end

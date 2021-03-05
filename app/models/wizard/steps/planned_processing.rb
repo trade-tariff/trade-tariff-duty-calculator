@@ -12,9 +12,9 @@ module Wizard
         than those listed above'),
       ].freeze
 
-      STEP_ID = '7'.freeze
-
-      STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
+      STEPS_TO_REMOVE_FROM_SESSION = %w[
+        certificate_of_origin
+      ].freeze
 
       attribute :planned_processing, :string
 
@@ -33,7 +33,7 @@ module Wizard
       end
 
       def previous_step_path(service_choice:, commodity_code:)
-        trader_scheme_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.gb_to_ni_route?
+        final_use_path(service_choice: service_choice, commodity_code: commodity_code) if user_session
       end
     end
   end
