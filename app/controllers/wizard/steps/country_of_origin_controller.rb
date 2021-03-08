@@ -31,8 +31,8 @@ module Wizard
 
       def opts_for_ni_to_gb_route
         {
-          zero_mfn_duty: xi_commodity_for(answer).zero_mfn_duty,
           trade_defence: commodity.trade_defence,
+          zero_mfn_duty: xi_commodity_for(answer).zero_mfn_duty,
         }
       end
     end
