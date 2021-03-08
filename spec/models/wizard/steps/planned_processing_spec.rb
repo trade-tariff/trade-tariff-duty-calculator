@@ -12,8 +12,11 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
   end
 
   describe '#validations' do
+    let(:options_ids) {
+      %w[without_any_processing annual_turnover commercial_processing commercial_purposes]
+    }
+
     it 'contains radio button options' do
-      options_ids = %w[without_any_processing annual_turnover commercial_processing commercial_purposes]
 
       contains_required_options = described_class::OPTIONS.map(&:id)
 
@@ -35,7 +38,7 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
     context 'when planned processing answer is present' do
       let(:attributes) do
         ActionController::Parameters.new(
-          'planned_processing' => '0',
+          'planned_processing' => 'without_any_processing',
         ).permit(:planned_processing)
       end
 

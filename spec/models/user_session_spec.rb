@@ -133,11 +133,11 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::PlannedProcessing.id => 'yes',
+          Wizard::Steps::PlannedProcessing.id => 'without_any_processing',
         }
       end
 
-      let(:expected_response) { 'yes' }
+      let(:expected_response) { 'without_any_processing' }
 
       it 'returns the date from the session' do
         expect(user_session.planned_processing).to eq(expected_response)
