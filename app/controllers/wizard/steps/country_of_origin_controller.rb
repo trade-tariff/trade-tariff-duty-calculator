@@ -29,10 +29,14 @@ module Wizard
         permitted_params[:country_of_origin]
       end
 
+      def geographical_area_id_filter
+        { 'filter[geographical_area_id]' => answer }
+      end
+
       def opts_for_ni_to_gb_route
         {
           trade_defence: commodity.trade_defence,
-          zero_mfn_duty: xi_commodity_for(answer).zero_mfn_duty,
+          zero_mfn_duty: filtered_commodity(service_source: :xi, filter: geographical_area_id_filter).zero_mfn_duty,
         }
       end
     end
