@@ -57,14 +57,14 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
   describe '#save' do
     let(:attributes) do
       ActionController::Parameters.new(
-        'planned_processing' => '1',
+        'planned_processing' => 'without_any_processing',
       ).permit(:planned_processing)
     end
 
     it 'saves the planned_processing to the session' do
       step.save
 
-      expect(user_session.planned_processing).to eq('1')
+      expect(user_session.planned_processing).to eq('without_any_processing')
     end
   end
 
