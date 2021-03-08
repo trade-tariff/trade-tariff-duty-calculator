@@ -125,6 +125,36 @@ RSpec.describe Wizard::Steps::UserSession do
     end
   end
 
+  describe '#planned_processing' do
+    it 'returns nil if the key is not on the session' do
+      expect(user_session.planned_processing).to be nil
+    end
+
+    context 'when the key is present on the session' do
+      let(:session) do
+        {
+          Wizard::Steps::PlannedProcessing.id => 'without_any_processing',
+        }
+      end
+
+      let(:expected_response) { 'without_any_processing' }
+
+      it 'returns the date from the session' do
+        expect(user_session.planned_processing).to eq(expected_response)
+      end
+    end
+  end
+
+  describe '#planned_processing=' do
+    let(:expected_response) { 'without_any_processing' }
+
+    it 'sets the key for without any processing in the session' do
+      user_session.planned_processing = 'without_any_processing'
+
+      expect(session[Wizard::Steps::PlannedProcessing.id]).to eq(expected_response)
+    end
+  end
+
   describe '#certificate_of_origin' do
     it 'returns nil if the key is not on the session' do
       expect(user_session.certificate_of_origin).to be nil
