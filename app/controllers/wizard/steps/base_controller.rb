@@ -3,12 +3,20 @@ module Wizard
     class BaseController < ::ApplicationController
       default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
 
-      before_action :assign_commodity
+      helper_method :commodity
 
-      def assign_commodity
-        @commodity = Api::Commodity.build(
+      def commodity
+        @commodity ||= Api::Commodity.build(
           service_choice,
           commodity_code,
+        )
+      end
+
+      def filtered_commodity(service_source:, filter:)
+        Api::Commodity.build(
+          service_source,
+          commodity_code,
+          filter,
         )
       end
 
