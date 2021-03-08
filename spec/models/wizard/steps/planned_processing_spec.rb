@@ -12,12 +12,11 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
   end
 
   describe '#validations' do
-    let(:options_ids) {
+    let(:options_ids) do
       %w[without_any_processing annual_turnover commercial_processing commercial_purposes]
-    }
+    end
 
     it 'contains radio button options' do
-
       contains_required_options = described_class::OPTIONS.map(&:id)
 
       expect(contains_required_options).to eq(options_ids)
