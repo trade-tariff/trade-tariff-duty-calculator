@@ -17,6 +17,15 @@
         "description": "United Kingdom (Northern Ireland)",
         "geographical_area_id": "XI"
       }
+    },
+    {
+      "id": "GB",
+      "type": "geographical_area",
+      "attributes": {
+        "id": "GB",
+        "description": "United Kingdom",
+        "geographical_area_id": "GB"
+      }
     }
   ]
 }

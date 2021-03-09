@@ -24,7 +24,8 @@ module Wizard
       end
 
       def next_step_path(service_choice:, commodity_code:)
-        # To be added on the ticket that creates the next step
+        return planned_processing_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.final_use == 'yes'
+        return certificate_of_origin_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.gb_to_ni_route?
       end
 
       def previous_step_path(service_choice:, commodity_code:)

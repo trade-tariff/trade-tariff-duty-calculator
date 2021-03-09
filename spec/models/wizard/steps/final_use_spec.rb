@@ -68,8 +68,48 @@ RSpec.describe Wizard::Steps::FinalUse do
     end
   end
 
-  xdescribe '#next_step_path' do
-    it 'needs to be implemented' do
+  describe '#next_step_path' do
+    include Rails.application.routes.url_helpers
+
+    let(:service_choice) { 'uk' }
+    let(:commodity_code) { '1233455' }
+
+    context 'when on GB to NI route and final use answer is yes' do
+      let(:session) do
+        {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+          'trader_scheme' => 'yes',
+          'final_use' => 'yes',
+        }
+      end
+
+      it 'returns planned_processing_path' do
+        expect(
+          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        ).to eq(
+          planned_processing_path(service_choice: service_choice, commodity_code: commodity_code),
+        )
+      end
+    end
+
+    context 'when on GB to NI route and final use answer is no' do
+      let(:session) do
+        {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+          'trader_scheme' => 'yes',
+          'final_use' => 'no',
+        }
+      end
+
+      it 'returns certificate_of_origin_path' do
+        expect(
+          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        ).to eq(
+          certificate_of_origin_path(service_choice: service_choice, commodity_code: commodity_code),
+        )
+      end
     end
   end
 
@@ -78,15 +118,16 @@ RSpec.describe Wizard::Steps::FinalUse do
 
     let(:service_choice) { 'uk' }
     let(:commodity_code) { '1233455' }
-    let(:session) do
-      {
-        'import_destination' => 'XI',
-        'country_of_origin' => 'GB',
-        'trader_scheme' => 'yes',
-      }
-    end
 
     context 'when on GB to NI route' do
+      let(:session) do
+        {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+          'trader_scheme' => 'yes',
+        }
+      end
+
       it 'returns country_of_origin_path' do
         expect(
           step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
