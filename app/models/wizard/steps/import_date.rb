@@ -10,6 +10,7 @@ module Wizard
         trader_scheme
         final_use
         certificate_of_origin
+        planned_processing
       ].freeze
 
       attribute :import_date, :date

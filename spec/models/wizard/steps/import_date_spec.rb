@@ -27,6 +27,7 @@ RSpec.describe Wizard::Steps::ImportDate do
           trader_scheme
           final_use
           certificate_of_origin
+          planned_processing
         ],
       )
     end

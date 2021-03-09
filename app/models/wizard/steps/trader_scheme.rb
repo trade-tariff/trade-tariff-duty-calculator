@@ -10,6 +10,7 @@ module Wizard
         final_use
         certificate_of_origin
         customs_value
+        planned_processing
       ].freeze
 
       attribute :trader_scheme, :string

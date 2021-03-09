@@ -20,6 +20,7 @@ RSpec.describe Wizard::Steps::ImportDestination do
           trader_scheme
           final_use
           certificate_of_origin
+          planned_processing
         ],
       )
     end

@@ -17,6 +17,7 @@ RSpec.describe Wizard::Steps::FinalUse do
         %w[
           certificate_of_origin
           customs_value
+          planned_processing
         ],
       )
     end

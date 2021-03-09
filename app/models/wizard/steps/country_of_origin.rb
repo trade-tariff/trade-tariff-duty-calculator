@@ -6,6 +6,7 @@ module Wizard
         trader_scheme
         final_use
         certificate_of_origin
+        planned_processing
       ].freeze
 
       attr_reader :zero_mfn_duty, :trade_defence

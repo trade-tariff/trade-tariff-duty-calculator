@@ -67,8 +67,42 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
     end
   end
 
-  xdescribe '#next_step_path' do
-    it 'needs to be implemented' do
+  describe '#next_step_path' do
+    include Rails.application.routes.url_helpers
+
+    let(:service_choice) { 'uk' }
+    let(:commodity_code) { '1233455' }
+    let(:answer) { 'without_any_processing' }
+    let(:session) do
+      {
+        'import_destination' => 'XI',
+        'country_of_origin' => 'GB',
+        'trader_scheme' => 'yes',
+        'final_use' => 'yes',
+        'planned_processing' => answer,
+      }
+    end
+
+    context 'when on GB to NI route and answer is not commercial_purposes' do
+      it 'returns duty_path' do
+        expect(
+          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        ).to eq(
+          duty_path(service_choice: service_choice, commodity_code: commodity_code),
+        )
+      end
+    end
+
+    context 'when on GB to NI route and answer is commercial_purposes' do
+      let(:answer) { 'commercial_purposes' }
+
+      it 'returns duty_path' do
+        expect(
+          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        ).to eq(
+          certificate_of_origin_path(service_choice: service_choice, commodity_code: commodity_code),
+        )
+      end
     end
   end
 
