@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Final Use Page', type: :feature do
-  include_examples 'GB to NI' do
+  include_context 'GB to NI' do
     before do
       choose(option: 'yes')
 
