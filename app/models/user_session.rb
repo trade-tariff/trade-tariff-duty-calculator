@@ -80,7 +80,7 @@ class UserSession
   end
 
   def measure_amount
-    session[Wizard::Steps::MeasureAmount.id]
+    session[Wizard::Steps::MeasureAmount.id] || {}
   end
 
   def monetary_value

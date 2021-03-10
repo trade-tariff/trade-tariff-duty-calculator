@@ -5,9 +5,13 @@ module Wizard
 
       dynamic_attributes :applicable_measure_units
 
-      def next_step_path(service_choice:, commodity_code:); end
+      def next_step_path(service_choice:, commodity_code:)
+        # TODO: Build the confirm page and make that the next step
+      end
 
-      def previous_step_path(service_choice:, commodity_code:); end
+      def previous_step_path(service_choice:, commodity_code:)
+        customs_value_path(service_choice: service_choice, commodity_code: commodity_code)
+      end
     end
   end
 end

@@ -73,23 +73,13 @@ module Wizard
 
         attributes.each do |attribute|
           define_singleton_method attribute do
-            @dynamic_attributes_instance.public_send(attribute) || @user_session.dig(id, attribute)
+            @dynamic_attributes_instance.public_send(attribute) || @user_session.measure_amount[attribute]
           end
         end
       end
 
       def self.id
         name.split('::').last.underscore
-      end
-
-      protected
-
-      def next_step_path(*)
-        raise NotImplementedError
-      end
-
-      def previous_step_path(*)
-        raise NotImplementedError
       end
 
       def self.dynamic_attributes(dynamic_attribute)
@@ -107,6 +97,16 @@ module Wizard
         attribute answer_attribute
 
         after_initialize :initialize_dynamic_attributes
+      end
+
+      protected
+
+      def next_step_path(*)
+        raise NotImplementedError
+      end
+
+      def previous_step_path(*)
+        raise NotImplementedError
       end
 
       private
