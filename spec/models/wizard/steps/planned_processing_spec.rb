@@ -30,7 +30,7 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:planned_processing]).to eq(['Please select an option'])
+        expect(step.errors.messages[:planned_processing]).to eq(['Select one of the two options'])
       end
     end
 
