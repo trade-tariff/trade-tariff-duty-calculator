@@ -14,12 +14,6 @@ module Wizard
       private
 
       def measure_amount_params
-        measure_amount_answers = if params.key?(:wizard_steps_measure_amount)
-                                   params.require(:wizard_steps_measure_amount).permit(*applicable_measure_unit_keys)
-                                 else
-                                   {}
-                                 end
-
         {
           'measure_amount' => measure_amount_answers,
           'applicable_measure_units' => applicable_measure_units,
@@ -32,6 +26,12 @@ module Wizard
 
       def applicable_measure_units
         commodity.applicable_measure_units
+      end
+
+      def measure_amount_answers
+        return {} unless params.key?(:wizard_steps_measure_amount)
+
+        params.require(:wizard_steps_measure_amount).permit(*applicable_measure_unit_keys)
       end
     end
   end
