@@ -63,7 +63,7 @@ RSpec.describe Wizard::Steps::MeasureAmount do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:hlt]).to eq(["can't be blank", 'is not a number'])
+        expect(step.errors.messages[:hlt]).to eq(['Enter a valid import quantity', 'Enter a numeric import quantity'])
       end
     end
 

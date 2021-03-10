@@ -17,7 +17,7 @@
         The duties payable on this commodity are dependent on the quantity, weight or volume of goods that you are importing. Enter the units of the goods that you are importing in the boxes below.
         </p>
 
-        <% @step.applicable_measure_units.each do |key, values| %>
+        <% f.object.applicable_measure_units.each do |key, values| %>
           <%= f.govuk_text_field key.downcase, width: 'one-quarter', label: { text: values['unit_question'], class: 'govuk-label govuk-label--s' }, hint: { text: values['unit_hint'] }, suffix_text: values['unit']  %>
         <% end %>
 

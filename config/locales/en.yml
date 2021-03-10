@@ -75,7 +75,7 @@ en:
                 blank: Select one of the available options
         wizard/steps/measure_amount:
           attributes:
-            measure_amount:
+            answers:
               blank: Enter a valid import quantity
               not_a_number: Enter a numeric import quantity
               greater_than: Enter an import quantity value greater than zero

@@ -2,9 +2,7 @@ module Wizard
   module Steps
     class MeasureAmountController < BaseController
       def show
-        @step = Wizard::Steps::MeasureAmount.new(
-          user_session, measure_amount: {}, applicable_measure_units: applicable_measure_units
-        )
+        @step = Wizard::Steps::MeasureAmount.new(user_session, measure_amount_params)
       end
 
       def create
