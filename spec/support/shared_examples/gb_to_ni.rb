@@ -6,6 +6,8 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
   let(:import_from) { 'GB' }
   let(:commodity_code) { '1234567890' }
   let(:service_choice) { 'uk' }
+  let(:trade_defence) { false }
+  let(:zero_mfn_duty) { false }
 
   let(:filter) do
     {
@@ -14,10 +16,10 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
   end
 
   before do
-    allow(commodity).to receive(:trade_defence).and_return(false)
+    allow(commodity).to receive(:trade_defence).and_return(trade_defence)
     allow(commodity).to receive(:code).and_return(commodity_code)
     allow(commodity).to receive(:description).and_return(description)
-    allow(filtered_commodity).to receive(:zero_mfn_duty).and_return(false)
+    allow(filtered_commodity).to receive(:zero_mfn_duty).and_return(zero_mfn_duty)
     allow(Api::Commodity).to receive(:build).with(service_choice.to_sym, commodity_code).and_return(commodity)
     allow(Api::Commodity).to receive(:build).with(:xi, commodity_code, filter).and_return(filtered_commodity)
 
