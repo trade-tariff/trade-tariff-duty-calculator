@@ -72,4 +72,4 @@ en:
         wizard/steps/planned_processing:
             attributes:
               planned_processing:
-                blank: Please select an option
+                blank: Select one of the two options
