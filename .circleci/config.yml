@@ -45,37 +45,38 @@ commands:
             # Enable routing from this frontend to backend applications which are private
             #cf add-network-policy "$CF_APP-<< parameters.domain_prefix >>-dark" "$CF_BACKEND_APP_XI-<< parameters.domain_prefix >>" --protocol tcp --port 8080
             #cf add-network-policy "$CF_APP-<< parameters.domain_prefix >>-dark" "$CF_BACKEND_APP_UK-<< parameters.domain_prefix >>"  --protocol tcp --port 8080
-      - run:
-          name: "Verify new version is working on dark URL."
-          command: |
-            sleep 15
-            # TODO: Retry
-            # Verify new version is working on dark URL.
-            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$CF_APP-<< parameters.domain_prefix >>-dark.london.cloudapps.digital/healthcheck`
-            if [ "$HTTPCODE" -ne 200 ];then
-              echo "dark route not available, failing deploy ($HTTPCODE)"
-              exit 1
-            fi
 #      - run:
-#          name: "Switch dark app to live"
+#          name: "Verify new version is working on dark URL."
 #          command: |
-#            # Send "real" url to new version
-#            cf unmap-route "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>-dark"
-#            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>"
-#            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk
-#            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" assets-<< parameters.domain_prefix >>.trade-tariff.service.gov.uk
-#
-#            # Stop sending traffic to previous version
-#            cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>"
-#
-#            # stop previous version
-#            cf stop "$CF_APP-<< parameters.domain_prefix >>"
-#
-#            # delete previous version
-#            cf delete "$CF_APP-<< parameters.domain_prefix >>" -f
-#
-#            # Switch name of "dark" version to claim correct name
-#            cf rename "$CF_APP-<< parameters.domain_prefix >>-dark" "$CF_APP-<< parameters.domain_prefix >>"
+#            sleep 15
+#            # TODO: Retry
+#            # Verify new version is working on dark URL.
+#            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$CF_APP-<< parameters.domain_prefix >>-dark.london.cloudapps.digital/healthcheck`
+#            if [ "$HTTPCODE" -ne 200 ];then
+#              echo "dark route not available, failing deploy ($HTTPCODE)"
+#              exit 1
+#            fi
+      - run:
+          name: "Switch dark app to live"
+          command: |
+            # Send "real" url to new version
+            cf unmap-route "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>-dark"
+
+            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>"
+            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/xi/duty-calculator"
+            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/uk/duty-calculator"
+
+            # Stop sending traffic to previous version
+            #cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>"
+
+            # stop previous version
+            #cf stop "$CF_APP-<< parameters.domain_prefix >>"
+
+            # delete previous version
+            #cf delete "$CF_APP-<< parameters.domain_prefix >>" -f
+
+            # Switch name of "dark" version to claim correct name
+            #cf rename "$CF_APP-<< parameters.domain_prefix >>-dark" "$CF_APP-<< parameters.domain_prefix >>"
 #      - slack/notify:
 #          channel: deployments
 #          event: fail
