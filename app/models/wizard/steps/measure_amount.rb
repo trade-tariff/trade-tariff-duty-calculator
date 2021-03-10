@@ -11,7 +11,7 @@ module Wizard
       validates_each :answers do |record, _attr, _value|
         validation_messages = I18n.t('activemodel.errors.models.wizard/steps/measure_amount.attributes.answers')
 
-        record.applicable_measure_units.each do |key, _values|
+        record.applicable_measure_units.keys.each do |key|
           key = key.downcase
           value = record.public_send(key.downcase)
 
