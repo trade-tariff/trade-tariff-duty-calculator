@@ -21,6 +21,7 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
           trader_scheme
           final_use
           certificate_of_origin
+          planned_processing
         ],
       )
     end
