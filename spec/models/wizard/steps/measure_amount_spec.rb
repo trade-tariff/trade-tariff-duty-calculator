@@ -1,0 +1,100 @@
+require 'rails_helper'
+
+RSpec.describe Wizard::Steps::MeasureAmount do
+  subject(:step) { described_class.new(user_session, attributes) }
+
+  let(:session) { {} }
+  let(:user_session) { UserSession.new(session) }
+  let(:attributes) do
+    ActionController::Parameters.new(
+      'measure_amount' => measure_amount,
+      'applicable_measure_units' => {
+        'HLT' => {
+          'measurement_unit_code' => 'HLT',
+          'measurement_unit_qualifier_code' => '',
+          'abbreviation' => 'hl',
+          'unit_question' => 'What is the volume of the goods that you will be importing?',
+          'unit_hint' => 'Enter the value in hectolitres (100 litres)',
+          'unit' => 'x 100 litres',
+          'measure_sids' => [
+            20_002_280,
+          ],
+        },
+        'DTN' => {
+          'measurement_unit_code' => 'DTN',
+          'measurement_unit_qualifier_code' => '',
+          'abbreviation' => '100 kg',
+          'unit_question' => 'What is the weight of the goods you will be importing?',
+          'unit_hint' => 'Enter the value in decitonnes (100kg)',
+          'unit' => 'x 100 kg',
+          'measure_sids' => [
+            20_005_920,
+            20_056_507,
+            20_073_335,
+            20_076_779,
+            20_090_066,
+            20_105_690,
+            20_078_066,
+            20_102_998,
+            20_108_866,
+            20_085_014,
+          ],
+        },
+      },
+    ).permit!
+  end
+
+  let(:measure_amount) { { 'dtn' => 500.42, 'hlt' => 204.64 } }
+
+  describe 'STEPS_TO_REMOVE_FROM_SESSION' do
+    it 'returns the correct list of steps' do
+      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(%w[])
+    end
+  end
+
+  describe '#validations' do
+    context 'when one of the dynamic answers is blank' do
+      let(:measure_amount) { { 'dtn' => 500.42 } }
+
+      it 'is not a valid object' do
+        expect(step.valid?).to be false
+      end
+
+      it 'adds the correct validation error message' do
+        step.valid?
+
+        expect(step.errors.messages[:hlt]).to eq(["can't be blank", 'is not a number'])
+      end
+    end
+
+    context 'when all dynamic answers are present' do
+      let(:measure_amount) { { 'dtn' => 500.42, 'hlt' => 204.64 } }
+
+      it 'is a valid object' do
+        expect(step.valid?).to be true
+      end
+
+      it 'has no validation errors' do
+        step.valid?
+
+        expect(step.errors.messages).to be_empty
+      end
+    end
+  end
+
+  describe '#save' do
+    it 'saves the trader_scheme to the session' do
+      step.save
+
+      expect(user_session.measure_amount).to eq(measure_amount)
+    end
+  end
+
+  #   describe '#next_step_path' do
+  #     # TODO: Implement next step
+  #   end
+
+  #   describe '#previous_step_path' do
+  #     # TODO: Implement previous step
+  #   end
+end
