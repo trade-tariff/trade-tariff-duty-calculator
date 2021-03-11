@@ -15,10 +15,6 @@ module Wizard
         super(attributes)
       end
 
-      def persisted?
-        false
-      end
-
       def self.id
         name.split('::').last.underscore
       end

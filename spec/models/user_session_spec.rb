@@ -279,6 +279,28 @@ RSpec.describe Wizard::Steps::UserSession do
     end
   end
 
+  describe '#measure_amount' do
+    let(:session) do
+      {
+        Wizard::Steps::MeasureAmount.id => { foo: :bar },
+      }
+    end
+
+    it 'returns the correct value from the session' do
+      expect(user_session.measure_amount).to eq(foo: :bar)
+    end
+  end
+
+  describe '#measure_amount=' do
+    let(:value) { {} }
+
+    it 'stores the hash on the session' do
+      user_session.measure_amount = value
+
+      expect(session[Wizard::Steps::MeasureAmount.id]).to eq(value)
+    end
+  end
+
   describe '#ni_to_gb_route?' do
     context 'when import country is GB and origin country is NI' do
       let(:session) do

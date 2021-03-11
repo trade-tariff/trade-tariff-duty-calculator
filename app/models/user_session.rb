@@ -75,6 +75,14 @@ class UserSession
     }
   end
 
+  def measure_amount=(values)
+    session[Wizard::Steps::MeasureAmount.id] = values
+  end
+
+  def measure_amount
+    session[Wizard::Steps::MeasureAmount.id] || {}
+  end
+
   def monetary_value
     session[Wizard::Steps::CustomsValue.id].try(:[], 'monetary_value')
   end

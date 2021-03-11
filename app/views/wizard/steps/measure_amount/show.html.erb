@@ -1,0 +1,39 @@
+<%= link_to('Back', @step.previous_step_path(service_choice: params[:service_choice], commodity_code: params[:commodity_code]), class: "govuk-back-link") %>
+
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: measure_amount_path do |f| %>
+        <%= f.govuk_error_summary %>
+        <span class="govuk-caption-xl">Calculate import duties</span>
+
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+          <h1 class="govuk-fieldset__heading">
+            Enter import quantity
+          </h1>
+        </legend>
+
+        <p class='govuk-body'>
+        The duties payable on this commodity are dependent on the quantity, weight or volume of goods that you are importing. Enter the units of the goods that you are importing in the boxes below.
+        </p>
+
+        <% f.object.applicable_measure_units.each do |key, values| %>
+          <%= f.govuk_text_field key.downcase.to_sym, width: 'one-quarter', label: { text: values['unit_question'], class: 'govuk-label govuk-label--s' }, hint: { text: values['unit_hint'] }, suffix_text: values['unit']  %>
+        <% end %>
+
+        <%= f.govuk_submit %>
+      <% end %>
+
+      <%= render 'shared/commodity_details' %>
+
+      <div class="explore-topics-section">
+        <h2 class="govuk-heading-m govuk-!-margin-top-3">Explore the topic</h2>
+        <ul class="govuk-list">
+          <li>
+            <%= link_to('Check if you can declare goods you bring into Northern Ireland not ‘at risk’ of moving to the EU', 'https://www.gov.uk/guidance/check-if-you-can-declare-goods-you-bring-into-northern-ireland-not-at-risk-of-moving-to-the-eu', class: 'govuk-link') %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>

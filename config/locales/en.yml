@@ -73,3 +73,9 @@ en:
             attributes:
               planned_processing:
                 blank: Select one of the available options
+        wizard/steps/measure_amount:
+          attributes:
+            answers:
+              blank: Enter a valid import quantity.
+              not_a_number: Enter a numeric import quantity.
+              greater_than: Enter an import quantity value greater than zero.
