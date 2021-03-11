@@ -1,0 +1,33 @@
+<% if !@user_session.trade_defence && @user_session.zero_mfn_duty %>
+  <p class="govuk-body-m govuk-!-margin-top-5">There is no import duty to pay when importing goods into Northern Ireland from GB when the EU's third country duty is 0.00%.</p>
+<% elsif @user_session.planned_processing == 'without_any_processing' %>
+  <p class="govuk-body-m govuk-!-margin-top-5">There is <strong>no import duty to pay</strong> because:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <%= render('wizard/steps/duty/gb_to_ni/shared/no_duty_bullet_points') %>
+    <li>You <strong>do not intend to further process</strong> the goods on arrival in Northern Ireland</li>
+  </ul>
+  <%= render('wizard/steps/duty/gb_to_ni/shared/note') %>
+<% elsif @user_session.planned_processing == 'annual_turnover' %>
+  <p class="govuk-body-m govuk-!-margin-top-5">There is <strong>no import duty to pay</strong> because:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <%= render('wizard/steps/duty/gb_to_ni/shared/no_duty_bullet_points') %>
+    <li>The importer had a <strong>total annual</strong> turnover of less than <strong>£500,000</strong> in its most recent complete financial year</li>
+  </ul>
+  <%= render('wizard/steps/duty/gb_to_ni/shared/note') %>
+<% elsif @user_session.planned_processing == 'commercial_processing' %>
+  <p class="govuk-body-m govuk-!-margin-top-5">There is <strong>no import duty to pay</strong> because:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <%= render('wizard/steps/duty/gb_to_ni/shared/no_duty_bullet_points') %>
+    <li>You will be undertaking <strong>permitted commercial processing</strong> on the goods on arrival in Northern Irelandr</li>
+  </ul>
+  <%= render('wizard/steps/duty/gb_to_ni/shared/note') %>
+<% elsif @user_session.certificate_of_origin == 'yes' %>
+  <p class="govuk-body-m govuk-!-margin-top-5">There is <strong>no import duty to pay</strong> because:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>You are transporting goods from England, Scotland or Wales to Northern Ireland</li>
+    <li>You are able to take advantage of the preferential tariffs provided by the UK / EU Trade and Co-operation Agreement (TCA) and have a valid Certificate of Origin</li>
+  </ul>
+  <%= render('wizard/steps/duty/gb_to_ni/shared/note') %>
+<% end %>
+
+<%= link_to('Start again', import_date_path(service_choice: params[:service_choice], commodity_code: params[:commodity_code]), class: 'govuk-button') %>
