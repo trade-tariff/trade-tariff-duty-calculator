@@ -83,10 +83,6 @@ class UserSession
     session['zero_mfn_duty'] = value
   end
 
-  def planned_processing=(value)
-    session[Wizard::Steps::PlannedProcessing.id] = value
-  end
-
   def customs_value=(values)
     session[Wizard::Steps::CustomsValue.id] = {
       'monetary_value' => values['monetary_value'],
