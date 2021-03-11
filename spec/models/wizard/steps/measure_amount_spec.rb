@@ -77,7 +77,12 @@ RSpec.describe Wizard::Steps::MeasureAmount do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:hlt]).to eq(['Enter a valid import quantity', 'Enter a numeric import quantity'])
+        expect(step.errors.messages[:hlt]).to eq(
+          [
+            'Enter a valid import quantity. Enter the value in hectolitres (100 litres)',
+            'Enter a numeric import quantity. Enter the value in hectolitres (100 litres)',
+          ],
+        )
       end
     end
 
@@ -91,7 +96,11 @@ RSpec.describe Wizard::Steps::MeasureAmount do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:hlt]).to eq(['Enter an import quantity value greater than zero'])
+        expect(step.errors.messages[:hlt]).to eq(
+          [
+            'Enter an import quantity value greater than zero. Enter the value in hectolitres (100 litres)',
+          ],
+        )
       end
     end
 
@@ -105,7 +114,11 @@ RSpec.describe Wizard::Steps::MeasureAmount do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:hlt]).to eq(['Enter a numeric import quantity'])
+        expect(step.errors.messages[:hlt]).to eq(
+          [
+            'Enter a numeric import quantity. Enter the value in hectolitres (100 litres)',
+          ],
+        )
       end
     end
   end

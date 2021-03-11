@@ -11,17 +11,17 @@ module Wizard
       validates_each :answers do |record, _attr, _value|
         validation_messages = I18n.t('activemodel.errors.models.wizard/steps/measure_amount.attributes.answers')
 
-        record.applicable_measure_units.keys.each do |key|
+        record.applicable_measure_units.each do |key, values|
           key = key.downcase
           value = record.public_send(key.downcase)
 
-          record.errors.add(key, validation_messages[:blank]) if value.blank?
+          record.errors.add(key, "#{validation_messages[:blank]} #{values['unit_hint']}") if value.blank?
 
           value = Float(value)
 
-          record.errors.add(key, validation_messages[:greater_than]) unless value.positive?
+          record.errors.add(key, "#{validation_messages[:greater_than]} #{values['unit_hint']}") unless value.positive?
         rescue ArgumentError, TypeError
-          record.errors.add(key, validation_messages[:not_a_number])
+          record.errors.add(key, "#{validation_messages[:not_a_number]} #{values['unit_hint']}")
         end
       end
 
