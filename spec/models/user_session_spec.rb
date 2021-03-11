@@ -19,7 +19,7 @@ RSpec.describe Wizard::Steps::UserSession do
 
       let(:expected_date) { Date.parse('2025-01-01') }
 
-      it 'returns the date from the session' do
+      it 'returns the value from the session' do
         expect(user_session.import_date).to eq(expected_date)
       end
     end
@@ -49,7 +49,7 @@ RSpec.describe Wizard::Steps::UserSession do
 
       let(:expected_country) { 'ni' }
 
-      it 'returns the date from the session' do
+      it 'returns the value from the session' do
         expect(user_session.import_destination).to eq(expected_country)
       end
     end
@@ -79,7 +79,7 @@ RSpec.describe Wizard::Steps::UserSession do
 
       let(:expected_response) { 'yes' }
 
-      it 'returns the date from the session' do
+      it 'returns the value from the session' do
         expect(user_session.trader_scheme).to eq(expected_response)
       end
     end
@@ -109,7 +109,7 @@ RSpec.describe Wizard::Steps::UserSession do
 
       let(:expected_response) { 'yes' }
 
-      it 'returns the date from the session' do
+      it 'returns the value from the session' do
         expect(user_session.final_use).to eq(expected_response)
       end
     end
@@ -139,7 +139,7 @@ RSpec.describe Wizard::Steps::UserSession do
 
       let(:expected_response) { 'without_any_processing' }
 
-      it 'returns the date from the session' do
+      it 'returns the value from the session' do
         expect(user_session.planned_processing).to eq(expected_response)
       end
     end
@@ -169,7 +169,7 @@ RSpec.describe Wizard::Steps::UserSession do
 
       let(:expected_response) { 'yes' }
 
-      it 'returns the date from the session' do
+      it 'returns the value from the session' do
         expect(user_session.certificate_of_origin).to eq(expected_response)
       end
     end
@@ -199,7 +199,7 @@ RSpec.describe Wizard::Steps::UserSession do
 
       let(:expected_country) { '1234' }
 
-      it 'returns the date from the session' do
+      it 'returns the value from the session' do
         expect(user_session.country_of_origin).to eq(expected_country)
       end
     end
@@ -212,6 +212,58 @@ RSpec.describe Wizard::Steps::UserSession do
       user_session.country_of_origin = '1234'
 
       expect(session[Wizard::Steps::CountryOfOrigin.id]).to eq(expected_country)
+    end
+  end
+
+  describe '#trade_defence' do
+    it 'returns nil if the key is not on the session' do
+      expect(user_session.trade_defence).to be nil
+    end
+
+    context 'when the key is present on the session' do
+      let(:session) do
+        {
+          'trade_defence' => true,
+        }
+      end
+
+      it 'returns the value from the session' do
+        expect(user_session.trade_defence).to eq(true)
+      end
+    end
+  end
+
+  describe '#zero_mfn_duty=' do
+    it 'sets the key on the session' do
+      user_session.zero_mfn_duty = true
+
+      expect(session['zero_mfn_duty']).to eq(true)
+    end
+  end
+
+  describe '#zero_mfn_duty' do
+    it 'returns nil if the key is not on the session' do
+      expect(user_session.zero_mfn_duty).to be nil
+    end
+
+    context 'when the key is present on the session' do
+      let(:session) do
+        {
+          'zero_mfn_duty' => true,
+        }
+      end
+
+      it 'returns the value from the session' do
+        expect(user_session.zero_mfn_duty).to eq(true)
+      end
+    end
+  end
+
+  describe '#trade_defence=' do
+    it 'sets the key on the session' do
+      user_session.trade_defence = true
+
+      expect(session['trade_defence']).to eq(true)
     end
   end
 
