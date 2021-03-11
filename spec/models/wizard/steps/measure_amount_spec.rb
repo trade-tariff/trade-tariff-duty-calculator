@@ -48,7 +48,7 @@ RSpec.describe Wizard::Steps::MeasureAmount do
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
-      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(%w[])
+      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to be_empty
     end
   end
 
