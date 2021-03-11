@@ -53,7 +53,21 @@ RSpec.describe Wizard::Steps::MeasureAmount do
   end
 
   describe '#validations' do
-    context 'when one of the dynamic answers is blank' do
+    context 'when all answers are present, positive floats' do
+      let(:measure_amount) { { 'dtn' => 500.42, 'hlt' => 204.64 } }
+
+      it 'is a valid object' do
+        expect(step.valid?).to be true
+      end
+
+      it 'has no validation errors' do
+        step.valid?
+
+        expect(step.errors.messages).to be_empty
+      end
+    end
+
+    context 'when one of the answers is blank' do
       let(:measure_amount) { { 'dtn' => 500.42 } }
 
       it 'is not a valid object' do
@@ -67,23 +81,37 @@ RSpec.describe Wizard::Steps::MeasureAmount do
       end
     end
 
-    context 'when all dynamic answers are present' do
-      let(:measure_amount) { { 'dtn' => 500.42, 'hlt' => 204.64 } }
+    context 'when one of the answers is negative' do
+      let(:measure_amount) { { 'dtn' => 500.42, 'hlt' => -1.5 } }
 
-      it 'is a valid object' do
-        expect(step.valid?).to be true
+      it 'is not a valid object' do
+        expect(step).not_to be_valid
       end
 
-      it 'has no validation errors' do
+      it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages).to be_empty
+        expect(step.errors.messages[:hlt]).to eq(['Enter an import quantity value greater than zero'])
+      end
+    end
+
+    context 'when one of the answers is not a numeric' do
+      let(:measure_amount) { { 'dtn' => 500.42, 'hlt' => 'foo' } }
+
+      it 'is not a valid object' do
+        expect(step).not_to be_valid
+      end
+
+      it 'adds the correct validation error message' do
+        step.valid?
+
+        expect(step.errors.messages[:hlt]).to eq(['Enter a numeric import quantity'])
       end
     end
   end
 
   describe '#save' do
-    it 'saves the trader_scheme to the session' do
+    it 'saves the measure_amount to the session' do
       step.save
 
       expect(user_session.measure_amount).to eq(measure_amount)
@@ -105,13 +133,13 @@ RSpec.describe Wizard::Steps::MeasureAmount do
     end
   end
 
-  xdescribe '#next_step_path' do
+  describe '#next_step_path' do
     include Rails.application.routes.url_helpers
 
     let(:service_choice) { 'uk' }
     let(:commodity_code) { '1233455' }
 
-    it 'must be implemented' do
+    xit 'must be implemented' do
     end
   end
 end
