@@ -11,7 +11,7 @@
   <p class="govuk-body-m govuk-!-margin-top-5">There is <strong>no import duty to pay</strong> because:</p>
   <ul class="govuk-list govuk-list--bullet">
     <%= render('wizard/steps/duty/gb_to_ni/shared/no_duty_bullet_points') %>
-    <li>The importer had a <strong>total annual</strong> turnover of less than <strong>£500,000</strong> in its most recent complete financial year</li>
+    <li>The importer had a total <strong>annual turnover</strong> of less than <strong>£500,000</strong> in its most recent complete financial year</li>
   </ul>
   <%= render('wizard/steps/duty/gb_to_ni/shared/note') %>
 <% elsif @user_session.planned_processing == 'commercial_processing' %>
