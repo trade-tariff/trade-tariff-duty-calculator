@@ -18,7 +18,7 @@
         </p>
 
         <% f.object.applicable_measure_units.each do |key, values| %>
-          <%= f.govuk_text_field key.downcase, width: 'one-quarter', label: { text: values['unit_question'], class: 'govuk-label govuk-label--s' }, hint: { text: values['unit_hint'] }, suffix_text: values['unit']  %>
+          <%= f.govuk_text_field key.downcase.to_sym, width: 'one-quarter', label: { text: values['unit_question'], class: 'govuk-label govuk-label--s' }, hint: { text: values['unit_hint'] }, suffix_text: values['unit']  %>
         <% end %>
 
         <%= f.govuk_submit %>
