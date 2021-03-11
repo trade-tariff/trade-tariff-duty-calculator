@@ -23,14 +23,16 @@ module Wizard
       end
 
       def next_step_path(service_choice:, commodity_code:)
-        # To be added on the ticket that creates the next step
+        return duty_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.certificate_of_origin == 'yes'
+
+        customs_value_path(service_choice: service_choice, commodity_code: commodity_code)
       end
 
       def previous_step_path(service_choice:, commodity_code:)
-        if user_session.gb_to_ni_route?
-          return final_use_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.final_use == 'no'
-          return trader_scheme_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.trader_scheme == 'no'
-        end
+        return planned_processing_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.planned_processing == 'commercial_purposes'
+        return final_use_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.final_use == 'no'
+
+        trader_scheme_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.trader_scheme == 'no'
       end
     end
   end

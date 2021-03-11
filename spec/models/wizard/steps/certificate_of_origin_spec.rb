@@ -5,6 +5,8 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
 
   let(:session) { {} }
   let(:user_session) { UserSession.new(session) }
+  let(:service_choice) { 'uk' }
+  let(:commodity_code) { '1233455' }
   let(:attributes) do
     ActionController::Parameters.new(
       certificate_of_origin: '',
@@ -67,52 +69,80 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
     end
   end
 
-  xdescribe '#next_step_path' do
-    it 'needs to be implemented' do
+  describe '#next_step_path' do
+    include Rails.application.routes.url_helpers
+
+    context 'when there is a certificate of origin available' do
+      let(:session) do
+        { 'certificate_of_origin' => 'yes' }
+      end
+
+      it 'returns duty_path' do
+        expect(
+          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        ).to eq(
+          duty_path(service_choice: service_choice, commodity_code: commodity_code),
+        )
+      end
+    end
+
+    context 'when there is no certificate of origin available' do
+      let(:session) do
+        { 'certificate_of_origin' => 'no' }
+      end
+
+      it 'returns customs_value_path' do
+        expect(
+          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        ).to eq(
+          customs_value_path(service_choice: service_choice, commodity_code: commodity_code),
+        )
+      end
     end
   end
 
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
-
-    context 'when on GB to NI route' do
-      context 'when final use answer is NO' do
-        let(:session) do
-          {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
-            'final_use' => 'no',
-          }
-        end
-
-        it 'returns final_use_path' do
-          expect(
-            step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
-          ).to eq(
-            final_use_path(service_choice: service_choice, commodity_code: commodity_code),
-          )
-        end
+    context 'when final use answer is NO' do
+      let(:session) do
+        { 'final_use' => 'no' }
       end
 
-      context 'when trader scheme answer is NO' do
-        let(:session) do
-          {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
-            'trader_scheme' => 'no',
-          }
-        end
+      it 'returns final_use_path' do
+        expect(
+          step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        ).to eq(
+          final_use_path(service_choice: service_choice, commodity_code: commodity_code),
+        )
+      end
+    end
 
-        it 'returns trader_scheme_path' do
-          expect(
-            step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
-          ).to eq(
-            trader_scheme_path(service_choice: service_choice, commodity_code: commodity_code),
-          )
-        end
+    context 'when trader scheme answer is NO' do
+      let(:session) do
+        { 'trader_scheme' => 'no' }
+      end
+
+      it 'returns trader_scheme_path' do
+        expect(
+          step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        ).to eq(
+          trader_scheme_path(service_choice: service_choice, commodity_code: commodity_code),
+        )
+      end
+    end
+
+    context 'when planned processing answer is commercial_purposes' do
+      let(:session) do
+        { 'planned_processing' => 'commercial_purposes' }
+      end
+
+      it 'returns planned_processing_path' do
+        expect(
+          step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        ).to eq(
+          planned_processing_path(service_choice: service_choice, commodity_code: commodity_code),
+        )
       end
     end
   end
