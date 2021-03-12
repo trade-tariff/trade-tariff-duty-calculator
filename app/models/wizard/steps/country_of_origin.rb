@@ -28,6 +28,8 @@ module Wizard
 
       def save
         user_session.country_of_origin = country_of_origin
+        user_session.trade_defence = trade_defence
+        user_session.zero_mfn_duty = zero_mfn_duty
       end
 
       def self.options_for(service)
