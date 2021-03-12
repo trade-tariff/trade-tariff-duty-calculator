@@ -9,7 +9,6 @@ module Wizard
       STEPS_TO_REMOVE_FROM_SESSION = %w[
         final_use
         certificate_of_origin
-        customs_value
         planned_processing
       ].freeze
 

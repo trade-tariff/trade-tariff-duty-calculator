@@ -17,7 +17,6 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
     it 'returns the correct list of steps' do
       expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
         %w[
-          customs_value
           trader_scheme
           final_use
           certificate_of_origin

@@ -16,7 +16,6 @@ RSpec.describe Wizard::Steps::FinalUse do
       expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
         %w[
           certificate_of_origin
-          customs_value
           planned_processing
         ],
       )
