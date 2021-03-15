@@ -276,7 +276,7 @@ RSpec.describe Wizard::Steps::CustomsValue do
           }
         end
 
-        it 'returns trade_remedies_path' do
+        it 'returns certificate_of_origin_path' do
           expect(
             step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
           ).to eq(
