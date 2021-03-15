@@ -27,9 +27,11 @@ Rails.application.routes.draw do
     get 'measure-amount', to: 'wizard/steps/measure_amount#show'
     post 'measure-amount', to: 'wizard/steps/measure_amount#create'
 
-    get 'duty', to: 'wizard/steps/duty#show'
+    get 'confirm', to: 'wizard/steps/confirmation#show'
 
     get 'trade-remedies', to: 'pages#trade_remedies'
+
+    get 'duty', to: 'wizard/steps/duty#show'
   end
 
   get '404', to: 'errors#not_found', via: :all

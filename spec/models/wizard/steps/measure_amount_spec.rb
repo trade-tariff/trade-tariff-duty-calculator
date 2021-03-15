@@ -152,7 +152,12 @@ RSpec.describe Wizard::Steps::MeasureAmount do
     let(:service_choice) { 'uk' }
     let(:commodity_code) { '1233455' }
 
-    xit 'must be implemented' do
+    it 'returns confirm_path' do
+      expect(
+        step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+      ).to eq(
+        confirm_path(service_choice: service_choice, commodity_code: commodity_code),
+      )
     end
   end
 end
