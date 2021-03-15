@@ -48,11 +48,11 @@ module Wizard
       end
 
       def save
-        user_session.measure_amount = answers
+        user_session.measure_amount = answers if answers.present?
       end
 
       def next_step_path(service_choice:, commodity_code:)
-        # TODO: Build the confirm page and make that the next step
+        confirm_path(service_choice: service_choice, commodity_code: commodity_code)
       end
 
       def previous_step_path(service_choice:, commodity_code:)
@@ -66,6 +66,7 @@ module Wizard
       private
 
       attr_reader :user_session, :answers, :attributes
+
       def clean_user_session
         @user_session.remove_step_ids(self.class::STEPS_TO_REMOVE_FROM_SESSION)
       end
