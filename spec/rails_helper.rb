@@ -19,6 +19,8 @@ RSpec.configure do |config|
   config.example_status_persistence_file_path = 'rspec.txt'
 
   config.before do
+    Rails.application.config.http_client_uk = FakeUkttHttp.new(nil, nil, nil, nil)
+    Rails.application.config.http_client_xi = FakeUkttHttp.new(nil, nil, nil, nil)
     stub_const('Uktt::Http', FakeUkttHttp)
   end
 end

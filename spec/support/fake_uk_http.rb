@@ -1,11 +1,13 @@
 class FakeUkttHttp
-  def initialize(host = nil, version = nil, debug = false, conn = nil); end
+  def initialize(connection, service, version, format); end
 
-  def retrieve(resource, _format = 'jsonapi')
+  def self.build(host, version, format); end
+
+  def retrieve(resource, _query_config = {})
     json = case resource
            when %r{^commodities/\d{10}.json$} then read('commodity.json')
-           when %r{^geographical_areas$} then read('geographical_areas.json')
-           when %r{^geographical_areas/countries$} then read('countries.json')
+           when %r{^geographical_areas.json$} then read('geographical_areas.json')
+           when %r{^geographical_areas/countries.json$} then read('countries.json')
            else
              raise "Missing fixture. You will want to add a new fixture for resource #{resource}"
            end

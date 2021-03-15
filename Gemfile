@@ -29,7 +29,7 @@ gem 'logstash-event'
 gem 'govuk_design_system_formbuilder'
 
 # API client for the trade tariff api
-gem 'uktt', '~> 0.6.0', git: 'https://github.com/trade-tariff/uktt.git'
+gem 'uktt', '~> 1.2.0', git: 'https://github.com/trade-tariff/uktt.git', ref: 'construct_interface'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

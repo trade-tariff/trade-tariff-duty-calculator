@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe OptionBuilder do
+RSpec.describe ClientBuilder do
   subject(:builder) { described_class.new(service) }
 
   let(:api_options) do
@@ -12,15 +12,20 @@ RSpec.describe OptionBuilder do
   end
 
   describe '#call' do
+    before do
+      allow(Uktt::Http).to receive(:build)
+    end
+
     context 'when the service is uk' do
       let(:service) { :uk }
 
-      it 'returns the correct service configuration' do
-        expect(builder.call).to include(
-          host: 'http://uk.localhost:3018',
-          version: 'v2',
-          debug: false,
-          format: 'jsonapi',
+      it 'passes the correct configuration' do
+        builder.call
+
+        expect(Uktt::Http).to have_received(:build).with(
+          'http://uk.localhost:3018',
+          'v2',
+          'jsonapi',
         )
       end
     end
@@ -28,12 +33,13 @@ RSpec.describe OptionBuilder do
     context 'when the service is xi' do
       let(:service) { :xi }
 
-      it 'returns the correct service configuration' do
-        expect(builder.call).to include(
-          host: 'http://xi.localhost:3019',
-          version: 'v2',
-          debug: false,
-          format: 'jsonapi',
+      it 'passes the correct configuration' do
+        builder.call
+
+        expect(Uktt::Http).to have_received(:build).with(
+          'http://xi.localhost:3019',
+          'v2',
+          'jsonapi',
         )
       end
     end

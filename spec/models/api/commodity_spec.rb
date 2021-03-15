@@ -10,12 +10,6 @@ RSpec.describe Api::Commodity, type: :model do
     allow(Uktt::Commodity).to receive(:new).and_call_original
   end
 
-  describe '.resource_key' do
-    it 'returns the correct resource key' do
-      expect(described_class.resource_key).to eq(:commodity_id)
-    end
-  end
-
   describe '#description' do
     it 'returns the expected description' do
       expect(commodity.description).to eq('Cherry Tomatoes')
