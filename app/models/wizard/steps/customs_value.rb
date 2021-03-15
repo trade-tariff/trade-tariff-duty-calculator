@@ -33,11 +33,19 @@ module Wizard
       end
 
       def next_step_path(service_choice:, commodity_code:)
-        # To be added on the ticket that creates the next step
+        measure_amount_path(service_choice: service_choice, commodity_code: commodity_code)
       end
 
       def previous_step_path(service_choice:, commodity_code:)
-        country_of_origin_path(service_choice: service_choice, commodity_code: commodity_code)
+        return previous_step_for_gb_to_ni(service_choice: service_choice, commodity_code: commodity_code) if user_session.gb_to_ni_route?
+      end
+
+      private
+
+      def previous_step_for_gb_to_ni(service_choice:, commodity_code:)
+        return trade_remedies_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.trade_defence
+
+        certificate_of_origin_path(service_choice: service_choice, commodity_code: commodity_code)
       end
     end
   end

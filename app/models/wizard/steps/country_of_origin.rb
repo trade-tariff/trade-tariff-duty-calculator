@@ -2,7 +2,6 @@ module Wizard
   module Steps
     class CountryOfOrigin < Wizard::Steps::Base
       STEPS_TO_REMOVE_FROM_SESSION = %w[
-        customs_value
         trader_scheme
         final_use
         certificate_of_origin

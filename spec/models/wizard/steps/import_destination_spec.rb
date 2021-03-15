@@ -16,7 +16,6 @@ RSpec.describe Wizard::Steps::ImportDestination do
       expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
         %w[
           country_of_origin
-          customs_value
           trader_scheme
           final_use
           certificate_of_origin
