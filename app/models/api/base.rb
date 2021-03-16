@@ -48,13 +48,15 @@ module Api
     end
 
     def self.build_collection(service, klass_override = nil, query = {})
+      client = http_client_for(service)
+
       resource = if klass_override.present?
                    "Uktt::#{klass_override.demodulize}".constantize
                  else
                    "Uktt::#{name.demodulize}".constantize
                  end
 
-      resource = resource.new(http_client_for(service))
+      resource = resource.new(client)
 
       resource.retrieve_all(query)
 
