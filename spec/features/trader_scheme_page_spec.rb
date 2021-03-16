@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Trader Scheme Page', type: :feature do
   include_context 'GB to NI' do
     it 'does not store an empty answer on the session' do

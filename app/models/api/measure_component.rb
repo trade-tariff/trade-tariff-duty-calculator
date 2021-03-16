@@ -1,5 +1,5 @@
 module Api
-  class MeasureComponent < Base
+  class MeasureComponent < Api::Base
     attributes :duty_expression_id,
                :duty_amount,
                :monetary_unit_code,

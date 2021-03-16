@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Wizard::Steps::TraderScheme do
   subject(:step) { described_class.new(user_session, attributes) }
 

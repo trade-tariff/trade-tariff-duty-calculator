@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Measure Amount Page', type: :feature do
   include_context 'GB to NI' do
     let(:attributes) do

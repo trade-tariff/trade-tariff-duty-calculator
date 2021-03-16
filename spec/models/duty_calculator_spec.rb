@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe DutyCalculator do
   subject(:calculator) { described_class.new(user_session) }
 

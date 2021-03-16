@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Api::GeographicalArea do
   subject(:geographical_area) do
     described_class.new(
@@ -9,14 +7,19 @@ RSpec.describe Api::GeographicalArea do
     )
   end
 
-  let(:service) { :uk }
-  let(:id) { 'NI' }
-  let(:geographical_area_id) { 'NI' }
   let(:description) { 'Nicaragua' }
+  let(:geographical_area_id) { 'NI' }
+  let(:id) { 'NI' }
+  let(:service) { :uk }
 
   before do
     allow(Uktt::GeographicalArea).to receive(:new).and_call_original
   end
+
+  it_behaves_like 'a resource that has attributes', id: 'RO',
+                                                    geographical_area_id: 'RO',
+                                                    description: 'Romania',
+                                                    children_geographical_areas: []
 
   describe '#meta' do
     it 'returns nil' do

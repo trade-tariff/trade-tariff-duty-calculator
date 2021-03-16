@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Trade Remedies Page', type: :feature do
   include_context 'GB to NI' do
     let(:trade_defence) { true }

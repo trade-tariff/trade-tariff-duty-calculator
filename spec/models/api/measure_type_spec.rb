@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Api::MeasureType do
   subject(:measure_type) do
     described_class.new(
@@ -14,6 +12,11 @@ RSpec.describe Api::MeasureType do
   let(:national) { true }
   let(:measure_type_series_id) { 'C' }
   let(:id) { '142' }
+
+  it_behaves_like 'a resource that has attributes', description: 'Phytosanitary Certificate (import)',
+                                                    national: nil,
+                                                    measure_type_series_id: 'B',
+                                                    id: '360'
 
   describe '#applicable_duty?' do
     context 'when set measure_type_series_id is C' do

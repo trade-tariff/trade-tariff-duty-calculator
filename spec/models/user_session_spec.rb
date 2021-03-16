@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Wizard::Steps::UserSession do
   subject(:user_session) { described_class.new(session) }
 

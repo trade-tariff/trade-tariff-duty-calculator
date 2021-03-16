@@ -1,5 +1,5 @@
 module Api
-  class MeasureCondition < Base
+  class MeasureCondition < Api::Base
     attributes :condition_code,
                :condition,
                :document_code,

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Customs Value Page', type: :feature do
   include_context 'GB to NI' do
     before do
