@@ -292,7 +292,6 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
-  byebug
   canonical-rails
   capybara (~> 3.35)
   dotenv-rails
