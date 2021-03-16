@@ -19,8 +19,4 @@ class ClientBuilder
   def host
     Rails.application.config.api_options[@service]
   end
-
-  def debug?
-    Rails.logger.debug?
-  end
 end
