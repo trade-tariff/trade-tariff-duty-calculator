@@ -16,9 +16,7 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
       expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
-        %w[
-          customs_value
-        ],
+        %w[],
       )
     end
   end
@@ -74,7 +72,11 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
 
     context 'when there is a certificate of origin available' do
       let(:session) do
-        { 'certificate_of_origin' => 'yes' }
+        {
+          'answers' => {
+            'certificate_of_origin' => 'yes',
+          },
+        }
       end
 
       it 'returns duty_path' do
@@ -88,7 +90,11 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
 
     context 'when there is no certificate of origin available' do
       let(:session) do
-        { 'certificate_of_origin' => 'no' }
+        {
+          'answers' => {
+            'certificate_of_origin' => 'no',
+          },
+        }
       end
 
       it 'returns customs_value_path' do
@@ -106,7 +112,11 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
 
     context 'when final use answer is NO' do
       let(:session) do
-        { 'final_use' => 'no' }
+        {
+          'answers' => {
+            'final_use' => 'no',
+          },
+        }
       end
 
       it 'returns final_use_path' do
@@ -120,7 +130,11 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
 
     context 'when trader scheme answer is NO' do
       let(:session) do
-        { 'trader_scheme' => 'no' }
+        {
+          'answers' => {
+            'trader_scheme' => 'no',
+          },
+        }
       end
 
       it 'returns trader_scheme_path' do
@@ -134,7 +148,11 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
 
     context 'when planned processing answer is commercial_purposes' do
       let(:session) do
-        { 'planned_processing' => 'commercial_purposes' }
+        {
+          'answers' => {
+            'planned_processing' => 'commercial_purposes',
+          },
+        }
       end
 
       it 'returns planned_processing_path' do

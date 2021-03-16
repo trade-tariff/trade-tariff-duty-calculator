@@ -77,9 +77,11 @@ RSpec.describe Wizard::Steps::TraderScheme do
     let(:answer) { 'yes' }
     let(:session) do
       {
-        'import_destination' => 'XI',
-        'country_of_origin' => 'GB',
-        'trader_scheme' => answer,
+        'answers' => {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+          'trader_scheme' => answer,
+        },
       }
     end
 
@@ -113,8 +115,10 @@ RSpec.describe Wizard::Steps::TraderScheme do
     let(:commodity_code) { '1233455' }
     let(:session) do
       {
-        'import_destination' => 'XI',
-        'country_of_origin' => 'GB',
+        'answers' => {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+        },
       }
     end
 

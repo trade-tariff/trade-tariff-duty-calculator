@@ -9,8 +9,10 @@ RSpec.describe DutyCalculator do
     context 'when importing from NI to GB' do
       let(:session) do
         {
-          'import_destination' => 'GB',
-          'country_of_origin' => 'XI',
+          'answers' => {
+            'import_destination' => 'GB',
+            'country_of_origin' => 'XI',
+          },
         }
       end
 
@@ -22,8 +24,10 @@ RSpec.describe DutyCalculator do
     context 'when importing from an EU country to NI' do
       let(:session) do
         {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'RO',
+          'answers' => {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'RO',
+          },
         }
       end
 
@@ -36,8 +40,10 @@ RSpec.describe DutyCalculator do
       context 'when there is no trade defence but a zero_mfn_duty' do
         let(:session) do
           {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
+            'answers' => {
+              'import_destination' => 'XI',
+              'country_of_origin' => 'GB',
+            },
             'trade_defence' => false,
             'zero_mfn_duty' => true,
           }
@@ -51,9 +57,11 @@ RSpec.describe DutyCalculator do
       context 'when there is a specific processing method' do
         let(:session) do
           {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
-            'planned_processing' => 'commercial_processing',
+            'answers' => {
+              'import_destination' => 'XI',
+              'country_of_origin' => 'GB',
+              'planned_processing' => 'commercial_processing',
+            },
           }
         end
 
@@ -65,9 +73,11 @@ RSpec.describe DutyCalculator do
       context 'when there is a certificate of origin' do
         let(:session) do
           {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
-            'certificate_of_origin' => 'yes',
+            'answers' => {
+              'import_destination' => 'XI',
+              'country_of_origin' => 'GB',
+              'certificate_of_origin' => 'yes',
+            },
           }
         end
 

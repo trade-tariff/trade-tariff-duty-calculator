@@ -11,7 +11,7 @@ RSpec.describe 'Final Use Page', type: :feature do
     it 'does not store an empty answer on the session' do
       click_on('Continue')
 
-      expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::FinalUse.id)).to be false
+      expect(Capybara.current_session.driver.request.session['answers'].key?(Wizard::Steps::FinalUse.id)).to be false
     end
 
     it 'does store the answer on the session' do
@@ -19,7 +19,7 @@ RSpec.describe 'Final Use Page', type: :feature do
 
       click_on('Continue')
 
-      expect(Capybara.current_session.driver.request.session[Wizard::Steps::FinalUse.id]).to eq('yes')
+      expect(Capybara.current_session.driver.request.session['answers'][Wizard::Steps::FinalUse.id]).to eq('yes')
     end
 
     it 'loses its session key when going back to the previous question' do
@@ -30,7 +30,7 @@ RSpec.describe 'Final Use Page', type: :feature do
       click_on('Back')
       click_on('Back')
 
-      expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::FinalUse.id)).to be false
+      expect(Capybara.current_session.driver.request.session['answers'].key?(Wizard::Steps::FinalUse.id)).to be false
     end
 
     context 'when importing from GB to NI, with no trade trade defence and non zero duty' do

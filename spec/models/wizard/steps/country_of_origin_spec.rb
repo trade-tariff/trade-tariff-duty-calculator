@@ -115,8 +115,10 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
     context 'when on NI to GB route' do
       let(:session) do
         {
-          'import_destination' => 'GB',
-          'country_of_origin' => 'XI',
+          'answers' => {
+            'import_destination' => 'GB',
+            'country_of_origin' => 'XI',
+          },
         }
       end
 
@@ -138,8 +140,10 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
 
       let(:session) do
         {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'GB',
+          'answers' => {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'GB',
+          },
         }
       end
 
@@ -162,8 +166,10 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
 
       let(:session) do
         {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'GB',
+          'answers' => {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'GB',
+          },
         }
       end
 
@@ -186,8 +192,10 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
 
       let(:session) do
         {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'GB',
+          'answers' => {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'GB',
+          },
         }
       end
 

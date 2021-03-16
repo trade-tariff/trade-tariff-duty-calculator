@@ -30,6 +30,16 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  confirmation_page:
+    import_date: Date of import
+    import_destination: Destination
+    country_of_origin: Country of dispatch
+    trader_scheme: Trader scheme
+    final_use: Final use
+    planned_processing: Processing
+    certificate_of_origin: Certificate of origin
+    customs_value: Customs value
+    measure_amount: Import quantity
   activemodel:
     errors:
       models:

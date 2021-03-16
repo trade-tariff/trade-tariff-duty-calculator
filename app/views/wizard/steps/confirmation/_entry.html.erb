@@ -1,0 +1,7 @@
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key"><%= entry[:label] %></dt>
+  <dd class="govuk-summary-list__value"><%= entry[:value] %></dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to('Change', @step.path_for(key: entry[:key], commodity_code: params[:commodity_code], service_choice: params[:service_choice]), class: 'govuk-link') %>
+  </dd>
+</div>

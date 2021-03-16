@@ -77,10 +77,12 @@ RSpec.describe Wizard::Steps::FinalUse do
     context 'when on GB to NI route and final use answer is yes' do
       let(:session) do
         {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'GB',
-          'trader_scheme' => 'yes',
-          'final_use' => 'yes',
+          'answers' => {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'GB',
+            'trader_scheme' => 'yes',
+            'final_use' => 'yes',
+          },
         }
       end
 
@@ -96,10 +98,12 @@ RSpec.describe Wizard::Steps::FinalUse do
     context 'when on GB to NI route and final use answer is no' do
       let(:session) do
         {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'GB',
-          'trader_scheme' => 'yes',
-          'final_use' => 'no',
+          'answers' => {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'GB',
+            'trader_scheme' => 'yes',
+            'final_use' => 'no',
+          },
         }
       end
 
@@ -122,9 +126,11 @@ RSpec.describe Wizard::Steps::FinalUse do
     context 'when on GB to NI route' do
       let(:session) do
         {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'GB',
-          'trader_scheme' => 'yes',
+          'answers' => {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'GB',
+            'trader_scheme' => 'yes',
+          },
         }
       end
 
