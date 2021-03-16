@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Wizard::Steps::MeasureAmount do
   subject(:step) { described_class.new(user_session, attributes) }
 

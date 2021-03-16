@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe ServiceHelper do
   before do
     allow(Rails.configuration).to receive(:trade_tariff_frontend_url).and_return(frontend_url)

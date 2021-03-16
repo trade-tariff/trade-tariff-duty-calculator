@@ -23,9 +23,7 @@ module Api
                :section,
                :chapter,
                :heading,
-               :ancestors,
-               :import_measures,
-               :export_measures
+               :ancestors
 
     def description
       super.html_safe
