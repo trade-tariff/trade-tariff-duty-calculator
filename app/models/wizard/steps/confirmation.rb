@@ -14,6 +14,14 @@ module Wizard
         measure_amount
       ].freeze
 
+      attr_reader :commodity
+
+      def initialize(user_session, commodity = nil)
+        super(user_session)
+
+        @commodity = commodity
+      end
+
       def user_answers
         ORDERED_STEPS.each_with_object([]) do |(k, _v), acc|
           next if user_session.session['answers'][k].blank?
@@ -53,6 +61,12 @@ module Wizard
 
         return Date.parse(value).strftime('%d %B %Y') if key == 'import_date'
         return "£#{value.values.map(&:to_f).reduce(:+)}" if key == 'customs_value'
+
+        if key == 'measure_amount'
+          return value.map { |k, v|
+            "#{v} #{commodity.applicable_measure_units[k.upcase]['unit']}"
+          }.join('<br>').html_safe
+        end
 
         value
       end

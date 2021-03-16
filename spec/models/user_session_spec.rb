@@ -13,7 +13,7 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          'answers' => { 
+          'answers' => {
             Wizard::Steps::ImportDate.id => '2025-01-01',
           },
         }
@@ -284,7 +284,7 @@ RSpec.describe Wizard::Steps::UserSession do
   describe '#insurance_cost' do
     let(:session) do
       {
-        'answers' => { 
+        'answers' => {
           Wizard::Steps::CustomsValue.id => {
             'monetary_value' => '12_000',
             'shipping_cost' => '1_200',
