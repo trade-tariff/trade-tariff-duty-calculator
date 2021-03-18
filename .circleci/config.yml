@@ -38,12 +38,8 @@ commands:
             # Map dark route
             cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>-dark"
 
-            # Attach precreated autoscaling policy
-            # cf attach-autoscaling-policy "$CF_APP-<< parameters.domain_prefix >>-dark" config/autoscaling/<< parameters.space >>-policy.json
-
             # Enable routing from this frontend to backend applications which are private
-            #cf add-network-policy "$CF_APP-<< parameters.domain_prefix >>-dark" "$CF_BACKEND_APP_XI-<< parameters.domain_prefix >>" --protocol tcp --port 8080
-            #cf add-network-policy "$CF_APP-<< parameters.domain_prefix >>-dark" "$CF_BACKEND_APP_UK-<< parameters.domain_prefix >>"  --protocol tcp --port 8080
+            cf add-network-policy "$CF_APP-<< parameters.domain_prefix >>-dark" "$CF_BACKEND_APP_XI-<< parameters.domain_prefix >>" --protocol tcp --port 8080
 #      - run:
 #          name: "Verify new version is working on dark URL."
 #          command: |
