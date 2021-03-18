@@ -5,7 +5,6 @@ orbs:
   node: circleci/node@2
   cloudfoundry: circleci/cloudfoundry@1.0
 
-
 commands:
   cf_deploy:
     parameters:
