@@ -4,17 +4,88 @@ orbs:
   ruby: circleci/ruby@1.1.2
   node: circleci/node@2
   cloudfoundry: circleci/cloudfoundry@1.0
+  slack: circleci/slack@4.3.0
 
-jobs:
-  build:
-    docker:
-      - image: cimg/ruby:2.7-node
+commands:
+  cf_deploy:
+    parameters:
+      space:
+        type: string
+      domain_prefix:
+        type: string
     steps:
       - checkout
-      - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
-          cache-key: "yarn.lock"
+      - run:
+          name: "Setup CF CLI"
+          command: |
+            curl -L -o cf.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=7.2.0&source=github-rel'
+            sudo dpkg -i cf.deb
+            cf -v
+            cf api "$CF_ENDPOINT"
+            cf auth "$CF_USER" "$CF_PASSWORD"
+            cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
+            cf install-plugin app-autoscaler-plugin -r CF-Community -f
+            cf target -o "$CF_ORG" -s "<< parameters.space >>"
+      - run:
+          name: "Fetch existing manifest"
+          command: |
+            cf create-app-manifest "$CF_APP-<< parameters.domain_prefix >>" -p deploy_manifest.yml
+      - run:
+          name: "Push new app in dark mode"
+          command: |
+            # Push as "dark" instance
+            cf push "$CF_APP-<< parameters.domain_prefix >>-dark" -f deploy_manifest.yml --no-route
+
+            # Map dark route
+            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>-dark"
+      - run:
+          name: "Verify new version is working on dark URL."
+          command: |
+            sleep 15
+            # Verify new version is working on dark URL.
+            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$CF_APP-<< parameters.domain_prefix >>-dark.london.cloudapps.digital/ping`
+
+            if [ "$HTTPCODE" -ne 200 ];then
+              echo "dark route not available, failing deploy ($HTTPCODE)"
+              exit 1
+            fi
+      - run:
+          name: "Switch dark app to live"
+          command: |
+            # Send "real" url to new version
+            cf unmap-route "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>-dark"
+
+            # Start sending traffic to new version
+            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>"
+            # TODO: Update when we remove referring service from the path
+            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/xi/duty-calculator"
+            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/uk/duty-calculator"
+
+            # Stop sending traffic to previous version
+            cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>"
+            cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/xi/duty-calculator" 
+            cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/uk/duty-calculator"
+
+            # stop previous version
+            cf stop "$CF_APP-<< parameters.domain_prefix >>"
+
+            # delete previous version
+            cf delete "$CF_APP-<< parameters.domain_prefix >>" -f
+
+            # Switch name of "dark" version to claim correct name
+            cf rename "$CF_APP-<< parameters.domain_prefix >>-dark" "$CF_APP-<< parameters.domain_prefix >>"
+      - slack/notify:
+          channel: deployments
+          event: fail
+          template: basic_fail_1
+      - slack/notify:
+          channel: deployments
+          event: pass
+          template: basic_success_1
+
+
+
+jobs:
   checking:
     docker:
       - image: 'cimg/ruby:2.7-node'
@@ -39,21 +110,36 @@ jobs:
           pkg-manager: yarn
           cache-key: "yarn.lock"
       - ruby/rspec-test
+      - store_artifacts:
+          path: coverage
+      - slack/notify:
+          channel: deployments
+          event: fail
+          template: basic_fail_1
+  deploy_dev:
+    docker:
+      - image: cimg/ruby:2.7
+    steps:
+      - cf_deploy:
+          space: "development"
+          domain_prefix: "dev"
 
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
       - checking
       - test:
-          requires:
-            - build
-      - cloudfoundry/push:
-          requires:
+          context: trade-tariff
+          filters:
+            branches:
+              ignore:
+                - master
+      - deploy_dev:
+          context: trade-tariff
+          filters:
+            branches:
+              ignore:
+                - master
+          requires: 
             - test
-          appname: tariff-duty-calculator-dev
-          endpoint: api.london.cloud.service.gov.uk
-          org: trade-tariff
-          space: development
-          manifest: manifest.yml
