@@ -4,6 +4,7 @@ orbs:
   ruby: circleci/ruby@1.1.2
   node: circleci/node@2
   cloudfoundry: circleci/cloudfoundry@1.0
+  slack: circleci/slack@4.3.0
 
 commands:
   cf_deploy:
