@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe ConfirmationDecorator do
   subject(:confirmation_decorator) { described_class.new(confirmation_step, commodity) }
 
