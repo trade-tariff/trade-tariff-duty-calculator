@@ -38,9 +38,6 @@ commands:
 
             # Map dark route
             cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>-dark"
-
-            # Enable routing from this frontend to backend applications which are private
-            cf add-network-policy "$CF_APP-<< parameters.domain_prefix >>-dark" "$CF_BACKEND_APP_XI-<< parameters.domain_prefix >>" --protocol tcp --port 8080
       - run:
           name: "Verify new version is working on dark URL."
           command: |
@@ -58,18 +55,22 @@ commands:
             # Send "real" url to new version
             cf unmap-route "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>-dark"
 
+            # Start sending traffic to new version
             cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>"
+            # TODO: Update when we remove referring service from the path
             cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/xi/duty-calculator"
             cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/uk/duty-calculator"
 
             # Stop sending traffic to previous version
-            #cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>"
+            cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>"
+            cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/xi/duty-calculator" 
+            cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/uk/duty-calculator"
 
             # stop previous version
-            #cf stop "$CF_APP-<< parameters.domain_prefix >>"
+            cf stop "$CF_APP-<< parameters.domain_prefix >>"
 
             # delete previous version
-            #cf delete "$CF_APP-<< parameters.domain_prefix >>" -f
+            cf delete "$CF_APP-<< parameters.domain_prefix >>" -f
 
             # Switch name of "dark" version to claim correct name
             cf rename "$CF_APP-<< parameters.domain_prefix >>-dark" "$CF_APP-<< parameters.domain_prefix >>"
