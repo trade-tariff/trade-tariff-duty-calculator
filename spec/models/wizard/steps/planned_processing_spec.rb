@@ -75,11 +75,13 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
     let(:answer) { 'without_any_processing' }
     let(:session) do
       {
-        'import_destination' => 'XI',
-        'country_of_origin' => 'GB',
-        'trader_scheme' => 'yes',
-        'final_use' => 'yes',
-        'planned_processing' => answer,
+        'answers' => {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+          'trader_scheme' => 'yes',
+          'final_use' => 'yes',
+          'planned_processing' => answer,
+        },
       }
     end
 
@@ -113,9 +115,11 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
     let(:commodity_code) { '1233455' }
     let(:session) do
       {
-        'import_destination' => 'XI',
-        'country_of_origin' => 'GB',
-        'trader_scheme' => 'yes',
+        'answers' => {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+          'trader_scheme' => 'yes',
+        },
       }
     end
 

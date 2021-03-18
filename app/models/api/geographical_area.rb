@@ -31,5 +31,9 @@ module Api
     def self.eu_member?(geographical_area_id)
       european_union_members.map(&:geographical_area_id).include?(geographical_area_id)
     end
+
+    def self.find(id, service = :uk)
+      build_collection(service).find { |geographical_area| geographical_area.id == id }
+    end
   end
 end
