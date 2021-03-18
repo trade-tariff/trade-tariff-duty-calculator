@@ -2,7 +2,6 @@ module Wizard
   module Steps
     class CountryOfOrigin < Wizard::Steps::Base
       STEPS_TO_REMOVE_FROM_SESSION = %w[
-        customs_value
         trader_scheme
         final_use
         certificate_of_origin
@@ -28,6 +27,8 @@ module Wizard
 
       def save
         user_session.country_of_origin = country_of_origin
+        user_session.trade_defence = trade_defence
+        user_session.zero_mfn_duty = zero_mfn_duty
       end
 
       def self.options_for(service)

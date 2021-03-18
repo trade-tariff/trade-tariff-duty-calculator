@@ -6,7 +6,6 @@ module Wizard
       STEPS_TO_REMOVE_FROM_SESSION = %w[
         import_destination
         country_of_origin
-        customs_value
         trader_scheme
         final_use
         certificate_of_origin

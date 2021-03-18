@@ -248,22 +248,57 @@ RSpec.describe Wizard::Steps::CustomsValue do
     let(:service_choice) { 'uk' }
     let(:commodity_code) { '1233455' }
 
-    it 'returns country_of_origin_path' do
-      expect(
-        step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
-      ).to eq(
-        country_of_origin_path(service_choice: service_choice, commodity_code: commodity_code),
-      )
+    context 'when on GB to NI route' do
+      before do
+        allow(user_session).to receive(:gb_to_ni_route?).and_return(true)
+      end
+
+      context 'when there is a trade defence' do
+        let(:session) do
+          {
+            'trade_defence' => true,
+          }
+        end
+
+        it 'returns trade_remedies_path' do
+          expect(
+            step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          ).to eq(
+            trade_remedies_path(service_choice: service_choice, commodity_code: commodity_code),
+          )
+        end
+      end
+
+      context 'when there is no trade defence, and the certificate of origin answer is NO' do
+        let(:session) do
+          {
+            'certificate_of_origin' => 'no',
+          }
+        end
+
+        it 'returns certificate_of_origin_path' do
+          expect(
+            step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          ).to eq(
+            certificate_of_origin_path(service_choice: service_choice, commodity_code: commodity_code),
+          )
+        end
+      end
     end
   end
 
-  xdescribe '#next_step_path' do
+  describe '#next_step_path' do
     include Rails.application.routes.url_helpers
 
     let(:service_choice) { 'uk' }
     let(:commodity_code) { '1233455' }
 
-    it 'must be implemented' do
+    it 'returns measure_amount_path' do
+      expect(
+        step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+      ).to eq(
+        measure_amount_path(service_choice: service_choice, commodity_code: commodity_code),
+      )
     end
   end
 end

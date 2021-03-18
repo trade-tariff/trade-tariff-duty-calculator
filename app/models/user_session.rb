@@ -67,12 +67,36 @@ class UserSession
     session[Wizard::Steps::PlannedProcessing.id] = value
   end
 
+  def trade_defence
+    session['trade_defence']
+  end
+
+  def trade_defence=(value)
+    session['trade_defence'] = value
+  end
+
+  def zero_mfn_duty
+    session['zero_mfn_duty']
+  end
+
+  def zero_mfn_duty=(value)
+    session['zero_mfn_duty'] = value
+  end
+
   def customs_value=(values)
     session[Wizard::Steps::CustomsValue.id] = {
       'monetary_value' => values['monetary_value'],
       'shipping_cost' => values['shipping_cost'],
       'insurance_cost' => values['insurance_cost'],
     }
+  end
+
+  def measure_amount=(values)
+    session[Wizard::Steps::MeasureAmount.id] = values
+  end
+
+  def measure_amount
+    session[Wizard::Steps::MeasureAmount.id] || {}
   end
 
   def monetary_value

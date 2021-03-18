@@ -3,9 +3,11 @@ require 'rails_helper'
 RSpec.describe 'Planned Processing Page', type: :feature do
   include_context 'GB to NI' do
     before do
+      # trader scheme question
       choose(option: 'yes')
       click_on('Continue')
 
+      # final use question
       choose(option: 'yes')
       click_on('Continue')
     end

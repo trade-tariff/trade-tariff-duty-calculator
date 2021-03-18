@@ -59,4 +59,35 @@ RSpec.describe Api::Commodity, type: :model do
       expect(commodity.trade_defence).to be(true)
     end
   end
+
+  describe '#applicable_measure_units' do
+    let(:expected_units) do
+      {
+        'DTN' => {
+          'measurement_unit_code' => 'DTN',
+          'measurement_unit_qualifier_code' => '',
+          'abbreviation' => '100 kg',
+          'unit_question' => 'What is the weight of the goods you will be importing?',
+          'unit_hint' => 'Enter the value in decitonnes (100kg)',
+          'unit' => 'x 100 kg',
+          'measure_sids' => [
+            20_005_920,
+            20_056_507,
+            20_073_335,
+            20_076_779,
+            20_090_066,
+            20_105_690,
+            20_078_066,
+            20_102_998,
+            20_108_866,
+            20_085_014,
+          ],
+        },
+      }
+    end
+
+    it 'returns the expected units' do
+      expect(commodity.applicable_measure_units).to eq(expected_units)
+    end
+  end
 end
