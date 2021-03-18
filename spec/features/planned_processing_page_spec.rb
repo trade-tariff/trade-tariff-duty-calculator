@@ -15,7 +15,7 @@ RSpec.describe 'Planned Processing Page', type: :feature do
     it 'does not store an empty answer on the session' do
       click_on('Continue')
 
-      expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::PlannedProcessing.id)).to be false
+      expect(Capybara.current_session.driver.request.session['answers'].key?(Wizard::Steps::PlannedProcessing.id)).to be false
     end
 
     it 'does store the answer on the session' do
@@ -23,7 +23,7 @@ RSpec.describe 'Planned Processing Page', type: :feature do
 
       click_on('Continue')
 
-      expect(Capybara.current_session.driver.request.session[Wizard::Steps::PlannedProcessing.id]).to eq('commercial_purposes')
+      expect(Capybara.current_session.driver.request.session['answers'][Wizard::Steps::PlannedProcessing.id]).to eq('commercial_purposes')
     end
 
     it 'loses its session key when going back to the previous question' do
@@ -33,7 +33,7 @@ RSpec.describe 'Planned Processing Page', type: :feature do
 
       visit final_use_path(commodity_code: commodity_code, service_choice: service_choice)
 
-      expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::PlannedProcessing.id)).to be false
+      expect(Capybara.current_session.driver.request.session['answers'].key?(Wizard::Steps::PlannedProcessing.id)).to be false
     end
 
     context 'when no trade trade defence and non zero duty' do

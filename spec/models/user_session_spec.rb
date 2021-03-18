@@ -13,7 +13,9 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::ImportDate.id => '2025-01-01',
+          'answers' => {
+            Wizard::Steps::ImportDate.id => '2025-01-01',
+          },
         }
       end
 
@@ -31,7 +33,7 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'sets the key on the session' do
       user_session.import_date = '2025-01-01'
 
-      expect(session[Wizard::Steps::ImportDate.id]).to eq(expected_date)
+      expect(session['answers'][Wizard::Steps::ImportDate.id]).to eq(expected_date)
     end
   end
 
@@ -43,7 +45,9 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::ImportDestination.id => 'ni',
+          'answers' => {
+            Wizard::Steps::ImportDestination.id => 'ni',
+          },
         }
       end
 
@@ -61,7 +65,7 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'sets the key on the session' do
       user_session.import_destination = 'ni'
 
-      expect(session[Wizard::Steps::ImportDestination.id]).to eq(expected_country)
+      expect(session['answers'][Wizard::Steps::ImportDestination.id]).to eq(expected_country)
     end
   end
 
@@ -73,7 +77,9 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::TraderScheme.id => 'yes',
+          'answers' => {
+            Wizard::Steps::TraderScheme.id => 'yes',
+          },
         }
       end
 
@@ -91,7 +97,7 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'sets the key on the session' do
       user_session.trader_scheme = 'yes'
 
-      expect(session[Wizard::Steps::TraderScheme.id]).to eq(expected_response)
+      expect(session['answers'][Wizard::Steps::TraderScheme.id]).to eq(expected_response)
     end
   end
 
@@ -103,7 +109,9 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::FinalUse.id => 'yes',
+          'answers' => {
+            Wizard::Steps::FinalUse.id => 'yes',
+          },
         }
       end
 
@@ -121,7 +129,7 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'sets the key on the session' do
       user_session.final_use = 'yes'
 
-      expect(session[Wizard::Steps::FinalUse.id]).to eq(expected_response)
+      expect(session['answers'][Wizard::Steps::FinalUse.id]).to eq(expected_response)
     end
   end
 
@@ -133,7 +141,9 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::PlannedProcessing.id => 'without_any_processing',
+          'answers' => {
+            Wizard::Steps::PlannedProcessing.id => 'without_any_processing',
+          },
         }
       end
 
@@ -151,7 +161,7 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'sets the key for without any processing in the session' do
       user_session.planned_processing = 'without_any_processing'
 
-      expect(session[Wizard::Steps::PlannedProcessing.id]).to eq(expected_response)
+      expect(session['answers'][Wizard::Steps::PlannedProcessing.id]).to eq(expected_response)
     end
   end
 
@@ -163,7 +173,9 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::CertificateOfOrigin.id => 'yes',
+          'answers' => {
+            Wizard::Steps::CertificateOfOrigin.id => 'yes',
+          },
         }
       end
 
@@ -181,7 +193,7 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'sets the key on the session' do
       user_session.certificate_of_origin = 'yes'
 
-      expect(session[Wizard::Steps::CertificateOfOrigin.id]).to eq(expected_response)
+      expect(session['answers'][Wizard::Steps::CertificateOfOrigin.id]).to eq(expected_response)
     end
   end
 
@@ -193,7 +205,9 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when the key is present on the session' do
       let(:session) do
         {
-          Wizard::Steps::CountryOfOrigin.id => '1234',
+          'answers' => {
+            Wizard::Steps::CountryOfOrigin.id => '1234',
+          },
         }
       end
 
@@ -211,7 +225,7 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'sets the key on the session' do
       user_session.country_of_origin = '1234'
 
-      expect(session[Wizard::Steps::CountryOfOrigin.id]).to eq(expected_country)
+      expect(session['answers'][Wizard::Steps::CountryOfOrigin.id]).to eq(expected_country)
     end
   end
 
@@ -270,10 +284,12 @@ RSpec.describe Wizard::Steps::UserSession do
   describe '#insurance_cost' do
     let(:session) do
       {
-        Wizard::Steps::CustomsValue.id => {
-          'monetary_value' => '12_000',
-          'shipping_cost' => '1_200',
-          'insurance_cost' => '340',
+        'answers' => {
+          Wizard::Steps::CustomsValue.id => {
+            'monetary_value' => '12_000',
+            'shipping_cost' => '1_200',
+            'insurance_cost' => '340',
+          },
         },
       }
     end
@@ -286,10 +302,12 @@ RSpec.describe Wizard::Steps::UserSession do
   describe '#shipping_cost' do
     let(:session) do
       {
-        Wizard::Steps::CustomsValue.id => {
-          'monetary_value' => '12_000',
-          'shipping_cost' => '1_200',
-          'insurance_cost' => '340',
+        'answers' => {
+          Wizard::Steps::CustomsValue.id => {
+            'monetary_value' => '12_000',
+            'shipping_cost' => '1_200',
+            'insurance_cost' => '340',
+          },
         },
       }
     end
@@ -302,10 +320,12 @@ RSpec.describe Wizard::Steps::UserSession do
   describe '#monetary_value' do
     let(:session) do
       {
-        Wizard::Steps::CustomsValue.id => {
-          'monetary_value' => '12_000',
-          'shipping_cost' => '1_200',
-          'insurance_cost' => '340',
+        'answers' => {
+          Wizard::Steps::CustomsValue.id => {
+            'monetary_value' => '12_000',
+            'shipping_cost' => '1_200',
+            'insurance_cost' => '340',
+          },
         },
       }
     end
@@ -327,14 +347,16 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'stores the hash on the session' do
       user_session.customs_value = value
 
-      expect(session[Wizard::Steps::CustomsValue.id]).to eq(value)
+      expect(session['answers'][Wizard::Steps::CustomsValue.id]).to eq(value)
     end
   end
 
   describe '#measure_amount' do
     let(:session) do
       {
-        Wizard::Steps::MeasureAmount.id => { foo: :bar },
+        'answers' => {
+          Wizard::Steps::MeasureAmount.id => { foo: :bar },
+        },
       }
     end
 
@@ -349,7 +371,7 @@ RSpec.describe Wizard::Steps::UserSession do
     it 'stores the hash on the session' do
       user_session.measure_amount = value
 
-      expect(session[Wizard::Steps::MeasureAmount.id]).to eq(value)
+      expect(session['answers'][Wizard::Steps::MeasureAmount.id]).to eq(value)
     end
   end
 
@@ -357,8 +379,10 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when import country is GB and origin country is NI' do
       let(:session) do
         {
-          'import_destination' => 'GB',
-          'country_of_origin' => 'XI',
+          'answers' => {
+            'import_destination' => 'GB',
+            'country_of_origin' => 'XI',
+          },
         }
       end
 
@@ -376,8 +400,10 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when import country is NI and origin country is a EU Member' do
       let(:session) do
         {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'RO',
+          'answers' => {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'RO',
+          },
         }
       end
 
@@ -395,8 +421,10 @@ RSpec.describe Wizard::Steps::UserSession do
     context 'when import country is XI and origin country is GB' do
       let(:session) do
         {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'GB',
+          'answers' => {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'GB',
+          },
         }
       end
 

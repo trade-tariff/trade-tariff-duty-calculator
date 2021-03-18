@@ -3,7 +3,7 @@ module Wizard
     class BaseController < ::ApplicationController
       default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
 
-      helper_method :commodity
+      helper_method :commodity, :commodity_code, :service_choice
 
       def commodity
         @commodity ||= Api::Commodity.build(

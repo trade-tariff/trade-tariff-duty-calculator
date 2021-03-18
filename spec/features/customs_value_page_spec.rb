@@ -23,7 +23,7 @@ RSpec.describe 'Customs Value Page', type: :feature do
     it 'does not store an empty answer on the session' do
       click_on('Continue')
 
-      expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::CustomsValue.id)).to be false
+      expect(Capybara.current_session.driver.request.session['answers'].key?(Wizard::Steps::CustomsValue.id)).to be false
     end
 
     it 'does store the answer on the session' do
@@ -31,7 +31,7 @@ RSpec.describe 'Customs Value Page', type: :feature do
 
       click_on('Continue')
 
-      expect(Capybara.current_session.driver.request.session[Wizard::Steps::CustomsValue.id]).to eq(expected_value)
+      expect(Capybara.current_session.driver.request.session['answers'][Wizard::Steps::CustomsValue.id]).to eq(expected_value)
     end
 
     it 'does not lose its session key when going back to the previous question' do
@@ -41,7 +41,7 @@ RSpec.describe 'Customs Value Page', type: :feature do
 
       visit planned_processing_path(commodity_code: commodity_code, service_choice: service_choice)
 
-      expect(Capybara.current_session.driver.request.session.key?(Wizard::Steps::CustomsValue.id)).to be true
+      expect(Capybara.current_session.driver.request.session['answers'].key?(Wizard::Steps::CustomsValue.id)).to be true
     end
 
     it 'redirects to measure_amount_path' do
