@@ -9,9 +9,9 @@ RSpec.describe ApplicationController, type: :controller do
     get :index
   end
 
-  let(:expected_cache_control) { 'no-cache' }
-
   it 'has the correct Cache-Control header' do
-    expect(response.headers['Cache-Control']).to eq(expected_cache_control)
+    get :index
+
+    expect(response.headers['Cache-Control']).to eq('no-cache')
   end
 end
