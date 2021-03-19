@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe HealthcheckController do
   describe 'GET #ping' do
     subject(:response) { get :ping }

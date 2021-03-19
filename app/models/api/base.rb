@@ -36,22 +36,19 @@ module Api
       end
     end
 
-    def self.resource_key(key)
-      define_singleton_method(:resource_key) { key }
-    end
-
     def self.build(service, id, query = {})
-      options = OptionBuilder.new(service).call
+      client = http_client_for(service)
 
       resource = "Uktt::#{name.demodulize}".constantize
-      resource = resource.new(options.merge(resource_key => id, query: query))
-      resource.retrieve
+      resource = resource.new(client)
+
+      resource.retrieve(id, query)
 
       new(resource.response)
     end
 
-    def self.build_collection(service, klass_override = nil)
-      options = OptionBuilder.new(service).call
+    def self.build_collection(service, klass_override = nil, query = {})
+      client = http_client_for(service)
 
       resource = if klass_override.present?
                    "Uktt::#{klass_override.demodulize}".constantize
@@ -59,9 +56,9 @@ module Api
                    "Uktt::#{name.demodulize}".constantize
                  end
 
-      resource = resource.new(options)
+      resource = resource.new(client)
 
-      resource.retrieve
+      resource.retrieve_all(query)
 
       resource.response.map do |resource_attributes|
         new(resource_attributes)
@@ -74,6 +71,12 @@ module Api
           public_send(field) == value
         end
       end
+    end
+
+    def self.http_client_for(service)
+      return Rails.application.config.http_client_uk if service == :uk
+
+      Rails.application.config.http_client_xi
     end
   end
 end

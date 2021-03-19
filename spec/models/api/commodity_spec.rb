@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Api::Commodity, type: :model do
   subject(:commodity) { described_class.build(service, commodity_code) }
 
@@ -10,11 +8,25 @@ RSpec.describe Api::Commodity, type: :model do
     allow(Uktt::Commodity).to receive(:new).and_call_original
   end
 
-  describe '.resource_key' do
-    it 'returns the correct resource key' do
-      expect(described_class.resource_key).to eq(:commodity_id)
-    end
-  end
+  it_behaves_like 'a resource that has attributes', producline_suffix: '80',
+                                                    number_indents: 1,
+                                                    description: 'Cherry Tomatoes',
+                                                    goods_nomenclature_item_id: '0702000007',
+                                                    bti_url: 'https://www.gov.uk/guidance/check-what-youll-need-to-get-a-legally-binding-decision-on-a-commodity-code',
+                                                    formatted_description: 'Cherry tomatoes',
+                                                    description_plain: 'Cherry tomatoes',
+                                                    consigned: false,
+                                                    consigned_from: nil,
+                                                    basic_duty_rate: '<span>8.00</span> %',
+                                                    meursing_code: false,
+                                                    declarable: true,
+                                                    footnotes: [],
+                                                    section: 'foo',
+                                                    chapter: 'foo',
+                                                    heading: 'foo',
+                                                    ancestors: [],
+                                                    import_measures: [],
+                                                    export_measures: []
 
   describe '#description' do
     it 'returns the expected description' do
