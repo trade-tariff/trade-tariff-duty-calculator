@@ -5,7 +5,7 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
   let(:import_into) { 'XI' }
   let(:import_from) { 'GB' }
   let(:commodity_code) { '1234567890' }
-  let(:service_choice) { 'uk' }
+  let(:referred_service) { 'uk' }
   let(:trade_defence) { false }
   let(:zero_mfn_duty) { false }
 
@@ -20,10 +20,11 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
     allow(commodity).to receive(:code).and_return(commodity_code)
     allow(commodity).to receive(:description).and_return(description)
     allow(filtered_commodity).to receive(:zero_mfn_duty).and_return(zero_mfn_duty)
-    allow(Api::Commodity).to receive(:build).with(service_choice.to_sym, commodity_code).and_return(commodity)
+    allow(Api::Commodity).to receive(:build).with(:uk, commodity_code).and_return(commodity)
+    allow(Api::Commodity).to receive(:build).with(:xi, commodity_code).and_return(commodity)
     allow(Api::Commodity).to receive(:build).with(:xi, commodity_code, filter).and_return(filtered_commodity)
 
-    visit import_date_path(commodity_code: commodity_code, service_choice: service_choice)
+    visit import_date_path(commodity_code: commodity_code, referred_service: referred_service)
 
     fill_in('wizard_steps_import_date[import_date(3i)]', with: '12')
     fill_in('wizard_steps_import_date[import_date(2i)]', with: '12')

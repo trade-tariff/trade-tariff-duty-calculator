@@ -92,12 +92,20 @@ class UserSession
     }
   end
 
-  def service_choice=(value)
-    session['service_choice'] = value
+  def commodity_source=(value)
+    session['commodity_source'] = value
   end
 
-  def service_choice
-    session['service_choice']
+  def commodity_source
+    session['commodity_source']
+  end
+
+  def referred_service=(value)
+    session['referred_service'] = value
+  end
+
+  def referred_service
+    session['referred_service']
   end
 
   def commodity_code=(value)

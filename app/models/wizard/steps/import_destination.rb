@@ -24,6 +24,8 @@ module Wizard
 
       def save
         user_session.import_destination = import_destination
+
+        update_commodity_source
       end
 
       def next_step_path
@@ -32,6 +34,12 @@ module Wizard
 
       def previous_step_path
         import_date_path
+      end
+
+      private
+
+      def update_commodity_source
+        user_session.commodity_source = (import_destination == 'XI' ? 'xi' : 'uk')
       end
     end
   end

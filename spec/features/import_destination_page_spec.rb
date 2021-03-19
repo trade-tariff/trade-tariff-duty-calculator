@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Import Destination Page', type: :feature do
   let(:commodity_code) { '1234567890' }
-  let(:service_choice) { 'uk' }
+  let(:referred_service) { 'uk' }
 
   before do
-    visit import_date_path(commodity_code: commodity_code, service_choice: service_choice)
+    visit import_date_path(commodity_code: commodity_code, referred_service: referred_service)
 
     fill_in('wizard_steps_import_date[import_date(3i)]', with: '12')
     fill_in('wizard_steps_import_date[import_date(2i)]', with: '12')

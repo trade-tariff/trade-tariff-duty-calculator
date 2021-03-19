@@ -7,13 +7,13 @@ RSpec.describe ConfirmationDecorator do
 
   let(:commodity) { double(Uktt::Commodity) }
   let(:commodity_code) { '1234567890' }
-  let(:service_choice) { 'uk' }
+  let(:commodity_source) { 'uk' }
   let(:user_session) { UserSession.new(session) }
   let(:session) { {} }
 
   before do
     allow(commodity).to receive(:code).and_return(commodity_code)
-    allow(Api::Commodity).to receive(:build).with(service_choice.to_sym, commodity_code).and_return(commodity)
+    allow(Api::Commodity).to receive(:build).with(commodity_source.to_sym, commodity_code).and_return(commodity)
   end
 
   describe 'ORDERED_STEPS' do

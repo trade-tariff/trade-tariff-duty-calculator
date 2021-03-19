@@ -1,4 +1,4 @@
-<%= link_to('Back', country_of_origin_path(service_choice: params[:service_choice], commodity_code: params[:commodity_code]), class: "govuk-back-link") %>
+<%= link_to('Back', country_of_origin_path, class: "govuk-back-link") %>
 
 <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
   <div class="govuk-grid-row">
@@ -9,5 +9,5 @@
       <p class="govuk-body">Click on the 'Continue' button to enter the monetary value of your import, to help to calculate the applicable import duties.</p>
     </div>
   </div>
-  <%= link_to('Continue', customs_value_path(service_choice: params[:service_choice], commodity_code: params[:commodity_code]), class: 'govuk-button') %>
+  <%= link_to('Continue', customs_value_path, class: 'govuk-button') %>
 </main>

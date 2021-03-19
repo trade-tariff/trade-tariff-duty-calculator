@@ -401,29 +401,55 @@ RSpec.describe Wizard::Steps::UserSession do
     end
   end
 
-  describe '#service_choice' do
+  describe '#commodity_source' do
     it 'returns nil if the key is not on the session' do
-      expect(user_session.service_choice).to be nil
+      expect(user_session.commodity_source).to be nil
     end
 
     context 'when the key is present on the session' do
       let(:session) do
         {
-          'service_choice' => 'uk',
+          'commodity_source' => 'uk',
         }
       end
 
       it 'returns the value from the session' do
-        expect(user_session.service_choice).to eq('uk')
+        expect(user_session.commodity_source).to eq('uk')
       end
     end
   end
 
-  describe '#service_choice=' do
+  describe '#commodity_source=' do
     it 'sets the key on the session' do
-      user_session.service_choice = 'uk'
+      user_session.commodity_source = 'uk'
 
-      expect(session['service_choice']).to eq('uk')
+      expect(session['commodity_source']).to eq('uk')
+    end
+  end
+
+  describe '#referred_service' do
+    it 'returns nil if the key is not on the session' do
+      expect(user_session.referred_service).to be nil
+    end
+
+    context 'when the key is present on the session' do
+      let(:session) do
+        {
+          'referred_service' => 'uk',
+        }
+      end
+
+      it 'returns the value from the session' do
+        expect(user_session.referred_service).to eq('uk')
+      end
+    end
+  end
+
+  describe '#referred_service=' do
+    it 'sets the key on the session' do
+      user_session.referred_service = 'uk'
+
+      expect(session['referred_service']).to eq('uk')
     end
   end
 

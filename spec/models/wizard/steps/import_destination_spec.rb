@@ -60,14 +60,36 @@ RSpec.describe Wizard::Steps::ImportDestination do
   describe '#save' do
     let(:attributes) do
       ActionController::Parameters.new(
-        import_destination: 'ni',
+        import_destination: 'XI',
       ).permit(:import_destination)
     end
 
-    it 'saves the import_date to the session' do
+    it 'saves the import_destination to the session' do
       step.save
 
-      expect(user_session.import_destination).to eq('ni')
+      expect(user_session.import_destination).to eq('XI')
+    end
+
+    context 'when importing to XI' do
+      it 'sets the commodity source as XI on the session' do
+        step.save
+
+        expect(user_session.commodity_source).to eq('xi')
+      end
+    end
+
+    context 'when importing to GB' do
+      let(:attributes) do
+        ActionController::Parameters.new(
+          import_destination: 'GB',
+        ).permit(:import_destination)
+      end
+
+      it 'sets the commodity source as UK on the session' do
+        step.save
+
+        expect(user_session.commodity_source).to eq('uk')
+      end
     end
   end
 
