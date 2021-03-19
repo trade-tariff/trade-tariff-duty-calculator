@@ -92,6 +92,22 @@ class UserSession
     }
   end
 
+  def service_choice=(value)
+    session['service_choice'] = value
+  end
+
+  def service_choice
+    session['service_choice']
+  end
+
+  def commodity_code=(value)
+    session['commodity_code'] = value
+  end
+
+  def commodity_code
+    session['commodity_code']
+  end
+
   def measure_amount=(values)
     session['answers'][Wizard::Steps::MeasureAmount.id] = values
   end

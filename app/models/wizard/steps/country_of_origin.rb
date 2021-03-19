@@ -35,23 +35,23 @@ module Wizard
         Api::GeographicalArea.list_countries(service.to_sym)
       end
 
-      def next_step_path(service_choice:, commodity_code:)
-        return duty_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.ni_to_gb_route? || user_session.eu_to_ni_route?
+      def next_step_path
+        return duty_path if user_session.ni_to_gb_route? || user_session.eu_to_ni_route?
 
-        return next_step_for_gb_to_ni(service_choice: service_choice, commodity_code: commodity_code) if user_session.gb_to_ni_route?
+        return next_step_for_gb_to_ni if user_session.gb_to_ni_route?
       end
 
-      def previous_step_path(service_choice:, commodity_code:)
-        import_destination_path(service_choice: service_choice, commodity_code: commodity_code)
+      def previous_step_path
+        import_destination_path
       end
 
       private
 
-      def next_step_for_gb_to_ni(service_choice:, commodity_code:)
-        return trade_remedies_path(service_choice: service_choice, commodity_code: commodity_code) if trade_defence
-        return duty_path(service_choice: service_choice, commodity_code: commodity_code) if zero_mfn_duty
+      def next_step_for_gb_to_ni
+        return trade_remedies_path if trade_defence
+        return duty_path if zero_mfn_duty
 
-        trader_scheme_path(service_choice: service_choice, commodity_code: commodity_code)
+        trader_scheme_path
       end
     end
   end

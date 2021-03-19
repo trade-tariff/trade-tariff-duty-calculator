@@ -27,16 +27,4 @@ RSpec.describe 'Import Date Page', type: :feature do
 
     expect(Capybara.current_session.driver.request.session['answers'][Wizard::Steps::ImportDate.id]).to eq('3000-12-12')
   end
-
-  it 'redirects to import destination page if the validation is successful' do
-    visit import_date_path(commodity_code: commodity_code, service_choice: service_choice)
-
-    fill_in('wizard_steps_import_date[import_date(3i)]', with: '12')
-    fill_in('wizard_steps_import_date[import_date(2i)]', with: '12')
-    fill_in('wizard_steps_import_date[import_date(1i)]', with: '3000')
-
-    click_on('Continue')
-
-    expect(page).to have_current_path(import_destination_path(commodity_code: commodity_code, service_choice: service_choice))
-  end
 end

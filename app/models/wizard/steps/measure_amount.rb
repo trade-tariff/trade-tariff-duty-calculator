@@ -51,12 +51,12 @@ module Wizard
         user_session.measure_amount = answers if answers.present?
       end
 
-      def next_step_path(service_choice:, commodity_code:)
-        confirm_path(service_choice: service_choice, commodity_code: commodity_code)
+      def next_step_path
+        confirm_path
       end
 
-      def previous_step_path(service_choice:, commodity_code:)
-        customs_value_path(service_choice: service_choice, commodity_code: commodity_code)
+      def previous_step_path
+        customs_value_path
       end
 
       def self.id

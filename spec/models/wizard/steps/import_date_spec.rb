@@ -179,14 +179,11 @@ RSpec.describe Wizard::Steps::ImportDate do
   describe '#next_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
-
     it 'returns import_destination_path' do
       expect(
-        step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        step.next_step_path,
       ).to eq(
-        import_destination_path(service_choice: service_choice, commodity_code: commodity_code),
+        import_destination_path,
       )
     end
   end

@@ -30,21 +30,18 @@ module Wizard
         if step.valid?
           step.save
 
-          redirect_to step.next_step_path(
-            service_choice: params[:service_choice],
-            commodity_code: params[:commodity_code],
-          )
+          redirect_to step.next_step_path
         else
           render 'show'
         end
       end
 
       def commodity_code
-        params[:commodity_code]
+        params[:commodity_code] || user_session.commodity_code
       end
 
       def service_choice
-        params[:service_choice].to_sym
+        (params[:service_choice] || user_session.service_choice).to_sym
       end
     end
   end

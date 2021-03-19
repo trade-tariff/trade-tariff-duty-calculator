@@ -3,6 +3,9 @@ module Wizard
     class ImportDateController < BaseController
       def show
         @step = Wizard::Steps::ImportDate.new(user_session)
+
+        user_session.commodity_code = commodity_code
+        user_session.service_choice = service_choice
       end
 
       def create

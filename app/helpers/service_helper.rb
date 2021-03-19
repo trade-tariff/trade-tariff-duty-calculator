@@ -28,8 +28,10 @@ module ServiceHelper
   end
 
   def service_choice_url
-    return '' if params[:service_choice] == 'uk'
+    service_choice == 'uk' ? '' : service_choice.to_s
+  end
 
-    params[:service_choice]
+  def service_choice
+    params[:service_choice] || session['service_choice']
   end
 end

@@ -17,8 +17,8 @@ class ConfirmationDecorator < SimpleDelegator
     @commodity = commodity
   end
 
-  def path_for(key:, commodity_code:, service_choice:)
-    send("#{key}_path", commodity_code: commodity_code, service_choice: service_choice)
+  def path_for(key:)
+    send("#{key}_path")
   end
 
   def user_answers

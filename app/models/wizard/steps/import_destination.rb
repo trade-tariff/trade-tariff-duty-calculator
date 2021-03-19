@@ -26,12 +26,12 @@ module Wizard
         user_session.import_destination = import_destination
       end
 
-      def next_step_path(service_choice:, commodity_code:)
-        country_of_origin_path(service_choice: service_choice, commodity_code: commodity_code)
+      def next_step_path
+        country_of_origin_path
       end
 
-      def previous_step_path(service_choice:, commodity_code:)
-        import_date_path(service_choice: service_choice, commodity_code: commodity_code)
+      def previous_step_path
+        import_date_path
       end
     end
   end

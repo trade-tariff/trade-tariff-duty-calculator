@@ -43,46 +43,4 @@ RSpec.describe 'Country of Origin Page', type: :feature do
 
     expect(Capybara.current_session.driver.request.session['answers'].key?(Wizard::Steps::CountryOfOrigin.id)).to be false
   end
-
-  context 'when importing from NI to GB' do
-    it 'redirects to duty path' do
-      select('United Kingdom (Northern Ireland)', from: 'wizard_steps_country_of_origin[country_of_origin]')
-
-      click_on('Continue')
-
-      expect(page).to have_current_path(duty_path(service_choice: service_choice, commodity_code: commodity_code))
-    end
-  end
-
-  context 'when importing from GB to NI, with no trade trade defence and non zero duty' do
-    let(:import_into) { 'XI' }
-    let(:import_from) { 'GB' }
-
-    let(:filter) do
-      {
-        'filter[geographical_area_id]' => import_from,
-      }
-    end
-
-    let(:commodity) { double(Uktt::Commodity) }
-    let(:filtered_commodity) { double(Uktt::Commodity) }
-    let(:description) { 'Some description' }
-
-    before do
-      allow(commodity).to receive(:trade_defence).and_return(false)
-      allow(commodity).to receive(:code).and_return(commodity_code)
-      allow(commodity).to receive(:description).and_return(description)
-      allow(filtered_commodity).to receive(:zero_mfn_duty).and_return(false)
-      allow(Api::Commodity).to receive(:build).with(service_choice.to_sym, commodity_code).and_return(commodity)
-      allow(Api::Commodity).to receive(:build).with(:xi, commodity_code, filter).and_return(filtered_commodity)
-    end
-
-    it 'redirects to trader_scheme_path' do
-      select('United Kingdom', from: 'wizard_steps_country_of_origin[country_of_origin]')
-
-      click_on('Continue')
-
-      expect(page).to have_current_path(trader_scheme_path(service_choice: service_choice, commodity_code: commodity_code))
-    end
-  end
 end

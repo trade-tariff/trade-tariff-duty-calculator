@@ -245,9 +245,6 @@ RSpec.describe Wizard::Steps::CustomsValue do
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
-
     context 'when on GB to NI route' do
       before do
         allow(user_session).to receive(:gb_to_ni_route?).and_return(true)
@@ -262,9 +259,9 @@ RSpec.describe Wizard::Steps::CustomsValue do
 
         it 'returns trade_remedies_path' do
           expect(
-            step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+            step.previous_step_path,
           ).to eq(
-            trade_remedies_path(service_choice: service_choice, commodity_code: commodity_code),
+            trade_remedies_path,
           )
         end
       end
@@ -278,9 +275,9 @@ RSpec.describe Wizard::Steps::CustomsValue do
 
         it 'returns certificate_of_origin_path' do
           expect(
-            step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+            step.previous_step_path,
           ).to eq(
-            certificate_of_origin_path(service_choice: service_choice, commodity_code: commodity_code),
+            certificate_of_origin_path,
           )
         end
       end
@@ -290,14 +287,11 @@ RSpec.describe Wizard::Steps::CustomsValue do
   describe '#next_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
-
     it 'returns measure_amount_path' do
       expect(
-        step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        step.next_step_path,
       ).to eq(
-        measure_amount_path(service_choice: service_choice, commodity_code: commodity_code),
+        measure_amount_path,
       )
     end
   end

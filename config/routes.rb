@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  scope path: '/:service_choice/duty-calculator/:commodity_code' do
+  scope path: '/duty-calculator/' do
     get 'import-date', to: 'wizard/steps/import_date#show'
     post 'import-date', to: 'wizard/steps/import_date#create'
 

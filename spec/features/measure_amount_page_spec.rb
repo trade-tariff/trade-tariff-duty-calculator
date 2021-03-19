@@ -67,17 +67,9 @@ RSpec.describe 'Measure Amount Page', type: :feature do
 
       click_on('Continue')
 
-      visit planned_processing_path(commodity_code: commodity_code, service_choice: service_choice)
+      visit planned_processing_path
 
       expect(Capybara.current_session.driver.request.session['answers'].key?(Wizard::Steps::MeasureAmount.id)).to be true
-    end
-
-    it 'redirects to measure_amount_path' do
-      fill_in('wizard_steps_measure_amount[dtn]', with: '1_200')
-
-      click_on('Continue')
-
-      expect(page).to have_current_path(confirm_path(service_choice: service_choice, commodity_code: commodity_code))
     end
   end
 end

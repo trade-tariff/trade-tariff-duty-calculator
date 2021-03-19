@@ -94,23 +94,17 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
-
     it 'returns import_destination_path' do
       expect(
-        step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        step.previous_step_path,
       ).to eq(
-        import_destination_path(service_choice: service_choice, commodity_code: commodity_code),
+        import_destination_path,
       )
     end
   end
 
   describe '#next_step_path' do
     include Rails.application.routes.url_helpers
-
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
 
     context 'when on NI to GB route' do
       let(:session) do
@@ -124,9 +118,9 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
 
       it 'returns duty_path' do
         expect(
-          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.next_step_path,
         ).to eq(
-          duty_path(service_choice: service_choice, commodity_code: commodity_code),
+          duty_path,
         )
       end
     end
@@ -149,9 +143,9 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
 
       it 'returns the trade_remedies_path' do
         expect(
-          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.next_step_path,
         ).to eq(
-          trade_remedies_path(service_choice: service_choice, commodity_code: commodity_code),
+          trade_remedies_path,
         )
       end
     end
@@ -175,9 +169,9 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
 
       it 'returns the duty_path' do
         expect(
-          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.next_step_path,
         ).to eq(
-          duty_path(service_choice: service_choice, commodity_code: commodity_code),
+          duty_path,
         )
       end
     end
@@ -201,9 +195,9 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
 
       it 'returns the trader_scheme_path' do
         expect(
-          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.next_step_path,
         ).to eq(
-          trader_scheme_path(service_choice: service_choice, commodity_code: commodity_code),
+          trader_scheme_path,
         )
       end
     end

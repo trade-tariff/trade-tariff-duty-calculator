@@ -27,20 +27,20 @@ module Wizard
         user_session.planned_processing = planned_processing
       end
 
-      def next_step_path(service_choice:, commodity_code:)
-        return next_step_for_gb_to_ni(service_choice: service_choice, commodity_code: commodity_code) if user_session.gb_to_ni_route?
+      def next_step_path
+        return next_step_for_gb_to_ni if user_session.gb_to_ni_route?
       end
 
-      def previous_step_path(service_choice:, commodity_code:)
-        final_use_path(service_choice: service_choice, commodity_code: commodity_code)
+      def previous_step_path
+        final_use_path
       end
 
       private
 
-      def next_step_for_gb_to_ni(service_choice:, commodity_code:)
-        return duty_path(service_choice: service_choice, commodity_code: commodity_code) unless user_session.planned_processing == 'commercial_purposes'
+      def next_step_for_gb_to_ni
+        return duty_path unless user_session.planned_processing == 'commercial_purposes'
 
-        certificate_of_origin_path(service_choice: service_choice, commodity_code: commodity_code)
+        certificate_of_origin_path
       end
     end
   end

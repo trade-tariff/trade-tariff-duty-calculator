@@ -147,10 +147,8 @@ RSpec.describe ConfirmationDecorator do
       expect(
         confirmation_decorator.path_for(
           key: 'import_date',
-          commodity_code: '1111111111',
-          service_choice: 'uk',
         ),
-      ).to eq('/uk/duty-calculator/1111111111/import-date')
+      ).to eq('/duty-calculator/import-date')
     end
   end
 end

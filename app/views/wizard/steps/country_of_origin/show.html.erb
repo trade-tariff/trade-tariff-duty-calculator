@@ -1,4 +1,4 @@
-<%= link_to('Back', @step.previous_step_path(service_choice: params[:service_choice], commodity_code: params[:commodity_code]), class: "govuk-back-link") %>
+<%= link_to('Back', @step.previous_step_path, class: "govuk-back-link") %>
 
 <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
   <div class="govuk-grid-row">
@@ -16,7 +16,7 @@
             <div id="destination-hint" class="govuk-hint">
               The duty you are charged may be dependent on the country of dispatch of the goods being imported.
             </div>
-            <%= f.govuk_collection_select :country_of_origin, Wizard::Steps::CountryOfOrigin.options_for(params[:service_choice]), :id, :name, options: { prompt: true }, label: { text: 'Enter the country of dispatch:' } %>
+            <%= f.govuk_collection_select :country_of_origin, Wizard::Steps::CountryOfOrigin.options_for(service_choice), :id, :name, options: { prompt: true }, label: { text: 'Enter the country of dispatch:' } %>
             <p class="govuk-!-margin-top-3 govuk-hint">When autocomplete results are available, use up and down arrows to review and enter to select. Touch device users, explore by touch or with swipe gestures.</p>
           </div>
           <%= f.govuk_submit %>

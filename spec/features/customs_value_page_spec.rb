@@ -39,17 +39,9 @@ RSpec.describe 'Customs Value Page', type: :feature do
 
       click_on('Continue')
 
-      visit planned_processing_path(commodity_code: commodity_code, service_choice: service_choice)
+      visit planned_processing_path
 
       expect(Capybara.current_session.driver.request.session['answers'].key?(Wizard::Steps::CustomsValue.id)).to be true
-    end
-
-    it 'redirects to measure_amount_path' do
-      fill_in('wizard_steps_customs_value[monetary_value]', with: '1_200')
-
-      click_on('Continue')
-
-      expect(page).to have_current_path(measure_amount_path(service_choice: service_choice, commodity_code: commodity_code))
     end
   end
 end

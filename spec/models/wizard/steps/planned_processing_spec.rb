@@ -70,8 +70,6 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
   describe '#next_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
     let(:answer) { 'without_any_processing' }
     let(:session) do
       {
@@ -88,9 +86,9 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
     context 'when on GB to NI route and answer is not commercial_purposes' do
       it 'returns duty_path' do
         expect(
-          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.next_step_path,
         ).to eq(
-          duty_path(service_choice: service_choice, commodity_code: commodity_code),
+          duty_path,
         )
       end
     end
@@ -100,9 +98,9 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
 
       it 'returns duty_path' do
         expect(
-          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.next_step_path,
         ).to eq(
-          certificate_of_origin_path(service_choice: service_choice, commodity_code: commodity_code),
+          certificate_of_origin_path,
         )
       end
     end
@@ -111,8 +109,6 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
     let(:session) do
       {
         'answers' => {
@@ -126,9 +122,9 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
     context 'when on GB to NI route' do
       it 'returns country_of_origin_path' do
         expect(
-          step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.previous_step_path,
         ).to eq(
-          final_use_path(service_choice: service_choice, commodity_code: commodity_code),
+          final_use_path,
         )
       end
     end

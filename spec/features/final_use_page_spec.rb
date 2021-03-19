@@ -32,15 +32,5 @@ RSpec.describe 'Final Use Page', type: :feature do
 
       expect(Capybara.current_session.driver.request.session['answers'].key?(Wizard::Steps::FinalUse.id)).to be false
     end
-
-    context 'when importing from GB to NI, with no trade trade defence and non zero duty' do
-      it 'redirects to planned_processing_path' do
-        choose(option: 'yes')
-
-        click_on('Continue')
-
-        expect(page).to have_current_path(planned_processing_path(service_choice: service_choice, commodity_code: commodity_code))
-      end
-    end
   end
 end

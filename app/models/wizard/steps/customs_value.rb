@@ -32,20 +32,20 @@ module Wizard
         }
       end
 
-      def next_step_path(service_choice:, commodity_code:)
-        measure_amount_path(service_choice: service_choice, commodity_code: commodity_code)
+      def next_step_path
+        measure_amount_path
       end
 
-      def previous_step_path(service_choice:, commodity_code:)
-        return previous_step_for_gb_to_ni(service_choice: service_choice, commodity_code: commodity_code) if user_session.gb_to_ni_route?
+      def previous_step_path
+        return previous_step_for_gb_to_ni if user_session.gb_to_ni_route?
       end
 
       private
 
-      def previous_step_for_gb_to_ni(service_choice:, commodity_code:)
-        return trade_remedies_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.trade_defence
+      def previous_step_for_gb_to_ni
+        return trade_remedies_path if user_session.trade_defence
 
-        certificate_of_origin_path(service_choice: service_choice, commodity_code: commodity_code)
+        certificate_of_origin_path
       end
     end
   end

@@ -5,8 +5,6 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
 
   let(:session) { {} }
   let(:user_session) { UserSession.new(session) }
-  let(:service_choice) { 'uk' }
-  let(:commodity_code) { '1233455' }
   let(:attributes) do
     ActionController::Parameters.new(
       certificate_of_origin: '',
@@ -81,9 +79,9 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
 
       it 'returns duty_path' do
         expect(
-          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.next_step_path,
         ).to eq(
-          duty_path(service_choice: service_choice, commodity_code: commodity_code),
+          duty_path,
         )
       end
     end
@@ -99,9 +97,9 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
 
       it 'returns customs_value_path' do
         expect(
-          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.next_step_path,
         ).to eq(
-          customs_value_path(service_choice: service_choice, commodity_code: commodity_code),
+          customs_value_path,
         )
       end
     end
@@ -121,9 +119,9 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
 
       it 'returns final_use_path' do
         expect(
-          step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.previous_step_path,
         ).to eq(
-          final_use_path(service_choice: service_choice, commodity_code: commodity_code),
+          final_use_path,
         )
       end
     end
@@ -139,9 +137,9 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
 
       it 'returns trader_scheme_path' do
         expect(
-          step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.previous_step_path,
         ).to eq(
-          trader_scheme_path(service_choice: service_choice, commodity_code: commodity_code),
+          trader_scheme_path,
         )
       end
     end
@@ -157,9 +155,9 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
 
       it 'returns planned_processing_path' do
         expect(
-          step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.previous_step_path,
         ).to eq(
-          planned_processing_path(service_choice: service_choice, commodity_code: commodity_code),
+          planned_processing_path,
         )
       end
     end

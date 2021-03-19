@@ -71,9 +71,6 @@ RSpec.describe Wizard::Steps::FinalUse do
   describe '#next_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
-
     context 'when on GB to NI route and final use answer is yes' do
       let(:session) do
         {
@@ -88,9 +85,9 @@ RSpec.describe Wizard::Steps::FinalUse do
 
       it 'returns planned_processing_path' do
         expect(
-          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.next_step_path,
         ).to eq(
-          planned_processing_path(service_choice: service_choice, commodity_code: commodity_code),
+          planned_processing_path,
         )
       end
     end
@@ -109,9 +106,9 @@ RSpec.describe Wizard::Steps::FinalUse do
 
       it 'returns certificate_of_origin_path' do
         expect(
-          step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.next_step_path,
         ).to eq(
-          certificate_of_origin_path(service_choice: service_choice, commodity_code: commodity_code),
+          certificate_of_origin_path,
         )
       end
     end
@@ -119,9 +116,6 @@ RSpec.describe Wizard::Steps::FinalUse do
 
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
-
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
 
     context 'when on GB to NI route' do
       let(:session) do
@@ -136,9 +130,9 @@ RSpec.describe Wizard::Steps::FinalUse do
 
       it 'returns country_of_origin_path' do
         expect(
-          step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.previous_step_path,
         ).to eq(
-          trader_scheme_path(service_choice: service_choice, commodity_code: commodity_code),
+          trader_scheme_path,
         )
       end
     end

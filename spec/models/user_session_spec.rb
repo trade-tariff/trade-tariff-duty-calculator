@@ -247,6 +247,14 @@ RSpec.describe Wizard::Steps::UserSession do
     end
   end
 
+  describe '#trade_defence=' do
+    it 'sets the key on the session' do
+      user_session.trade_defence = true
+
+      expect(session['trade_defence']).to eq(true)
+    end
+  end
+
   describe '#zero_mfn_duty=' do
     it 'sets the key on the session' do
       user_session.zero_mfn_duty = true
@@ -270,14 +278,6 @@ RSpec.describe Wizard::Steps::UserSession do
       it 'returns the value from the session' do
         expect(user_session.zero_mfn_duty).to eq(true)
       end
-    end
-  end
-
-  describe '#trade_defence=' do
-    it 'sets the key on the session' do
-      user_session.trade_defence = true
-
-      expect(session['trade_defence']).to eq(true)
     end
   end
 
@@ -372,6 +372,58 @@ RSpec.describe Wizard::Steps::UserSession do
       user_session.measure_amount = value
 
       expect(session['answers'][Wizard::Steps::MeasureAmount.id]).to eq(value)
+    end
+  end
+
+  describe '#commodity_code' do
+    it 'returns nil if the key is not on the session' do
+      expect(user_session.commodity_code).to be nil
+    end
+
+    context 'when the key is present on the session' do
+      let(:session) do
+        {
+          'commodity_code' => '1111111111',
+        }
+      end
+
+      it 'returns the value from the session' do
+        expect(user_session.commodity_code).to eq('1111111111')
+      end
+    end
+  end
+
+  describe '#commodity_code=' do
+    it 'sets the key on the session' do
+      user_session.commodity_code = '1111111111'
+
+      expect(session['commodity_code']).to eq('1111111111')
+    end
+  end
+
+  describe '#service_choice' do
+    it 'returns nil if the key is not on the session' do
+      expect(user_session.service_choice).to be nil
+    end
+
+    context 'when the key is present on the session' do
+      let(:session) do
+        {
+          'service_choice' => 'uk',
+        }
+      end
+
+      it 'returns the value from the session' do
+        expect(user_session.service_choice).to eq('uk')
+      end
+    end
+  end
+
+  describe '#service_choice=' do
+    it 'sets the key on the session' do
+      user_session.service_choice = 'uk'
+
+      expect(session['service_choice']).to eq('uk')
     end
   end
 
