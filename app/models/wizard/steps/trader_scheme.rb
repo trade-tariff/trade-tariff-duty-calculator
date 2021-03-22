@@ -24,13 +24,13 @@ module Wizard
         user_session.trader_scheme = trader_scheme
       end
 
-      def next_step_path(service_choice:, commodity_code:)
-        return final_use_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.trader_scheme == 'yes'
-        return certificate_of_origin_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.gb_to_ni_route?
+      def next_step_path
+        return final_use_path if user_session.trader_scheme == 'yes'
+        return certificate_of_origin_path if user_session.gb_to_ni_route?
       end
 
-      def previous_step_path(service_choice:, commodity_code:)
-        country_of_origin_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.gb_to_ni_route?
+      def previous_step_path
+        country_of_origin_path if user_session.gb_to_ni_route?
       end
     end
   end

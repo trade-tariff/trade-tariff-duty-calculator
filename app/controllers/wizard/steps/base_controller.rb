@@ -3,18 +3,18 @@ module Wizard
     class BaseController < ::ApplicationController
       default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
 
-      helper_method :commodity, :commodity_code, :service_choice
+      helper_method :commodity, :commodity_code, :commodity_source
 
       def commodity
         @commodity ||= Api::Commodity.build(
-          service_choice,
+          commodity_source,
           commodity_code,
         )
       end
 
-      def filtered_commodity(service_source:, filter:)
+      def filtered_commodity(commodity_source:, filter:)
         Api::Commodity.build(
-          service_source,
+          commodity_source,
           commodity_code,
           filter,
         )
@@ -30,21 +30,18 @@ module Wizard
         if step.valid?
           step.save
 
-          redirect_to step.next_step_path(
-            service_choice: params[:service_choice],
-            commodity_code: params[:commodity_code],
-          )
+          redirect_to step.next_step_path
         else
           render 'show'
         end
       end
 
       def commodity_code
-        params[:commodity_code]
+        params[:commodity_code] || user_session.commodity_code
       end
 
-      def service_choice
-        params[:service_choice].to_sym
+      def commodity_source
+        (params[:referred_service] || user_session.commodity_source).to_sym
       end
     end
   end

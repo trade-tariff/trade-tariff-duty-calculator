@@ -13,18 +13,12 @@ RSpec.describe Wizard::Steps::Confirmation do
   describe '#next_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
-
     xit 'to be added' do
     end
   end
 
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
-
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
 
     context 'when on GB to NI route' do
       before do
@@ -33,9 +27,9 @@ RSpec.describe Wizard::Steps::Confirmation do
 
       it 'returns measure_amount_path' do
         expect(
-          step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+          step.previous_step_path,
         ).to eq(
-          measure_amount_path(service_choice: service_choice, commodity_code: commodity_code),
+          measure_amount_path,
         )
       end
     end

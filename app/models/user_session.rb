@@ -92,6 +92,30 @@ class UserSession
     }
   end
 
+  def commodity_source=(value)
+    session['commodity_source'] = value
+  end
+
+  def commodity_source
+    session['commodity_source']
+  end
+
+  def referred_service=(value)
+    session['referred_service'] = value
+  end
+
+  def referred_service
+    session['referred_service']
+  end
+
+  def commodity_code=(value)
+    session['commodity_code'] = value
+  end
+
+  def commodity_code
+    session['commodity_code']
+  end
+
   def measure_amount=(values)
     session['answers'][Wizard::Steps::MeasureAmount.id] = values
   end

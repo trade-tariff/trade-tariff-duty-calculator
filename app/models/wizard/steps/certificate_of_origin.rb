@@ -20,17 +20,17 @@ module Wizard
         user_session.certificate_of_origin = certificate_of_origin
       end
 
-      def next_step_path(service_choice:, commodity_code:)
-        return duty_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.certificate_of_origin == 'yes'
+      def next_step_path
+        return duty_path if user_session.certificate_of_origin == 'yes'
 
-        customs_value_path(service_choice: service_choice, commodity_code: commodity_code)
+        customs_value_path
       end
 
-      def previous_step_path(service_choice:, commodity_code:)
-        return planned_processing_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.planned_processing == 'commercial_purposes'
-        return final_use_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.final_use == 'no'
+      def previous_step_path
+        return planned_processing_path if user_session.planned_processing == 'commercial_purposes'
+        return final_use_path if user_session.final_use == 'no'
 
-        trader_scheme_path(service_choice: service_choice, commodity_code: commodity_code) if user_session.trader_scheme == 'no'
+        trader_scheme_path if user_session.trader_scheme == 'no'
       end
     end
   end

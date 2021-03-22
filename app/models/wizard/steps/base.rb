@@ -21,11 +21,11 @@ module Wizard
 
       protected
 
-      def next_step_path(*)
+      def next_step_path
         raise NotImplementedError
       end
 
-      def previous_step_path(*)
+      def previous_step_path
         raise NotImplementedError
       end
 

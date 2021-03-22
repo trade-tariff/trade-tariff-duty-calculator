@@ -132,14 +132,11 @@ RSpec.describe Wizard::Steps::MeasureAmount do
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
-
     it 'returns customs_value_path' do
       expect(
-        step.previous_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        step.previous_step_path,
       ).to eq(
-        customs_value_path(service_choice: service_choice, commodity_code: commodity_code),
+        customs_value_path,
       )
     end
   end
@@ -147,14 +144,11 @@ RSpec.describe Wizard::Steps::MeasureAmount do
   describe '#next_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:service_choice) { 'uk' }
-    let(:commodity_code) { '1233455' }
-
     it 'returns confirm_path' do
       expect(
-        step.next_step_path(service_choice: service_choice, commodity_code: commodity_code),
+        step.next_step_path,
       ).to eq(
-        confirm_path(service_choice: service_choice, commodity_code: commodity_code),
+        confirm_path,
       )
     end
   end
