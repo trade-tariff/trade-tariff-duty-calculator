@@ -11,7 +11,9 @@ commands:
     parameters:
       space:
         type: string
-      domain_prefix:
+      environment_key:
+        type: string
+      app_domain_prefix:
         type: string
     steps:
       - checkout
@@ -29,21 +31,21 @@ commands:
       - run:
           name: "Fetch existing manifest"
           command: |
-            cf create-app-manifest "$CF_APP-<< parameters.domain_prefix >>" -p deploy_manifest.yml
+            cf create-app-manifest "$CF_APP-<< parameters.environment_key >>" -p deploy_manifest.yml
       - run:
           name: "Push new app in dark mode"
           command: |
             # Push as "dark" instance
-            cf push "$CF_APP-<< parameters.domain_prefix >>-dark" -f deploy_manifest.yml --no-route
+            cf push "$CF_APP-<< parameters.environment_key >>-dark" -f deploy_manifest.yml --no-route
 
             # Map dark route
-            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>-dark"
+            cf map-route  "$CF_APP-<< parameters.environment_key >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.environment_key >>-dark"
       - run:
           name: "Verify new version is working on dark URL."
           command: |
             sleep 15
             # Verify new version is working on dark URL.
-            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$CF_APP-<< parameters.domain_prefix >>-dark.london.cloudapps.digital/ping`
+            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$CF_APP-<< parameters.environment_key >>-dark.london.cloudapps.digital/ping`
 
             if [ "$HTTPCODE" -ne 200 ];then
               echo "dark route not available, failing deploy ($HTTPCODE)"
@@ -53,29 +55,29 @@ commands:
           name: "Switch dark app to live"
           command: |
             # Send "real" url to new version
-            cf unmap-route "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>-dark"
+            cf unmap-route "$CF_APP-<< parameters.environment_key >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.environment_key >>-dark"
 
             # Start sending traffic to new version
-            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>"
+            cf map-route  "$CF_APP-<< parameters.environment_key >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.environment_key >>"
             # TODO: Update when we remove referring service from the path
-            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/xi/duty-calculator"
-            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/uk/duty-calculator"
-            cf map-route  "$CF_APP-<< parameters.domain_prefix >>-dark" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/duty-calculator"
+            cf map-route  "$CF_APP-<< parameters.environment_key >>-dark" "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk --path "/xi/duty-calculator"
+            cf map-route  "$CF_APP-<< parameters.environment_key >>-dark" "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk --path "/uk/duty-calculator"
+            cf map-route  "$CF_APP-<< parameters.environment_key >>-dark" "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk --path "/duty-calculator"
 
             # Stop sending traffic to previous version
-            cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" london.cloudapps.digital -n "$CF_APP-<< parameters.domain_prefix >>"
-            cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/xi/duty-calculator" 
-            cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/uk/duty-calculator"
-            cf unmap-route  "$CF_APP-<< parameters.domain_prefix >>" "<< parameters.domain_prefix >>".trade-tariff.service.gov.uk --path "/duty-calculator"
+            cf unmap-route  "$CF_APP-<< parameters.environment_key >>" london.cloudapps.digital -n "$CF_APP-<< parameters.environment_key >>"
+            cf unmap-route  "$CF_APP-<< parameters.environment_key >>" "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk --path "/xi/duty-calculator"
+            cf unmap-route  "$CF_APP-<< parameters.environment_key >>" "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk --path "/uk/duty-calculator"
+            cf unmap-route  "$CF_APP-<< parameters.environment_key >>" "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk --path "/duty-calculator"
 
             # stop previous version
-            cf stop "$CF_APP-<< parameters.domain_prefix >>"
+            cf stop "$CF_APP-<< parameters.environment_key >>"
 
             # delete previous version
-            cf delete "$CF_APP-<< parameters.domain_prefix >>" -f
+            cf delete "$CF_APP-<< parameters.environment_key >>" -f
 
             # Switch name of "dark" version to claim correct name
-            cf rename "$CF_APP-<< parameters.domain_prefix >>-dark" "$CF_APP-<< parameters.domain_prefix >>"
+            cf rename "$CF_APP-<< parameters.environment_key >>-dark" "$CF_APP-<< parameters.environment_key >>"
       - slack/notify:
           channel: deployments
           event: fail
@@ -124,7 +126,24 @@ jobs:
     steps:
       - cf_deploy:
           space: "development"
-          domain_prefix: "dev"
+          environment_key: "dev"
+          app_domain_prefix: "dev"
+  deploy_staging:
+    docker:
+      - image: cimg/ruby:2.7
+    steps:
+      - cf_deploy:
+          space: "staging"
+          environment_key: "staging"
+          app_domain_prefix: "staging"
+  deploy_production:
+    docker:
+      - image: cimg/ruby:2.7
+    steps:
+      - cf_deploy:
+          space: "production"
+          environment_key: "production"
+          app_domain_prefix: "www"
 
 workflows:
   version: 2
@@ -143,5 +162,27 @@ workflows:
             branches:
               ignore:
                 - master
-          requires: 
+          requires:
             - test
+      - deploy_staging:
+          context: trade-tariff
+          filters:
+            branches:
+              only:
+                - master
+      - hold_production:
+          type: approval
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - deploy_staging
+      - deploy_production:
+          context: trade-tariff
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - hold_production
