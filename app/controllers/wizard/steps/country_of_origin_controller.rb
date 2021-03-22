@@ -20,7 +20,7 @@ module Wizard
       end
 
       def opts
-        return opts_for_ni_to_gb_route if %w[GB XU].include?(answer) && user_session.import_destination == 'XI'
+        return opts_for_ni_to_gb_route if answer == 'GB' && user_session.import_destination == 'XI'
 
         {}
       end
