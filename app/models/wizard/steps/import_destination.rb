@@ -2,7 +2,7 @@ module Wizard
   module Steps
     class ImportDestination < Wizard::Steps::Base
       OPTIONS = [
-        OpenStruct.new(id: 'GB', name: 'England, Scotland or Wales (GB)'),
+        OpenStruct.new(id: 'UK', name: 'England, Scotland or Wales (GB)'),
         OpenStruct.new(id: 'XI', name: 'Northern Ireland'),
       ].freeze
 

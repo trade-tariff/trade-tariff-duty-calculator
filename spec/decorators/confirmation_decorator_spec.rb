@@ -71,7 +71,7 @@ RSpec.describe ConfirmationDecorator do
         {
           key: 'import_destination',
           label: 'Destination',
-          value: 'United Kingdom (Northern Ireland)',
+          value: 'Northern Ireland',
         },
         {
           key: 'country_of_origin',
@@ -111,7 +111,6 @@ RSpec.describe ConfirmationDecorator do
       ]
     end
 
-    let(:xi) { instance_double(Api::GeographicalArea) }
     let(:gb) { instance_double(Api::GeographicalArea) }
 
     let(:applicable_measure_units) do
@@ -128,9 +127,7 @@ RSpec.describe ConfirmationDecorator do
     end
 
     before do
-      allow(Api::GeographicalArea).to receive(:find).with('XI').and_return(xi)
-      allow(xi).to receive(:description).and_return('United Kingdom (Northern Ireland)')
-      allow(Api::GeographicalArea).to receive(:find).with('GB').and_return(gb)
+      allow(Api::GeographicalArea).to receive(:find).with('GB', :xi).and_return(gb)
       allow(gb).to receive(:description).and_return('United Kingdom')
       allow(commodity).to receive(:applicable_measure_units).and_return(applicable_measure_units)
     end

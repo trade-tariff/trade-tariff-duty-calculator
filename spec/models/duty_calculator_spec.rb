@@ -8,7 +8,7 @@ RSpec.describe DutyCalculator do
       let(:session) do
         {
           'answers' => {
-            'import_destination' => 'GB',
+            'import_destination' => 'UK',
             'country_of_origin' => 'XI',
           },
         }

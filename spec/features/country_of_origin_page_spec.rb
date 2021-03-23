@@ -1,7 +1,7 @@
 RSpec.describe 'Country of Origin Page', type: :feature do
   let(:commodity_code) { '1234567890' }
   let(:referred_service) { 'uk' }
-  let(:import_into) { 'GB' }
+  let(:import_into) { 'UK' }
 
   before do
     visit import_date_path(commodity_code: commodity_code, referred_service: referred_service)

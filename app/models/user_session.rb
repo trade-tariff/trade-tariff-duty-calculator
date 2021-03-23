@@ -137,7 +137,7 @@ class UserSession
   end
 
   def ni_to_gb_route?
-    import_destination == 'GB' && country_of_origin == 'XI'
+    import_destination == 'UK' && country_of_origin == 'XI'
   end
 
   def gb_to_ni_route?
