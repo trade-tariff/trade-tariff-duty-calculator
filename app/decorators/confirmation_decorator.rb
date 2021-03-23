@@ -47,7 +47,7 @@ class ConfirmationDecorator < SimpleDelegator
     return format_import_date(value) if key == 'import_date'
     return format_customs_value(value) if key == 'customs_value'
     return format_measure_amount(value) if key == 'measure_amount'
-    return format_country(value) if %w[import_destination country_of_origin].include?(key)
+    return country_name_for(value, key) if %w[import_destination country_of_origin].include?(key)
 
     value.humanize
   end
@@ -72,7 +72,9 @@ class ConfirmationDecorator < SimpleDelegator
     Date.parse(value).strftime('%d %B %Y')
   end
 
-  def format_country(value)
-    Api::GeographicalArea.find(value).description
+  def country_name_for(value, key)
+    return Wizard::Steps::ImportDestination::OPTIONS.find { |c| c.id == value }.name if key == 'import_destination'
+
+    Api::GeographicalArea.find(value, session_answers['import_destination'].downcase.to_sym).description
   end
 end
