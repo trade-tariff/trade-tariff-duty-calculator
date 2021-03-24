@@ -102,4 +102,10 @@ RSpec.describe Api::Commodity, type: :model do
       expect(commodity.applicable_measure_units).to eq(expected_units)
     end
   end
+
+  describe '#formatted_commodity_code' do
+    it 'returns the commodity commodity code' do
+      expect(commodity.formatted_commodity_code).to eq('0702 00 00 07')
+    end
+  end
 end

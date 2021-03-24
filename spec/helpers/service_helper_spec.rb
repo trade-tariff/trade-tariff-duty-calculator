@@ -80,7 +80,7 @@ RSpec.describe ServiceHelper do
   end
 
   describe '#commodity_url' do
-    let(:commodity_code) { '1234567890' }
+    let(:commodity_code) { '0702000007' }
 
     context 'when TRADE_TARIFF_FRONTEND_URL is set' do
       it 'returns the dev trade tariff tools url' do

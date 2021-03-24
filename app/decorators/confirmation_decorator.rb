@@ -33,10 +33,6 @@ class ConfirmationDecorator < SimpleDelegator
     end
   end
 
-  def formatted_commodity_code
-    "#{commodity.code[0..3]} #{commodity.code[4..5]} #{commodity.code[6..7]} #{commodity.code[8..9]}"
-  end
-
   private
 
   attr_reader :commodity
@@ -64,8 +60,8 @@ class ConfirmationDecorator < SimpleDelegator
          .html_safe
   end
 
-  def format_customs_value(value)
-    "£#{value.values.map(&:to_f).reduce(:+)}"
+  def format_customs_value(_value)
+    "£#{user_session.total_amount}"
   end
 
   def format_import_date(value)

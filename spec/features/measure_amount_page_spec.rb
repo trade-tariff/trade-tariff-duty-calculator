@@ -31,7 +31,8 @@ RSpec.describe 'Measure Amount Page', type: :feature do
     let(:measure_amount) { { 'dtn' => 500.42 } }
 
     before do
-      allow(commodity).to receive(:applicable_measure_units).and_return(attributes['applicable_measure_units'])
+      # allow(commodity).to receive(:applicable_measure_units).and_return(attributes['applicable_measure_units'])
+      # allow(filtered_commodity).to receive(:applicable_measure_units).and_return(attributes['applicable_measure_units'])
 
       # trader scheme question
       choose(option: 'no')

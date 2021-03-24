@@ -87,4 +87,18 @@ RSpec.describe Api::MeasureType do
       it { is_expected.not_to be_unit_price_duty }
     end
   end
+
+  describe '#third_country?' do
+    it 'returns false' do
+      expect(measure_type).not_to be_third_country
+    end
+
+    context 'when it is a 3rd country measure type' do
+      let(:id) { '103' }
+
+      it 'returns true' do
+        expect(measure_type).to be_third_country
+      end
+    end
+  end
 end

@@ -1,13 +1,25 @@
 RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
-  let(:commodity) { double(Uktt::Commodity) }
-  let(:filtered_commodity) { double(Uktt::Commodity) }
+  let(:commodity) {
+    Api::Commodity.build(
+      commodity_source,
+      commodity_code,
+    )
+  }
+
+  let(:filtered_commodity) {
+    Api::Commodity.build(
+      commodity_source,
+      commodity_code,
+      filter,
+    )
+  }
+
   let(:description) { 'Some description' }
   let(:import_into) { 'XI' }
   let(:import_from) { 'GB' }
-  let(:commodity_code) { '1234567890' }
+  let(:commodity_code) { '7202118000' }
   let(:referred_service) { 'uk' }
-  let(:trade_defence) { false }
-  let(:zero_mfn_duty) { false }
+  let(:commodity_source) { :xi }
 
   let(:filter) do
     {
@@ -15,11 +27,35 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
     }
   end
 
+  let(:attributes) do
+    {
+      'applicable_measure_units' => {
+        'DTN' => {
+          'measurement_unit_code' => 'DTN',
+          'measurement_unit_qualifier_code' => '',
+          'abbreviation' => '100 kg',
+          'unit_question' => 'What is the weight of the goods you will be importing?',
+          'unit_hint' => 'Enter the value in decitonnes (100kg)',
+          'unit' => 'x 100 kg',
+          'measure_sids' => [
+            20_005_920,
+            20_056_507,
+            20_073_335,
+            20_076_779,
+            20_090_066,
+            20_105_690,
+            20_078_066,
+            20_102_998,
+            20_108_866,
+            20_085_014,
+          ],
+        },
+      },
+    }
+  end
+
   before do
-    allow(commodity).to receive(:trade_defence).and_return(trade_defence)
-    allow(commodity).to receive(:code).and_return(commodity_code)
-    allow(commodity).to receive(:description).and_return(description)
-    allow(filtered_commodity).to receive(:zero_mfn_duty).and_return(zero_mfn_duty)
+    allow(filtered_commodity).to receive(:applicable_measure_units).and_return(attributes['applicable_measure_units'])
     allow(Api::Commodity).to receive(:build).with(:uk, commodity_code).and_return(commodity)
     allow(Api::Commodity).to receive(:build).with(:xi, commodity_code).and_return(commodity)
     allow(Api::Commodity).to receive(:build).with(:xi, commodity_code, filter).and_return(filtered_commodity)

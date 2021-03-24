@@ -4,13 +4,19 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
       <span class="govuk-caption-xl">Calculate import duties</span>
-      <% if @duty.zero? %>
+      <% if @duty_option.nil? %>
         <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
             <h1 class="govuk-fieldset__heading">There is no import duty to pay</h1>
           </legend>
         </fieldset>
         <%= render 'no_duty' %>
+      <% else %>
+        <h1 class="govuk-heading-xl">Import duty calculation</h1>
+        
+        <p class="govuk-body">You are importing commodity <%= link_to(commodity.code,commodity_url(commodity.code), class: 'govuk-link') %> from <strong><%= user_session.country_of_origin %> </strong> on <strong><%= l user_session.import_date %></strong>.</p>
+        <%= render 'wizard/steps/duty/calculations/trade_details' %>
+        <%= render 'wizard/steps/duty/calculations/options' %>
       <% end %>
     </div>
   </div>

@@ -2,7 +2,7 @@ module Wizard
   module Steps
     class DutyController < BaseController
       def show
-        @duty = DutyCalculator.new(user_session).result
+        @duty_option = DutyCalculator.new(user_session, filtered_commodity).result
       end
     end
   end
