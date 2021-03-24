@@ -1,18 +1,18 @@
 RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
-  let(:commodity) {
+  let(:commodity) do
     Api::Commodity.build(
       commodity_source,
       commodity_code,
     )
-  }
+  end
 
-  let(:filtered_commodity) {
+  let(:filtered_commodity) do
     Api::Commodity.build(
       commodity_source,
       commodity_code,
       filter,
     )
-  }
+  end
 
   let(:description) { 'Some description' }
   let(:import_into) { 'XI' }

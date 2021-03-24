@@ -40,7 +40,7 @@ RSpec.describe ThirdCountryTariffTable do
             ['Valuation for import', 'Value of goods + freight + insurance costs', '£1050.0'],
             ['Import duty<br><span class="govuk-green govuk-body-xs"> Third country duty (XI)</span>', '5.0% * £1050.0', '£52.5'],
             ['<strong>Duty Total</strong>', nil, '£52.5'],
-          ]
+          ],
         }
       end
 
