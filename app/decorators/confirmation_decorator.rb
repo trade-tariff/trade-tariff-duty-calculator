@@ -71,6 +71,6 @@ class ConfirmationDecorator < SimpleDelegator
   def country_name_for(value, key)
     return Wizard::Steps::ImportDestination::OPTIONS.find { |c| c.id == value }.name if key == 'import_destination'
 
-    Api::GeographicalArea.find(value, session_answers['import_destination'].downcase.to_sym).description
+    Api::GeographicalArea.find(value, user_session.import_destination.downcase.to_sym).description
   end
 end

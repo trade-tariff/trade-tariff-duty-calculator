@@ -3,7 +3,11 @@ module Wizard
     class BaseController < ::ApplicationController
       default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
 
-      helper_method :commodity, :commodity_code, :commodity_source, :user_session
+      helper_method :commodity,
+                    :commodity_code,
+                    :commodity_source,
+                    :user_session,
+                    :country_of_origin_description
 
       def commodity
         @commodity ||= Api::Commodity.build(
@@ -22,6 +26,13 @@ module Wizard
 
       def user_session
         @user_session ||= UserSession.new(session)
+      end
+
+      def country_of_origin_description
+        Api::GeographicalArea.find(
+          user_session.country_of_origin,
+          user_session.import_destination.downcase.to_sym,
+        ).description
       end
 
       protected

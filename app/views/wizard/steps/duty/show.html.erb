@@ -14,7 +14,7 @@
       <% else %>
         <h1 class="govuk-heading-xl">Import duty calculation</h1>
         
-        <p class="govuk-body">You are importing commodity <%= link_to(commodity.code,commodity_url(commodity.code), class: 'govuk-link') %> from <strong><%= user_session.country_of_origin %> </strong> on <strong><%= l user_session.import_date %></strong>.</p>
+        <p class="govuk-body">You are importing commodity <%= link_to(commodity.formatted_commodity_code,commodity_url(commodity.code), class: 'govuk-link') %> from <strong><%= country_of_origin_description %> </strong> on <strong><%= l user_session.import_date %></strong>.</p>
         <%= render 'wizard/steps/duty/calculations/trade_details' %>
         <%= render 'wizard/steps/duty/calculations/options' %>
       <% end %>
