@@ -31,10 +31,10 @@ gem 'uktt', '~> 1.2.0', git: 'https://github.com/trade-tariff/uktt.git'
 
 group :development, :test do
   # Debugging
+  gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'dotenv-rails'
-  
+
   # GOV.UK interpretation of rubocop for linting Ruby
   gem 'rubocop-govuk'
   gem 'scss_lint-govuk'
