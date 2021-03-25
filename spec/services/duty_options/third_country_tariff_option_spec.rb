@@ -1,5 +1,5 @@
-RSpec.describe ThirdCountryTariffTable do
-  subject(:table) { described_class.new(measure, user_session, additional_duty_rows) }
+RSpec.describe DutyOptions::ThirdCountryTariffOption do
+  subject(:option) { described_class.new(measure, user_session, additional_duty_rows) }
 
   describe '#rows' do
     context 'when the measure is an ad valorem measure' do
@@ -44,8 +44,8 @@ RSpec.describe ThirdCountryTariffTable do
         }
       end
 
-      it 'produces a correct table' do
-        expect(table.option).to eq(expected_table)
+      it 'produces a correct option' do
+        expect(option.option).to eq(expected_table)
       end
     end
   end
