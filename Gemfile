@@ -40,11 +40,6 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
 
-  # Testing framework
-  gem 'rspec-rails', '~> 4.0.2'
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 3.35'
-
   gem 'dotenv-rails'
 end
 
@@ -59,7 +54,9 @@ group :development do
 end
 
 group :test do
+  gem 'capybara', '~> 3.35'
   gem 'rspec_junit_formatter'
+  gem 'rspec-rails', '~> 4.0.2'
   gem 'simplecov', require: false
   gem 'webdrivers', '~> 4.5'
 end
