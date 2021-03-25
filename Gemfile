@@ -30,6 +30,9 @@ gem 'govuk_design_system_formbuilder'
 gem 'uktt', '~> 1.2.0', git: 'https://github.com/trade-tariff/uktt.git'
 
 group :development, :test do
+  # Security check
+  gem 'brakeman'
+
   # Debugging
   gem 'dotenv-rails'
   gem 'pry-byebug'
