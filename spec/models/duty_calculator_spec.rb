@@ -108,9 +108,9 @@ RSpec.describe DutyCalculator do
             third_country_tariff: {
               warning_text: I18n.t('duty_calculations.options.mfn.warning_text'),
               values: [
-                ['Valuation for import', 'Value of goods + freight + insurance costs', '£1260.8899999999999'],
-                ['Import duty<br><span class="govuk-green govuk-body-xs"> Third country duty (UK)</span>', '2.7% * £1260.8899999999999', '£34.04403'],
-                ['<strong>Duty Total</strong>', nil, '£34.04403'],
+                [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1260.8899999999999'],
+                [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'UK'), '2.7% * £1260.8899999999999', '£34.04403'],
+                [I18n.t('duty_calculations.options.duty_total_html'), nil, '£34.04403'],
               ],
             },
           }
@@ -121,7 +121,7 @@ RSpec.describe DutyCalculator do
             'answers' => {
               'import_destination' => 'XI',
               'country_of_origin' => 'GB',
-              'planned_processing' => 'commercial_processing',
+              'planned_processing' => 'commercial_purposes',
               'customs_value' => {
                 'monetary_value' => '1000',
                 'shipping_cost' => '250.89',

@@ -29,7 +29,7 @@ class DutyCalculator
   end
 
   def strict_processing?
-    %w[without_any_processing annual_turnover comcustommercial_processing].include?(user_session.planned_processing)
+    %w[without_any_processing annual_turnover commercial_processing].include?(user_session.planned_processing)
   end
 
   def certificate_of_origin?

@@ -65,7 +65,7 @@ class ConfirmationDecorator < SimpleDelegator
   end
 
   def format_import_date(value)
-    Date.parse(value).strftime('%d %B %Y')
+    I18n.l(Date.parse(value))
   end
 
   def country_name_for(value, key)

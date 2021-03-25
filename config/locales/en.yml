@@ -37,6 +37,10 @@ en:
     options:
       mfn:
         warning_text: Third-country duty will apply as there is no preferential agreement in place for the import of this commodity.
+      import_valuation: Valuation for import
+      customs_value: Value of goods + freight + insurance costs
+      duty_total_html: <strong>Duty Total</strong>
+      import_duty_html: Import duty<br><span class="govuk-green govuk-body-xs"> Third country duty (%{commodity_source})</span>
 
   confirmation_page:
     import_date: Date of import

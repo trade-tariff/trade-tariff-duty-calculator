@@ -22,15 +22,15 @@ class Table
 
   def valuation_row
     [
-      'Valuation for import',
-      'Value of goods + freight + insurance costs',
+      I18n.t('duty_calculations.options.import_valuation'),
+      I18n.t('duty_calculations.options.customs_value'),
       "£#{user_session.total_amount}",
     ]
   end
 
   def duty_totals_row
     [
-      '<strong>Duty Total</strong>'.html_safe,
+      I18n.t('duty_calculations.options.duty_total_html').html_safe,
       nil,
       "£#{duty_totals}",
     ]

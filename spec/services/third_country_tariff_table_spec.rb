@@ -37,9 +37,9 @@ RSpec.describe ThirdCountryTariffTable do
         {
           warning_text: I18n.t('duty_calculations.options.mfn.warning_text'),
           values: [
-            ['Valuation for import', 'Value of goods + freight + insurance costs', '£1050.0'],
-            ['Import duty<br><span class="govuk-green govuk-body-xs"> Third country duty (XI)</span>', '5.0% * £1050.0', '£52.5'],
-            ['<strong>Duty Total</strong>', nil, '£52.5'],
+            [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1050.0'],
+            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source), '5.0% * £1050.0', '£52.5'],
+            [I18n.t('duty_calculations.options.duty_total_html'), nil, '£52.5'],
           ],
         }
       end
