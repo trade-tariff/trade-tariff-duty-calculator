@@ -1,9 +1,9 @@
-<% %i[third_country_tariff].each do |key| %>
+<% @duty_options.each do |key, duty_option| %>
   <div class="govuk-warning-text">
     <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
     <strong class="govuk-warning-text__text">
       <span class="govuk-warning-text__assistive">Information</span>
-      <%= @duty_option[key][:warning_text] %>
+      <%= duty_option[:warning_text] %>
     </strong>
   </div>
 
@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody class="govuk-table__body">
-      <%= render partial: 'wizard/steps/duty/calculations/option_row', collection: @duty_option[key][:values], as: :row %>
+      <%= render partial: 'wizard/steps/duty/calculations/option_row', collection: duty_option[:values], as: :row %>
     </tbody>
   </table>
 <% end %>

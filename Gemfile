@@ -20,8 +20,6 @@ gem 'foreman'
 
 # Canonical meta tag
 gem 'canonical-rails'
-
-# Logging
 gem 'lograge'
 gem 'logstash-event'
 
@@ -32,15 +30,14 @@ gem 'govuk_design_system_formbuilder'
 gem 'uktt', '~> 1.2.0', git: 'https://github.com/trade-tariff/uktt.git'
 
 group :development, :test do
-  # GOV.UK interpretation of rubocop for linting Ruby
-  gem 'rubocop-govuk'
-  gem 'scss_lint-govuk'
-
   # Debugging
   gem 'pry-byebug'
   gem 'pry-rails'
-
   gem 'dotenv-rails'
+  
+  # GOV.UK interpretation of rubocop for linting Ruby
+  gem 'rubocop-govuk'
+  gem 'scss_lint-govuk'
 end
 
 group :development do
