@@ -62,14 +62,10 @@ commands:
             # Start sending traffic to new version
             cf map-route  "$CF_APP-<< parameters.environment_key >>-dark" london.cloudapps.digital -n "$CF_APP-<< parameters.environment_key >>"
             # TODO: Update when we remove referring service from the path
-            cf map-route  "$CF_APP-<< parameters.environment_key >>-dark" "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk --path "/xi/duty-calculator"
-            cf map-route  "$CF_APP-<< parameters.environment_key >>-dark" "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk --path "/uk/duty-calculator"
             cf map-route  "$CF_APP-<< parameters.environment_key >>-dark" "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk --path "/duty-calculator"
 
             # Stop sending traffic to previous version
             cf unmap-route  "$CF_APP-<< parameters.environment_key >>" london.cloudapps.digital -n "$CF_APP-<< parameters.environment_key >>"
-            cf unmap-route  "$CF_APP-<< parameters.environment_key >>" "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk --path "/xi/duty-calculator"
-            cf unmap-route  "$CF_APP-<< parameters.environment_key >>" "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk --path "/uk/duty-calculator"
             cf unmap-route  "$CF_APP-<< parameters.environment_key >>" "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk --path "/duty-calculator"
 
             # stop previous version
