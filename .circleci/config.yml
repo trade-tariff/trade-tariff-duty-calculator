@@ -49,6 +49,8 @@ commands:
 
             if [ "$HTTPCODE" -ne 200 ];then
               echo "dark route not available, failing deploy ($HTTPCODE)"
+              cf logs "$CF_APP-<< parameters.environment_key >>-dark" --recent
+              cf delete "$CF_APP-<< parameters.environment_key >>-dark"
               exit 1
             fi
       - run:
