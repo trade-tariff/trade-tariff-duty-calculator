@@ -20,8 +20,6 @@ gem 'foreman'
 
 # Canonical meta tag
 gem 'canonical-rails'
-
-# Logging
 gem 'lograge'
 gem 'logstash-event'
 
@@ -32,20 +30,12 @@ gem 'govuk_design_system_formbuilder'
 gem 'uktt', '~> 1.2.0', git: 'https://github.com/trade-tariff/uktt.git'
 
 group :development, :test do
-  # GOV.UK interpretation of rubocop for linting Ruby
-  gem 'rubocop-govuk'
-  gem 'scss_lint-govuk'
-
-  # Debugging
+  gem 'capybara', '~> 3.35'
+  gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'pry-rails'
-
-  # Testing framework
-  gem 'rspec-rails', '~> 4.0.2'
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 3.35'
-
-  gem 'dotenv-rails'
+  gem 'rubocop-govuk'
+  gem 'scss_lint-govuk'
 end
 
 group :development do
@@ -60,6 +50,7 @@ end
 
 group :test do
   gem 'rspec_junit_formatter'
+  gem 'rspec-rails', '~> 4.0.2'
   gem 'simplecov', require: false
   gem 'webdrivers', '~> 4.5'
 end
