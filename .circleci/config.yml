@@ -97,6 +97,15 @@ jobs:
       - ruby/rubocop-check:
           format: progress
           label: Inspecting with Rubocop
+      - run:
+          name: GOV linter
+          command: bundle exec rake lint:scss
+      - run:
+          name: Brakeman
+          command:  bundle exec brakeman -o brakeman_results.html
+      - store_artifacts:
+          path: brakeman_results.html
+
   test:
     docker:
       - image: cimg/ruby:2.7-node
