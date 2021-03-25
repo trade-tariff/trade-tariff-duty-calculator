@@ -66,10 +66,6 @@ module Wizard
       private
 
       attr_reader :user_session, :answers, :attributes
-
-      def clean_user_session
-        @user_session.remove_step_ids(self.class::STEPS_TO_REMOVE_FROM_SESSION)
-      end
     end
   end
 end
