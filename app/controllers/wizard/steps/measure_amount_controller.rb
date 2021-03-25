@@ -25,7 +25,7 @@ module Wizard
       end
 
       def applicable_measure_units
-        commodity.applicable_measure_units
+        filtered_commodity.applicable_measure_units
       end
 
       def measure_amount_answers

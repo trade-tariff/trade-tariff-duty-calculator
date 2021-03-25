@@ -3,7 +3,11 @@ module Wizard
     class BaseController < ::ApplicationController
       default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
 
-      helper_method :commodity, :commodity_code, :commodity_source
+      helper_method :commodity,
+                    :commodity_code,
+                    :commodity_source,
+                    :user_session,
+                    :country_of_origin_description
 
       def commodity
         @commodity ||= Api::Commodity.build(
@@ -12,7 +16,7 @@ module Wizard
         )
       end
 
-      def filtered_commodity(commodity_source:, filter:)
+      def filtered_commodity(filter: default_filter)
         Api::Commodity.build(
           commodity_source,
           commodity_code,
@@ -22,6 +26,13 @@ module Wizard
 
       def user_session
         @user_session ||= UserSession.new(session)
+      end
+
+      def country_of_origin_description
+        Api::GeographicalArea.find(
+          user_session.country_of_origin,
+          user_session.import_destination.downcase.to_sym,
+        ).description
       end
 
       protected
@@ -42,6 +53,10 @@ module Wizard
 
       def commodity_source
         (params[:referred_service] || user_session.commodity_source).to_sym
+      end
+
+      def default_filter
+        { 'filter[geographical_area_id]' => user_session.country_of_origin }
       end
     end
   end

@@ -4,7 +4,7 @@ module Wizard
       def show
         step = Wizard::Steps::Confirmation.new(user_session)
 
-        @decorated_step = ::ConfirmationDecorator.new(step, commodity)
+        @decorated_step = ::ConfirmationDecorator.new(step, filtered_commodity)
       end
     end
   end

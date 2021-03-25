@@ -1,5 +1,5 @@
 RSpec.describe 'Import Destination Page', type: :feature do
-  let(:commodity_code) { '1234567890' }
+  let(:commodity_code) { '0702000007' }
   let(:referred_service) { 'uk' }
 
   before do

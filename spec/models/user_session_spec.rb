@@ -1,4 +1,4 @@
-RSpec.describe Wizard::Steps::UserSession do
+RSpec.describe UserSession do
   subject(:user_session) { described_class.new(session) }
 
   let(:session) { {} }
@@ -336,9 +336,9 @@ RSpec.describe Wizard::Steps::UserSession do
   describe '#customs_value=' do
     let(:value) do
       {
-        'monetary_value' => '12_000',
-        'shipping_cost' => '1_200',
-        'insurance_cost' => '340',
+        'monetary_value' => 12_000,
+        'shipping_cost' => 1_200,
+        'insurance_cost' => 340,
       }
     end
 

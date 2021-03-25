@@ -4,7 +4,7 @@ RSpec.describe ConfirmationDecorator do
   let(:confirmation_step) { Wizard::Steps::Confirmation.new(user_session) }
 
   let(:commodity) { double(Uktt::Commodity) }
-  let(:commodity_code) { '1234567890' }
+  let(:commodity_code) { '0702000007' }
   let(:commodity_source) { 'uk' }
   let(:user_session) { UserSession.new(session) }
   let(:session) { {} }
@@ -29,12 +29,6 @@ RSpec.describe ConfirmationDecorator do
           measure_amount
         ],
       )
-    end
-  end
-
-  describe '#formatted_commodity_code' do
-    it 'returns the formatted commodity code' do
-      expect(confirmation_decorator.formatted_commodity_code).to eq('1234 56 78 90')
     end
   end
 

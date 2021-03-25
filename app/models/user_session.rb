@@ -84,6 +84,10 @@ class UserSession
     session['zero_mfn_duty'] = value
   end
 
+  def customs_value
+    session['answers'][Wizard::Steps::CustomsValue.id]
+  end
+
   def customs_value=(values)
     session['answers'][Wizard::Steps::CustomsValue.id] = {
       'monetary_value' => values['monetary_value'],
@@ -146,5 +150,9 @@ class UserSession
 
   def eu_to_ni_route?
     import_destination == 'XI' && Api::GeographicalArea.eu_member?(country_of_origin)
+  end
+
+  def total_amount
+    customs_value.values.map(&:to_f).reduce(:+)
   end
 end

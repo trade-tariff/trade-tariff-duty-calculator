@@ -1,7 +1,18 @@
 RSpec.describe DutyCalculator do
-  subject(:calculator) { described_class.new(user_session) }
+  subject(:calculator) { described_class.new(user_session, commodity) }
 
   let(:user_session) { UserSession.new(session) }
+  let(:commodity_source) { :xi }
+  let(:commodity_code) do
+    '7202118000'
+  end
+
+  let(:commodity) do
+    Api::Commodity.build(
+      commodity_source,
+      commodity_code,
+    )
+  end
 
   describe '#result' do
     context 'when importing from NI to GB' do
@@ -14,8 +25,8 @@ RSpec.describe DutyCalculator do
         }
       end
 
-      it 'returns 0' do
-        expect(calculator.result).to eq(0)
+      it 'returns nil' do
+        expect(calculator.result).to be_nil
       end
     end
 
@@ -29,8 +40,8 @@ RSpec.describe DutyCalculator do
         }
       end
 
-      it 'returns 0' do
-        expect(calculator.result).to eq(0)
+      it 'returns nil' do
+        expect(calculator.result).to be_nil
       end
     end
 
@@ -47,24 +58,30 @@ RSpec.describe DutyCalculator do
           }
         end
 
-        it 'returns 0' do
-          expect(calculator.result).to eq(0)
+        it 'returns nil' do
+          expect(calculator.result).to be_nil
         end
       end
 
-      context 'when there is a specific processing method' do
+      context 'when there is no processing method' do
         let(:session) do
           {
             'answers' => {
               'import_destination' => 'XI',
               'country_of_origin' => 'GB',
-              'planned_processing' => 'commercial_processing',
+              'planned_processing' => 'without_any_processing',
+              'customs_value' => {
+                'monetary_value' => '1000',
+                'shipping_cost' => '250.89',
+                'insurance_cost' => '10',
+              },
             },
+            'commodity_source' => 'UK',
           }
         end
 
-        it 'returns 0' do
-          expect(calculator.result).to eq(0)
+        it 'returns nil' do
+          expect(calculator.result).to be_nil
         end
       end
 
@@ -76,11 +93,47 @@ RSpec.describe DutyCalculator do
               'country_of_origin' => 'GB',
               'certificate_of_origin' => 'yes',
             },
+            'commodity_source' => 'UK',
           }
         end
 
-        it 'returns 0' do
-          expect(calculator.result).to eq(0)
+        it 'returns nil' do
+          expect(calculator.result).to be_nil
+        end
+      end
+
+      context 'when the measure is ad valorem and measure type is MFN' do
+        let(:expected_result) do
+          {
+            third_country_tariff: {
+              warning_text: I18n.t('duty_calculations.options.mfn.warning_text'),
+              values: [
+                [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1260.8899999999999'],
+                [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'UK'), '2.7% * £1260.8899999999999', '£34.04403'],
+                [I18n.t('duty_calculations.options.duty_total_html'), nil, '£34.04403'],
+              ],
+            },
+          }
+        end
+
+        let(:session) do
+          {
+            'answers' => {
+              'import_destination' => 'XI',
+              'country_of_origin' => 'GB',
+              'planned_processing' => 'commercial_purposes',
+              'customs_value' => {
+                'monetary_value' => '1000',
+                'shipping_cost' => '250.89',
+                'insurance_cost' => '10',
+              },
+            },
+            'commodity_source' => 'UK',
+          }
+        end
+
+        it 'returns the correct duty options' do
+          expect(calculator.result).to eq(expected_result)
         end
       end
     end
