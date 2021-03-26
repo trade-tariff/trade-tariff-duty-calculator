@@ -4,7 +4,15 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read('.ruby-version').chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.1'
+
+# Exclude mimemagic dependency and fetch only what we need
+gem 'actionmailer', '~> 6.1'
+gem 'actionpack', '~> 6.1'
+gem 'actionview', '~> 6.1'
+gem 'activemodel', '~> 6.1'
+gem 'activerecord', '~> 6.1'
+gem 'activesupport', '~> 6.1'
+gem 'railties', '~> 6.1'
 
 # Use Puma as the app server
 gem 'puma', '~> 5.2'
@@ -19,7 +27,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'foreman'
 
 # Canonical meta tag
-gem 'canonical-rails'
 gem 'lograge'
 gem 'logstash-event'
 
