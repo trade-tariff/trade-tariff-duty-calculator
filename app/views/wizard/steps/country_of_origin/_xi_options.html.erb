@@ -1,0 +1,9 @@
+<%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: country_of_origin_path do |f| %>
+  <%= f.govuk_error_summary %>
+  <span class="govuk-caption-xl">Calculate import duties</span>
+
+  <%= f.govuk_collection_radio_buttons :country_of_origin, Wizard::Steps::CountryOfOrigin::XI_OPTIONS, :id, :name,
+                                       legend: { text: 'Which country are the goods dispatched from?', size: 'xl', tag: 'h1' }, hint: { text: 'The duty you are charged may be dependent on the part of the UK to which you are importing.' }, include_hidden: true %>
+
+  <%= f.govuk_submit %>
+<% end %>
