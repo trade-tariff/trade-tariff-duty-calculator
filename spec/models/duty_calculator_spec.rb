@@ -108,9 +108,9 @@ RSpec.describe DutyCalculator do
             third_country_tariff: {
               warning_text: I18n.t('duty_calculations.options.mfn.warning_text'),
               values: [
-                [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1260.8899999999999'],
-                [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'UK'), '2.7% * £1260.8899999999999', '£34.04403'],
-                [I18n.t('duty_calculations.options.duty_total_html'), nil, '£34.04403'],
+                [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,260.89'],
+                [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'UK'), '2.7% * £1,260.89', '£34.04'],
+                [I18n.t('duty_calculations.options.duty_total_html'), nil, '£34.04'],
               ],
             },
           }
