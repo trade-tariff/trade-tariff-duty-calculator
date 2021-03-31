@@ -33,6 +33,20 @@ en:
   date:
     formats:
       default: "%d %B %Y"
+  number:
+    # Used in NumberHelper.number_to_currency()
+    currency:
+      format:
+        # Where is the currency sign? %u is the currency unit, %n is the number (default: $5.00)
+        format: "%u%n"
+        unit: "£"
+        # These six are to override number.format and are optional
+        separator: "."
+        delimiter: ","
+        precision: 2
+        # round_mode:
+        significant: false
+        strip_insignificant_zeros: false
   duty_calculations:
     options:
       mfn:
@@ -41,6 +55,7 @@ en:
       customs_value: Value of goods + freight + insurance costs
       duty_total_html: <strong>Duty Total</strong>
       import_duty_html: Import duty<br><span class="govuk-green govuk-body-xs"> Third country duty (%{commodity_source})</span>
+      import_quantity: Import quantity
 
   confirmation_page:
     import_date: Date of import

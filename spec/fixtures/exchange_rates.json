@@ -1,0 +1,290 @@
+[
+  {
+    "attributes": {
+      "meta": null,
+      "id": "CAD",
+      "rate": 1.4814,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "HKD",
+      "rate": 9.1283,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "ISK",
+      "rate": 148.5,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "PHP",
+      "rate": 57.015,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "DKK",
+      "rate": 7.4369,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "HUF",
+      "rate": 363.3,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "CZK",
+      "rate": 26.122,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "AUD",
+      "rate": 1.5419,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "RON",
+      "rate": 4.921,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "SEK",
+      "rate": 10.2473,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "IDR",
+      "rate": 17063.2,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "INR",
+      "rate": 86.254,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "BRL",
+      "rate": 6.7685,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "RUB",
+      "rate": 89.1591,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "HRK",
+      "rate": 7.5698,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "JPY",
+      "rate": 129.48,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "THB",
+      "rate": 36.714,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "CHF",
+      "rate": 1.1057,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "SGD",
+      "rate": 1.5815,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "PLN",
+      "rate": 4.6582,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "BGN",
+      "rate": 1.9558,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "TRY",
+      "rate": 9.78,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "CNY",
+      "rate": 7.7154,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "NOK",
+      "rate": 10.0613,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "NZD",
+      "rate": 1.6794,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "ZAR",
+      "rate": 17.5396,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "USD",
+      "rate": 1.1741,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "MXN",
+      "rate": 24.2262,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "ILS",
+      "rate": 3.9133,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "GBP",
+      "rate": 0.85378,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "KRW",
+      "rate": 1331.35,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  },
+  {
+    "attributes": {
+      "meta": null,
+      "id": "MYR",
+      "rate": 4.8737,
+      "base_currency": "EUR",
+      "applicable_date": "2021-03-30"
+    }
+  }
+]

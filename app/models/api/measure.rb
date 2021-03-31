@@ -24,25 +24,43 @@ module Api
                :footnotes,
                :order_number
 
+    def evaluator_for(user_session)
+      if ad_valorem?
+        ExpressionEvaluators::AdValorem.new(self, user_session)
+      elsif specific_duty?
+        ExpressionEvaluators::MeasureUnit.new(self, user_session)
+      end
+    end
+
+    def component
+      @component ||= all_components.first
+    end
+
+    private
+
     def all_components
       # TODO: This needs to include measure condition components
       @all_components ||= measure_components
     end
 
-    def evaluator_for(user_session)
-      if ad_valorem?
-        AdValoremExpressionEvaluator.new(ad_valorem_component, user_session.total_amount)
-      end
-    end
-
-    def ad_valorem_component
-      all_components.first
-    end
-
     def ad_valorem?
-      all_components.length == 1 &&
-        ad_valorem_component.duty_expression_id == '01' &&
-        ad_valorem_component.no_expresses_unit?
+      single_component? &&
+        amount_or_percentage? &&
+        component.no_expresses_unit?
+    end
+
+    def specific_duty?
+      single_component? &&
+        amount_or_percentage? &&
+        component.expresses_unit?
+    end
+
+    def amount_or_percentage?
+      component.duty_expression_id == '01'
+    end
+
+    def single_component?
+      all_components.length == 1
     end
   end
 end

@@ -1,5 +1,7 @@
 module DutyOptions
   class Base
+    include ActionView::Helpers::NumberHelper
+
     def initialize(measure, user_session, additional_duty_rows)
       @measure = measure
       @user_session = user_session
@@ -25,7 +27,7 @@ module DutyOptions
       [
         I18n.t('duty_calculations.options.import_valuation'),
         I18n.t('duty_calculations.options.customs_value'),
-        "£#{user_session.total_amount}",
+        number_to_currency(user_session.total_amount),
       ]
     end
 
@@ -33,7 +35,7 @@ module DutyOptions
       [
         I18n.t('duty_calculations.options.duty_total_html').html_safe,
         nil,
-        "£#{duty_totals}",
+        number_to_currency(duty_totals),
       ]
     end
 
