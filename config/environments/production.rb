@@ -75,6 +75,7 @@ Rails.application.configure do
   config.logger = ActiveSupport::Logger.new($stdout)
   config.lograge.enabled = true
   config.lograge.formatter = Lograge::Formatters::Logstash.new
+  config.lograge.ignore_actions = ['HealthcheckController#ping']
 
   # Do not dump schema after migrations.
   # config.active_record.dump_schema_after_migration = false

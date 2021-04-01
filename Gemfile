@@ -30,8 +30,10 @@ gem 'govuk_design_system_formbuilder'
 gem 'uktt', '~> 1.2.0', git: 'https://github.com/trade-tariff/uktt.git'
 
 # Sentry for errors tracking
-gem 'sentry-rails'
-gem 'sentry-ruby'
+gem 'sentry-raven'
+
+# New Relic for apm and logging
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'brakeman'
