@@ -29,6 +29,12 @@ gem 'govuk_design_system_formbuilder'
 # API client for the trade tariff api
 gem 'uktt', '~> 1.2.0', git: 'https://github.com/trade-tariff/uktt.git'
 
+# Sentry for errors tracking
+gem 'sentry-raven'
+
+# New Relic for apm and logging
+gem 'newrelic_rpm'
+
 group :development, :test do
   gem 'brakeman'
   # Debugging
