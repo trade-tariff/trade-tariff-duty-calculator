@@ -38,7 +38,7 @@
           Valuation of import:
         </dt>
         <dd class="govuk-summary-list__value govuk-body-s">
-          £<%= user_session.total_amount %>
+          <%= number_to_currency(user_session.total_amount) %>
         </dd>
       </div>
     </dl>
