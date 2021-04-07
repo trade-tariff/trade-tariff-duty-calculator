@@ -11,7 +11,7 @@ RSpec.describe Api::MeasureType do
   let(:description) { 'Tariff preference' }
   let(:national) { true }
   let(:measure_type_series_id) { 'C' }
-  let(:id) { '142' }
+  let(:id) { '1' }
 
   it_behaves_like 'a resource that has attributes', description: 'Phytosanitary Certificate (import)',
                                                     national: nil,
@@ -98,6 +98,20 @@ RSpec.describe Api::MeasureType do
 
       it 'returns true' do
         expect(measure_type).to be_third_country
+      end
+    end
+  end
+
+  describe '#tariff_preference?' do
+    it 'returns false' do
+      expect(measure_type).not_to be_tariff_preference
+    end
+
+    context 'when it is a tariff preference measure type' do
+      let(:id) { '142' }
+
+      it 'returns true' do
+        expect(measure_type).to be_tariff_preference
       end
     end
   end

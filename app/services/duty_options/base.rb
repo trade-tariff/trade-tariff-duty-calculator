@@ -10,7 +10,7 @@ module DutyOptions
 
     def option
       {
-        warning_text: I18n.t('duty_calculations.options.mfn.warning_text'),
+        warning_text: nil,
         values: option_values,
       }
     end

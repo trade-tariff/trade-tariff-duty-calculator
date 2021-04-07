@@ -54,7 +54,7 @@ en:
       import_valuation: Valuation for import
       customs_value: Value of goods + freight + insurance costs
       duty_total_html: <strong>Duty Total</strong>
-      import_duty_html: Import duty<br><span class="govuk-green govuk-body-xs"> Third country duty (%{commodity_source})</span>
+      import_duty_html: Import duty<br><span class="govuk-green govuk-body-xs"> %{option_type} (%{commodity_source})</span>
       import_quantity: Import quantity
 
   confirmation_page:
