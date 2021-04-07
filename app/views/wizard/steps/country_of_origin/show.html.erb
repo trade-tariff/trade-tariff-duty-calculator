@@ -7,7 +7,7 @@
 
       <% if @user_session.referred_service == 'uk'%>
         <%= render 'gb_options' %>
-      <% else %>
+      <% elsif @user_session.referred_service == 'xi'%>
         <%= render 'xi_options' %>
       <% end %>
 
