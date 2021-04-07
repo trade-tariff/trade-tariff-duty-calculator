@@ -14,9 +14,9 @@ module ExpressionEvaluators
 
     def value
       @value ||= begin
-        return total_quantity * measure.component.duty_amount * eur_to_gbp_rate if duty_amount_in_eur?
+        return total_quantity * component.duty_amount * eur_to_gbp_rate if duty_amount_in_eur?
 
-        total_quantity * measure.component.duty_amount
+        total_quantity * component.duty_amount
       end
     end
 
@@ -51,7 +51,7 @@ module ExpressionEvaluators
     end
 
     def duty_amount_in_eur?
-      measure.component.monetary_unit_code == 'EUR'
+      component.monetary_unit_code == 'EUR'
     end
   end
 end

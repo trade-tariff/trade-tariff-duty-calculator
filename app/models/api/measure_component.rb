@@ -1,4 +1,7 @@
 module Api
+  CONJUNCTION_OPERATORS = %w[MAX MIN].freeze
+  MATHEMATICAL_OPERATORS = %w[+ -].freeze
+
   class MeasureComponent < Api::Base
     attributes :duty_expression_id,
                :duty_amount,
@@ -9,12 +12,24 @@ module Api
                :measurement_unit_code,
                :measurement_unit_qualifier_code
 
-    def expresses_unit?
+    def ad_valorem?
+      no_specific_duty? && duty_expression_id == '01'
+    end
+
+    def specific_duty?
       monetary_unit_code || measurement_unit_code
     end
 
-    def no_expresses_unit?
-      !expresses_unit?
+    def no_specific_duty?
+      !specific_duty?
+    end
+
+    def conjunction_operator?
+      duty_expression_abbreviation.in?(CONJUNCTION_OPERATORS)
+    end
+
+    def operator
+      duty_expression_abbreviation
     end
   end
 end

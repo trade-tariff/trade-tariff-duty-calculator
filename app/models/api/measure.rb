@@ -29,6 +29,8 @@ module Api
         ExpressionEvaluators::AdValorem.new(self, user_session)
       elsif specific_duty?
         ExpressionEvaluators::MeasureUnit.new(self, user_session)
+      else
+        ExpressionEvaluators::Compound.new(self, user_session)
       end
     end
 
@@ -36,23 +38,23 @@ module Api
       @component ||= all_components.first
     end
 
-    private
-
     def all_components
       # TODO: This needs to include measure condition components
       @all_components ||= measure_components
     end
 
+    private
+
     def ad_valorem?
       single_component? &&
         amount_or_percentage? &&
-        component.no_expresses_unit?
+        component.no_specific_duty?
     end
 
     def specific_duty?
       single_component? &&
         amount_or_percentage? &&
-        component.expresses_unit?
+        component.specific_duty?
     end
 
     def amount_or_percentage?
