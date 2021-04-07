@@ -7,8 +7,8 @@ RSpec.describe ExpressionEvaluators::Compound do
     Api::Measure.new(
       'id' => 3_211_138,
       'duty_expression' => {
-        'base' => '10.20 % + 93.10 EUR / 100 kg',
-        'formatted_base' => "<span>10.20</span> % + <span>93.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
+        'base' => 'foo',
+        'formatted_base' => 'foo',
       },
       'measure_components' => [
         {
@@ -59,7 +59,7 @@ RSpec.describe ExpressionEvaluators::Compound do
     {
       value: 8.0,
       formatted_value: '£8.00',
-      calculation: '10.20 % + 93.10 EUR / 100 kg',
+      calculation: 'foo',
     }
   end
 

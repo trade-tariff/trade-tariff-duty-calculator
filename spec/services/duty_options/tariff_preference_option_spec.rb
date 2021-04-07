@@ -1,5 +1,5 @@
 RSpec.describe DutyOptions::TariffPreferenceOption do
-  subject(:option) { described_class.new(measure, user_session, additional_duty_rows) }
+  subject(:service) { described_class.new(measure, user_session, additional_duty_rows) }
 
   describe '#rows' do
     let(:commodity_source) { 'XI' }
@@ -52,7 +52,7 @@ RSpec.describe DutyOptions::TariffPreferenceOption do
       end
 
       it 'produces a correct option' do
-        expect(option.option).to eq(expected_table)
+        expect(service.option).to eq(expected_table)
       end
     end
 
@@ -131,7 +131,89 @@ RSpec.describe DutyOptions::TariffPreferenceOption do
       end
 
       it 'produces a correct option' do
-        expect(option.option).to eq(expected_table)
+        expect(service.option).to eq(expected_table)
+      end
+    end
+
+    context 'when the measure is a compound measure' do
+      let(:commodity_code) { '0103921100' }
+
+      let(:measure) do
+        Api::Measure.new(
+          'id' => 2_046_828,
+          'duty_expression' => {
+            'base' => 'foo',
+            'formatted_base' => 'foo',
+          },
+          'measure_components' => measure_components,
+        )
+      end
+
+      let(:measure_components) do
+        [
+          {
+            'duty_expression_id' => '01',
+            'duty_amount' => 13.8,
+            'monetary_unit_code' => nil,
+            'monetary_unit_abbreviation' => nil,
+            'measurement_unit_code' => nil,
+            'duty_expression_description' => '% or amount',
+            'duty_expression_abbreviation' => '%',
+            'measurement_unit_qualifier_code' => nil,
+          },
+          {
+            'duty_expression_id' => '15',
+            'duty_amount' => 13.0,
+            'monetary_unit_code' => 'GBP',
+            'monetary_unit_abbreviation' => nil,
+            'measurement_unit_code' => 'DTN',
+            'duty_expression_description' => 'Minimum',
+            'duty_expression_abbreviation' => 'MIN',
+            'measurement_unit_qualifier_code' => nil,
+          },
+          {
+            'duty_expression_id' => '17',
+            'duty_amount' => 15.0,
+            'monetary_unit_code' => 'GBP',
+            'monetary_unit_abbreviation' => nil,
+            'measurement_unit_code' => 'DTN',
+            'duty_expression_description' => 'Maximum',
+            'duty_expression_abbreviation' => 'MAX',
+            'measurement_unit_qualifier_code' => nil,
+          },
+        ]
+      end
+
+      let(:session) do
+        {
+          'answers' => {
+            Wizard::Steps::CustomsValue.id => {
+              'monetary_value' => '1000',
+              'shipping_cost' => '40',
+              'insurance_cost' => '10',
+            },
+            'measure_amount' => {
+              'dtn' => '1',
+            },
+          },
+          'commodity_source' => commodity_source,
+          'commodity_code' => commodity_code,
+        }
+      end
+
+      let(:expected_table) do
+        {
+          warning_text: nil,
+          values: [
+            [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
+            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source, option_type: 'Tariff preference'), 'foo', '£15.00'],
+            [I18n.t('duty_calculations.options.duty_total_html'), nil, '£15.00'],
+          ],
+        }
+      end
+
+      it 'produces a correct option' do
+        expect(service.option).to eq(expected_table)
       end
     end
   end
