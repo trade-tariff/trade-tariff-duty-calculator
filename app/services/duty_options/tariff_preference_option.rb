@@ -10,7 +10,7 @@ module DutyOptions
 
     def duty_calculation_row
       [
-        I18n.t('duty_calculations.options.import_duty_html', commodity_source: user_session.commodity_source, option_type: 'Tariff preference').html_safe,
+        I18n.t('duty_calculations.options.import_duty_html', commodity_source: user_session.commodity_source.upcase, option_type: 'Tariff preference').html_safe,
       ].concat(
         duty_evaluation.slice(:calculation, :formatted_value).values,
       )

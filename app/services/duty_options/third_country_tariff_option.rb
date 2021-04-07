@@ -1,5 +1,11 @@
 module DutyOptions
   class ThirdCountryTariffOption < DutyOptions::Base
+    def option
+      super().merge(
+        warning_text: I18n.t('duty_calculations.options.mfn.warning_text'),
+      )
+    end
+
     private
 
     def measure_rows

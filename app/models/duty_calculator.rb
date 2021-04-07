@@ -19,7 +19,7 @@ class DutyCalculator
 
     commodity.import_measures.each_with_object({}) do |measure, options|
       if measure.measure_type.third_country?
-        options[:third_country_tariff] = DutyOptions::ThirdCountryTariffOption.new(measure, user_session, additional_duty_rows).option
+        options[:third_country_duty] = DutyOptions::ThirdCountryTariffOption.new(measure, user_session, additional_duty_rows).option
       elsif measure.measure_type.tariff_preference?
         options[:tariff_preference] = DutyOptions::TariffPreferenceOption.new(measure, user_session, additional_duty_rows).option
       end

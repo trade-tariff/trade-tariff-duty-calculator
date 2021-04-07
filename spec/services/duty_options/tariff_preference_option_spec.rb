@@ -42,7 +42,7 @@ RSpec.describe DutyOptions::TariffPreferenceOption do
 
       let(:expected_table) do
         {
-          warning_text: I18n.t('duty_calculations.options.mfn.warning_text'),
+          warning_text: nil,
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source, option_type: 'Tariff preference'), '5.0% * £1,050.00', '£52.50'],
@@ -120,7 +120,7 @@ RSpec.describe DutyOptions::TariffPreferenceOption do
 
       let(:expected_table) do
         {
-          warning_text: I18n.t('duty_calculations.options.mfn.warning_text'),
+          warning_text: nil,
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_quantity'), nil, '120.0 x 100 kg'],
