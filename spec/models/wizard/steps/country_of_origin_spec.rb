@@ -123,25 +123,6 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
       end
     end
 
-    context 'when on NI to Rest of the World route' do
-      let(:session) do
-        {
-            'answers' => {
-                'import_destination' => 'UK',
-                'country_of_origin' => 'XI',
-            },
-        }
-      end
-
-      it 'returns duty_path' do
-        expect(
-            step.next_step_path,
-            ).to eq(
-              duty_path
-            )
-      end
-    end
-
     context 'when on GB to NI route and there is a trade defence in place' do
       let(:opts) do
         {

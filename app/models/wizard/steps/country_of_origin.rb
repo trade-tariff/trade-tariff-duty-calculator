@@ -9,8 +9,8 @@ module Wizard
       ].freeze
 
       XI_OPTIONS = [
-          OpenStruct.new(id: 'UK', name: 'England, Scotland or Wales (GB)'),
-          OpenStruct.new(id: 'EU', name: 'Ireland or other EU member states'),
+        OpenStruct.new(id: 'UK', name: 'England, Scotland or Wales (GB)'),
+        OpenStruct.new(id: 'EU', name: 'Ireland or other EU member states'),
       ].freeze
 
       attr_reader :zero_mfn_duty, :trade_defence
