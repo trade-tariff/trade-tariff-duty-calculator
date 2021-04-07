@@ -1,4 +1,4 @@
-RSpec.describe DutyOptions::ThirdCountryTariffOption do
+RSpec.describe DutyOptions::TariffPreferenceOption do
   subject(:option) { described_class.new(measure, user_session, additional_duty_rows) }
 
   describe '#rows' do
@@ -45,7 +45,7 @@ RSpec.describe DutyOptions::ThirdCountryTariffOption do
           warning_text: I18n.t('duty_calculations.options.mfn.warning_text'),
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
-            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source, option_type: 'Third-country duty'), '5.0% * £1,050.00', '£52.50'],
+            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source, option_type: 'Tariff preference'), '5.0% * £1,050.00', '£52.50'],
             [I18n.t('duty_calculations.options.duty_total_html'), nil, '£52.50'],
           ],
         }
@@ -70,7 +70,7 @@ RSpec.describe DutyOptions::ThirdCountryTariffOption do
             'description' => 'Third country duty',
             'national' => nil,
             'measure_type_series_id' => 'C',
-            'id' => '103',
+            'id' => '142',
           },
           'measure_conditions' => [],
           'measure_components' => [
@@ -124,7 +124,7 @@ RSpec.describe DutyOptions::ThirdCountryTariffOption do
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_quantity'), nil, '120.0 x 100 kg'],
-            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source), '35.10 EUR / 100 kg * 120.0', '£3,596.12'],
+            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source, option_type: 'Tariff preference'), '35.10 EUR / 100 kg * 120.0', '£3,596.12'],
             [I18n.t('duty_calculations.options.duty_total_html'), nil, '£3,596.12'],
           ],
         }
