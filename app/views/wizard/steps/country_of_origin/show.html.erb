@@ -5,9 +5,9 @@
     <div class="govuk-grid-column-three-quarters">
       <span class="govuk-caption-xl">Calculate import duties</span>
 
-      <% if @user_session.referred_service == 'uk'%>
+      <% if @user_session.import_destination == 'UK' %>
         <%= render 'gb_options' %>
-      <% elsif @user_session.referred_service == 'xi'%>
+      <% elsif @user_session.import_destination == 'XI' %>
         <%= render 'xi_options' %>
       <% end %>
 
