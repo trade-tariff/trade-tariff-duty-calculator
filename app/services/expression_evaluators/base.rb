@@ -9,6 +9,11 @@ module ExpressionEvaluators
 
     protected
 
+    def component
+      @component || measure.component
+    end
+
     attr_reader :measure, :user_session
+    attr_writer :component
   end
 end

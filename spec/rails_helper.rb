@@ -9,6 +9,7 @@ if ENV['COVERAGE']
   SimpleCov.start do
     minimum_coverage 90
     maximum_coverage_drop 0.25
+    add_filter '/spec/'
   end
 end
 
