@@ -4,7 +4,7 @@
     <ul class="app-contents govuk-!-margin-bottom-9">
       <% @duty_options.each.with_index(1) do |option, index| %>
         <li class="govuk-!-margin-bottom-2">
-          <%= link_to("Option #{index}: #{option[:key].to_s.humanize}", "##{option[:key]}", class: 'govuk-body') %>
+          <%= link_to(t("duty_calculations.options.heading.#{option[:key]}", option_no: index), "##{option[:key]}", class: 'govuk-body') %>
         </li>
       <% end %>
     </ul>
