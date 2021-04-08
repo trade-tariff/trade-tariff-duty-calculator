@@ -30,7 +30,7 @@ RSpec.describe Api::MeasureType do
       it { expect(measure_type.option).to eq(DutyOptions::TariffPreference) }
     end
 
-    context 'when their is not a corresponding option' do
+    context 'when there is not a corresponding option' do
       let(:id) { '999' }
 
       it { expect(measure_type.option).to be_nil }
