@@ -63,6 +63,14 @@ RSpec.describe Api::GeographicalArea do
 
       expect(all_are_countries).to be(true)
     end
+
+    context 'when the service is UK' do
+      let(:service) { :uk }
+
+      it 'appends Northern Ireland' do
+        expect(described_class.list_countries(service).last.id).to eq('XI')
+      end
+    end
   end
 
   describe '.european_union_members' do

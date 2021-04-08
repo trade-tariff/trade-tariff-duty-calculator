@@ -21,7 +21,9 @@ module Api
     end
 
     def self.list_countries(service)
-      build_collection(service, 'Country')
+      countries = build_collection(service, 'Country')
+      countries << northern_ireland if service == :uk
+      countries
     end
 
     def self.european_union_members(service = :xi)
@@ -34,6 +36,10 @@ module Api
 
     def self.find(id, service = :uk)
       build_collection(service).find { |geographical_area| geographical_area.id == id }
+    end
+
+    def self.northern_ireland
+      new(id: 'XI', description: 'United Kingdom (Northern Ireland)', geographical_area_id: 'XI')
     end
   end
 end
