@@ -9,7 +9,7 @@ module Wizard
       ].freeze
 
       XI_OPTIONS = [
-        OpenStruct.new(id: 'UK', name: 'England, Scotland or Wales (GB)'),
+        OpenStruct.new(id: 'GB', name: 'England, Scotland or Wales (GB)'),
         OpenStruct.new(id: 'EU', name: 'Ireland or other EU member states'),
       ].freeze
 
