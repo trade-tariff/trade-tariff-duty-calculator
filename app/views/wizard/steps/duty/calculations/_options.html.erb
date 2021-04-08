@@ -1,7 +1,7 @@
 <%= render 'wizard/steps/duty/calculations/options_summary' %>
 
-<% @duty_options.each.with_index(1) do |(key, duty_option), index| %>
-  <h2 id=<%= key %> class="govuk-heading-m govuk-!-margin-bottom-7"><%= "Option #{index}: #{ key.to_s.humanize }" %></h2>
+<% @duty_options.each.with_index(1) do |option, index| %>
+  <h2 id=<%= option[:key] %> class="govuk-heading-m govuk-!-margin-bottom-7"><%= t("duty_calculations.options.heading.#{option[:key]}", option_no: index) %></h2>
   <table class="govuk-table govuk-table--m govuk-!-margin-bottom-9">
     <thead class="govuk-table__head">
       <tr class="govuk-table__row">
@@ -11,7 +11,10 @@
       </tr>
     </thead>
     <tbody class="govuk-table__body">
-      <%= render partial: 'wizard/steps/duty/calculations/option_row', collection: duty_option[:values], as: :row %>
+      <%= render partial: 'wizard/steps/duty/calculations/option_row', collection: option[:evaluation][:values], as: :row %>
     </tbody>
   </table>
+  <div class="govuk-!-margin-bottom-5">
+    <%= option[:evaluation][:footnote].html_safe if option[:evaluation][:footnote].present? %>
+  </div>
 <% end %>

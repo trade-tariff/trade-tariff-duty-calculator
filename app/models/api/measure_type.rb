@@ -1,27 +1,39 @@
 module Api
   class MeasureType < Api::Base
-    THIRD_COUNTRY = %w[103 105].freeze # 105 measure types are for end use Third Country duties. 103 are for everything else
-    TARIFF_PREFERENCE = %w[142].freeze
+    TYPE_OPTION_MAPPING = {
+      '103' => ::DutyOptions::ThirdCountryTariff,
+      '105' => ::DutyOptions::ThirdCountryTariff,
+      '112' => ::DutyOptions::Suspension::Autonomous,
+      '115' => ::DutyOptions::Suspension::AutonomousEndUse,
+      '117' => ::DutyOptions::Suspension::CertainCategoryGoods,
+      '119' => ::DutyOptions::Suspension::Airworthiness,
+      '142' => ::DutyOptions::TariffPreference,
+    }.freeze
 
     attributes :description,
                :national,
                :measure_type_series_id,
                :id
 
-    enum :measure_type_series_id, {
-      applicable_duty: 'C',
-      anti_dumping_and_countervailing_duty: 'D',
-      additional_duty: 'F',
-      countervailing_charge_duty: 'J',
-      unit_price_duty: 'M',
+    enum :id, {
+      third_country: %w[103 105],
+      tariff_preference: %w[142],
+      autonomous_suspension: %w[112],
+      autonomous_end_use_suspension: %w[115],
+      certain_category_goods_suspension: %w[117],
+      airworthiness_suspension: %w[119],
     }
 
-    def third_country?
-      id.in?(THIRD_COUNTRY)
-    end
+    enum :measure_type_series_id, {
+      applicable_duty: %w[C],
+      anti_dumping_and_countervailing_duty: %w[D],
+      additional_duty: %w[F],
+      countervailing_charge_duty: %w[J],
+      unit_price_duty: %w[M],
+    }
 
-    def tariff_preference?
-      id.in?(TARIFF_PREFERENCE)
+    def option
+      TYPE_OPTION_MAPPING[id]
     end
   end
 end

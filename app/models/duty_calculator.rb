@@ -17,13 +17,20 @@ class DutyCalculator
   def gb_to_ni_duty
     return nil if zero_mfn_duty_no_trade_defence? || strict_processing? || certificate_of_origin?
 
-    commodity.import_measures.each_with_object({}) do |measure, options|
-      if measure.measure_type.third_country?
-        options[:third_country_duty] = DutyOptions::ThirdCountryTariffOption.new(measure, user_session, additional_duty_rows).option
-      elsif measure.measure_type.tariff_preference?
-        options[:tariff_preference] = DutyOptions::TariffPreferenceOption.new(measure, user_session, additional_duty_rows).option
-      end
+    options = commodity.import_measures.each_with_object([]) do |measure, acc|
+      option_klass = measure.measure_type.option
+
+      next if option_klass.nil?
+
+      option = {}
+      option[:key] = option_klass.id
+      option[:evaluation] = option_klass.new(measure, user_session, additional_duty_rows).option
+      option[:priority] = option_klass::PRIORITY
+
+      acc << option
     end
+
+    options.sort_by { |h| h[:priority] }
   end
 
   def zero_mfn_duty_no_trade_defence?

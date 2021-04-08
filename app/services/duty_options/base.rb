@@ -15,12 +15,42 @@ module DutyOptions
       }
     end
 
+    def self.id
+      name.split('::').last.underscore
+    end
+
     protected
 
     attr_reader :measure, :user_session, :additional_duty_rows
 
     def measure_rows
-      raise NotImplementedError
+      presented_rows = []
+      presented_rows << measure_unit_row if measure_unit?
+      presented_rows << duty_calculation_row
+    end
+
+    def duty_calculation_row
+      [
+        I18n.t('duty_calculations.options.import_duty_html', commodity_source: user_session.commodity_source.upcase, option_type: option_type).html_safe,
+      ].concat(
+        duty_evaluation.slice(:calculation, :formatted_value).values,
+      )
+    end
+
+    def measure_unit_row
+      [I18n.t('duty_calculations.options.import_quantity'), nil, "#{total_quantity} #{unit}"]
+    end
+
+    def measure_unit?
+      unit.present?
+    end
+
+    def total_quantity
+      duty_evaluation[:total_quantity]
+    end
+
+    def unit
+      duty_evaluation[:unit]
     end
 
     def valuation_row
@@ -61,6 +91,10 @@ module DutyOptions
       table << duty_totals_row
 
       table
+    end
+
+    def option_type
+      I18n.t("duty_calculations.options.option_type.#{self.class.id}")
     end
   end
 end
