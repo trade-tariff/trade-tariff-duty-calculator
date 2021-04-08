@@ -68,7 +68,7 @@ module Api
     def self.enum(field, enum_config)
       enum_config.each do |method_name, value|
         define_method("#{method_name}?") do
-          public_send(field) == value
+          public_send(field).in?(value)
         end
       end
     end
