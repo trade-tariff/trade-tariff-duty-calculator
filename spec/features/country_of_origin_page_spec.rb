@@ -23,14 +23,6 @@ RSpec.describe 'Country of Origin Page', type: :feature do
     expect(Capybara.current_session.driver.request.session['answers'].key?(Wizard::Steps::CountryOfOrigin.id)).to be false
   end
 
-  it 'does store the country of origin date on the session' do
-    select('United Kingdom (Northern Ireland)', from: 'wizard_steps_country_of_origin[country_of_origin]')
-
-    click_on('Continue')
-
-    expect(Capybara.current_session.driver.request.session['answers'][Wizard::Steps::CountryOfOrigin.id]).to eq('XI')
-  end
-
   it 'loses its session key when going back to the previous question' do
     select('United Kingdom (Northern Ireland)', from: 'wizard_steps_country_of_origin[country_of_origin]')
 
@@ -40,5 +32,25 @@ RSpec.describe 'Country of Origin Page', type: :feature do
     click_on('Back')
 
     expect(Capybara.current_session.driver.request.session['answers'].key?(Wizard::Steps::CountryOfOrigin.id)).to be false
+  end
+
+  it 'does store the country of origin date on the session' do
+    select('United Kingdom (Northern Ireland)', from: 'wizard_steps_country_of_origin[country_of_origin]')
+
+    click_on('Continue')
+
+    expect(Capybara.current_session.driver.request.session['answers'][Wizard::Steps::CountryOfOrigin.id]).to eq('XI')
+  end
+
+  context 'when importing into XI' do
+    let(:import_into) { 'XI' }
+
+    it 'does store the EU country of origin on the session' do
+      choose(option: 'EU')
+
+      click_on('Continue')
+
+      expect(Capybara.current_session.driver.request.session['answers'][Wizard::Steps::CountryOfOrigin.id]).to eq('EU')
+    end
   end
 end

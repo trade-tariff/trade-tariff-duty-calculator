@@ -90,7 +90,7 @@ commands:
 jobs:
   checking:
     docker:
-      - image: 'cimg/ruby:2.7-node'
+      - image: 'cimg/ruby:2.7.2-node'
     steps:
       - checkout
       - ruby/install-deps
@@ -108,7 +108,7 @@ jobs:
 
   test:
     docker:
-      - image: cimg/ruby:2.7-node
+      - image: cimg/ruby:2.7.2-node
         environment:
           BUNDLE_JOBS: "3"
           BUNDLE_RETRY: "3"
@@ -129,7 +129,7 @@ jobs:
           template: basic_fail_1
   deploy_dev:
     docker:
-      - image: cimg/ruby:2.7
+      - image: cimg/ruby:2.7.2
     steps:
       - cf_deploy:
           space: "development"
@@ -137,7 +137,7 @@ jobs:
           app_domain_prefix: "dev"
   deploy_staging:
     docker:
-      - image: cimg/ruby:2.7
+      - image: cimg/ruby:2.7.2
     steps:
       - cf_deploy:
           space: "staging"
@@ -145,7 +145,7 @@ jobs:
           app_domain_prefix: "staging"
   deploy_production:
     docker:
-      - image: cimg/ruby:2.7
+      - image: cimg/ruby:2.7.2
     steps:
       - cf_deploy:
           space: "production"

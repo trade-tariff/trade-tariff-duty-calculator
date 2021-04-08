@@ -72,7 +72,7 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
 
     click_on('Continue')
 
-    select('United Kingdom', from: 'wizard_steps_country_of_origin[country_of_origin]')
+    choose(option: 'GB')
 
     click_on('Continue')
   end
