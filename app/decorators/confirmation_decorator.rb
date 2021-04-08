@@ -1,4 +1,6 @@
 class ConfirmationDecorator < SimpleDelegator
+  include ActionView::Helpers::NumberHelper
+
   ORDERED_STEPS = %w[
     import_date
     import_destination
@@ -61,7 +63,7 @@ class ConfirmationDecorator < SimpleDelegator
   end
 
   def format_customs_value(_value)
-    "£#{user_session.total_amount}"
+    number_to_currency(user_session.total_amount)
   end
 
   def format_import_date(value)

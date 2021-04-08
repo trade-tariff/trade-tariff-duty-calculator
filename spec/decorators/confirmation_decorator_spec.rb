@@ -95,7 +95,7 @@ RSpec.describe ConfirmationDecorator do
         {
           key: 'customs_value',
           label: 'Customs value',
-          value: '£30.0',
+          value: '£30.00',
         },
         {
           key: 'measure_amount',
