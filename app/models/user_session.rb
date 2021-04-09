@@ -152,6 +152,10 @@ class UserSession
     import_destination == 'XI' && Api::GeographicalArea.eu_member?(country_of_origin)
   end
 
+  def row_to_gb_route?
+    import_destination == 'UK' && country_of_origin != 'XI'
+  end
+
   def total_amount
     customs_value.values.map(&:to_f).reduce(:+)
   end

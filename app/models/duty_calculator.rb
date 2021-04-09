@@ -7,14 +7,14 @@ class DutyCalculator
   def result
     return nil if user_session.ni_to_gb_route? || user_session.eu_to_ni_route?
 
-    gb_to_ni_duty if user_session.gb_to_ni_route?
+    calculate_duty if user_session.gb_to_ni_route? || user_session.row_to_gb_route?
   end
 
   private
 
   attr_reader :user_session, :commodity
 
-  def gb_to_ni_duty
+  def calculate_duty
     return nil if zero_mfn_duty_no_trade_defence? || strict_processing? || certificate_of_origin?
 
     options = commodity.import_measures.each_with_object([]) do |measure, acc|

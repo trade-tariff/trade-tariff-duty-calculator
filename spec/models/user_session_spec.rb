@@ -513,4 +513,25 @@ RSpec.describe UserSession do
       expect(user_session.gb_to_ni_route?).to be false
     end
   end
+
+  describe '#row_to_gb_route?' do
+    context 'when import country is UK and origin country is anything but XI' do
+      let(:session) do
+        {
+          'answers' => {
+            'import_destination' => 'UK',
+            'country_of_origin' => 'RO',
+          },
+        }
+      end
+
+      it 'returns true' do
+        expect(user_session.row_to_gb_route?).to be true
+      end
+    end
+
+    it 'returns false otherwise' do
+      expect(user_session.row_to_gb_route?).to be false
+    end
+  end
 end

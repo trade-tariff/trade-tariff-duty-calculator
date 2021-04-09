@@ -74,7 +74,7 @@ module Api
     end
 
     def self.http_client_for(service)
-      return Rails.application.config.http_client_uk if service == :uk
+      return Rails.application.config.http_client_uk if service.to_sym == :uk
 
       Rails.application.config.http_client_xi
     end

@@ -56,9 +56,9 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
 
   before do
     allow(filtered_commodity).to receive(:applicable_measure_units).and_return(attributes['applicable_measure_units'])
-    allow(Api::Commodity).to receive(:build).with(:uk, commodity_code).and_return(commodity)
-    allow(Api::Commodity).to receive(:build).with(:xi, commodity_code).and_return(commodity)
-    allow(Api::Commodity).to receive(:build).with(:xi, commodity_code, filter).and_return(filtered_commodity)
+    allow(Api::Commodity).to receive(:build).with('uk', commodity_code).and_return(commodity)
+    allow(Api::Commodity).to receive(:build).with('xi', commodity_code).and_return(commodity)
+    allow(Api::Commodity).to receive(:build).with('xi', commodity_code, filter).and_return(filtered_commodity)
 
     visit import_date_path(commodity_code: commodity_code, referred_service: referred_service)
 

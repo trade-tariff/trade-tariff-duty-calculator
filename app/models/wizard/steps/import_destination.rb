@@ -1,6 +1,7 @@
 module Wizard
   module Steps
     class ImportDestination < Wizard::Steps::Base
+      # We call England, Scotland or Wales (GB) as UK beacuse that is how we named the backend source when the service is the UK version
       OPTIONS = [
         OpenStruct.new(id: 'UK', name: 'England, Scotland or Wales (GB)'),
         OpenStruct.new(id: 'XI', name: 'Northern Ireland'),
