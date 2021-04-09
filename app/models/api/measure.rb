@@ -6,6 +6,7 @@ module Api
     has_one :measure_type, MeasureType
     has_one :geographical_area, GeographicalArea
     has_one :duty_expression, DutyExpression
+    has_one :order_number, OrderNumber
 
     attributes :id,
                :origin,

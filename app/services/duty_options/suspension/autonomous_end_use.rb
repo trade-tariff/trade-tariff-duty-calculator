@@ -1,6 +1,6 @@
 module DutyOptions
   module Suspension
-    class AutonomousEndUse < DutyOptions::SuspensionOption
+    class AutonomousEndUse < DutyOptions::Suspension::Base
     end
   end
 end

@@ -10,6 +10,66 @@
   },
   "import_measures": [
     {
+      "id": 20124406,
+      "origin": "eu",
+      "effective_start_date": "2021-01-01T00:00:00.000Z",
+      "effective_end_date": null,
+      "import": true,
+      "excise": false,
+      "vat": false,
+      "duty_expression": {
+        "base": "20.00 %",
+        "formatted_base": "<span>20.00</span> %"
+      },
+      "measure_type": {
+        "description": "Non preferential tariff quota",
+        "national": null,
+        "measure_type_series_id": "C",
+        "id": "122"
+      },
+      "legal_acts": [
+        {
+          "validity_start_date": "2021-01-01T00:00:00.000Z",
+          "validity_end_date": null,
+          "officialjournal_number": "1",
+          "officialjournal_page": 1,
+          "published_date": "2020-12-15",
+          "regulation_code": "Q1432/20",
+          "regulation_url": "http://eur-lex.europa.eu/search.html?whOJ=NO_OJ%3D,YEAR_OJ%3D2020,PAGE_FIRST%3D0001&DB_COLL_OJ=oj-1&type=advanced&lang=en"
+        }
+      ],
+      "measure_conditions": [
+      ],
+      "measure_components": [
+        {
+          "duty_expression_id": "01",
+          "duty_amount": 20.0,
+          "monetary_unit_code": null,
+          "monetary_unit_abbreviation": null,
+          "measurement_unit_code": null,
+          "duty_expression_description": "% or amount",
+          "duty_expression_abbreviation": "%",
+          "measurement_unit_qualifier_code": null
+        }
+      ],
+      "national_measurement_units": [
+      ],
+      "geographical_area": {
+        "id": "1011",
+        "description": "ERGA OMNES",
+        "geographical_area_id": "1011",
+        "children_geographical_areas": [ ]
+      },
+      "excluded_countries": [
+      ],
+      "footnotes": [
+      ],
+      "order_number": {
+        "number": "054003",
+        "definition": null
+      }
+    },
+    {
       "id": 20121925,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",

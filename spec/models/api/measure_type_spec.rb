@@ -12,15 +12,6 @@ RSpec.describe Api::MeasureType do
     unit_price_duty: %w[M],
   }
 
-  it_behaves_like 'a resource that has an enum', :id, {
-    third_country: %w[103 105],
-    tariff_preference: %w[142],
-    autonomous_suspension: %w[112],
-    autonomous_end_use_suspension: %w[115],
-    certain_category_goods_suspension: %w[117],
-    airworthiness_suspension: %w[119],
-  }
-
   describe '#option' do
     subject(:measure_type) { described_class.new(id: id) }
 

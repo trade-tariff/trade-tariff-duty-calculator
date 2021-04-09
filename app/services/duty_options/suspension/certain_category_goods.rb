@@ -1,6 +1,6 @@
 module DutyOptions
   module Suspension
-    class CertainCategoryGoods < DutyOptions::SuspensionOption
+    class CertainCategoryGoods < DutyOptions::Suspension::Base
     end
   end
 end
