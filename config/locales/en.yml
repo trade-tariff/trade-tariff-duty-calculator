@@ -79,7 +79,7 @@ en:
         </p>'
       heading:
         third_country_tariff: 'Option %{option_no}: Third-country duty'
-        tariff_preference: 'Option %{option_no}: Tariff preference'
+        tariff_preference: 'Option %{option_no}: Tariff preference - %{geographical_area_description}'
         autonomous: 'Option %{option_no}: Autonomous tariff suspension'
         airworthiness: 'Option %{option_no}: Airworthiness tariff suspension'
         autonomous_end_use: 'Option %{option_no}: Autonomous suspension under end-use'

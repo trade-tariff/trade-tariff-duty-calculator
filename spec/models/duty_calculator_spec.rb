@@ -125,6 +125,7 @@ RSpec.describe DutyCalculator do
                   [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'UK', option_type: 'Tariff preference'), '0.0% * £1,260.89', '£0.00'],
                   [I18n.t('duty_calculations.options.duty_total_html'), nil, '£0.00'],
                 ],
+                geographical_area_description: 'United Kingdom (excluding Northern Ireland)',
               },
               key: 'tariff_preference',
               priority: 2,
