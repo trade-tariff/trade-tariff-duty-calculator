@@ -52,7 +52,7 @@ module Wizard
       end
 
       def commodity_source
-        (params[:referred_service] || user_session.commodity_source).to_sym
+        params[:referred_service] || user_session.commodity_source
       end
 
       def default_filter

@@ -24,6 +24,7 @@ module ExpressionEvaluators
       @commodity ||= Api::Commodity.build(
         user_session.commodity_source,
         user_session.commodity_code,
+        filter,
       )
     end
 
@@ -52,6 +53,10 @@ module ExpressionEvaluators
 
     def duty_amount_in_eur?
       component.monetary_unit_code == 'EUR'
+    end
+
+    def filter
+      { 'filter[geographical_area_id]' => user_session.country_of_origin }
     end
   end
 end

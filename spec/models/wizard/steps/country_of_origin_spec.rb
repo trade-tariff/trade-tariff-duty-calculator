@@ -199,5 +199,24 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
         )
       end
     end
+
+    context 'when on RoW to GB route' do
+      let(:session) do
+        {
+          'answers' => {
+            'import_destination' => 'UK',
+            'country_of_origin' => 'RO',
+          },
+        }
+      end
+
+      it 'returns the customs_value_path' do
+        expect(
+          step.next_step_path,
+        ).to eq(
+          customs_value_path,
+        )
+      end
+    end
   end
 end
