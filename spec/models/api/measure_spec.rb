@@ -47,8 +47,7 @@ RSpec.describe Api::Measure do
                                                     legal_acts: [],
                                                     national_measurement_units: [],
                                                     excluded_countries: [],
-                                                    footnotes: [],
-                                                    order_number: nil
+                                                    footnotes: []
 
   describe '#evaluator_for' do
     context 'when an ad_valorem measure' do

@@ -63,6 +63,10 @@ en:
         airworthiness: Airworthiness tariff suspension
         autonomous_end_use: Autonomous suspension under end-use
         certain_category_goods: Suspension - goods for certain categories of ships, boats and other vessels and for drilling or production platforms
+        preferential: Preferential Quota
+        preferential_end_use: Preferential Quota Under End Use
+        non_preferential: Non Preferential Quota
+        non_preferential_end_use: Non Preferential Quota Under End Use
       footnote:
         third_country_tariff:
         tariff_preference:
@@ -77,6 +81,10 @@ en:
         Goods intended for incorporation in drilling or production platforms:<br>
         Those goods such as motor fuel, lubricants and gas, which are necessary for the operation of machines and apparatus which do not affect permanently, and are not integral parts of the platforms and which are used on board for the construction, repair, maintenance, conversion or equipping of these platforms are regarded also as being used for incorporation in drilling or production platforms.
         </p>'
+        preferential: <p class="govuk-body">To take advantage of this quota, enter the 6-digit quota order number on your import declaration. For licensed quotas, please contact the <a href='https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses' target="_blank" class="govuk-link">Rural Payments Agency</a> to get an import licence. For First Come First Served quotas, please check that the quota is not exhausted before attempting to use it.<p>
+        preferential_end_use: <p class="govuk-body">To take advantage of this quota, enter the 6-digit quota order number on your import declaration. For licensed quotas, please contact the <a href='https://www.gov.uk/guidance/licences-for-the-importexport-of-agricultural-products#check-which-licences-and-quotas-are-available-for-your-products' target="_blank" class="govuk-link">Rural Payments Agency</a> to get an import licence. For First Come First Served quotas, please check that the quota is not exhausted before attempting to use it. This quota is applicable only for goods to which <a href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" target="_blank" class="govuk-link">authorised use</a> applies.</p>
+        non_preferential: <p class="govuk-body">To take advantage of this quota, enter the 6-digit quota order number on your import declaration. For licensed quotas, please contact the <a href='https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses' target="_blank" class="govuk-link">Rural Payments Agency</a> to get an import licence. For First Come First Served quotas, please check that the quota is not exhausted before attempting to use it.<p>
+        non_preferential_end_use: <p class="govuk-body">To take advantage of this quota, enter the 6-digit quota order number on your import declaration. For licensed quotas, please contact the <a href='https://www.gov.uk/guidance/licences-for-the-importexport-of-agricultural-products#check-which-licences-and-quotas-are-available-for-your-products' target="_blank" class="govuk-link">Rural Payments Agency</a> to get an import licence. For First Come First Served quotas, please check that the quota is not exhausted before attempting to use it. This quota is applicable only for goods to which <a href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" target="_blank" class="govuk-link">authorised use</a> applies.</p>
       heading:
         third_country_tariff: 'Option %{option_no}: Third-country duty'
         tariff_preference: 'Option %{option_no}: Tariff preference - %{geographical_area_description}'
@@ -84,6 +92,10 @@ en:
         airworthiness: 'Option %{option_no}: Airworthiness tariff suspension'
         autonomous_end_use: 'Option %{option_no}: Autonomous suspension under end-use'
         certain_category_goods: 'Option %{option_no}: Suspension - goods for certain categories of ships, boats and other vessels and for drilling or production platforms'
+        preferential: 'Option %{option_no}: Preferential tariff quota %{order_number}'
+        preferential_end_use: 'Option %{option_no}: Preferential tariff quota under end-use %{order_number}'
+        non_preferential: 'Option %{option_no}: Non-preferential quota %{order_number}'
+        non_preferential_end_use: 'Option %{option_no}: Non-preferential tariff quota under end-use %{order_number}'
 
 
 

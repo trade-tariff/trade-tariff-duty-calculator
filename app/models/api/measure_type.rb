@@ -8,21 +8,16 @@ module Api
       '117' => ::DutyOptions::Suspension::CertainCategoryGoods,
       '119' => ::DutyOptions::Suspension::Airworthiness,
       '142' => ::DutyOptions::TariffPreference,
+      '122' => ::DutyOptions::Quota::NonPreferential,
+      '123' => ::DutyOptions::Quota::NonPreferentialEndUse,
+      '143' => ::DutyOptions::Quota::Preferential,
+      '146' => ::DutyOptions::Quota::PreferentialEndUse,
     }.freeze
 
     attributes :description,
                :national,
                :measure_type_series_id,
                :id
-
-    enum :id, {
-      third_country: %w[103 105],
-      tariff_preference: %w[142],
-      autonomous_suspension: %w[112],
-      autonomous_end_use_suspension: %w[115],
-      certain_category_goods_suspension: %w[117],
-      airworthiness_suspension: %w[119],
-    }
 
     enum :measure_type_series_id, {
       applicable_duty: %w[C],
