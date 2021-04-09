@@ -15,7 +15,7 @@ RSpec.describe Api::MeasureType do
   describe '#option' do
     subject(:measure_type) { described_class.new(id: id) }
 
-    context 'when their is a corresponding option for the id' do
+    context 'when there is a corresponding option for the id' do
       let(:id) { '142' }
 
       it { expect(measure_type.option).to eq(DutyOptions::TariffPreference) }
@@ -25,6 +25,22 @@ RSpec.describe Api::MeasureType do
       let(:id) { '999' }
 
       it { expect(measure_type.option).to be_nil }
+    end
+  end
+
+  describe '#additional_duty_option' do
+    subject(:measure_type) { described_class.new(id: id) }
+
+    context 'when there is a corresponding option for the id' do
+      let(:id) { '551' }
+
+      it { expect(measure_type.additional_duty_option).to eq(DutyOptions::AdditionalDuty::ProvisionalAntiDumping) }
+    end
+
+    context 'when there is not a corresponding option' do
+      let(:id) { '999' }
+
+      it { expect(measure_type.additional_duty_option).to be_nil }
     end
   end
 end

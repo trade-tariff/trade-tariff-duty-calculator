@@ -4,11 +4,97 @@
       "zero_mfn_duty": false,
       "trade_defence": false,
       "applicable_measure_units": {
+        "TNEI": {
+          "measurement_unit_code": "TNE",
+          "measurement_unit_qualifier_code": "I",
+          "abbreviation": "1,000 kg/biodiesel",
+          "unit_question": "What is the weight of biodiesel in the goods you will be importing?",
+          "unit_hint": "Enter the value in tonnes (1,000 kg)",
+          "unit": "tonnes",
+          "measure_sids": [
+            20041036,
+            20041059
+          ]
+        }
       },
       "meursing_code": false
     }
   },
   "import_measures": [
+    {
+      "id": 20041036,
+      "origin": "eu",
+      "effective_start_date": "2021-01-01T00:00:00.000Z",
+      "effective_end_date": null,
+      "import": true,
+      "excise": false,
+      "vat": false,
+      "duty_expression": {
+        "base": "144.10 GBP / 1000 kg/biodiesel",
+        "formatted_base": "<span>144.10</span> GBP / <abbr title='Tonne'>1000 kg/biodiesel</abbr>"
+      },
+      "measure_type": {
+        "description": "Definitive anti-dumping duty",
+        "national": null,
+        "measure_type_series_id": "D",
+        "id": "552"
+      },
+      "legal_acts": [
+        {
+          "validity_start_date": "2021-01-01T00:00:00.000Z",
+          "validity_end_date": null,
+          "officialjournal_number": "1",
+          "officialjournal_page": 1,
+          "published_date": "2021-01-01",
+          "regulation_code": "C0000/21",
+          "regulation_url": "http://eur-lex.europa.eu/search.html?whOJ=NO_OJ%3D,YEAR_OJ%3D2021,PAGE_FIRST%3D0001&DB_COLL_OJ=oj-1&type=advanced&lang=en"
+        }
+      ],
+      "measure_conditions": [
+
+      ],
+      "measure_components": [
+        {
+          "duty_expression_id": "01",
+          "duty_amount": 144.1,
+          "monetary_unit_code": "GBP",
+          "monetary_unit_abbreviation": null,
+          "measurement_unit_code": "TNE",
+          "duty_expression_description": "% or amount",
+          "duty_expression_abbreviation": "%",
+          "measurement_unit_qualifier_code": "I"
+        }
+      ],
+      "national_measurement_units": [
+
+      ],
+      "geographical_area": {
+        "id": "1011",
+        "description": "ERGA OMNES",
+        "geographical_area_id": "1011",
+        "children_geographical_areas": []
+      },
+      "excluded_countries": [
+        {
+          "id": "CA",
+          "description": "Canada",
+          "geographical_area_id": "CA"
+        },
+        {
+          "id": "US",
+          "description": "United States",
+          "geographical_area_id": "US"
+        }
+      ],
+      "footnotes": [
+        {
+          "code": "TM681",
+          "description": "The duty shall be applicable in proportion in the product, by weight, of the total content of fatty-acid mono-alkyl esters and of paraffinic gasoils obtained from synthesis and/or hydro-treatment, of non-fossil origin (biodiesel content).<br>The aforementioned definition of “biodiesel content” is only valid in the context of anti-dumping and anti-subsidy measures and differs from the definition of “biodiesel” according to subheading note 5 to Chapter 27 and note 7 to Chapter 38.",
+          "formatted_description": "The duty shall be applicable in proportion in the product, by weight, of the total content of fatty-acid mono-alkyl esters and of paraffinic gasoils obtained from synthesis and/or hydro-treatment, of non-fossil origin (biodiesel content).<br>The aforementioned definition of “biodiesel content” is only valid in the context of anti-dumping and anti-subsidy measures and differs from the definition of “biodiesel” according to subheading note 5 to Chapter 27 and note 7 to Chapter 38."
+        }
+      ],
+      "order_number": null
+    },
     {
       "id": 20124406,
       "origin": "eu",
