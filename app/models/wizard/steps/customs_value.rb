@@ -38,6 +38,7 @@ module Wizard
 
       def previous_step_path
         return previous_step_for_gb_to_ni if user_session.gb_to_ni_route?
+        return country_of_origin_path if user_session.row_to_gb_route?
       end
 
       private

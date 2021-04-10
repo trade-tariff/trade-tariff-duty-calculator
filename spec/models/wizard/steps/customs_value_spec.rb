@@ -280,6 +280,20 @@ RSpec.describe Wizard::Steps::CustomsValue do
         end
       end
     end
+
+    context 'when on RoW to GB route' do
+      before do
+        allow(user_session).to receive(:row_to_gb_route?).and_return(true)
+      end
+
+      it 'returns certificate_of_origin_path' do
+        expect(
+          step.previous_step_path,
+        ).to eq(
+          country_of_origin_path,
+        )
+      end
+    end
   end
 
   describe '#next_step_path' do
