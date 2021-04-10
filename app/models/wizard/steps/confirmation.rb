@@ -8,7 +8,9 @@ module Wizard
       end
 
       def previous_step_path
-        return measure_amount_path if user_session.gb_to_ni_route?
+        return measure_amount_path unless user_session.measure_amount.empty?
+
+        customs_value_path
       end
     end
   end

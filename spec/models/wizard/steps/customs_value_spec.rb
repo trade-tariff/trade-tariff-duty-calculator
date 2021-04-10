@@ -299,12 +299,59 @@ RSpec.describe Wizard::Steps::CustomsValue do
   describe '#next_step_path' do
     include Rails.application.routes.url_helpers
 
-    it 'returns measure_amount_path' do
-      expect(
-        step.next_step_path,
-      ).to eq(
-        measure_amount_path,
-      )
+    let(:applicable_measure_units) do
+      {
+        'DTN' => {
+          'measurement_unit_code' => 'DTN',
+          'measurement_unit_qualifier_code' => '',
+          'abbreviation' => '100 kg',
+          'unit_question' => 'What is the weight of the goods you will be importing?',
+          'unit_hint' => 'Enter the value in decitonnes (100kg)',
+          'unit' => 'x 100 kg',
+        },
+      }
+    end
+
+    let(:filtered_commodity) { instance_double(Api::Commodity) }
+
+    before do
+      allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
+      allow(filtered_commodity).to receive(:applicable_measure_units).and_return(applicable_measure_units)
+    end
+
+    context 'when there are applicable measures' do
+      it 'returns measure_amount_path' do
+        expect(
+          step.next_step_path,
+        ).to eq(
+          measure_amount_path,
+        )
+      end
+    end
+
+    context 'when there are no applicable measures' do
+      let(:applicable_measure_units) { {} }
+      let(:session) do
+        {
+          'answers' => {
+            Wizard::Steps::MeasureAmount.id => { foo: :bar },
+          },
+        }
+      end
+
+      it 'returns confirmation_path' do
+        expect(
+          step.next_step_path,
+        ).to eq(
+          confirm_path,
+        )
+      end
+
+      it 'removes any leftover value for measure amounts from the session' do
+        step.next_step_path
+
+        expect(user_session.measure_amount).to be_empty
+      end
     end
   end
 end
