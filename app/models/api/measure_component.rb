@@ -13,7 +13,7 @@ module Api
                :measurement_unit_qualifier_code
 
     def ad_valorem?
-      no_specific_duty? && duty_expression_id == '01'
+      no_specific_duty?
     end
 
     def specific_duty?
