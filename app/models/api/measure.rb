@@ -44,6 +44,10 @@ module Api
       @all_components ||= measure_components
     end
 
+    def all_duties_zero?
+      all_components.all? { |component| component.duty_amount.zero? }
+    end
+
     private
 
     def ad_valorem?

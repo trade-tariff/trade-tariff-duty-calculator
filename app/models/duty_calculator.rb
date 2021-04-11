@@ -46,6 +46,14 @@ class DutyCalculator
   end
 
   def additional_duty_rows
-    []
+    @additional_duty_rows ||=
+      commodity.import_measures.each_with_object([]) do |measure, acc|
+        option_klass = measure.measure_type.additional_duty_option
+
+        next if option_klass.nil?
+        next if measure.all_duties_zero?
+
+        acc << option_klass.new(measure, user_session, []).option
+      end
   end
 end

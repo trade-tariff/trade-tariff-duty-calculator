@@ -2,10 +2,10 @@ module DutyOptions
   class Base
     include ActionView::Helpers::NumberHelper
 
-    def initialize(measure, user_session, additional_duty_rows)
+    def initialize(measure, user_session, additional_duty_options)
       @measure = measure
       @user_session = user_session
-      @additional_duty_rows = additional_duty_rows
+      @additional_duty_options = additional_duty_options
     end
 
     def option
@@ -21,7 +21,15 @@ module DutyOptions
 
     protected
 
-    attr_reader :measure, :user_session, :additional_duty_rows
+    attr_reader :measure, :user_session, :additional_duty_options
+
+    def option_values
+      table = [valuation_row]
+      table += measure_rows
+      table += additional_duty_rows
+      table << duty_totals_row
+      table
+    end
 
     def measure_rows
       presented_rows = []
@@ -74,27 +82,21 @@ module DutyOptions
     end
 
     def duty_totals
-      additional_duty_values = @additional_duty_rows.map { |_, _, value| value }
       duty_values = [duty_evaluation[:value]]
 
       (additional_duty_values + duty_values).inject(:+)
     end
 
-    def option_values
-      table = [
-        valuation_row,
-      ]
-
-      table.concat(measure_rows)
-      table.concat(additional_duty_rows)
-
-      table << duty_totals_row
-
-      table
-    end
-
     def option_type
       I18n.t("duty_calculations.options.option_type.#{self.class.id}")
+    end
+
+    def additional_duty_rows
+      additional_duty_options.map { |option| option[:values].flatten }
+    end
+
+    def additional_duty_values
+      additional_duty_options.map { |additional_duty| additional_duty[:value] }
     end
   end
 end

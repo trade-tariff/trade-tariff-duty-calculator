@@ -14,6 +14,13 @@ module Api
       '146' => ::DutyOptions::Quota::PreferentialEndUse,
     }.freeze
 
+    TYPE_ADDITIONAL_OPTION_MAPPING = {
+      '551' => ::DutyOptions::AdditionalDuty::ProvisionalAntiDumping,
+      '552' => ::DutyOptions::AdditionalDuty::DefinitiveAntiDumping,
+      '553' => ::DutyOptions::AdditionalDuty::ProvisionalCountervailing,
+      '554' => ::DutyOptions::AdditionalDuty::DefinitiveCountervailing,
+    }.freeze
+
     attributes :description,
                :national,
                :measure_type_series_id,
@@ -29,6 +36,10 @@ module Api
 
     def option
       TYPE_OPTION_MAPPING[id]
+    end
+
+    def additional_duty_option
+      TYPE_ADDITIONAL_OPTION_MAPPING[id]
     end
   end
 end

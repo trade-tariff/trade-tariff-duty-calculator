@@ -67,6 +67,10 @@ en:
         preferential_end_use: Preferential Quota Under End Use
         non_preferential: Non Preferential Quota
         non_preferential_end_use: Non Preferential Quota Under End Use
+        definitive_anti_dumping: Definitive anti-dumping duty
+        definitive_countervailing: Definitive countervailing  duty
+        provisional_anti_dumping: Provisional anti-dumping duty
+        provisional_countervailing: Provisional countervailing duty
       footnote:
         third_country_tariff:
         tariff_preference:
