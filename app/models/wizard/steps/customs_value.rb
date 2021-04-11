@@ -33,7 +33,11 @@ module Wizard
       end
 
       def next_step_path
-        measure_amount_path
+        return measure_amount_path if filtered_commodity.applicable_measure_units.present?
+
+        user_session.measure_amount = {}
+
+        confirm_path
       end
 
       def previous_step_path
@@ -47,6 +51,18 @@ module Wizard
         return trade_remedies_path if user_session.trade_defence
 
         certificate_of_origin_path
+      end
+
+      def filtered_commodity(filter: default_filter)
+        Api::Commodity.build(
+          user_session.commodity_source,
+          user_session.commodity_code,
+          filter,
+        )
+      end
+
+      def default_filter
+        { 'filter[geographical_area_id]' => user_session.country_of_origin }
       end
     end
   end
