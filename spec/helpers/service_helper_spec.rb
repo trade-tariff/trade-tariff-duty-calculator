@@ -15,6 +15,34 @@ RSpec.describe ServiceHelper do
 
   let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
 
+  describe '#title' do
+    context 'when referred_service is xi' do
+      let(:service) { 'xi' }
+
+      it { expect(helper.title).to eq('Northern Ireland Online Tariff') }
+    end
+
+    context 'when referred_service is uk' do
+      let(:service) { 'uk' }
+
+      it { expect(helper.title).to eq('UK Global Online Tariff') }
+    end
+  end
+
+  describe '#header' do
+    context 'when referred_service is xi' do
+      let(:service) { 'xi' }
+
+      it { expect(helper.header).to eq('Northern Ireland Online Tariff') }
+    end
+
+    context 'when referred_service is uk' do
+      let(:service) { 'uk' }
+
+      it { expect(helper.header).to eq('UK Global Online Tariff') }
+    end
+  end
+
   describe '#trade_tariff_url' do
     context 'when TRADE_TARIFF_FRONTEND_URL is set' do
       it 'returns the dev trade tariff url' do

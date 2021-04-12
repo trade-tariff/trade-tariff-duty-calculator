@@ -1,4 +1,12 @@
 module ServiceHelper
+  def title
+    t("title.#{referred_service}")
+  end
+
+  def header
+    t("header.#{referred_service}")
+  end
+
   def trade_tariff_url
     service_url_for('/sections')
   end
