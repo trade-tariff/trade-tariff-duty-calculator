@@ -15,6 +15,10 @@ module ServiceHelper
     service_url_for("/commodities/#{commodity_code}")
   end
 
+  def feedback_url
+    service_url_for('/feedback')
+  end
+
   private
 
   def service_url_for(relative_path)
