@@ -98,4 +98,22 @@ RSpec.describe ServiceHelper do
       end
     end
   end
+
+  describe '#feedback_url' do
+    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
+      it 'returns the dev trade tariff tools url' do
+        expect(helper.feedback_url).to eq(
+          'https://dev.trade-tariff.service.gov.uk/feedback',
+        )
+      end
+    end
+
+    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
+      let(:frontend_url) { nil }
+
+      it 'returns the dev trade tariff tools url' do
+        expect(helper.feedback_url).to eq('#')
+      end
+    end
+  end
 end
