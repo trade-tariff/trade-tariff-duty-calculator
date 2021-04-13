@@ -22,6 +22,126 @@
   },
   "import_measures": [
     {
+      "id": 20057876,
+      "origin": "eu",
+      "effective_start_date": "2021-01-01T00:00:00.000Z",
+      "effective_end_date": null,
+      "import": true,
+      "excise": false,
+      "vat": false,
+      "duty_expression": {
+        "base": "25.00 %",
+        "formatted_base": "<span>25.00</span> %"
+      },
+      "measure_type": {
+        "description": "Additional duties (safeguard)",
+        "national": null,
+        "measure_type_series_id": "J",
+        "id": "696"
+      },
+      "legal_acts": [
+        {
+          "validity_start_date": "2021-01-01T00:00:00.000Z",
+          "validity_end_date": null,
+          "officialjournal_number": "1",
+          "officialjournal_page": 1,
+          "published_date": "2021-01-01",
+          "regulation_code": "C0000/21",
+          "regulation_url": "http://eur-lex.europa.eu/search.html?whOJ=NO_OJ%3D,YEAR_OJ%3D2021,PAGE_FIRST%3D0001&DB_COLL_OJ=oj-1&type=advanced&lang=en"
+        }
+      ],
+      "measure_conditions": [
+
+      ],
+      "measure_components": [
+        {
+          "duty_expression_id": "01",
+          "duty_amount": 25.0,
+          "monetary_unit_code": null,
+          "monetary_unit_abbreviation": null,
+          "measurement_unit_code": null,
+          "duty_expression_description": "% or amount",
+          "duty_expression_abbreviation": "%",
+          "measurement_unit_qualifier_code": null
+        }
+      ],
+      "national_measurement_units": [
+
+      ],
+      "geographical_area": {
+        "id": "5050",
+        "description": "Countries subject to UK safeguard measures",
+        "geographical_area_id": "5050",
+        "children_geographical_areas": [ ]
+      },
+      "excluded_countries": [
+      ],
+      "footnotes": [
+
+      ],
+      "order_number": null
+    },
+    {
+      "id": 20040869,
+      "origin": "eu",
+      "effective_start_date": "2021-01-01T00:00:00.000Z",
+      "effective_end_date": null,
+      "import": true,
+      "excise": false,
+      "vat": false,
+      "duty_expression": {
+        "base": "25.00 %",
+        "formatted_base": "<span>25.00</span> %"
+      },
+      "measure_type": {
+        "description": "Additional duties",
+        "national": null,
+        "measure_type_series_id": "J",
+        "id": "695"
+      },
+      "legal_acts": [
+        {
+          "validity_start_date": "2021-01-01T00:00:00.000Z",
+          "validity_end_date": null,
+          "officialjournal_number": "1",
+          "officialjournal_page": 1,
+          "published_date": "2021-01-01",
+          "regulation_code": "C0000/21",
+          "regulation_url": "http://eur-lex.europa.eu/search.html?whOJ=NO_OJ%3D,YEAR_OJ%3D2021,PAGE_FIRST%3D0001&DB_COLL_OJ=oj-1&type=advanced&lang=en"
+        }
+      ],
+      "measure_conditions": [
+
+      ],
+      "measure_components": [
+        {
+          "duty_expression_id": "01",
+          "duty_amount": 25.0,
+          "monetary_unit_code": null,
+          "monetary_unit_abbreviation": null,
+          "measurement_unit_code": null,
+          "duty_expression_description": "% or amount",
+          "duty_expression_abbreviation": "%",
+          "measurement_unit_qualifier_code": null
+        }
+      ],
+      "national_measurement_units": [
+
+      ],
+      "geographical_area": {
+        "id": "US",
+        "description": "United States",
+        "geographical_area_id": "US"
+      },
+      "excluded_countries": [
+
+      ],
+      "footnotes": [
+
+      ],
+      "order_number": null
+    },
+    {
       "id": 20041036,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
