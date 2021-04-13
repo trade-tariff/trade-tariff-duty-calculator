@@ -22,6 +22,7 @@ RSpec.describe DutyOptions::TariffPreference do
 
     let(:measure) do
       Api::Measure.new(
+        measure_type: { id: '142' },
         measure_components: [measure_component],
         measure_conditions: [],
         geographical_area: {
@@ -47,6 +48,7 @@ RSpec.describe DutyOptions::TariffPreference do
       let(:expected_table) do
         {
           warning_text: nil,
+          footnote: I18n.t('measure_type_footnotes.142'),
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source.upcase, option_type: 'Tariff preference'), '5.0% * £1,050.00', '£52.50'],
@@ -71,12 +73,7 @@ RSpec.describe DutyOptions::TariffPreference do
             base: '35.10 EUR / 100 kg',
             formatted_base: "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
           },
-          measure_type: {
-            description: 'Third country duty',
-            national: nil,
-            measure_type_series_id: 'C',
-            id: '142',
-          },
+          measure_type: { id: '142' },
           measure_conditions: [],
           measure_components: [
             {
@@ -129,6 +126,7 @@ RSpec.describe DutyOptions::TariffPreference do
       let(:expected_table) do
         {
           warning_text: nil,
+          footnote: I18n.t('measure_type_footnotes.142'),
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_quantity'), nil, '120.0 x 100 kg'],
@@ -158,6 +156,7 @@ RSpec.describe DutyOptions::TariffPreference do
           geographical_area: {
             description: geographical_area_description,
           },
+          measure_type: { id: '142' },
         )
       end
 
@@ -216,6 +215,7 @@ RSpec.describe DutyOptions::TariffPreference do
       let(:expected_table) do
         {
           warning_text: nil,
+          footnote: I18n.t('measure_type_footnotes.142'),
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source.upcase, option_type: 'Tariff preference'), 'foo', '£15.00'],

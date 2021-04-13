@@ -10,6 +10,7 @@ module DutyOptions
 
     def option
       {
+        footnote: I18n.t("measure_type_footnotes.#{measure.measure_type.id}").html_safe,
         warning_text: nil,
         values: option_values,
       }
