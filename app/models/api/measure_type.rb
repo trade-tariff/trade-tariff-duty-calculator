@@ -8,6 +8,8 @@ module Api
       '117' => ::DutyOptions::Suspension::CertainCategoryGoods,
       '119' => ::DutyOptions::Suspension::Airworthiness,
       '142' => ::DutyOptions::TariffPreference,
+      '145' => ::DutyOptions::TariffPreference,
+      '106' => ::DutyOptions::TariffPreference,
       '122' => ::DutyOptions::Quota::NonPreferential,
       '123' => ::DutyOptions::Quota::NonPreferentialEndUse,
       '143' => ::DutyOptions::Quota::Preferential,
