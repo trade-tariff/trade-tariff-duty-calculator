@@ -19,6 +19,8 @@ module Api
       '552' => ::DutyOptions::AdditionalDuty::DefinitiveAntiDumping,
       '553' => ::DutyOptions::AdditionalDuty::ProvisionalCountervailing,
       '554' => ::DutyOptions::AdditionalDuty::DefinitiveCountervailing,
+      '695' => ::DutyOptions::AdditionalDuty::AdditionalDuties,
+      '696' => ::DutyOptions::AdditionalDuty::AdditionalDutiesSafeguard,
     }.freeze
 
     attributes :description,

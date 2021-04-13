@@ -46,6 +46,8 @@ en:
         definitive_countervailing: Definitive countervailing  duty
         provisional_anti_dumping: Provisional anti-dumping duty
         provisional_countervailing: Provisional countervailing duty
+        additional_duties: Additional Duties
+        additional_duties_safeguard:  Additional duties (safeguard)
       heading:
         third_country_tariff: 'Option %{option_no}: Third-country duty'
         tariff_preference: 'Option %{option_no}: Tariff preference - %{geographical_area_description}'
