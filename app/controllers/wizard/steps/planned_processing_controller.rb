@@ -14,6 +14,8 @@ module Wizard
       private
 
       def permitted_params
+        return {} unless params.key?(:wizard_steps_planned_processing)
+
         params.require(:wizard_steps_planned_processing).permit(
           :planned_processing,
         )
