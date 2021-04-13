@@ -1,3 +1,7 @@
 class ApplicationController < ActionController::Base
-  before_action :expires_now
+  after_action :no_store_cache
+
+  def no_store_cache
+    expires_in 0, public: false, stale_while_revalidate: 0, stale_if_error: 0
+  end
 end
