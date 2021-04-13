@@ -21,6 +21,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
 
     let(:measure) do
       Api::Measure.new(
+        measure_type: { id: '103' },
         measure_components: [measure_component],
         measure_conditions: [],
       )
@@ -43,6 +44,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
       let(:expected_table) do
         {
           warning_text: I18n.t('duty_calculations.options.mfn.warning_text'),
+          footnote: I18n.t('measure_type_footnotes.103'),
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source, option_type: 'Third-country duty'), '5.0% * £1,050.00', '£52.50'],
@@ -61,19 +63,19 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
 
       let(:measure) do
         Api::Measure.new(
-          'id' => 2_046_828,
-          'duty_expression' => {
-            'base' => '35.10 EUR / 100 kg',
-            'formatted_base' => "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
+          id: 2_046_828,
+          duty_expression: {
+            base: '35.10 EUR / 100 kg',
+            formatted_base: "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
           },
-          'measure_type' => {
-            'description' => 'Third country duty',
-            'national' => nil,
-            'measure_type_series_id' => 'C',
-            'id' => '103',
+          measure_type: {
+            description: 'Third country duty',
+            national: nil,
+            measure_type_series_id: 'C',
+            id: '103',
           },
-          'measure_conditions' => [],
-          'measure_components' => [measure_component],
+          measure_conditions: [],
+          measure_components: [measure_component],
         )
       end
 
@@ -110,6 +112,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
       let(:expected_table) do
         {
           warning_text: I18n.t('duty_calculations.options.mfn.warning_text'),
+          footnote: I18n.t('measure_type_footnotes.103'),
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_quantity'), nil, '120.0 x 100 kg'],
@@ -130,6 +133,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
       let(:measure) do
         Api::Measure.new(
           'id' => 2_046_828,
+          measure_type: { id: '103' },
           'duty_expression' => {
             'base' => 'foo',
             'formatted_base' => 'foo',
@@ -193,6 +197,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
       let(:expected_table) do
         {
           warning_text: I18n.t('duty_calculations.options.mfn.warning_text'),
+          footnote: I18n.t('measure_type_footnotes.103'),
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source, option_type: 'Third-country duty'), 'foo', '£15.00'],
