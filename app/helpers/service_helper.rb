@@ -44,6 +44,6 @@ module ServiceHelper
   end
 
   def referred_service
-    params[:referred_service] || session['referred_service']
+    params[:referred_service] || session['referred_service'] || 'uk'
   end
 end

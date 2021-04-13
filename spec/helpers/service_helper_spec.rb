@@ -41,6 +41,12 @@ RSpec.describe ServiceHelper do
 
       it { expect(helper.header).to eq('UK Global Online Tariff') }
     end
+
+    context 'when referred_service is not set at all' do
+      let(:service) { nil }
+
+      it { expect(helper.header).to eq('UK Global Online Tariff') }
+    end
   end
 
   describe '#trade_tariff_url' do
