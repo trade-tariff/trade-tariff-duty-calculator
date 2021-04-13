@@ -2,6 +2,7 @@ module Wizard
   module Steps
     class BaseController < ::ApplicationController
       default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
+      after_action :track_session
 
       helper_method :commodity,
                     :commodity_code,
@@ -57,6 +58,15 @@ module Wizard
 
       def default_filter
         { 'filter[geographical_area_id]' => user_session.country_of_origin }
+      end
+
+      def track_session
+        ::NewRelic::Agent.add_custom_attributes({
+          session: user_session.session.to_h.except('_csrf_token'),
+          commodity_code: user_session.commodity_code,
+          commodity_source: user_session.commodity_source,
+          referred_service: user_session.referred_service,
+        })
       end
     end
   end
