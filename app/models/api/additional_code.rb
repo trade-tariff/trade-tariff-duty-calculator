@@ -7,11 +7,11 @@ module Api
                :formatted_description
 
     def additional_code_type
-      code[0]
+      code && code[0]
     end
 
     def additional_code_id
-      code[1..]
+      code && code[1..]
     end
 
     def company_defensive_code?

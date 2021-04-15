@@ -5,6 +5,7 @@ module Wizard
       after_action :track_session
 
       helper_method :commodity,
+                    :filtered_commodity,
                     :commodity_code,
                     :commodity_source,
                     :user_session,

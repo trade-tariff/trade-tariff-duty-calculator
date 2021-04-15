@@ -51,6 +51,7 @@ class DutyCalculator
         option_klass = measure.measure_type.additional_duty_option
 
         next if option_klass.nil?
+        next if measure.additional_code.company_defensive_code?
         next if measure.all_duties_zero?
 
         acc << option_klass.new(measure, user_session, []).option

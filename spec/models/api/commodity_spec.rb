@@ -108,4 +108,28 @@ RSpec.describe Api::Commodity, type: :model do
       expect(commodity.formatted_commodity_code).to eq('0702 00 00 07')
     end
   end
+
+  describe '#company_defensive_measures?' do
+    subject(:commodity) { described_class.new(import_measures: measures) }
+
+    let(:measures) { [{ additional_code: additional_code }] }
+
+    context 'when there is an additional code for a company' do
+      let(:additional_code) { { code: 'A111' } }
+
+      it { is_expected.to be_company_defensive_measures }
+    end
+
+    context 'when there is an additional code not for a company' do
+      let(:additional_code) { { code: 'Z111' } }
+
+      it { is_expected.not_to be_company_defensive_measures }
+    end
+
+    context 'when no additional code is specified' do
+      let(:additional_code) { nil }
+
+      it { is_expected.not_to be_company_defensive_measures }
+    end
+  end
 end

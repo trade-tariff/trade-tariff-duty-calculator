@@ -38,7 +38,6 @@ RSpec.describe Api::Measure do
                                                     measure_components: [],
                                                     id: -582_007,
                                                     origin: 'uk',
-                                                    additional_code: nil,
                                                     effective_start_date: '2020-08-01T00:00:00.000Z',
                                                     effective_end_date: nil,
                                                     import: true,
