@@ -213,7 +213,12 @@
           "formatted_description": "The duty shall be applicable in proportion in the product, by weight, of the total content of fatty-acid mono-alkyl esters and of paraffinic gasoils obtained from synthesis and/or hydro-treatment, of non-fossil origin (biodiesel content).<br>The aforementioned definition of “biodiesel content” is only valid in the context of anti-dumping and anti-subsidy measures and differs from the definition of “biodiesel” according to subheading note 5 to Chapter 27 and note 7 to Chapter 38."
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "additional_code": {
+        "code": "C490",
+        "description": "COFCO International Argentina S.A.",
+        "formatted_description": "COFCO International Argentina S.A."
+      }
     },
     {
       "id": 20124406,
