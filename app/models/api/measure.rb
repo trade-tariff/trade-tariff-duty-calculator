@@ -7,6 +7,7 @@ module Api
     has_one :geographical_area, GeographicalArea
     has_one :duty_expression, DutyExpression
     has_one :order_number, OrderNumber
+    has_one :additional_code, AdditionalCode
 
     attributes :id,
                :origin,

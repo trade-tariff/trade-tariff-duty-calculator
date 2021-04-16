@@ -17,4 +17,13 @@
   <div class="govuk-!-margin-bottom-5">
     <%= option[:evaluation][:footnote].html_safe if option[:evaluation][:footnote].present? %>
   </div>
+  <% if company_warning_text.present? %>
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Information</span>
+        <%= company_warning_text %>
+      </strong>
+    </div>
+  <% end %>
 <% end %>
