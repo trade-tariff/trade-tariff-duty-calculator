@@ -7,7 +7,7 @@
         <%= f.govuk_error_summary %>
         <span class="govuk-caption-xl">Calculate import duties</span>
 
-        <%= f.govuk_collection_radio_buttons :final_use, Wizard::Steps::FinalUse::OPTIONS, :id, :name, legend: { text: 'Is your import for sale to, or final use by, end-consumers located in the United Kingdom?', size: 'xl', tag: 'h1' }, include_hidden: true %>
+        <%= f.govuk_collection_radio_buttons :final_use, Wizard::Steps::FinalUse::OPTIONS, :id, :name, legend: { text: 'Are your goods for sale to, or final use by, end-consumers located in the United Kingdom?', size: 'xl', tag: 'h1' }, include_hidden: true %>
 
         <%= f.govuk_submit %>
       <% end %>
