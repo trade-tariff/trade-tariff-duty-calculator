@@ -7,10 +7,12 @@
         <%= f.govuk_error_summary %>
         <span class="govuk-caption-xl">Calculate import duties</span>
 
-        <%= f.govuk_radio_buttons_fieldset(:planned_processing,  hint: { text: 'Your import will be treated as not at risk, and will therefore not be subject to EU import duties, if you can verify that your goods will not be subject to further processing after import, or will be processed according to strict guidelines.' }, legend: { text: 'How will these goods be processed after import?', size: 'xl', tag: 'h1' }) do %>
+        <%= f.govuk_radio_buttons_fieldset(:planned_processing,  hint: { text: 'If your goods are for sale to, or final use by, end consumers in the United Kingdom you may be able to declare goods as not ‘at risk’, and pay no duty on those goods.You will not be able to declare your goods not ‘at risk’, if your goods are for commercial processing in Northern Ireland, unless they meet one of the exemptions.' }, legend: { text: 'How will these goods be processed after they are moved into Northern Ireland?', size: 'xl', tag: 'h1' }) do %>
           <%= f.govuk_radio_button :planned_processing, 'annual_turnover', label: { text: 'The importer had a total <strong>annual turnover</strong> of less than <strong>£500,000</strong> in its most recent complete financial year'.html_safe }, link_errors: true %>
           <%= f.govuk_radio_divider %>
-          <%= f.govuk_radio_button :planned_processing, 'without_any_processing', label: { text: 'The goods will be sold to an end-user <strong>without any processing</strong>'.html_safe } %>
+          <div class='govuk-!-margin-bottom-3' >
+            <%= f.govuk_radio_button :planned_processing, 'without_any_processing', label: { text: 'The goods <strong>will not be subject to processing in Northern Ireland<strong>'.html_safe } %>
+          </div>
           <%= f.govuk_radio_button :planned_processing, 'commercial_processing', label: { text: 'The goods will undergo <strong>commercial processing</strong> for one of these purposes:'.html_safe }, hint: { text: '<ul><li>the sale of <strong>food</strong> to end consumers in the UK</li><li><strong>construction</strong>, where the processed goods form a permanent part of a structure that is constructed and located in NI by the importer</li> <li>direct provision of <strong>health or care services</strong> by the importer in NI</li> <li><strong>not for profit</strong> activities in NI, where there is no subsequent sale of the processed good by the importer</li><li>the final use of <strong>animal feed</strong> on premises located in NI by the importer.</li> </ul>'.html_safe } %>
           <%= f.govuk_radio_button :planned_processing, 'commercial_purposes', label: { text: 'The goods will be processed for <strong>commercial purposes other than those listed above</strong>'.html_safe } %>
         <% end %>
