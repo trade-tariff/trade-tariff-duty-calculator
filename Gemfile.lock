@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/trade-tariff/uktt.git
-  revision: 7413ec76e41b7e62f2daa618887a71343cb77da5
+  revision: b890f264213f6f068644aadfb975f1b71c604154
   specs:
-    uktt (2.0.0)
+    uktt (2.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -325,7 +325,7 @@ DEPENDENCIES
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
-  uktt (~> 2.0.0)!
+  uktt (~> 2.0.1)!
   web-console (>= 3.3.0)
   webdrivers (~> 4.5)
   webpacker
