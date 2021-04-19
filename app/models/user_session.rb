@@ -10,10 +10,6 @@ class UserSession
     ids.map { |id| session['answers'].delete(id) } unless ids.empty?
   end
 
-  def as_of
-    import_date&.iso8601
-  end
-
   def import_date
     return unless session['answers'].key?(Wizard::Steps::ImportDate.id)
 

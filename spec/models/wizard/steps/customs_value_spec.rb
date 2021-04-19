@@ -1,7 +1,10 @@
 RSpec.describe Wizard::Steps::CustomsValue do
   subject(:step) { described_class.new(user_session, attributes) }
 
-  let(:session) { {} }
+  let(:session) { {
+
+    'answers' => { 'import_date' => '2022-01-01', }
+  } }
   let(:user_session) { UserSession.new(session) }
 
   let(:attributes) do
@@ -334,6 +337,7 @@ RSpec.describe Wizard::Steps::CustomsValue do
       let(:session) do
         {
           'answers' => {
+            'import_date' => '2022-01-01',
             Wizard::Steps::MeasureAmount.id => { foo: :bar },
           },
         }

@@ -66,6 +66,7 @@ RSpec.describe ExpressionEvaluators::Compound do
   let(:session) do
     {
       'answers' => {
+        'import_date' => '2022-01-01',
         'customs_value' => {
           'insurance_cost' => '1000',
           'monetary_value' => '',

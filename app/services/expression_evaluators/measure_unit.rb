@@ -24,7 +24,7 @@ module ExpressionEvaluators
       @commodity ||= Api::Commodity.build(
         user_session.commodity_source,
         user_session.commodity_code,
-        filter,
+        query,
       )
     end
 
@@ -55,8 +55,11 @@ module ExpressionEvaluators
       component.monetary_unit_code == 'EUR'
     end
 
-    def filter
-      { 'filter[geographical_area_id]' => user_session.country_of_origin }
+    def query
+      {
+        'as_of' => user_session.import_date.iso8601,
+        'filter[geographical_area_id]' => user_session.country_of_origin,
+      }
     end
   end
 end
