@@ -3,6 +3,30 @@ RSpec.describe UserSession do
 
   let(:session) { {} }
 
+  describe '#as_of' do
+    context 'when the import date is not on the session' do
+      let(:session) { {} }
+
+      it 'returns nil' do
+        expect(user_session.as_of).to be_nil
+      end
+    end
+
+    context 'when the import date is present on the session' do
+      let(:session) do
+        {
+          'answers' => {
+            Wizard::Steps::ImportDate.id => '2025-01-01',
+          },
+        }
+      end
+
+      it 'returns the import date in iso8601 format' do
+        expect(user_session.as_of).to eq('2025-01-01')
+      end
+    end
+  end
+
   describe '#import_date' do
     it 'returns nil if the key is not on the session' do
       expect(user_session.import_date).to be nil
