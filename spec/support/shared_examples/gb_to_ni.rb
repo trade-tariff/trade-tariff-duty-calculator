@@ -23,11 +23,21 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
   let(:commodity_source) { :xi }
 
   let(:default_query) do
-    { 'as_of' => '2030-12-12' }
+    {
+      'as_of' => '2030-12-12',
+    }
+  end
+
+  let(:as_of_now_query) do
+    {
+      'as_of' => Time.zone.today.iso8601,
+    }
   end
 
   let(:filtered_query) do
-    { 'filter[geographical_area_id]' => import_from }.merge(default_query)
+    {
+      'filter[geographical_area_id]' => import_from,
+    }.merge(default_query)
   end
 
   let(:attributes) do
@@ -62,7 +72,7 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
   before do
     allow(filtered_commodity).to receive(:applicable_measure_units).and_return(attributes['applicable_measure_units'])
     allow(Api::Commodity).to receive(:build).with('uk', commodity_code, default_query).and_return(commodity)
-    allow(Api::Commodity).to receive(:build).with('uk', commodity_code, 'as_of' => Time.zone.today.iso8601).and_return(commodity)
+    allow(Api::Commodity).to receive(:build).with('uk', commodity_code, as_of_now_query).and_return(commodity)
     allow(Api::Commodity).to receive(:build).with('uk', commodity_code, filtered_query).and_return(commodity)
     allow(Api::Commodity).to receive(:build).with('xi', commodity_code, default_query).and_return(commodity)
     allow(Api::Commodity).to receive(:build).with('xi', commodity_code, filtered_query).and_return(filtered_commodity)
