@@ -18,7 +18,7 @@ module Wizard
       attribute 'import_date(2i)', :string
       attribute 'import_date(1i)', :string
 
-      validate :import_date_in_future
+      validate :import_date_validation
 
       def initialize(user_session, attributes = {})
         check_attributes_validity(attributes)
@@ -40,8 +40,8 @@ module Wizard
 
     private
 
-      def import_date_in_future
-        return if input_date.present? && input_date >= Time.zone.today
+      def import_date_validation
+        return if input_date.present? && input_date >= Date.new(2021, 1, 1)
 
         errors.add(:import_date, :invalid_date)
       end

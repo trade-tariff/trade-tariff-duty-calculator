@@ -79,7 +79,7 @@ en:
         wizard/steps/import_date:
           attributes:
             import_date:
-              invalid_date: Enter a valid future date
+              invalid_date: Enter a valid date, no earlier than 1st January 2021
         wizard/steps/import_destination:
           attributes:
             import_destination:
