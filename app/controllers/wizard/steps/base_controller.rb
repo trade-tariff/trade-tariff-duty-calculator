@@ -65,7 +65,7 @@ module Wizard
       end
 
       def default_query
-        { 'as_of' => user_session.import_date&.iso8601 || Time.zone.today.iso8601 }
+        { 'as_of' => (user_session.import_date || Time.zone.today).iso8601 }
       end
 
       def track_session
