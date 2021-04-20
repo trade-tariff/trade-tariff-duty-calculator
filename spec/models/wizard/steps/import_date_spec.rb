@@ -51,7 +51,7 @@ RSpec.describe Wizard::Steps::ImportDate do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:import_date]).to eq(['Enter a valid future date'])
+        expect(step.errors.messages[:import_date]).to eq(['Enter a valid date, no earlier than 1st January 2021'])
       end
     end
 
@@ -75,7 +75,7 @@ RSpec.describe Wizard::Steps::ImportDate do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:import_date]).to eq(['Enter a valid future date'])
+        expect(step.errors.messages[:import_date]).to eq(['Enter a valid date, no earlier than 1st January 2021'])
       end
     end
 
@@ -99,11 +99,11 @@ RSpec.describe Wizard::Steps::ImportDate do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:import_date]).to eq(['Enter a valid future date'])
+        expect(step.errors.messages[:import_date]).to eq(['Enter a valid date, no earlier than 1st January 2021'])
       end
     end
 
-    context 'when import date is in the past' do
+    context 'when import date is in the past, earlier than 1st Jan 2021' do
       let(:attributes) do
         ActionController::Parameters.new(
           'import_date(3i)' => '12',
@@ -123,7 +123,31 @@ RSpec.describe Wizard::Steps::ImportDate do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:import_date]).to eq(['Enter a valid future date'])
+        expect(step.errors.messages[:import_date]).to eq(['Enter a valid date, no earlier than 1st January 2021'])
+      end
+    end
+
+    context 'when import date is in the past, but not earlier than 1st Jan 2021' do
+      let(:attributes) do
+        ActionController::Parameters.new(
+          'import_date(3i)' => '1',
+          'import_date(2i)' => '1',
+          'import_date(1i)' => '2021',
+        ).permit(
+          'import_date(3i)',
+          'import_date(2i)',
+          'import_date(1i)',
+        )
+      end
+
+      it 'is a valid object' do
+        expect(step.valid?).to be true
+      end
+
+      it 'has no validation errors' do
+        step.valid?
+
+        expect(step.errors.messages[:import_date]).to be_empty
       end
     end
 
@@ -147,7 +171,7 @@ RSpec.describe Wizard::Steps::ImportDate do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:import_date]).to eq(['Enter a valid future date'])
+        expect(step.errors.messages[:import_date]).to eq(['Enter a valid date, no earlier than 1st January 2021'])
       end
     end
 
