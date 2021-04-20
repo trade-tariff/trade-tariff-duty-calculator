@@ -54,11 +54,17 @@ module Wizard
       end
 
       def filtered_commodity(filter: default_filter)
+        query = default_query.merge(filter)
+
         Api::Commodity.build(
           user_session.commodity_source,
           user_session.commodity_code,
-          filter,
+          query,
         )
+      end
+
+      def default_query
+        { 'as_of' => user_session.import_date.iso8601 }
       end
 
       def default_filter

@@ -45,6 +45,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit do
   let(:session) do
     {
       'answers' => {
+        'import_date' => '2022-01-01',
         'customs_value' => {
           'insurance_cost' => '10',
           'monetary_value' => '10',

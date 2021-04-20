@@ -8,6 +8,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
     let(:session) do
       {
         'answers' => {
+          'import_date' => '2022-01-01',
           Wizard::Steps::CustomsValue.id => {
             'monetary_value' => '1000',
             'shipping_cost' => '40',
@@ -95,6 +96,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
       let(:session) do
         {
           'answers' => {
+            'import_date' => '2022-01-01',
             Wizard::Steps::CustomsValue.id => {
               'monetary_value' => '1000',
               'shipping_cost' => '40',
@@ -180,6 +182,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
       let(:session) do
         {
           'answers' => {
+            'import_date' => '2022-01-01',
             Wizard::Steps::CustomsValue.id => {
               'monetary_value' => '1000',
               'shipping_cost' => '40',

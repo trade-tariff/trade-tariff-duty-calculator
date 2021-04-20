@@ -15,14 +15,17 @@ module Wizard
         @commodity ||= Api::Commodity.build(
           commodity_source,
           commodity_code,
+          default_query,
         )
       end
 
       def filtered_commodity(filter: default_filter)
+        query = default_query.merge(filter)
+
         Api::Commodity.build(
           commodity_source,
           commodity_code,
-          filter,
+          query,
         )
       end
 
@@ -59,6 +62,10 @@ module Wizard
 
       def default_filter
         { 'filter[geographical_area_id]' => user_session.country_of_origin }
+      end
+
+      def default_query
+        { 'as_of' => (user_session.import_date || Time.zone.today).iso8601 }
       end
 
       def track_session
