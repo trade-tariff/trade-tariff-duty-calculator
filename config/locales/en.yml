@@ -60,6 +60,7 @@ en:
         preferential_end_use: 'Option %{option_no}: Preferential tariff quota under end-use %{order_number}'
         non_preferential: 'Option %{option_no}: Non-preferential quota %{order_number}'
         non_preferential_end_use: 'Option %{option_no}: Non-preferential tariff quota under end-use %{order_number}'
+        waiver: 'Option %{option_no}: Claiming a waiver – Exchange rate'
 
 
 
