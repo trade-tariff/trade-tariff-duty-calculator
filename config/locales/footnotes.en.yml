@@ -1,5 +1,14 @@
 ---
 en:
+  default_option_footnotes:
+    waiver: >- # Claiming a waiver due to Exchange Rate - special case waiver option from GB to NI
+      <p class="govuk-body">
+      A claim for a customs duty waiver for duty on goods that would otherwise incur “at risk” tariffs is provided as “de minimis aid”. The maximum allowance for most sectors is €200,000 across a rolling three tax year period. This allowance includes all de minimis aid you have claimed over a 3 tax year period.
+      </p>
+      <p class="govuk-body">
+      This type of aid is measured in euros, so it is important to convert any aid received in pound sterling into euros. You can use this <a target="_blank" href="http://ec.europa.eu/budget/contracts_grants/info_contracts/inforeuro/index_en.cfm" class="govuk-link">exchange rate tool</a> to calculate the applicable euro equivalent of the value of the aid for the month you were awarded the aid.
+      </p>
+
   measure_type_footnotes:
     '046': >- # Tariff quota/ceiling
       <p class="govuk-body">
@@ -58,7 +67,7 @@ en:
     '105': >- # Non preferential duty under end-use
       <p class="govuk-body">
       You can apply for Authorised Use relief to reduce your payments when you import goods from outside 
-      the UK for a specific use, including repairs, maintenance or processing. <a href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses </a>
+      the UK for a specific use, including repairs, maintenance or processing. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses </a>
       </p>
       <p class="govuk-body">
       To use non-preferential duty under authorised use, if you are using CHIEF, enter "xxx" on your import 
@@ -69,7 +78,7 @@ en:
       <p class="govuk-body">
       The  EU  has  entered  into  a  Customs  Union  with  Turkey,  Andorra  and  San  Marino  for  the  import  of 
       certain commodities, to reduce or remove import duties for these goods. To take advantage of these 
-      reduced duties, you will need to provide a <a href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">valid proof of origin</a>
+      reduced duties, you will need to provide a <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">valid proof of origin</a>
       </p>
       <p class="govuk-body">
       To use the Customs Union duty, if you are using CHIEF, enter "400" on your import declaration in box 
@@ -105,7 +114,7 @@ en:
       </p>
       <p class="govuk-body">
       You can apply for Authorised Use relief to reduce your payments when you import goods from outside 
-      the UK for a specific use, including repairs, maintenance or processing. <a href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods 
+      the UK for a specific use, including repairs, maintenance or processing. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods 
       you import for specific uses</a>.
       </p>
       <p class="govuk-body">
@@ -136,12 +145,12 @@ en:
       modification or conversion is suspended.
       </p>
       <p class="govuk-body">
-      <a href="https://www.gov.uk/guidance/changes-to-customs-tariff-rules-on-imported-aircraft-parts-cip13" class="govuk-link">In  order  to  benefit  from  the  suspension,  you  must  provide  an  Authorised  Release  Certificate  or  an equivalent certificate</a>.
+      <a target="_blank" href="https://www.gov.uk/guidance/changes-to-customs-tariff-rules-on-imported-aircraft-parts-cip13" class="govuk-link">In  order  to  benefit  from  the  suspension,  you  must  provide  an  Authorised  Release  Certificate  or  an equivalent certificate</a>.
       </p>
 
     '122': >- # Non preferential tariff quota
       <p class="govuk-body">
-      To take advantage of this quota, enter the 6-digit quota order number on your import declaration. For licensed quotas, please contact the<a href="https://www.gov.uk/guidance/licences-for-the-importexport-of-agricultural-products#check-which-licences-and-quotas-are-available-for-your-products" class="govuk-link">Rural Payments Agency</a> to get an import licence. For First Come First Served quotas, please check that the quota is not exhausted before attempting to use it.
+      To take advantage of this quota, enter the 6-digit quota order number on your import declaration. For licensed quotas, please contact the<a target="_blank" href="https://www.gov.uk/guidance/licences-for-the-importexport-of-agricultural-products#check-which-licences-and-quotas-are-available-for-your-products" class="govuk-link">Rural Payments Agency</a> to get an import licence. For First Come First Served quotas, please check that the quota is not exhausted before attempting to use it.
       </p>
       <p class="govuk-body">
       If you are using CHIEF, enter "120" on your import declaration in box 36 (preference). If you are using 
@@ -151,11 +160,11 @@ en:
     '123': >- # Non preferential tariff quota under end-use
       <p class="govuk-body">
       You can apply for Authorised Use relief to reduce your payments when you import goods from outside 
-      the UK for a specific use, including repairs, maintenance or processing. <a href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods
+      the UK for a specific use, including repairs, maintenance or processing. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods
       you import for specific uses<a>.
       </p>
       <p class="govuk-body">
-      To take advantage of this quota, enter the 6-digit quota order number on your import declaration. For licensed quotas, please contact the <a href="https://www.gov.uk/guidance/licences-for-the-importexport-of-agricultural-products#check-which-licences-and-quotas-are-available-for-your-products" class="govuk-link">Rural Payments Agency to get an import licence. For First Come First Served quotas, please check that the quota is not exhausted before attempting to use it.
+      To take advantage of this quota, enter the 6-digit quota order number on your import declaration. For licensed quotas, please contact the <a target="_blank" href="https://www.gov.uk/guidance/licences-for-the-importexport-of-agricultural-products#check-which-licences-and-quotas-are-available-for-your-products" class="govuk-link">Rural Payments Agency to get an import licence. For First Come First Served quotas, please check that the quota is not exhausted before attempting to use it.
       </p>
       <p class="govuk-body">
       If you are using CHIEF, enter "123" on your import declaration in box 36 (preference). If you are using CDS, enter "123" in data element 4/17.
@@ -173,10 +182,10 @@ en:
       <p class="govuk-body">
       The tariff features a number of preferential trade arrangements with certain individual countries or 
       groups of countries. These agreements allow you to claim reduced or zero-rate import duties provided 
-      you can supply a valid <a href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link"> proof of origin</a>.
+      you can supply a valid <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link"> proof of origin</a>.
       </p>
       <p class="govuk-body">
-      For tariff preferences related to the GSP (<a href="https://www.gov.uk/government/publications/trading-with-developing-nations" class="govuk-link">Generalised System of Preferences</a>), if you are using CHIEF, enter "200" on your import declaration in box 36 (preference). If you are using CDS, enter "200" in data element 4/17.
+      For tariff preferences related to the GSP (<a target="_blank" href="https://www.gov.uk/government/publications/trading-with-developing-nations" class="govuk-link">Generalised System of Preferences</a>), if you are using CHIEF, enter "200" on your import declaration in box 36 (preference). If you are using CDS, enter "200" in data element 4/17.
       </p>
       <p class="govuk-body">
       For all other tariff preferences, if you are using CHIEF, enter "300" on your import declaration in box 
@@ -186,11 +195,11 @@ en:
     '143': >- # Preferential tariff quota
       <p class="govuk-body">
       To take advantage of this quota, enter the 6-digit quota order number on your import declaration. For 
-      licensed quotas, please contact the <a href="https://www.gov.uk/guidance/licences-for-the-importexport-of-agricultural-products#check-which-licences-and-quotas-are-available-for-your-products" class="govuk-link">Rural Payments Agency</a> to get an import licence. For First 
+      licensed quotas, please contact the <a target="_blank" href="https://www.gov.uk/guidance/licences-for-the-importexport-of-agricultural-products#check-which-licences-and-quotas-are-available-for-your-products" class="govuk-link">Rural Payments Agency</a> to get an import licence. For First 
       Come First Served quotas, please check that the quota is not exhausted before attempting to use it.
       </p>
       <p class="govuk-body">
-      As this is a preferential quota, you may be required to supply a valid <a href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">proof of origin</a>.
+      As this is a preferential quota, you may be required to supply a valid <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">proof of origin</a>.
       </p>
       <p class="govuk-body">
       If you are using CHIEF, enter "320" on your import declaration in box 36 (preference). If you are using 
@@ -205,10 +214,10 @@ en:
       <p class="govuk-body">
       The tariff features a number of preferential trade arrangements with certain individual countries or 
       groups of countries. These agreements allow you to claim reduced or zero-rate import duties provided 
-      you can supply a valid <a href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link"> proof of origin</a>.
+      you can supply a valid <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link"> proof of origin</a>.
       </p>
       <p class="govuk-body">
-      For tariff preferences related to the GSP (<a href="https://www.gov.uk/government/publications/trading-with-developing-nations" class="govuk-link">Generalised System of Preferences</a>), if you are using CHIEF, enter "215" on your import declaration in box 36 (preference). If you are using CDS, enter "215" in data element 4/17.
+      For tariff preferences related to the GSP (<a target="_blank" href="https://www.gov.uk/government/publications/trading-with-developing-nations" class="govuk-link">Generalised System of Preferences</a>), if you are using CHIEF, enter "215" on your import declaration in box 36 (preference). If you are using CDS, enter "215" in data element 4/17.
       </p>
       <p class="govuk-body">
       For  all  other  tariff  preferences  under  authorised  use,  if  you  are  using  CHIEF,  enter  "315"  on  your import declaration in box 36 (preference). If you are using CDS, enter "315" in data element 4/17.
@@ -218,16 +227,16 @@ en:
       <p class="govuk-body">
       The tariff features a number of preferential trade arrangements with certain individual countries or 
       groups of countries. These agreements allow you to claim reduced or zero-rate import duties provided 
-      you can supply a valid <a href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link"> proof of origin</a>.
+      you can supply a valid <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link"> proof of origin</a>.
       </p>
       <p class="govuk-body">
-      For tariff preferences related to the GSP (<a href="https://www.gov.uk/government/publications/trading-with-developing-nations" class="govuk-link">Generalised System of Preferences</a>), if you are using CHIEF, enter "215" on your import declaration in box 36 (preference). If you are using CDS, enter "215" in data element 4/17.
+      For tariff preferences related to the GSP (<a target="_blank" href="https://www.gov.uk/government/publications/trading-with-developing-nations" class="govuk-link">Generalised System of Preferences</a>), if you are using CHIEF, enter "215" on your import declaration in box 36 (preference). If you are using CDS, enter "215" in data element 4/17.
       </p>
       <p class="govuk-body">
       For  all  other  tariff  preferences  under  authorised  use,  if  you  are  using  CHIEF,  enter  "315"  on  your import declaration in box 36 (preference). If you are using CDS, enter "315" in data element 4/17.
       </p>
       <p class="govuk-body">
-      You can apply for Authorised Use relief to reduce your payments when you import goods from outside the UK for a specific use, including repairs, maintenance or processing. <a href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
+      You can apply for Authorised Use relief to reduce your payments when you import goods from outside the UK for a specific use, including repairs, maintenance or processing. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
       </p>
 
     '147': >- # Customs Union Quota

@@ -167,6 +167,15 @@ RSpec.describe DutyCalculator do
               },
               priority: 3,
             },
+            {
+              key: 'waiver',
+              evaluation: {
+                footnote: '<p class="govuk-body"> A claim for a customs duty waiver for duty on goods that would otherwise incur “at risk” tariffs is provided as “de minimis aid”. The maximum allowance for most sectors is €200,000 across a rolling three tax year period. This allowance includes all de minimis aid you have claimed over a 3 tax year period. </p> <p class="govuk-body"> This type of aid is measured in euros, so it is important to convert any aid received in pound sterling into euros. You can use this <a target="_blank" href="http://ec.europa.eu/budget/contracts_grants/info_contracts/inforeuro/index_en.cfm" class="govuk-link">exchange rate tool</a> to calculate the applicable euro equivalent of the value of the aid for the month you were awarded the aid. </p>',
+                warning_text: nil,
+                values: nil,
+              },
+              priority: 10,
+            },
           ]
         end
 

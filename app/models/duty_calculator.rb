@@ -17,7 +17,7 @@ class DutyCalculator
   def calculate_duty
     return nil if zero_mfn_duty_no_trade_defence? || strict_processing? || certificate_of_origin?
 
-    options = commodity.import_measures.each_with_object([]) do |measure, acc|
+    options = commodity.import_measures.each_with_object(default_options) do |measure, acc|
       option_klass = measure.measure_type.option
 
       next if option_klass.nil?
@@ -56,5 +56,19 @@ class DutyCalculator
 
         acc << option_klass.new(measure, user_session, []).option
       end
+  end
+
+  def default_options
+    return [waiver_option] if user_session.gb_to_ni_route?
+
+    []
+  end
+
+  def waiver_option
+    {}.tap do |option|
+      option[:key] = DutyOptions::Waiver.id
+      option[:evaluation] = DutyOptions::Waiver.new(nil, user_session, []).option
+      option[:priority] = DutyOptions::Waiver::PRIORITY
+    end
   end
 end
