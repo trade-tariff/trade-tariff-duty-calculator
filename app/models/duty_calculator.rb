@@ -59,9 +59,9 @@ class DutyCalculator
   end
 
   def default_options
-    return [] unless user_session.gb_to_ni_route?
+    return [waiver_option] if user_session.gb_to_ni_route?
 
-    [waiver_option]
+    []
   end
 
   def waiver_option
