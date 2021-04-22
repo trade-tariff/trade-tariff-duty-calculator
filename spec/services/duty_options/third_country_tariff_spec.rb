@@ -5,15 +5,13 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
     let(:commodity_source) { 'XI' }
     let(:commodity_code) { '0702000007' }
 
-    let(:session) do
+    let(:session_attributes) do
       {
-        'answers' => {
-          'import_date' => '2022-01-01',
-          Wizard::Steps::CustomsValue.id => {
-            'monetary_value' => '1000',
-            'shipping_cost' => '40',
-            'insurance_cost' => '10',
-          },
+        'import_date' => '2022-01-01',
+        Wizard::Steps::CustomsValue.id => {
+          'monetary_value' => '1000',
+          'shipping_cost' => '40',
+          'insurance_cost' => '10',
         },
         'commodity_source' => commodity_source,
         'commodity_code' => commodity_code,
@@ -28,9 +26,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
       )
     end
 
-    let(:user_session) do
-      UserSession.new(session)
-    end
+    let(:user_session) { build(:user_session, session_attributes) }
 
     let(:additional_duty_rows) { [] }
 
@@ -93,18 +89,16 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
         }
       end
 
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'import_date' => '2022-01-01',
-            Wizard::Steps::CustomsValue.id => {
-              'monetary_value' => '1000',
-              'shipping_cost' => '40',
-              'insurance_cost' => '10',
-            },
-            'measure_amount' => {
-              'dtn' => '120',
-            },
+          'import_date' => '2022-01-01',
+          'customs_value' => {
+            'monetary_value' => '1000',
+            'shipping_cost' => '40',
+            'insurance_cost' => '10',
+          },
+          'measure_amount' => {
+            'dtn' => '120',
           },
           'commodity_source' => commodity_source,
           'commodity_code' => commodity_code,
@@ -179,18 +173,16 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
         ]
       end
 
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'import_date' => '2022-01-01',
-            Wizard::Steps::CustomsValue.id => {
-              'monetary_value' => '1000',
-              'shipping_cost' => '40',
-              'insurance_cost' => '10',
-            },
-            'measure_amount' => {
-              'dtn' => '1',
-            },
+          'import_date' => '2022-01-01',
+          'customs_value' => {
+            'monetary_value' => '1000',
+            'shipping_cost' => '40',
+            'insurance_cost' => '10',
+          },
+          'measure_amount' => {
+            'dtn' => '1',
           },
           'commodity_source' => commodity_source,
           'commodity_code' => commodity_code,

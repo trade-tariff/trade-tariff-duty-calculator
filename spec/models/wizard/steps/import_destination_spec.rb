@@ -1,8 +1,7 @@
 RSpec.describe Wizard::Steps::ImportDestination do
   subject(:step) { described_class.new(user_session, attributes) }
 
-  let(:session) { {} }
-  let(:user_session) { UserSession.new(session) }
+  let(:user_session) { build(:user_session) }
   let(:attributes) do
     ActionController::Parameters.new(
       import_destination: '',

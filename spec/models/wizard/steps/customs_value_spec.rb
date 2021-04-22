@@ -1,12 +1,7 @@
 RSpec.describe Wizard::Steps::CustomsValue do
   subject(:step) { described_class.new(user_session, attributes) }
 
-  let(:session) do
-    {
-      'answers' => { 'import_date' => '2022-01-01' },
-    }
-  end
-  let(:user_session) { UserSession.new(session) }
+  let(:user_session) { build(:user_session, import_date: '2022-01-01') }
 
   let(:attributes) do
     ActionController::Parameters.new(
@@ -253,11 +248,7 @@ RSpec.describe Wizard::Steps::CustomsValue do
       end
 
       context 'when there is a trade defence' do
-        let(:session) do
-          {
-            'trade_defence' => true,
-          }
-        end
+        let(:user_session) { build(:user_session, trade_defence: true) }
 
         it 'returns trade_remedies_path' do
           expect(

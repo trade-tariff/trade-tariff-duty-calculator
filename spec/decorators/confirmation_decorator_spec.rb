@@ -6,9 +6,9 @@ RSpec.describe ConfirmationDecorator do
   let(:commodity) { double(Uktt::Commodity) }
   let(:commodity_code) { '0702000007' }
   let(:commodity_source) { 'uk' }
-  let(:user_session) { UserSession.new(session) }
+  let(:user_session) { build(:user_session, session_attributes) }
   let(:referred_service) { 'uk' }
-  let(:session) do
+  let(:session_attributes) do
     {
       'commodity_code' => commodity_code,
       'referred_service' => referred_service,
@@ -39,24 +39,22 @@ RSpec.describe ConfirmationDecorator do
   end
 
   describe '#user_answers' do
-    let(:session) do
+    let(:session_attributes) do
       {
-        'answers' => {
-          'import_date' => '2090-01-01',
-          'import_destination' => 'XI',
-          'country_of_origin' => 'GB',
-          'trader_scheme' => 'yes',
-          'final_use' => 'yes',
-          'planned_processing' => 'commercial_purposes',
-          'certificate_of_origin' => 'no',
-          'customs_value' => {
-            'insurance_cost' => '10',
-            'monetary_value' => '10',
-            'shipping_cost' => '10',
-          },
-          'measure_amount' => {
-            'dtn' => '120',
-          },
+        'import_date' => '2090-01-01',
+        'import_destination' => 'XI',
+        'country_of_origin' => 'GB',
+        'trader_scheme' => 'yes',
+        'final_use' => 'yes',
+        'planned_processing' => 'commercial_purposes',
+        'certificate_of_origin' => 'no',
+        'customs_value' => {
+          'insurance_cost' => '10',
+          'monetary_value' => '10',
+          'shipping_cost' => '10',
+        },
+        'measure_amount' => {
+          'dtn' => '120',
         },
       }
     end

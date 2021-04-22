@@ -58,6 +58,7 @@ end
 
 group :test do
   gem 'capybara', '~> 3.35'
+  gem 'factory_bot_rails'
   gem 'rspec_junit_formatter'
   gem 'rspec-rails', '~> 4.0.2'
   gem 'simplecov', require: false

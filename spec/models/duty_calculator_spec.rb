@@ -1,11 +1,9 @@
 RSpec.describe DutyCalculator do
   subject(:calculator) { described_class.new(user_session, commodity) }
 
-  let(:user_session) { UserSession.new(session) }
+  let(:user_session) { build(:user_session, session_attributes) }
   let(:commodity_source) { :xi }
-  let(:commodity_code) do
-    '7202118000'
-  end
+  let(:commodity_code) { '7202118000' }
 
   let(:commodity) do
     Api::Commodity.build(
@@ -16,12 +14,10 @@ RSpec.describe DutyCalculator do
 
   describe '#result' do
     context 'when importing from NI to GB' do
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'import_destination' => 'UK',
-            'country_of_origin' => 'XI',
-          },
+          'import_destination' => 'UK',
+          'country_of_origin' => 'XI',
         }
       end
 
@@ -31,12 +27,10 @@ RSpec.describe DutyCalculator do
     end
 
     context 'when importing from an EU country to NI' do
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'RO',
-          },
+          'import_destination' => 'XI',
+          'country_of_origin' => 'RO',
         }
       end
 
@@ -47,12 +41,10 @@ RSpec.describe DutyCalculator do
 
     context 'when importing from GB to NI' do
       context 'when there is no trade defence but a zero_mfn_duty' do
-        let(:session) do
+        let(:session_attributes) do
           {
-            'answers' => {
-              'import_destination' => 'XI',
-              'country_of_origin' => 'GB',
-            },
+            'import_destination' => 'XI',
+            'country_of_origin' => 'GB',
             'trade_defence' => false,
             'zero_mfn_duty' => true,
           }
@@ -64,17 +56,15 @@ RSpec.describe DutyCalculator do
       end
 
       context 'when there is no processing method' do
-        let(:session) do
+        let(:session_attributes) do
           {
-            'answers' => {
-              'import_destination' => 'XI',
-              'country_of_origin' => 'GB',
-              'planned_processing' => 'without_any_processing',
-              'customs_value' => {
-                'monetary_value' => '1000',
-                'shipping_cost' => '250.89',
-                'insurance_cost' => '10',
-              },
+            'import_destination' => 'XI',
+            'country_of_origin' => 'GB',
+            'planned_processing' => 'without_any_processing',
+            'customs_value' => {
+              'monetary_value' => '1000',
+              'shipping_cost' => '250.89',
+              'insurance_cost' => '10',
             },
             'commodity_source' => 'UK',
           }
@@ -86,13 +76,11 @@ RSpec.describe DutyCalculator do
       end
 
       context 'when there is a certificate of origin' do
-        let(:session) do
+        let(:session_attributes) do
           {
-            'answers' => {
-              'import_destination' => 'XI',
-              'country_of_origin' => 'GB',
-              'certificate_of_origin' => 'yes',
-            },
+            'import_destination' => 'XI',
+            'country_of_origin' => 'GB',
+            'certificate_of_origin' => 'yes',
             'commodity_source' => 'UK',
           }
         end
@@ -179,19 +167,17 @@ RSpec.describe DutyCalculator do
           ]
         end
 
-        let(:session) do
+        let(:session_attributes) do
           {
-            'answers' => {
-              'import_destination' => 'XI',
-              'country_of_origin' => 'GB',
-              'planned_processing' => 'commercial_purposes',
-              'customs_value' => {
-                'monetary_value' => '1000',
-                'shipping_cost' => '250.89',
-                'insurance_cost' => '10',
-              },
-              'measure_amount' => { 'tnei' => '2' },
+            'import_destination' => 'XI',
+            'country_of_origin' => 'GB',
+            'planned_processing' => 'commercial_purposes',
+            'customs_value' => {
+              'monetary_value' => '1000',
+              'shipping_cost' => '250.89',
+              'insurance_cost' => '10',
             },
+            'measure_amount' => { 'tnei' => '2' },
             'commodity_source' => 'UK',
             'commodity_code' => commodity_code,
           }

@@ -29,7 +29,7 @@ RSpec.describe Api::Measure do
   end
 
   let(:user_session) do
-    UserSession.new(session)
+    build(:user_session, session_attributes)
   end
 
   let(:commodity_source) { 'XI' }
@@ -52,14 +52,12 @@ RSpec.describe Api::Measure do
     context 'when an ad_valorem measure' do
       let(:commodity_code) { '0702000007' }
 
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            Wizard::Steps::CustomsValue.id => {
-              'monetary_value' => '1000',
-              'shipping_cost' => '40',
-              'insurance_cost' => '10',
-            },
+          'customs_value' => {
+            'monetary_value' => '1000',
+            'shipping_cost' => '40',
+            'insurance_cost' => '10',
           },
           'commodity_source' => commodity_source,
           'commodity_code' => commodity_code,
@@ -107,17 +105,15 @@ RSpec.describe Api::Measure do
 
       let(:commodity_code) { '0103921100' }
 
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            Wizard::Steps::CustomsValue.id => {
-              'monetary_value' => '1000',
-              'shipping_cost' => '40',
-              'insurance_cost' => '10',
-            },
-            'measure_amount' => {
-              'dtn' => '120',
-            },
+          'customs_value' => {
+            'monetary_value' => '1000',
+            'shipping_cost' => '40',
+            'insurance_cost' => '10',
+          },
+          'measure_amount' => {
+            'dtn' => '120',
           },
           'commodity_source' => commodity_source,
           'commodity_code' => commodity_code,
@@ -185,17 +181,15 @@ RSpec.describe Api::Measure do
 
       let(:commodity_code) { '0103921100' }
 
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            Wizard::Steps::CustomsValue.id => {
-              'monetary_value' => '1000',
-              'shipping_cost' => '40',
-              'insurance_cost' => '10',
-            },
-            'measure_amount' => {
-              'dtn' => '120',
-            },
+          'customs_value' => {
+            'monetary_value' => '1000',
+            'shipping_cost' => '40',
+            'insurance_cost' => '10',
+          },
+          'measure_amount' => {
+            'dtn' => '120',
           },
           'commodity_source' => commodity_source,
           'commodity_code' => commodity_code,

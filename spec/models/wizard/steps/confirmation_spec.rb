@@ -1,8 +1,7 @@
 RSpec.describe Wizard::Steps::Confirmation do
   subject(:step) { described_class.new(user_session) }
 
-  let(:session) { {} }
-  let(:user_session) { UserSession.new(session) }
+  let(:user_session) { build(:user_session) }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do

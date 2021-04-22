@@ -42,25 +42,23 @@ RSpec.describe ExpressionEvaluators::MeasureUnit do
     }
   end
 
-  let(:session) do
+  let(:session_attributes) do
     {
-      'answers' => {
-        'import_date' => '2022-01-01',
-        'customs_value' => {
-          'insurance_cost' => '10',
-          'monetary_value' => '10',
-          'shipping_cost' => '10',
-        },
-        'measure_amount' => {
-          'dtn' => '120',
-        },
+      'import_date' => '2022-01-01',
+      'customs_value' => {
+        'insurance_cost' => '10',
+        'monetary_value' => '10',
+        'shipping_cost' => '10',
+      },
+      'measure_amount' => {
+        'dtn' => '120',
       },
       'commodity_source' => 'xi',
       'commodity_code' => '0103921100',
     }
   end
 
-  let(:user_session) { UserSession.new(session) }
+  let(:user_session) { build(:user_session, session_attributes) }
 
   it 'returns a properly calculated evaluation' do
     expect(evaluator.call).to eq(expected_evaluation)
