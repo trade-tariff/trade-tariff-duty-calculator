@@ -11,7 +11,7 @@ class UserSession
   end
 
   def import_date
-    return unless session['answers'].key?(Wizard::Steps::ImportDate.id)
+    return if session['answers'][Wizard::Steps::ImportDate.id].blank?
 
     Date.parse(session['answers'][Wizard::Steps::ImportDate.id])
   end

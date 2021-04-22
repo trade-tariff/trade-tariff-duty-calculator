@@ -4,6 +4,8 @@ RSpec.describe UserSession do
   let(:session) { user_session.session }
 
   describe '#import_date' do
+    subject(:user_session) { build(:user_session) }
+
     it 'returns nil if the key is not on the session' do
       expect(user_session.import_date).to be nil
     end
