@@ -22,8 +22,6 @@
 - [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend)
 - RSpec
 - Dotenv (managing environment variables)
-- Travis with Heroku deployment
-- Docker and docker compose
 
 ## Running specs, linter(without auto correct) and annotate models and serializers
 ```
