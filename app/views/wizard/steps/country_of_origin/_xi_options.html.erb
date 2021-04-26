@@ -1,7 +1,7 @@
 <%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: country_of_origin_path do |f| %>
   <%= f.govuk_error_summary %>
   <%= f.govuk_collection_radio_buttons :country_of_origin, Wizard::Steps::CountryOfOrigin::XI_OPTIONS, :id, :name,
-                                       legend: { text: 'Which country are the goods dispatched from?', size: 'xl', tag: 'h1' }, hint: { text: 'The duty you are charged may be dependent on the country of dispatch of the goods being imported.' }, include_hidden: true %>
+                                       legend: { text: 'Which country are the goods coming from?', size: 'xl', tag: 'h1' }, hint: { text: 'The duty you are charged may be dependent on the country from which the goods are coming.' }, include_hidden: true %>
 
   <p class="govuk-body">
   The functionality to display duties applicable to imports

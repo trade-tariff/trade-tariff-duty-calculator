@@ -3,12 +3,12 @@
   <fieldset class="govuk-fieldset">
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
       <h1 class="govuk-fieldset__heading">
-        Which country are the goods dispatched from?
+        Which country are the goods coming from?
       </h1>
     </legend>
     <div class="govuk-form-group ">
       <div id="destination-hint" class="govuk-hint">
-        The duty you are charged may be dependent on the country of dispatch of the goods being imported.
+        The duty you are charged may be dependent on the country from which the goods are coming.
       </div>
       <%= f.govuk_collection_select :country_of_origin, Wizard::Steps::CountryOfOrigin.options_for(commodity_source), :id, :name, options: { prompt: true }, label: { text: 'Enter the country of dispatch:' } %>
 
