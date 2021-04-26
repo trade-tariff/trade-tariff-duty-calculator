@@ -7,7 +7,13 @@ RSpec.describe ConfirmationDecorator do
   let(:commodity_code) { '0702000007' }
   let(:commodity_source) { 'uk' }
   let(:user_session) { UserSession.new(session) }
-  let(:session) { {} }
+  let(:referred_service) { 'uk' }
+  let(:session) do
+    {
+      'commodity_code' => commodity_code,
+      'referred_service' => referred_service,
+    }
+  end
 
   before do
     allow(commodity).to receive(:code).and_return(commodity_code)
@@ -137,7 +143,7 @@ RSpec.describe ConfirmationDecorator do
         confirmation_decorator.path_for(
           key: 'import_date',
         ),
-      ).to eq('/duty-calculator/import-date')
+      ).to eq("/duty-calculator/#{referred_service}/#{commodity_code}/import-date")
     end
   end
 end

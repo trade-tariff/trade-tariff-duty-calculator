@@ -37,7 +37,7 @@ RSpec.describe 'Confirmation Page', type: :feature do
     let(:expected_links) do
       [
         'https://dev.trade-tariff.service.gov.uk/sections',
-        '/duty-calculator/import-date',
+        '/duty-calculator/uk/7202118000/import-date',
         '/duty-calculator/import-destination',
         '/duty-calculator/country-of-origin',
         '/duty-calculator/trader-scheme',

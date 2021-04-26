@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   root to: proc { [404, {}, ['Not found.']] }
 
-  scope path: '/duty-calculator/' do
+  scope path: '/duty-calculator/:referred_service/:commodity_code/' do
     get 'import-date', to: 'wizard/steps/import_date#show'
     post 'import-date', to: 'wizard/steps/import_date#create'
+  end
 
+  scope path: '/duty-calculator/' do
     get 'import-destination', to: 'wizard/steps/import_destination#show'
     post 'import-destination', to: 'wizard/steps/import_destination#create'
 
