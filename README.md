@@ -47,42 +47,6 @@ or
 bundle exec scss-lint app/webpacker/styles
 ```
 
-## Docker
-
-### Why use Docker?
-- Run the application locally without installing dependencies (postgres, system libraries...)
-- Run in a Linux environment similar to production
-- Simulate running in production with dependencies using docker-compose
-- Package the application so it can be versioned and deployed to multiple environments
-
-### Prerequisites
-- Docker >= 19.03.12
-
-### Build
-```
-make build-local-image
-```
-
-It relies heavily on caching. The first build may be slow and subsequent ones faster.
-
-### Single docker image
-The docker image doesn't contain a default command. Any command can be appended:
-```
-% docker run -p 3001:3000 dfedigital/govuk-rails-boilerplate:latest rails -vT
-rails about                              # List versions of all Rails frameworks and the environment
-rails action_mailbox:ingress:exim        # Relay an inbound email from Exim to Action Mailbox (URL and INGRESS_PASSWORD required)
-...
-```
-
-### Run in production mode
-Docker compose provides a default empty database to run rails in production mode.
-
-```
-docker-compose up
-```
-
-Open: http://localhost:3000
-
 ## Deploying on GOV.UK PaaS
 
 ### Prerequisites
@@ -91,7 +55,7 @@ Open: http://localhost:3000
 - You have a personal account granted by your organisation manager
 - You have downloaded and installed the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli#downloads) for your platform
 
-### Deploy
+### Deploy (This is automated via CircleCI)
 
 1. Run `cf login -a api.london.cloud.service.gov.uk -u USERNAME`, `USERNAME` is your personal GOV.UK PaaS account email address
 2. Run `bundle package --all` to vendor ruby dependencies
