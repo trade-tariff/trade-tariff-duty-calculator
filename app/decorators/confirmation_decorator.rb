@@ -20,7 +20,12 @@ class ConfirmationDecorator < SimpleDelegator
   end
 
   def path_for(key:)
-    send("#{key}_path")
+    return send("#{key}_path") unless key == 'import_date'
+
+    import_date_path(
+      referred_service: user_session.referred_service,
+      commodity_code: user_session.commodity_code,
+    )
   end
 
   def user_answers

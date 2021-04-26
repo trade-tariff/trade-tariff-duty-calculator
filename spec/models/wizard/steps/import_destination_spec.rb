@@ -106,11 +106,21 @@ RSpec.describe Wizard::Steps::ImportDestination do
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
+    let(:session) do
+      {
+        'commodity_code' => '100000000',
+        'referred_service' => 'uk',
+      }
+    end
+
     it 'returns import_date_path' do
       expect(
         step.previous_step_path,
       ).to eq(
-        import_date_path,
+        import_date_path(
+          commodity_code: '100000000',
+          referred_service: 'uk',
+        ),
       )
     end
   end

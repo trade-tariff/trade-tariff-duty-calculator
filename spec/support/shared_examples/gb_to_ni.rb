@@ -77,7 +77,7 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
     allow(Api::Commodity).to receive(:build).with('xi', commodity_code, default_query).and_return(commodity)
     allow(Api::Commodity).to receive(:build).with('xi', commodity_code, filtered_query).and_return(filtered_commodity)
 
-    visit import_date_path(commodity_code: commodity_code, referred_service: referred_service)
+    visit import_date_url(referred_service: referred_service, commodity_code: commodity_code)
 
     fill_in('wizard_steps_import_date[import_date(3i)]', with: '12')
     fill_in('wizard_steps_import_date[import_date(2i)]', with: '12')

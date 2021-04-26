@@ -3,7 +3,7 @@
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-xl">The change you wanted was rejected.</h1>
       <p class="govuk-body">Maybe you tried to change something you didn't have access to.</p>
-      <p class="govuk-body">Click here to <%= link_to('start again', import_date_path) %>.</p>
+      <p class="govuk-body">Click here to <%= link_to('start again', import_date_path(referred_service: user_session.referred_service, commodity_code: user_session.commodity_code)) %>.</p>
     </div>
   </div>
 </main>

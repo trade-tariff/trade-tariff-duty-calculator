@@ -4,12 +4,7 @@ module Wizard
       def show
         @step = Wizard::Steps::ImportDate.new(user_session)
 
-        user_session.commodity_code = commodity_code
-
-        if params[:referred_service].present?
-          user_session.referred_service = params[:referred_service]
-          user_session.commodity_source = params[:referred_service]
-        end
+        persist_commodity_data
       end
 
       def create
@@ -26,6 +21,12 @@ module Wizard
           :'import_date(2i)',
           :'import_date(1i)',
         )
+      end
+
+      def persist_commodity_data
+        user_session.commodity_code = commodity_code
+        user_session.commodity_source = params[:referred_service]
+        user_session.referred_service = params[:referred_service]
       end
     end
   end

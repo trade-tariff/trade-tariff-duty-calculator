@@ -1,6 +1,8 @@
 class ErrorsController < ApplicationController
   layout 'application'
 
+  helper_method :user_session
+
   def not_found
     respond_to do |format|
       format.html { render status: :not_found }
