@@ -61,12 +61,12 @@ en:
 
     '105': >- # Non preferential duty under end-use
       <p class="govuk-body">
-        This commodity has a reduced duty rate where the goods are being imported for certain uses. In order to benefit from this you have to first be authorised. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses </a>
+        This commodity has a reduced duty rate where the goods are being imported for certain uses. In order to benefit from this you have to first be authorised. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
       </p>
 
     '106': >- # Customs Union Duty
       <p class="govuk-body">
-        The EU has entered into a Customs Union with Turkey, Andorra and San Marino for the import of certain commodities, to reduce or remove import duties for these goods. To take advantage of these reduced duties, you will need to provide a valid <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">valid proof of origin</a>
+        The EU has entered into a Customs Union with Turkey, Andorra and San Marino for the import of certain commodities, to reduce or remove import duties for these goods. To take advantage of these reduced duties, you will need to provide a valid <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">valid proof of origin</a>.
       </p>
       <p class="govuk-body">
         To use the Customs Union duty, if you are using CHIEF, enter "400" on your import declaration in box 36 (preference). If you are using CDS, enter "400" in data element 4/17.
@@ -91,10 +91,10 @@ en:
 
     '115': >- # Autonomous suspension under end-use
       <p class="govuk-body">
-        Certain goods under this commodity code can benefit from a zero MFN – you'll need to claim this  on  your  declaration.  This  suspension  is  available  for  goods  used  in  the  construction, maintenance  and  repair  of  aircraft  of  an  unladen  weight  exceeding  2,000  kilograms  and  of ground-flying trainers for civil use.
+        Certain goods under this commodity code can benefit from a zero MFN – you'll need to claim this  on  your  declaration.  This  suspension  is  available  for  goods  used  in  the  construction, maintenance and repair of aircraft of an unladen weight exceeding 2,000 kilograms and of ground-flying trainers for civil use.
       </p>
       <p class="govuk-body">
-        You  can  apply  for  Authorised  Use  relief  to  reduce  your  payments  when  you  import  goods from outside the UK for a specific use, including repairs, maintenance or processing. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
+        You  can  apply  for  Authorised Use relief to reduce your payments when you import goods from outside the UK for a specific use, including repairs, maintenance or processing. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
       </p>
       <p class="govuk-body">
         To use non-preferential duty under authorised use, if you are using CHIEF, enter "115" on your import declaration in box 36 (preference). If you are using CDS, enter "115" in data element 4/17.
@@ -110,7 +110,7 @@ en:
         Certain goods under this commodity code can benefit from a zero MFN – you'll need to claim this on your declaration.
       </p>
       <p class="govuk-body">
-        In order to benefit from the suspension, you must provide an Authorised Release Certificate or an <a target="_blank" href="https://www.gov.uk/guidance/changes-to-customs-tariff-rules-on-imported-aircraft-parts-cip13" class="govuk-link">equivalent certificate</a>
+        In order to benefit from the suspension, you must provide an Authorised Release Certificate or an <a target="_blank" href="https://www.gov.uk/guidance/changes-to-customs-tariff-rules-on-imported-aircraft-parts-cip13" class="govuk-link">equivalent certificate</a>.
       </p>
 
     '122': >- # Non preferential tariff quota
