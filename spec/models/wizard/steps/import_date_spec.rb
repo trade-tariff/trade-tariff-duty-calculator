@@ -1,8 +1,8 @@
 RSpec.describe Wizard::Steps::ImportDate do
   subject(:step) { described_class.new(user_session, attributes) }
 
-  let(:session) { {} }
-  let(:user_session) { UserSession.new(session) }
+  let(:user_session) { build(:user_session) }
+  let(:session) { user_session.session }
   let(:attributes) do
     ActionController::Parameters.new(
       'import_date(3i)' => '12',

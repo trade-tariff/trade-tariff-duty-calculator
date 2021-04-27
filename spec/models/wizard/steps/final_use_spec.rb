@@ -1,8 +1,8 @@
 RSpec.describe Wizard::Steps::FinalUse do
   subject(:step) { described_class.new(user_session, attributes) }
 
-  let(:session) { {} }
-  let(:user_session) { UserSession.new(session) }
+  let(:session_attributes) { {} }
+  let(:user_session) { build(:user_session, session_attributes) }
   let(:attributes) do
     ActionController::Parameters.new(
       'final_use' => '',
@@ -70,14 +70,12 @@ RSpec.describe Wizard::Steps::FinalUse do
     include Rails.application.routes.url_helpers
 
     context 'when on GB to NI route and final use answer is yes' do
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
-            'trader_scheme' => 'yes',
-            'final_use' => 'yes',
-          },
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+          'trader_scheme' => 'yes',
+          'final_use' => 'yes',
         }
       end
 
@@ -91,14 +89,12 @@ RSpec.describe Wizard::Steps::FinalUse do
     end
 
     context 'when on GB to NI route and final use answer is no' do
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
-            'trader_scheme' => 'yes',
-            'final_use' => 'no',
-          },
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+          'trader_scheme' => 'yes',
+          'final_use' => 'no',
         }
       end
 
@@ -116,13 +112,11 @@ RSpec.describe Wizard::Steps::FinalUse do
     include Rails.application.routes.url_helpers
 
     context 'when on GB to NI route' do
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
-            'trader_scheme' => 'yes',
-          },
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+          'trader_scheme' => 'yes',
         }
       end
 

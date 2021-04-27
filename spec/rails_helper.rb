@@ -18,6 +18,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
   config.example_status_persistence_file_path = 'rspec.txt'
+  config.include FactoryBot::Syntax::Methods
 
   config.before do
     Rails.application.config.http_client_uk = FakeUkttHttp.new(nil, nil, nil, nil)

@@ -40,22 +40,20 @@ RSpec.describe ExpressionEvaluators::AdValorem do
     }
   end
 
-  let(:session) do
+  let(:session_attributes) do
     {
-      'answers' => {
-        'customs_value' => {
-          'insurance_cost' => '10',
-          'monetary_value' => '10',
-          'shipping_cost' => '10',
-        },
-        'measure_amount' => {
-          'dtn' => '120',
-        },
+      'customs_value' => {
+        'insurance_cost' => '10',
+        'monetary_value' => '10',
+        'shipping_cost' => '10',
+      },
+      'measure_amount' => {
+        'dtn' => '120',
       },
     }
   end
 
-  let(:user_session) { UserSession.new(session) }
+  let(:user_session) { build(:user_session, session_attributes) }
 
   it 'returns a properly calculated evaluation' do
     expect(evaluator.call).to eq(expected_evaluation)

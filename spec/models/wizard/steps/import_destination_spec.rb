@@ -1,8 +1,8 @@
 RSpec.describe Wizard::Steps::ImportDestination do
   subject(:step) { described_class.new(user_session, attributes) }
 
-  let(:session) { {} }
-  let(:user_session) { UserSession.new(session) }
+  let(:user_session) { build(:user_session, session_attributes) }
+  let(:session_attributes) { {} }
   let(:attributes) do
     ActionController::Parameters.new(
       import_destination: '',
@@ -106,7 +106,7 @@ RSpec.describe Wizard::Steps::ImportDestination do
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:session) do
+    let(:session_attributes) do
       {
         'commodity_code' => '100000000',
         'referred_service' => 'uk',

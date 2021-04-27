@@ -1,8 +1,8 @@
 RSpec.describe Wizard::Steps::PlannedProcessing do
   subject(:step) { described_class.new(user_session, attributes) }
 
-  let(:session) { {} }
-  let(:user_session) { UserSession.new(session) }
+  let(:session_attributes) { {} }
+  let(:user_session) { build(:user_session, session_attributes) }
   let(:attributes) do
     ActionController::Parameters.new(
       'planned_processing' => '',
@@ -59,15 +59,13 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
     include Rails.application.routes.url_helpers
 
     let(:answer) { 'without_any_processing' }
-    let(:session) do
+    let(:session_attributes) do
       {
-        'answers' => {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'GB',
-          'trader_scheme' => 'yes',
-          'final_use' => 'yes',
-          'planned_processing' => answer,
-        },
+        'import_destination' => 'XI',
+        'country_of_origin' => 'GB',
+        'trader_scheme' => 'yes',
+        'final_use' => 'yes',
+        'planned_processing' => answer,
       }
     end
 
@@ -97,13 +95,11 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:session) do
+    let(:session_attributes) do
       {
-        'answers' => {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'GB',
-          'trader_scheme' => 'yes',
-        },
+        'import_destination' => 'XI',
+        'country_of_origin' => 'GB',
+        'trader_scheme' => 'yes',
       }
     end
 

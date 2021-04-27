@@ -1,21 +1,17 @@
 RSpec.describe UserSession do
-  subject(:user_session) { described_class.new(session) }
+  subject(:user_session) { build(:user_session) }
 
-  let(:session) { {} }
+  let(:session) { user_session.session }
 
   describe '#import_date' do
+    subject(:user_session) { build(:user_session) }
+
     it 'returns nil if the key is not on the session' do
       expect(user_session.import_date).to be nil
     end
 
     context 'when the key is present on the session' do
-      let(:session) do
-        {
-          'answers' => {
-            Wizard::Steps::ImportDate.id => '2025-01-01',
-          },
-        }
-      end
+      subject(:user_session) { build(:user_session, import_date: '2025-01-01') }
 
       let(:expected_date) { Date.parse('2025-01-01') }
 
@@ -41,13 +37,7 @@ RSpec.describe UserSession do
     end
 
     context 'when the key is present on the session' do
-      let(:session) do
-        {
-          'answers' => {
-            Wizard::Steps::ImportDestination.id => 'ni',
-          },
-        }
-      end
+      subject(:user_session) { build(:user_session, import_destination: 'ni') }
 
       let(:expected_country) { 'ni' }
 
@@ -73,13 +63,7 @@ RSpec.describe UserSession do
     end
 
     context 'when the key is present on the session' do
-      let(:session) do
-        {
-          'answers' => {
-            Wizard::Steps::TraderScheme.id => 'yes',
-          },
-        }
-      end
+      subject(:user_session) { build(:user_session, trader_scheme: 'yes') }
 
       let(:expected_response) { 'yes' }
 
@@ -105,13 +89,7 @@ RSpec.describe UserSession do
     end
 
     context 'when the key is present on the session' do
-      let(:session) do
-        {
-          'answers' => {
-            Wizard::Steps::FinalUse.id => 'yes',
-          },
-        }
-      end
+      subject(:user_session) { build(:user_session, final_use: 'yes') }
 
       let(:expected_response) { 'yes' }
 
@@ -137,13 +115,7 @@ RSpec.describe UserSession do
     end
 
     context 'when the key is present on the session' do
-      let(:session) do
-        {
-          'answers' => {
-            Wizard::Steps::PlannedProcessing.id => 'without_any_processing',
-          },
-        }
-      end
+      subject(:user_session) { build(:user_session, planned_processing: 'without_any_processing') }
 
       let(:expected_response) { 'without_any_processing' }
 
@@ -169,13 +141,7 @@ RSpec.describe UserSession do
     end
 
     context 'when the key is present on the session' do
-      let(:session) do
-        {
-          'answers' => {
-            Wizard::Steps::CertificateOfOrigin.id => 'yes',
-          },
-        }
-      end
+      subject(:user_session) { build(:user_session, certificate_of_origin: 'yes') }
 
       let(:expected_response) { 'yes' }
 
@@ -201,13 +167,7 @@ RSpec.describe UserSession do
     end
 
     context 'when the key is present on the session' do
-      let(:session) do
-        {
-          'answers' => {
-            Wizard::Steps::CountryOfOrigin.id => '1234',
-          },
-        }
-      end
+      subject(:user_session) { build(:user_session, country_of_origin: '1234') }
 
       let(:expected_country) { '1234' }
 
@@ -233,11 +193,7 @@ RSpec.describe UserSession do
     end
 
     context 'when the key is present on the session' do
-      let(:session) do
-        {
-          'trade_defence' => true,
-        }
-      end
+      subject(:user_session) { build(:user_session, trade_defence: true) }
 
       it 'returns the value from the session' do
         expect(user_session.trade_defence).to eq(true)
@@ -253,6 +209,20 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#zero_mfn_duty' do
+    it 'returns nil if the key is not on the session' do
+      expect(user_session.zero_mfn_duty).to be nil
+    end
+
+    context 'when the key is present on the session' do
+      subject(:user_session) { build(:user_session, zero_mfn_duty: true) }
+
+      it 'returns the value from the session' do
+        expect(user_session.zero_mfn_duty).to eq(true)
+      end
+    end
+  end
+
   describe '#zero_mfn_duty=' do
     it 'sets the key on the session' do
       user_session.zero_mfn_duty = true
@@ -261,36 +231,8 @@ RSpec.describe UserSession do
     end
   end
 
-  describe '#zero_mfn_duty' do
-    it 'returns nil if the key is not on the session' do
-      expect(user_session.zero_mfn_duty).to be nil
-    end
-
-    context 'when the key is present on the session' do
-      let(:session) do
-        {
-          'zero_mfn_duty' => true,
-        }
-      end
-
-      it 'returns the value from the session' do
-        expect(user_session.zero_mfn_duty).to eq(true)
-      end
-    end
-  end
-
   describe '#insurance_cost' do
-    let(:session) do
-      {
-        'answers' => {
-          Wizard::Steps::CustomsValue.id => {
-            'monetary_value' => '12_000',
-            'shipping_cost' => '1_200',
-            'insurance_cost' => '340',
-          },
-        },
-      }
-    end
+    subject(:user_session) { build(:user_session, customs_value: { 'insurance_cost' => '340' }) }
 
     it 'returns the correct value from the session' do
       expect(user_session.insurance_cost).to eq('340')
@@ -298,17 +240,7 @@ RSpec.describe UserSession do
   end
 
   describe '#shipping_cost' do
-    let(:session) do
-      {
-        'answers' => {
-          Wizard::Steps::CustomsValue.id => {
-            'monetary_value' => '12_000',
-            'shipping_cost' => '1_200',
-            'insurance_cost' => '340',
-          },
-        },
-      }
-    end
+    subject(:user_session) { build(:user_session, customs_value: { 'shipping_cost' => '1_200' }) }
 
     it 'returns the correct value from the session' do
       expect(user_session.shipping_cost).to eq('1_200')
@@ -316,20 +248,10 @@ RSpec.describe UserSession do
   end
 
   describe '#monetary_value' do
-    let(:session) do
-      {
-        'answers' => {
-          Wizard::Steps::CustomsValue.id => {
-            'monetary_value' => '12_000',
-            'shipping_cost' => '1_200',
-            'insurance_cost' => '340',
-          },
-        },
-      }
-    end
+    subject(:user_session) { build(:user_session, customs_value: { 'monetary_value' => '12000' }) }
 
     it 'returns the correct value from the session' do
-      expect(user_session.monetary_value).to eq('12_000')
+      expect(user_session.monetary_value).to eq('12000')
     end
   end
 
@@ -350,13 +272,7 @@ RSpec.describe UserSession do
   end
 
   describe '#measure_amount' do
-    let(:session) do
-      {
-        'answers' => {
-          Wizard::Steps::MeasureAmount.id => { foo: :bar },
-        },
-      }
-    end
+    subject(:user_session) { build(:user_session, measure_amount: { foo: :bar }) }
 
     it 'returns the correct value from the session' do
       expect(user_session.measure_amount).to eq(foo: :bar)
@@ -379,11 +295,7 @@ RSpec.describe UserSession do
     end
 
     context 'when the key is present on the session' do
-      let(:session) do
-        {
-          'commodity_code' => '1111111111',
-        }
-      end
+      subject(:user_session) { build(:user_session, commodity_code: '1111111111') }
 
       it 'returns the value from the session' do
         expect(user_session.commodity_code).to eq('1111111111')
@@ -405,11 +317,7 @@ RSpec.describe UserSession do
     end
 
     context 'when the key is present on the session' do
-      let(:session) do
-        {
-          'commodity_source' => 'uk',
-        }
-      end
+      subject(:user_session) { build(:user_session, commodity_source: 'uk') }
 
       it 'returns the value from the session' do
         expect(user_session.commodity_source).to eq('uk')
@@ -431,11 +339,7 @@ RSpec.describe UserSession do
     end
 
     context 'when the key is present on the session' do
-      let(:session) do
-        {
-          'referred_service' => 'uk',
-        }
-      end
+      subject(:user_session) { build(:user_session, referred_service: 'uk') }
 
       it 'returns the value from the session' do
         expect(user_session.referred_service).to eq('uk')
@@ -453,14 +357,7 @@ RSpec.describe UserSession do
 
   describe '#ni_to_gb_route?' do
     context 'when import country is GB and origin country is NI' do
-      let(:session) do
-        {
-          'answers' => {
-            'import_destination' => 'UK',
-            'country_of_origin' => 'XI',
-          },
-        }
-      end
+      subject(:user_session) { build(:user_session, import_destination: 'UK', country_of_origin: 'XI') }
 
       it 'returns true' do
         expect(user_session.ni_to_gb_route?).to be true
@@ -474,14 +371,7 @@ RSpec.describe UserSession do
 
   describe '#eu_to_ni_route?' do
     context 'when import country is NI and origin country is a EU Member' do
-      let(:session) do
-        {
-          'answers' => {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'RO',
-          },
-        }
-      end
+      subject(:user_session) { build(:user_session, import_destination: 'XI', country_of_origin: 'RO') }
 
       it 'returns true' do
         expect(user_session.eu_to_ni_route?).to be true
@@ -495,14 +385,7 @@ RSpec.describe UserSession do
 
   describe '#gb_to_ni_route?' do
     context 'when import country is XI and origin country is GB' do
-      let(:session) do
-        {
-          'answers' => {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
-          },
-        }
-      end
+      subject(:user_session) { build(:user_session, import_destination: 'XI', country_of_origin: 'GB') }
 
       it 'returns true' do
         expect(user_session.gb_to_ni_route?).to be true
@@ -516,14 +399,7 @@ RSpec.describe UserSession do
 
   describe '#row_to_gb_route?' do
     context 'when import country is UK and origin country is anything but XI' do
-      let(:session) do
-        {
-          'answers' => {
-            'import_destination' => 'UK',
-            'country_of_origin' => 'RO',
-          },
-        }
-      end
+      subject(:user_session) { build(:user_session, import_destination: 'UK', country_of_origin: 'RO') }
 
       it 'returns true' do
         expect(user_session.row_to_gb_route?).to be true

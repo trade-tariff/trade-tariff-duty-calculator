@@ -1,8 +1,8 @@
 RSpec.describe Wizard::Steps::CountryOfOrigin do
   subject(:step) { described_class.new(user_session, attributes, opts) }
 
-  let(:session) { {} }
-  let(:user_session) { UserSession.new(session) }
+  let(:user_session) { build(:user_session, session_attributes) }
+  let(:session_attributes) { {} }
   let(:opts) { {} }
 
   let(:attributes) do
@@ -105,12 +105,10 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
     include Rails.application.routes.url_helpers
 
     context 'when on NI to GB route' do
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'import_destination' => 'UK',
-            'country_of_origin' => 'XI',
-          },
+          'import_destination' => 'UK',
+          'country_of_origin' => 'XI',
         }
       end
 
@@ -130,12 +128,10 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
         }
       end
 
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
-          },
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
         }
       end
 
@@ -156,12 +152,10 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
         }
       end
 
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
-          },
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
         }
       end
 
@@ -182,12 +176,10 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
         }
       end
 
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'GB',
-          },
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
         }
       end
 
@@ -201,12 +193,10 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
     end
 
     context 'when on RoW to GB route' do
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'import_destination' => 'UK',
-            'country_of_origin' => 'RO',
-          },
+          'import_destination' => 'UK',
+          'country_of_origin' => 'RO',
         }
       end
 

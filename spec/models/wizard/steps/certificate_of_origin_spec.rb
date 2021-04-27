@@ -1,8 +1,8 @@
 RSpec.describe Wizard::Steps::CertificateOfOrigin do
   subject(:step) { described_class.new(user_session, attributes) }
 
-  let(:session) { {} }
-  let(:user_session) { UserSession.new(session) }
+  let(:session_attributes) { {} }
+  let(:user_session) { build(:user_session, session_attributes) }
   let(:attributes) do
     ActionController::Parameters.new(
       certificate_of_origin: '',
@@ -67,13 +67,7 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
     include Rails.application.routes.url_helpers
 
     context 'when there is a certificate of origin available' do
-      let(:session) do
-        {
-          'answers' => {
-            'certificate_of_origin' => 'yes',
-          },
-        }
-      end
+      let(:session_attributes) { { 'certificate_of_origin' => 'yes' } }
 
       it 'returns duty_path' do
         expect(
@@ -85,13 +79,7 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
     end
 
     context 'when there is no certificate of origin available' do
-      let(:session) do
-        {
-          'answers' => {
-            'certificate_of_origin' => 'no',
-          },
-        }
-      end
+      let(:session_attributes) { { 'certificate_of_origin' => 'no' } }
 
       it 'returns customs_value_path' do
         expect(
@@ -107,13 +95,7 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
     include Rails.application.routes.url_helpers
 
     context 'when final use answer is NO' do
-      let(:session) do
-        {
-          'answers' => {
-            'final_use' => 'no',
-          },
-        }
-      end
+      let(:session_attributes) { { 'final_use' => 'no' } }
 
       it 'returns final_use_path' do
         expect(
@@ -125,12 +107,8 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
     end
 
     context 'when trader scheme answer is NO' do
-      let(:session) do
-        {
-          'answers' => {
-            'trader_scheme' => 'no',
-          },
-        }
+      let(:session_attributes) do
+        { 'trader_scheme' => 'no' }
       end
 
       it 'returns trader_scheme_path' do
@@ -143,11 +121,9 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
     end
 
     context 'when planned processing answer is commercial_purposes' do
-      let(:session) do
+      let(:session_attributes) do
         {
-          'answers' => {
-            'planned_processing' => 'commercial_purposes',
-          },
+          'planned_processing' => 'commercial_purposes',
         }
       end
 

@@ -1,8 +1,8 @@
 RSpec.describe Wizard::Steps::TraderScheme do
   subject(:step) { described_class.new(user_session, attributes) }
 
-  let(:session) { {} }
-  let(:user_session) { UserSession.new(session) }
+  let(:user_session) { build(:user_session, session_attributes) }
+  let(:session_attributes) { {} }
   let(:attributes) do
     ActionController::Parameters.new(
       trader_scheme: '',
@@ -71,13 +71,11 @@ RSpec.describe Wizard::Steps::TraderScheme do
     include Rails.application.routes.url_helpers
 
     let(:answer) { 'yes' }
-    let(:session) do
+    let(:session_attributes) do
       {
-        'answers' => {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'GB',
-          'trader_scheme' => answer,
-        },
+        'import_destination' => 'XI',
+        'country_of_origin' => 'GB',
+        'trader_scheme' => answer,
       }
     end
 
@@ -107,12 +105,10 @@ RSpec.describe Wizard::Steps::TraderScheme do
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
-    let(:session) do
+    let(:session_attributes) do
       {
-        'answers' => {
-          'import_destination' => 'XI',
-          'country_of_origin' => 'GB',
-        },
+        'import_destination' => 'XI',
+        'country_of_origin' => 'GB',
       }
     end
 
