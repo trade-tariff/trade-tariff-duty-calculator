@@ -3,10 +3,10 @@ en:
   default_option_footnotes:
     waiver: >- # Claiming a waiver due to Exchange Rate - special case waiver option from GB to NI
       <p class="govuk-body">
-      A claim for a customs duty waiver for duty on goods that would otherwise incur “at risk” tariffs is provided as “de minimis aid”. The maximum allowance for most sectors is €200,000 across a rolling three tax year period. This allowance includes all de minimis aid you have claimed over a 3 tax year period.
+        A claim for a customs duty waiver for duty on goods that would otherwise incur “at risk” tariffs is provided as “de minimis aid”. The maximum allowance for most sectors is €200,000 across a rolling three tax year period. This allowance includes all de minimis aid you have claimed over a 3 tax year period.
       </p>
       <p class="govuk-body">
-      This type of aid is measured in euros, so it is important to convert any aid received in pound sterling into euros. You can use this <a target="_blank" href="http://ec.europa.eu/budget/contracts_grants/info_contracts/inforeuro/index_en.cfm" class="govuk-link">exchange rate tool</a> to calculate the applicable euro equivalent of the value of the aid for the month you were awarded the aid.
+        This type of aid is measured in euros, so it is important to convert any aid received in pound sterling into euros. You can use this <a target="_blank" href="http://ec.europa.eu/budget/contracts_grants/info_contracts/inforeuro/index_en.cfm" class="govuk-link">exchange rate tool</a> to calculate the applicable euro equivalent of the value of the aid for the month you were awarded the aid.
       </p>
 
   measure_type_footnotes:
@@ -52,12 +52,7 @@ en:
 
     '103': >- # Third country duty
       <p class="govuk-body">
-      A third country duty also known as the <abbr title="Most Favoured Nation">MFN</abbr> duty is the 
-      duty payable in the absence of any other type of tariff measure.
-      </p>
-      <p class="govuk-body">
-      To use the third country duty, if you are using CHIEF, enter "100" on your import declaration in box 
-      36 (preference). If you are using CDS, enter "100" in data element 4/17.
+        A ‘Third country’ duty is the tariff charged where there isn’t a trade agreement or a customs union with the UK. It can also be referred to as the Most Favoured Nation (<abbr title="Most Favoured Nation">MFN</abbr>) rate.
       </p>
 
     '104': >- # Conventional duty
@@ -66,23 +61,15 @@ en:
 
     '105': >- # Non preferential duty under end-use
       <p class="govuk-body">
-      You can apply for Authorised Use relief to reduce your payments when you import goods from outside 
-      the UK for a specific use, including repairs, maintenance or processing. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses </a>
-      </p>
-      <p class="govuk-body">
-      To use non-preferential duty under authorised use, if you are using CHIEF, enter "xxx" on your import 
-      declaration in box 36 (preference). If you are using CDS, enter "xxx" in data element 4/17.
+        This commodity has a reduced duty rate where the goods are being imported for certain uses. In order to benefit from this you have to first be authorised. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses </a>
       </p>
 
     '106': >- # Customs Union Duty
       <p class="govuk-body">
-      The  EU  has  entered  into  a  Customs  Union  with  Turkey,  Andorra  and  San  Marino  for  the  import  of 
-      certain commodities, to reduce or remove import duties for these goods. To take advantage of these 
-      reduced duties, you will need to provide a <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">valid proof of origin</a>
+        The EU has entered into a Customs Union with Turkey, Andorra and San Marino for the import of certain commodities, to reduce or remove import duties for these goods. To take advantage of these reduced duties, you will need to provide a valid <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">valid proof of origin</a>
       </p>
       <p class="govuk-body">
-      To use the Customs Union duty, if you are using CHIEF, enter "400" on your import declaration in box 
-      36 (preference). If you are using CDS, enter "400" in data element 4/17.
+        To use the Customs Union duty, if you are using CHIEF, enter "400" on your import declaration in box 36 (preference). If you are using CDS, enter "400" in data element 4/17.
       </p>
 
     '109': >- # Supplementary unit
@@ -99,75 +86,44 @@ en:
 
     '112': >- # Autonomous tariff suspension
       <p class="govuk-body">
-      Autonomous   suspensions   duties   are   granted   for   certain   goods   of   the   agricultural,   chemical, 
-      aeronautical and microelectronic sector
-      </p>
-      <p class="govuk-body">
-      To use non-preferential duty under authorised use, if you are using CHIEF, enter "110" on your import 
-      declaration in box 36 (preference). If you are using CDS, enter "110" in data element 4/17.
+        Certain goods under this commodity code can benefit from a zero MFN through this duty suspension – you'll need to claim this on your declaration.
       </p>
 
     '115': >- # Autonomous suspension under end-use
       <p class="govuk-body">
-      This suspension is available for goods used in the construction, maintenance and repair of aircraft of 
-      an unladen weight exceeding 2,000 kilograms and of ground-flying trainers for civil use.
+        Certain goods under this commodity code can benefit from a zero MFN – you'll need to claim this  on  your  declaration.  This  suspension  is  available  for  goods  used  in  the  construction, maintenance  and  repair  of  aircraft  of  an  unladen  weight  exceeding  2,000  kilograms  and  of ground-flying trainers for civil use.
       </p>
       <p class="govuk-body">
-      You can apply for Authorised Use relief to reduce your payments when you import goods from outside 
-      the UK for a specific use, including repairs, maintenance or processing. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods 
-      you import for specific uses</a>.
+        You  can  apply  for  Authorised  Use  relief  to  reduce  your  payments  when  you  import  goods from outside the UK for a specific use, including repairs, maintenance or processing. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
       </p>
       <p class="govuk-body">
-      To use non-preferential duty under authorised use, if you are using CHIEF, enter "115" on your import 
-      declaration in box 36 (preference). If you are using CDS, enter "115" in data element 4/17.
+        To use non-preferential duty under authorised use, if you are using CHIEF, enter "115" on your import declaration in box 36 (preference). If you are using CDS, enter "115" in data element 4/17.
       </p>
 
     '117': >- # Suspension - goods for certain categories of ships, boats and other vessels and for drilling or production platforms
       <p class="govuk-body">
-      Customs duties may be suspended for goods intended for incorporation in the ships, boats or other 
-      vessels  for  the  purposes  of  their  construction,  repair,  maintenance  or  conversion,  and  for  goods 
-      intended for fitting to or equipping such ships, boats or other vessels.
-      </p>
-      <p class="govuk-body">
-      Additionally, duties may be suspended for goods intended for incorporation in drilling or production 
-      platforms  and  tubes,  pipes,  cables  and  their  connection  pieces,  linking  these  drilling  or  production 
-      platforms to the mainland.
-      </p>
-      <p class="govuk-body">
-      To  use  this  suspension,  if  you  are  using  CHIEF,  enter  "115"  on  your  import  declaration  in  box  36 
-      (preference). If you are using CDS, enter "115" in data element 4/17.
+        Certain goods under this commodity code can benefit from a zero MFN – you'll need to claim this on your declaration.
       </p>
 
     '119': >- # Airworthiness tariff suspension
       <p class="govuk-body">
-      A duty suspension applies to parts, components and other goods of a kind to be incorporated in or 
-      used for aircraft and parts thereof in the course of their manufacture, repair, maintenance, rebuilding, 
-      modification or conversion is suspended.
+        Certain goods under this commodity code can benefit from a zero MFN – you'll need to claim this on your declaration.
       </p>
       <p class="govuk-body">
-      <a target="_blank" href="https://www.gov.uk/guidance/changes-to-customs-tariff-rules-on-imported-aircraft-parts-cip13" class="govuk-link">In  order  to  benefit  from  the  suspension,  you  must  provide  an  Authorised  Release  Certificate  or  an equivalent certificate</a>.
+        In order to benefit from the suspension, you must provide an Authorised Release Certificate or an <a target="_blank" href="https://www.gov.uk/guidance/changes-to-customs-tariff-rules-on-imported-aircraft-parts-cip13" class="govuk-link">equivalent certificate</a>
       </p>
 
     '122': >- # Non preferential tariff quota
       <p class="govuk-body">
-      To take advantage of this quota, enter the 6-digit quota order number on your import declaration. For licensed quotas, please contact the<a target="_blank" href="https://www.gov.uk/guidance/licences-for-the-importexport-of-agricultural-products#check-which-licences-and-quotas-are-available-for-your-products" class="govuk-link">Rural Payments Agency</a> to get an import licence. For First Come First Served quotas, please check that the quota is not exhausted before attempting to use it.
-      </p>
-      <p class="govuk-body">
-      If you are using CHIEF, enter "120" on your import declaration in box 36 (preference). If you are using 
-      CDS, enter "120" in data element 4/17.
+        A Tariff Rate Quota (TRQ) applies to this commodity code. A quota allows you to import goods into the UK at a reduced or zero customs duty rate. Read more about <a target="_blank" href="https://www.gov.uk/government/publications/notice-375-tariff-quotas/notice-375-tariff-quotas" class="govuk-link"> claiming quotas to reduce your duty liability</a>.
       </p>
 
     '123': >- # Non preferential tariff quota under end-use
       <p class="govuk-body">
-      You can apply for Authorised Use relief to reduce your payments when you import goods from outside 
-      the UK for a specific use, including repairs, maintenance or processing. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods
-      you import for specific uses<a>.
+        A Tariff Rate Quota (TRQ) applies to this commodity code. A quota allows you to import goods into the UK at a reduced or zero customs duty rate. Read more about <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">claiming quotas to reduce your duty liability<a>.
       </p>
       <p class="govuk-body">
-      To take advantage of this quota, enter the 6-digit quota order number on your import declaration. For licensed quotas, please contact the <a target="_blank" href="https://www.gov.uk/guidance/licences-for-the-importexport-of-agricultural-products#check-which-licences-and-quotas-are-available-for-your-products" class="govuk-link">Rural Payments Agency to get an import licence. For First Come First Served quotas, please check that the quota is not exhausted before attempting to use it.
-      </p>
-      <p class="govuk-body">
-      If you are using CHIEF, enter "123" on your import declaration in box 36 (preference). If you are using CDS, enter "123" in data element 4/17.
+        This reduced duty rate applies only when the goods are being imported for certain uses. In order to benefit from this you have to first be authorised. <a target="_blank" href="https://www.gov.uk/government/publications/notice-375-tariff-quotas/notice-375-tariff-quotas" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
       </p>
 
     '140': >- # Outward processing tariff preference
@@ -180,30 +136,12 @@ en:
 
     '142': >- # Tariff preference
       <p class="govuk-body">
-      The tariff features a number of preferential trade arrangements with certain individual countries or 
-      groups of countries. These agreements allow you to claim reduced or zero-rate import duties provided 
-      you can supply a valid <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link"> proof of origin</a>.
-      </p>
-      <p class="govuk-body">
-      For tariff preferences related to the GSP (<a target="_blank" href="https://www.gov.uk/government/publications/trading-with-developing-nations" class="govuk-link">Generalised System of Preferences</a>), if you are using CHIEF, enter "200" on your import declaration in box 36 (preference). If you are using CDS, enter "200" in data element 4/17.
-      </p>
-      <p class="govuk-body">
-      For all other tariff preferences, if you are using CHIEF, enter "300" on your import declaration in box 
-      36 (preference). If you are using CDS, enter "300" in data element 4/17.
+        A tariff preference is the rate available if a free trade agreement or another arrangement is in place between the UK and an overseas country. Goods will need to comply with the <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">rules of origin</a> to benefit from this rate and you will need to provide evidence of compliance with your shipment.
       </p>
 
     '143': >- # Preferential tariff quota
       <p class="govuk-body">
-      To take advantage of this quota, enter the 6-digit quota order number on your import declaration. For 
-      licensed quotas, please contact the <a target="_blank" href="https://www.gov.uk/guidance/licences-for-the-importexport-of-agricultural-products#check-which-licences-and-quotas-are-available-for-your-products" class="govuk-link">Rural Payments Agency</a> to get an import licence. For First 
-      Come First Served quotas, please check that the quota is not exhausted before attempting to use it.
-      </p>
-      <p class="govuk-body">
-      As this is a preferential quota, you may be required to supply a valid <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">proof of origin</a>.
-      </p>
-      <p class="govuk-body">
-      If you are using CHIEF, enter "320" on your import declaration in box 36 (preference). If you are using 
-      CDS, enter "320" in data element 4/17.
+        A Tariff Rate Quota (TRQ) applies to this commodity code. A quota allows you to import goods into the UK at a reduced or zero customs duty rate. Read more about <a target="_blank" href="https://www.gov.uk/government/publications/notice-375-tariff-quotas/notice-375-tariff-quotas" class="govuk-link"> claiming quotas to reduce your duty liability</a>.
       </p>
 
     '144': >- # Preferential ceiling
@@ -212,31 +150,18 @@ en:
 
     '145': >- # Preference under end-use
       <p class="govuk-body">
-      The tariff features a number of preferential trade arrangements with certain individual countries or 
-      groups of countries. These agreements allow you to claim reduced or zero-rate import duties provided 
-      you can supply a valid <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link"> proof of origin</a>.
+        A tariff preference is the rate available if a free trade agreement or another arrangement is in place between the UK and an overseas country. Goods will need to comply with the <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">rules of origin</a> to benefit from this rate and you will need to provide evidence of compliance with your shipment.  
       </p>
       <p class="govuk-body">
-      For tariff preferences related to the GSP (<a target="_blank" href="https://www.gov.uk/government/publications/trading-with-developing-nations" class="govuk-link">Generalised System of Preferences</a>), if you are using CHIEF, enter "215" on your import declaration in box 36 (preference). If you are using CDS, enter "215" in data element 4/17.
-      </p>
-      <p class="govuk-body">
-      For  all  other  tariff  preferences  under  authorised  use,  if  you  are  using  CHIEF,  enter  "315"  on  your import declaration in box 36 (preference). If you are using CDS, enter "315" in data element 4/17.
+        This reduced duty rate applies only when the goods are being imported for certain uses. In order to benefit from this you have to first be authorised. <a href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link" target="_blank">Apply to pay less duty on goods you import for specific uses</a>.
       </p>
 
     '146': >- # Preferential tariff quota under end-use
       <p class="govuk-body">
-      The tariff features a number of preferential trade arrangements with certain individual countries or 
-      groups of countries. These agreements allow you to claim reduced or zero-rate import duties provided 
-      you can supply a valid <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link"> proof of origin</a>.
+        A Tariff Rate Quota (TRQ) applies to this commodity code. A quota allows you to import goods into the UK at a reduced or zero customs duty rate. Read more about <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">claiming quotas to reduce your duty liability<a>.
       </p>
       <p class="govuk-body">
-      For tariff preferences related to the GSP (<a target="_blank" href="https://www.gov.uk/government/publications/trading-with-developing-nations" class="govuk-link">Generalised System of Preferences</a>), if you are using CHIEF, enter "215" on your import declaration in box 36 (preference). If you are using CDS, enter "215" in data element 4/17.
-      </p>
-      <p class="govuk-body">
-      For  all  other  tariff  preferences  under  authorised  use,  if  you  are  using  CHIEF,  enter  "315"  on  your import declaration in box 36 (preference). If you are using CDS, enter "315" in data element 4/17.
-      </p>
-      <p class="govuk-body">
-      You can apply for Authorised Use relief to reduce your payments when you import goods from outside the UK for a specific use, including repairs, maintenance or processing. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
+        This reduced duty rate applies only when the goods are being imported for certain uses. In order to benefit from this you have to first be authorised. <a target="_blank" href="https://www.gov.uk/government/publications/notice-375-tariff-quotas/notice-375-tariff-quotas" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
       </p>
 
     '147': >- # Customs Union Quota
@@ -484,50 +409,46 @@ en:
 
     '551': >- # Provisional anti-dumping duty
       <p class="govuk-body">
-      Anti-dumping  duty  is  an  import  duty  charged  in  addition  to  normal  Customs  Duty.  It  is  designed  to 
-      allow a domestic trading nation to take action against goods that are sold at less than their normal 
-      value – that being defined as the price for ‘like goods’ sold in the exporter’s home market.
+        Anti-dumping  duty  is an import duty charged in addition to normal Customs Duty. It is designed to allow a domestic trading nation to take action against goods that are sold at less than their normal value – that being defined as the price for ‘like goods’ sold in the exporter’s home market.
       </p>
       <p class="govuk-body">
-      Provisional  anti-dumping  duties  may  be  imposed  for  a  period  of  up  to  9  months  pending  the  full 
-      investigation  of  an  anti-dumping  case.  At  the  end  of  the  investigation  the  provisional  duty  may  be 
-      made definitive or may lapse or be cancelled. Provisional anti-dumping duty must be secured by either 
-      a cash deposit or guarantee. Deposits will be refunded without the need for prior application if the 
-      provisional ADD is cancelled, lapses or is not replaced in full by a definitive duty.
+        Provisional anti-dumping duties may be imposed for a period of up to 9 months  pending the full investigation of an anti-dumping case. At the end of the investigation the  provisional duty may be made definitive or may lapse or be cancelled. Provisional anti-dumping duty must be secured by either a cash deposit or guarantee. Deposits will be refunded without the need for prior application if the provisional ADD is cancelled, lapses or is not replaced in full by a definitive duty.
+      </p>
+      <p class="govuk-body">
+        Read more about <a target="_blank" href="https://www.gov.uk/government/publications/uk-trade-tariff-anti-dumping-and-countervailing-duties/uk-trade-tariff-anti-dumping-and-countervailing-duties" class="govuk-link">equivalent certificate</a>anti-dumping and countervailing duties</a>.
       </p>
 
     '552': >- # Definitive anti-dumping duty
       <p class="govuk-body">
-      Anti-dumping  duty  is  an  import  duty  charged  in  addition  to  normal  Customs  Duty.  It  is  designed  to 
-      allow a domestic trading nation to take action against goods that are sold at less than their normal 
-      value – that being defined as the price for ‘like goods’ sold in the exporter’s home market.
+        Anti-dumping  duty  is an import duty charged in addition to normal Customs Duty. It is designed to allow a domestic trading nation to take action against goods that are sold at less than their normal value – that being defined as the price for ‘like goods’ sold in the exporter’s home market.
       </p>
       <p class="govuk-body">
-      Definitive anti-dumping duty normally last for 5 years and is imposed if a full investigation of the facts 
-      confirms earlier findings of dumping or subsidies.
+        Provisional anti-dumping duties may be imposed for a period of up to 9 months  pending the full investigation of an anti-dumping case. At the end of the investigation the  provisional duty may be made definitive or may lapse or be cancelled. Provisional anti-dumping duty must be secured by either a cash deposit or guarantee. Deposits will be refunded without the need for prior application if the provisional ADD is cancelled, lapses or is not replaced in full by a definitive duty.
+      </p>
+      <p class="govuk-body">
+        Read more about <a target="_blank" href="https://www.gov.uk/government/publications/uk-trade-tariff-anti-dumping-and-countervailing-duties/uk-trade-tariff-anti-dumping-and-countervailing-duties" class="govuk-link">equivalent certificate</a>anti-dumping and countervailing duties</a>.
       </p>
 
     '553': >- # Provisional countervailing duty
       <p class="govuk-body">
-      Countervailing duty, also known as anti-subsidy duty, is a customs duty imposed on goods which have 
-      received illicit government subsidies in the originating or exporting country.
+        Countervailing duty, also known as anti-subsidy duty, is a customs duty imposed on goods which have received illicit government subsidies in the originating or exporting country.
       </p>
       <p class="govuk-body">
-      Provisional  countervailing  duties  may  be  imposed  for  a  period  of  up  to  9  months  pending  the  full 
-      investigation of an anti-subsidy case. At the end of the investigation the provisional duty may be made 
-      definitive or may lapse or be cancelled. Provisional countervailing duty must be secured by either a 
-      cash  deposit  or  guarantee.  Deposits  will  be  refunded  without  the  need  for  prior  application  if  the 
-      provisional duty is cancelled, lapses or is not replaced in full by a definitive duty.
+        Where countervailing duty is due, the additional duty will be added to the duty liability. An additional  code  may  be  used  to  identify  where  there  is  no  additional  duty  to pay. See the Online Tariff for more about the additional codes available on this commodity.
+      </p>
+      <p class="govuk-body">
+        Read more about <a target="_blank" href="https://www.gov.uk/government/publications/uk-trade-tariff-anti-dumping-and-countervailing-duties/uk-trade-tariff-anti-dumping-and-countervailing-duties" class="govuk-link">equivalent certificate</a>anti-dumping and countervailing duties</a>.
       </p>
 
     '554': >- # Definitive countervailing duty
       <p class="govuk-body">
-      Countervailing duty, also known as anti-subsidy duty, is a customs duty imposed on goods which have 
-      received illicit government subsidies in the originating or exporting country.
+        Countervailing duty, also known as anti-subsidy duty, is a customs duty imposed on goods which have received illicit government subsidies in the originating or exporting country.
       </p>
       <p class="govuk-body">
-      Definitive countervailing duty normally last for 5 years and is imposed if a full investigation of the facts 
-      confirms earlier findings of dumping or subsidies.
+        Where countervailing duty is due, the additional duty will be added to the duty liability. An additional  code  may  be  used  to  identify  where  there  is  no  additional  duty  to pay. See the Online Tariff for more about the additional codes available on this commodity.
+      </p>
+      <p class="govuk-body">
+        Read more about <a target="_blank" href="https://www.gov.uk/government/publications/uk-trade-tariff-anti-dumping-and-countervailing-duties/uk-trade-tariff-anti-dumping-and-countervailing-duties" class="govuk-link">equivalent certificate</a>anti-dumping and countervailing duties</a>.
       </p>
 
     '555': >- # Anti-dumping/countervailing duty - Pending collection
@@ -689,15 +610,15 @@ en:
 
     '695': >- # Additional duties
       <p class="govuk-body">
-      Additional  duties  are  applied  in  retaliation  for  existing  trade  disputes  and  must  be  added  to  the underlying customs duties.
+        Additional duties are applied in retaliation for existing trade disputes and must be added to the underlying customs duties. Where such retaliatory duties are due, the additional duty will be added to the duty liability.
       </p>
 
     '696': >- # Additional duties (safeguard)
       <p class="govuk-body">
-      Additional  'safeguard'  duties  are  applied  to  the  import  of  certain  steel  products  to  protect  the  UK 
-      against an influx of cheap goods from overseas. The impact of the safeguard duties may be waived via 
-      the application of a tariff rate quota. Please check that the quota is not exhausted before attempting 
-      to use it.
+        Additional 'safeguard' duties are applied to the import of certain steel products to protect the UK against an influx of cheap goods from overseas. Where such duties are due, the additional duty will be added to the liability.
+      </p>
+      <p class="govuk-body">
+        The impact of the safeguard duties may be waived via the application of a tariff rate quota. Please check that the quota is not exhausted before attempting to use it.
       </p>
 
     '705': >- # Import prohibition on goods for torture and repression
