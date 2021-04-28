@@ -96,9 +96,6 @@ en:
       <p class="govuk-body">
         You  can  apply  for  Authorised Use relief to reduce your payments when you import goods from outside the UK for a specific use, including repairs, maintenance or processing. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
       </p>
-      <p class="govuk-body">
-        To use non-preferential duty under authorised use, if you are using CHIEF, enter "115" on your import declaration in box 36 (preference). If you are using CDS, enter "115" in data element 4/17.
-      </p>
 
     '117': >- # Suspension - goods for certain categories of ships, boats and other vessels and for drilling or production platforms
       <p class="govuk-body">
@@ -412,7 +409,7 @@ en:
         Anti-dumping  duty  is an import duty charged in addition to normal Customs Duty. It is designed to allow a domestic trading nation to take action against goods that are sold at less than their normal value – that being defined as the price for ‘like goods’ sold in the exporter’s home market.
       </p>
       <p class="govuk-body">
-        Provisional anti-dumping duties may be imposed for a period of up to 9 months  pending the full investigation of an anti-dumping case. At the end of the investigation the  provisional duty may be made definitive or may lapse or be cancelled. Provisional anti-dumping duty must be secured by either a cash deposit or guarantee. Deposits will be refunded without the need for prior application if the provisional ADD is cancelled, lapses or is not replaced in full by a definitive duty.
+        Where anti-dumping duty is due, the additional duty will be added to the duty liability. An additional code may be used to identify where there is no  additional duty to pay. See the Online Tariff for more about the additional codes available on this commodity.
       </p>
       <p class="govuk-body">
         Read more about <a target="_blank" href="https://www.gov.uk/government/publications/uk-trade-tariff-anti-dumping-and-countervailing-duties/uk-trade-tariff-anti-dumping-and-countervailing-duties" class="govuk-link">equivalent certificate</a>anti-dumping and countervailing duties</a>.
@@ -423,7 +420,7 @@ en:
         Anti-dumping  duty  is an import duty charged in addition to normal Customs Duty. It is designed to allow a domestic trading nation to take action against goods that are sold at less than their normal value – that being defined as the price for ‘like goods’ sold in the exporter’s home market.
       </p>
       <p class="govuk-body">
-        Provisional anti-dumping duties may be imposed for a period of up to 9 months  pending the full investigation of an anti-dumping case. At the end of the investigation the  provisional duty may be made definitive or may lapse or be cancelled. Provisional anti-dumping duty must be secured by either a cash deposit or guarantee. Deposits will be refunded without the need for prior application if the provisional ADD is cancelled, lapses or is not replaced in full by a definitive duty.
+        Where anti-dumping duty is due, the additional duty will be added to the duty liability. An additional code may be used to identify where there is no  additional duty to pay. See the Online Tariff for more about the additional codes available on this commodity.
       </p>
       <p class="govuk-body">
         Read more about <a target="_blank" href="https://www.gov.uk/government/publications/uk-trade-tariff-anti-dumping-and-countervailing-duties/uk-trade-tariff-anti-dumping-and-countervailing-duties" class="govuk-link">equivalent certificate</a>anti-dumping and countervailing duties</a>.
