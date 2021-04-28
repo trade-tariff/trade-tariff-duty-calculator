@@ -73,7 +73,7 @@ RSpec.describe ConfirmationDecorator do
         },
         {
           key: 'country_of_origin',
-          label: 'Country of dispatch',
+          label: 'Coming from',
           value: 'United Kingdom',
         },
         {
