@@ -27,16 +27,16 @@ module ServiceHelper
     service_url_for('/feedback')
   end
 
+  def trade_tariff_frontend_url
+    @trade_tariff_frontend_url ||= Rails.configuration.trade_tariff_frontend_url
+  end
+
   private
 
   def service_url_for(relative_path)
     return '#' if trade_tariff_frontend_url.blank?
 
     File.join(trade_tariff_frontend_url, referred_service_url, relative_path)
-  end
-
-  def trade_tariff_frontend_url
-    @trade_tariff_frontend_url ||= Rails.configuration.trade_tariff_frontend_url
   end
 
   def referred_service_url

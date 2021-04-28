@@ -1,6 +1,9 @@
 module DutyOptions
   class Base
     include ActionView::Helpers::NumberHelper
+    include ServiceHelper
+
+    COUNTERVAILING_ANTI_DUMPING_MEASURE_TYPE_IDS = %w[551 552 553 554].freeze
 
     def initialize(measure, user_session, additional_duty_options)
       @measure = measure
@@ -10,7 +13,7 @@ module DutyOptions
 
     def option
       {
-        footnote: I18n.t("measure_type_footnotes.#{measure.measure_type.id}").html_safe,
+        footnote: localised_footnote_for(measure.measure_type.id).html_safe,
         warning_text: nil,
         values: option_values,
       }
@@ -98,6 +101,20 @@ module DutyOptions
 
     def additional_duty_values
       additional_duty_options.map { |additional_duty| additional_duty[:value] }
+    end
+
+    def localised_footnote_for(measure_type_id)
+      return I18n.t("measure_type_footnotes.#{measure_type_id}") if COUNTERVAILING_ANTI_DUMPING_MEASURE_TYPE_IDS.exclude?(measure_type_id)
+
+      I18n.t("measure_type_footnotes.#{measure_type_id}", link: link)
+    end
+
+    def link
+      "#{trade_tariff_frontend_url}/#{relative_path}"
+    end
+
+    def relative_path
+      "#{user_session.commodity_source}/commodities/#{user_session.commodity_code}?country=#{user_session.country_of_origin}#import"
     end
   end
 end
