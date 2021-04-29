@@ -43,4 +43,20 @@ RSpec.describe Api::MeasureType do
       it { expect(measure_type.additional_duty_option).to be_nil }
     end
   end
+
+  describe '#remedial?' do
+    subject(:measure_type) { described_class.new(id: id) }
+
+    context 'when there is a corresponding option for the id' do
+      let(:id) { '551' }
+
+      it { expect(measure_type.remedial?).to be true }
+    end
+
+    context 'when there is not a corresponding option' do
+      let(:id) { '999' }
+
+      it { expect(measure_type.remedial?).to be false }
+    end
+  end
 end

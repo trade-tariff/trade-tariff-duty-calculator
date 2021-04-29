@@ -3,8 +3,6 @@ module DutyOptions
     include ActionView::Helpers::NumberHelper
     include ServiceHelper
 
-    COUNTERVAILING_ANTI_DUMPING_MEASURE_TYPE_IDS = %w[551 552 553 554].freeze
-
     def initialize(measure, user_session, additional_duty_options)
       @measure = measure
       @user_session = user_session
@@ -104,7 +102,7 @@ module DutyOptions
     end
 
     def localised_footnote_for(measure_type_id)
-      return I18n.t("measure_type_footnotes.#{measure_type_id}") if COUNTERVAILING_ANTI_DUMPING_MEASURE_TYPE_IDS.exclude?(measure_type_id)
+      return I18n.t("measure_type_footnotes.#{measure_type_id}") unless measure.measure_type.remedial?
 
       I18n.t("measure_type_footnotes.#{measure_type_id}", link: link)
     end
