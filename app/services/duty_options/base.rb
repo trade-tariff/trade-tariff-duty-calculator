@@ -1,6 +1,7 @@
 module DutyOptions
   class Base
     include ActionView::Helpers::NumberHelper
+    include ServiceHelper
 
     def initialize(measure, user_session, additional_duty_options)
       @measure = measure
@@ -10,7 +11,7 @@ module DutyOptions
 
     def option
       {
-        footnote: I18n.t("measure_type_footnotes.#{measure.measure_type.id}").html_safe,
+        footnote: localised_footnote.html_safe,
         warning_text: nil,
         values: option_values,
       }
@@ -98,6 +99,20 @@ module DutyOptions
 
     def additional_duty_values
       additional_duty_options.map { |additional_duty| additional_duty[:value] }
+    end
+
+    def localised_footnote
+      return I18n.t("measure_type_footnotes.#{measure.measure_type.id}") unless measure.measure_type.remedial?
+
+      I18n.t("measure_type_footnotes.#{measure.measure_type.id}", link: link)
+    end
+
+    def link
+      "#{trade_tariff_frontend_url}/#{relative_path}"
+    end
+
+    def relative_path
+      "#{user_session.commodity_source}/commodities/#{user_session.commodity_code}?country=#{user_session.country_of_origin}#import"
     end
   end
 end

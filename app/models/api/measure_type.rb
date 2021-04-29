@@ -25,6 +25,8 @@ module Api
       '696' => ::DutyOptions::AdditionalDuty::AdditionalDutiesSafeguard,
     }.freeze
 
+    REMEDIAL_IDS = %w[551 552 553 554].freeze
+
     attributes :description,
                :national,
                :measure_type_series_id,
@@ -44,6 +46,10 @@ module Api
 
     def additional_duty_option
       TYPE_ADDITIONAL_OPTION_MAPPING[id]
+    end
+
+    def remedial?
+      id.in?(REMEDIAL_IDS)
     end
   end
 end
