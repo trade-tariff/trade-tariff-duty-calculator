@@ -11,7 +11,7 @@ module DutyOptions
 
     def option
       {
-        footnote: localised_footnote_for(measure.measure_type.id).html_safe,
+        footnote: localised_footnote.html_safe,
         warning_text: nil,
         values: option_values,
       }
@@ -101,10 +101,10 @@ module DutyOptions
       additional_duty_options.map { |additional_duty| additional_duty[:value] }
     end
 
-    def localised_footnote_for(measure_type_id)
-      return I18n.t("measure_type_footnotes.#{measure_type_id}") unless measure.measure_type.remedial?
+    def localised_footnote
+      return I18n.t("measure_type_footnotes.#{measure.measure_type.id}") unless measure.measure_type.remedial?
 
-      I18n.t("measure_type_footnotes.#{measure_type_id}", link: link)
+      I18n.t("measure_type_footnotes.#{measure.measure_type.id}", link: link)
     end
 
     def link
