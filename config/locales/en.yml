@@ -67,7 +67,7 @@ en:
   confirmation_page:
     import_date: Date of import
     import_destination: Destination
-    country_of_origin: Country of dispatch
+    country_of_origin: Coming from
     trader_scheme: Trader scheme
     final_use: Final use
     planned_processing: Processing
