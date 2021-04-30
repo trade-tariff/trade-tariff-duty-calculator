@@ -4,6 +4,7 @@ module Api
     has_many :export_measures, Measure
 
     meta_attribute :duty_calculator, :applicable_measure_units
+    meta_attribute :duty_calculator, :applicable_additional_codes
     meta_attribute :duty_calculator, :trade_defence
     meta_attribute :duty_calculator, :zero_mfn_duty
 
