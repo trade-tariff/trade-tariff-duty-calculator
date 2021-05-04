@@ -13,9 +13,7 @@ module Wizard
 
       private
 
-      def permitted_params
-        params.require(:wizard_steps_additional_code).permit!
-      end
+      def permitted_params; end
     end
   end
 end
