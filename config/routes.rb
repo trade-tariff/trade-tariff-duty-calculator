@@ -36,6 +36,8 @@ Rails.application.routes.draw do
     get 'trade-remedies', to: 'pages#trade_remedies'
 
     get 'duty', to: 'wizard/steps/duty#show'
+
+    get 'additional-codes/:measure_type_id', to: 'wizard/steps/additional_codes#show', as: 'additional_codes'
   end
 
   get 'ping', to: 'healthcheck#ping'

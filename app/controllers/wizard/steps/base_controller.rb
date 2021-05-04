@@ -76,6 +76,10 @@ module Wizard
           referred_service: user_session.referred_service,
         })
       end
+
+      def applicable_additional_codes
+        @applicable_additional_codes ||= filtered_commodity.applicable_additional_codes
+      end
     end
   end
 end
