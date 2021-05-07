@@ -1,6 +1,8 @@
 module Wizard
   module Steps
     class CustomsValue < Wizard::Steps::Base
+      include CommodityHelper
+
       STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
 
       attribute :monetary_value, :string

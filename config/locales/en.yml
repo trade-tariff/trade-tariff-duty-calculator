@@ -117,6 +117,12 @@ en:
             attributes:
               planned_processing:
                 blank: Select one of the available options
+        wizard/steps/additional_code:
+            attributes:
+              measure_type_id:
+                blank: Enter a valid measure type id
+              additional_code:
+                blank: Specify a valid additional code
         wizard/steps/measure_amount:
           attributes:
             answers:

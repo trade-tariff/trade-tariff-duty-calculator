@@ -4,6 +4,7 @@ class UserSession
   def initialize(session)
     @session = session
     @session['answers'] ||= {}
+    @session['answers'][Wizard::Steps::AdditionalCode.id] ||= {}
   end
 
   def remove_step_ids(ids)
@@ -94,6 +95,14 @@ class UserSession
       'shipping_cost' => values['shipping_cost'],
       'insurance_cost' => values['insurance_cost'],
     }
+  end
+
+  def additional_code=(value)
+    session['answers'][Wizard::Steps::AdditionalCode.id].merge!(value)
+  end
+
+  def additional_code
+    session['answers'][Wizard::Steps::AdditionalCode.id]
   end
 
   def commodity_source=(value)
