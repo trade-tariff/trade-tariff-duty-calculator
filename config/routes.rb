@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     get 'duty', to: 'wizard/steps/duty#show'
 
     get 'additional-codes/:measure_type_id', to: 'wizard/steps/additional_codes#show', as: 'additional_codes'
+    post 'additional-codes/:measure_type_id', to: 'wizard/steps/additional_codes#create'
   end
 
   get 'ping', to: 'healthcheck#ping'

@@ -4,6 +4,7 @@ module Wizard
       STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
 
       include ActiveModel::Model
+      include CommodityHelper
       include Rails.application.routes.url_helpers
 
       attr_reader :applicable_measure_units
@@ -52,6 +53,8 @@ module Wizard
       end
 
       def next_step_path
+        return additional_codes_path(applicable_additional_codes.keys.first) if applicable_additional_codes.present?
+
         confirm_path
       end
 

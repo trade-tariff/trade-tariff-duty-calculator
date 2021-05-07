@@ -289,6 +289,52 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#additional_code' do
+    subject(:user_session) do
+      build(
+        :user_session,
+        additional_code: cumulated_codes,
+      )
+    end
+
+    let(:cumulated_codes) do
+      {
+        '105' => '2340',
+        '104' => '1112',
+      }
+    end
+
+    it 'returns the correct value from the session' do
+      expect(user_session.additional_code).to eq(cumulated_codes)
+    end
+  end
+
+  describe '#additional_code=' do
+    let(:value) { { '105' => '2300' } }
+    let(:new_value) { { '104' => '2511' } }
+
+    let(:merged_session) do
+      {
+        '105' => '2300',
+        '104' => '2511',
+      }
+    end
+
+    before do
+      user_session.additional_code = value
+    end
+
+    it 'stores the hash on the session' do
+      expect(session['answers'][Wizard::Steps::AdditionalCode.id]).to eq(value)
+    end
+
+    it 'merges new additional codes to the existing ones' do
+      user_session.additional_code = new_value
+
+      expect(session['answers'][Wizard::Steps::AdditionalCode.id]).to eq(merged_session)
+    end
+  end
+
   describe '#commodity_code' do
     it 'returns nil if the key is not on the session' do
       expect(user_session.commodity_code).to be nil
