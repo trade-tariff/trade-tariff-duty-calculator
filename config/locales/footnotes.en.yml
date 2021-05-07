@@ -117,10 +117,10 @@ en:
 
     '123': >- # Non preferential tariff quota under end-use
       <p class="govuk-body">
-        A Tariff Rate Quota (TRQ) applies to this commodity code. A quota allows you to import goods into the UK at a reduced or zero customs duty rate. Read more about <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">claiming quotas to reduce your duty liability<a>.
+        A Tariff Rate Quota (TRQ) applies to this commodity code. A quota allows you to import goods into the UK at a reduced or zero customs duty rate. Read more about <a target="_blank" href="https://www.gov.uk/government/publications/notice-375-tariff-quotas/notice-375-tariff-quotas" class="govuk-link">claiming quotas to reduce your duty liability<a>.
       </p>
       <p class="govuk-body">
-        This reduced duty rate applies only when the goods are being imported for certain uses. In order to benefit from this you have to first be authorised. <a target="_blank" href="https://www.gov.uk/government/publications/notice-375-tariff-quotas/notice-375-tariff-quotas" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
+        This reduced duty rate applies only when the goods are being imported for certain uses. In order to benefit from this you have to first be authorised. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
       </p>
 
     '140': >- # Outward processing tariff preference
@@ -155,10 +155,10 @@ en:
 
     '146': >- # Preferential tariff quota under end-use
       <p class="govuk-body">
-        A Tariff Rate Quota (TRQ) applies to this commodity code. A quota allows you to import goods into the UK at a reduced or zero customs duty rate. Read more about <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">claiming quotas to reduce your duty liability<a>.
+        A Tariff Rate Quota (TRQ) applies to this commodity code. A quota allows you to import goods into the UK at a reduced or zero customs duty rate. Read more about <a target="_blank" href="https://www.gov.uk/government/publications/notice-375-tariff-quotas/notice-375-tariff-quotas" class="govuk-link">claiming quotas to reduce your duty liability<a>.
       </p>
       <p class="govuk-body">
-        This reduced duty rate applies only when the goods are being imported for certain uses. In order to benefit from this you have to first be authorised. <a target="_blank" href="https://www.gov.uk/government/publications/notice-375-tariff-quotas/notice-375-tariff-quotas" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
+        This reduced duty rate applies only when the goods are being imported for certain uses. In order to benefit from this you have to first be authorised. <a target="_blank" href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link">Apply to pay less duty on goods you import for specific uses</a>.
       </p>
 
     '147': >- # Customs Union Quota
