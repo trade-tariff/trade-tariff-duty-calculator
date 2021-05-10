@@ -172,4 +172,8 @@ class UserSession
   def total_amount
     customs_value.values.map(&:to_f).reduce(:+)
   end
+
+  def commodity_additional_code
+    additional_code.values.join(', ')
+  end
 end

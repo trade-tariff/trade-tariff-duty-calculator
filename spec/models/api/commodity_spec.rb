@@ -104,8 +104,26 @@ RSpec.describe Api::Commodity, type: :model do
   end
 
   describe '#formatted_commodity_code' do
-    it 'returns the commodity commodity code' do
-      expect(commodity.formatted_commodity_code).to eq('0702 00 00 07')
+    context 'when an additional_code is passed' do
+      let(:additional_code) { 'B787' }
+
+      it 'returns a formatted comm code' do
+        expect(commodity.formatted_commodity_code(additional_code)).to eq('0702 00 00 07 (B787)')
+      end
+    end
+
+    context 'when a nil additional_code is passed' do
+      let(:additional_code) { nil }
+
+      it 'returns a formatted comm code' do
+        expect(commodity.formatted_commodity_code(additional_code)).to eq('0702 00 00 07')
+      end
+    end
+
+    context 'when no additional_code is passed' do
+      it 'returns a formatted comm code' do
+        expect(commodity.formatted_commodity_code).to eq('0702 00 00 07')
+      end
     end
   end
 end

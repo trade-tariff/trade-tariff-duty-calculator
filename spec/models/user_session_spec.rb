@@ -476,4 +476,18 @@ RSpec.describe UserSession do
       expect(user_session.row_to_gb_route?).to be false
     end
   end
+
+  describe '#commodity_additional_code' do
+    context 'when additional code answers have been stored' do
+      subject(:user_session) { build(:user_session, additional_code: { '103' => 'C999', '105' => 'B111' }) }
+
+      it { expect(user_session.commodity_additional_code).to eq('C999, B111') }
+    end
+
+    context 'when additional code answers have not been stored' do
+      subject(:user_session) { build(:user_session) }
+
+      it { expect(user_session.commodity_additional_code).to eq('') }
+    end
+  end
 end

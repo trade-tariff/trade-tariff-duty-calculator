@@ -47,13 +47,20 @@ RSpec.describe DutyOptions::AdditionalDuty::ProvisionalAntiDumping do
         'https://dev.trade-tariff.service.gov.uk/xi/commodities/0702000008?country=CN#import'
       end
 
+      let(:duty_html) do
+        I18n.t(
+          'duty_calculations.options.import_duty_html',
+          commodity_source: commodity_source.upcase,
+          option_type: 'Provisional anti-dumping duty',
+          additional_code: nil,
+        )
+      end
+
       let(:expected_table) do
         {
           warning_text: nil,
           footnote: I18n.t('measure_type_footnotes.552', link: link),
-          values: [
-            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source.upcase, option_type: 'Provisional anti-dumping duty'), '5.0% * £1,050.00', '£52.50'],
-          ],
+          values: [[duty_html, '5.0% * £1,050.00', '£52.50']],
           value: 52.5,
         }
       end
