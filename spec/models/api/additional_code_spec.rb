@@ -20,32 +20,4 @@ RSpec.describe Api::AdditionalCode do
   describe '#additional_code_id' do
     it { expect(additional_code.additional_code_id).to eq('111') }
   end
-
-  describe '#company_defensive_code?' do
-    context 'when the additional_code_type is a company identifying code type' do
-      let(:code) { 'A111' }
-
-      it { is_expected.to be_company_defensive_code }
-    end
-
-    context 'when the additional_code_type is not a company identifying code type' do
-      let(:code) { 'X111' }
-
-      it { is_expected.not_to be_company_defensive_code }
-    end
-  end
-
-  describe '#no_company_defensive_code?' do
-    context 'when the additional_code_type is a company identifying code type' do
-      let(:code) { 'A111' }
-
-      it { is_expected.not_to be_no_company_defensive_code }
-    end
-
-    context 'when the additional_code_type is not a company identifying code type' do
-      let(:code) { 'X111' }
-
-      it { is_expected.to be_no_company_defensive_code }
-    end
-  end
 end

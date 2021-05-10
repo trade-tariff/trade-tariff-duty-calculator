@@ -37,9 +37,5 @@ module Api
     def formatted_commodity_code
       "#{code[0..3]} #{code[4..5]} #{code[6..7]} #{code[8..9]}"
     end
-
-    def company_defensive_measures?
-      import_measures.any? { |measure| measure.additional_code&.company_defensive_code? }
-    end
   end
 end

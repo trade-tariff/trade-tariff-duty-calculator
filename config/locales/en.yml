@@ -24,7 +24,6 @@ en:
     xi: Northern Ireland Online Tariff 
   duty_calculations:
     options:
-      company_warning_text: There are trade defence measures applicable for the import of this commodity from certain companies. Please view the %{commodity_link} for more information.
       mfn:
         warning_text: Third-country duty will apply as there is no preferential agreement in place for the import of this commodity.
       import_valuation: Valuation for import
