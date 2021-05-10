@@ -7,8 +7,7 @@
         <%= f.govuk_error_summary %>
         <span class="govuk-caption-xl">Calculate import duties</span>
         <h1 class="govuk-heading-xl">Describe your goods in more detail</h1>
-        <%= f.govuk_collection_select :additional_code, @step.options_for_select, :id, :name, options: { prompt: true }, label: { text: '' }, hint: { text: "To trade this commodity, you need to specify an additional 4 digits, known as an additional code" } %>
-
+        <%= f.govuk_collection_select :additional_code, @step.options_for_select, :id, :name, options: { prompt: true }, label: { text: '' }, hint: { text: "To trade this commodity, you need to specify an additional 4 digits, known as an additional code. This affects the #{@step.measure_type_description}." } %>
         <%= f.govuk_submit %>
       <% end %>
     </div>

@@ -18,6 +18,7 @@ RSpec.describe Wizard::Steps::AdditionalCode do
   let(:additional_codes) do
     {
       '105' => {
+        'measure_type_description' => 'third-country duty',
         'heading' => {
           'overlay' => 'Describe your goods in more detail',
           'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
@@ -37,6 +38,7 @@ RSpec.describe Wizard::Steps::AdditionalCode do
       },
 
       '552' => {
+        'measure_type_description' => 'some type of duty',
         'heading' => {
           'overlay' => 'Describe your goods in more detail',
           'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
@@ -123,6 +125,12 @@ RSpec.describe Wizard::Steps::AdditionalCode do
       step.save
 
       expect(user_session.additional_code).to eq(expected_value)
+    end
+  end
+
+  describe '#measure_type_description' do
+    it 'returns the correct measure type description' do
+      expect(step.measure_type_description).to eq('third-country duty')
     end
   end
 
