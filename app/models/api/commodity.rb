@@ -34,8 +34,11 @@ module Api
       goods_nomenclature_item_id
     end
 
-    def formatted_commodity_code
-      "#{code[0..3]} #{code[4..5]} #{code[6..7]} #{code[8..9]}"
+    def formatted_commodity_code(additional_code = nil)
+      formatted_code = "#{code[0..3]} #{code[4..5]} #{code[6..7]} #{code[8..9]}"
+      return formatted_code if additional_code.blank?
+
+      "#{formatted_code} (#{additional_code})".html_safe
     end
   end
 end

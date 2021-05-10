@@ -40,11 +40,14 @@ module DutyOptions
     end
 
     def duty_calculation_row
-      [
-        I18n.t('duty_calculations.options.import_duty_html', commodity_source: user_session.commodity_source.upcase, option_type: option_type).html_safe,
-      ].concat(
-        duty_evaluation.slice(:calculation, :formatted_value).values,
-      )
+      presented_rows = []
+      presented_rows << I18n.t(
+        'duty_calculations.options.import_duty_html',
+        commodity_source: user_session.commodity_source.upcase,
+        option_type: option_type,
+        additional_code: formatted_additional_code,
+      ).html_safe
+      presented_rows.concat(duty_evaluation.slice(:calculation, :formatted_value).values)
     end
 
     def measure_unit_row
@@ -113,6 +116,14 @@ module DutyOptions
 
     def relative_path
       "#{user_session.commodity_source}/commodities/#{user_session.commodity_code}?country=#{user_session.country_of_origin}#import"
+    end
+
+    def formatted_additional_code
+      " (#{additional_code})".html_safe if additional_code
+    end
+
+    def additional_code
+      measure.additional_code&.code
     end
   end
 end
