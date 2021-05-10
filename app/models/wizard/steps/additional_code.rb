@@ -31,7 +31,13 @@ module Wizard
         additional_codes_path(next_measure_type_id)
       end
 
-      def previous_step_path; end
+      def previous_step_path
+        return additional_codes_path(previous_measure_type_id) if previous_measure_type_id.present?
+
+        return measure_amount_path if filtered_commodity.applicable_measure_units.present?
+
+        customs_value_path
+      end
 
       private
 
@@ -52,12 +58,22 @@ module Wizard
         available_measure_types[next_measure_type_index]
       end
 
+      def previous_measure_type_id
+        return nil if previous_measure_type_index.negative?
+
+        available_measure_types[previous_measure_type_index]
+      end
+
       def available_measure_types
         @available_measure_types ||= applicable_additional_codes.keys
       end
 
       def next_measure_type_index
         @next_measure_type_index ||= available_measure_types.find_index(measure_type_id) + 1
+      end
+
+      def previous_measure_type_index
+        @previous_measure_type_index ||= available_measure_types.find_index(measure_type_id) - 1
       end
     end
   end

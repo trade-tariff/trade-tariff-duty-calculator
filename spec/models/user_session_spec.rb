@@ -335,6 +335,26 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#measure_type_ids' do
+    subject(:user_session) do
+      build(
+        :user_session,
+        additional_code: cumulated_codes,
+      )
+    end
+
+    let(:cumulated_codes) do
+      {
+        '105' => '2340',
+        '104' => '1112',
+      }
+    end
+
+    it 'returns the measure type ids from the session' do
+      expect(user_session.measure_type_ids).to eq(%w[105 104])
+    end
+  end
+
   describe '#commodity_code' do
     it 'returns nil if the key is not on the session' do
       expect(user_session.commodity_code).to be nil

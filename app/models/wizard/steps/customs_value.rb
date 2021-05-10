@@ -3,7 +3,7 @@ module Wizard
     class CustomsValue < Wizard::Steps::Base
       include CommodityHelper
 
-      STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
+      STEPS_TO_REMOVE_FROM_SESSION = %w[additional_code].freeze
 
       attribute :monetary_value, :string
       attribute :shipping_cost, :string

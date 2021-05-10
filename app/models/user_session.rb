@@ -105,6 +105,10 @@ class UserSession
     session['answers'][Wizard::Steps::AdditionalCode.id]
   end
 
+  def measure_type_ids
+    session['answers'][Wizard::Steps::AdditionalCode.id].keys
+  end
+
   def commodity_source=(value)
     session['commodity_source'] = value
   end

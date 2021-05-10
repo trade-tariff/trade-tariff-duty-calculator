@@ -3,15 +3,67 @@ RSpec.describe Wizard::Steps::AdditionalCode do
 
   let(:user_session) { build(:user_session, import_date: '2022-01-01') }
   let(:filtered_commodity) { instance_double(Api::Commodity) }
+  let(:current_measure_type_id) { '105' }
 
   let(:attributes) do
     ActionController::Parameters.new(
-      measure_type_id: '105',
+      measure_type_id: current_measure_type_id,
       additional_code: '2300',
     ).permit(
       :measure_type_id,
       :additional_code,
     )
+  end
+
+  let(:additional_codes) do
+    {
+      '105' => {
+        'heading' => {
+          'overlay' => 'Describe your goods in more detail',
+          'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
+        },
+        'additional_codes' => [
+          {
+            'code' => '2600',
+            'overlay' => 'The product I am importing is COVID-19 critical',
+            'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
+          },
+          {
+            'code' => '2601',
+            'overlay' => 'The product I am importing is not COVID-19 critical',
+            'hint' => '',
+          },
+        ],
+      },
+
+      '552' => {
+        'heading' => {
+          'overlay' => 'Describe your goods in more detail',
+          'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
+        },
+        'additional_codes' => [
+          {
+            'code' => 'B999',
+            'overlay' => 'Other',
+            'hint' => '',
+            'type' => 'preference',
+            'measure_sid' => '20511102',
+          },
+          {
+            'code' => 'B349',
+            'overlay' => 'Hunan Hualian China Industry Co., Ltd; Hunan Hualian Ebillion China Industry Co., Ltd; Hunan Liling Hongguanyao China Industry Co., Ltd; Hunan Hualian Yuxiang China Industry Co., Ltd.',
+            'hint' => '',
+            'type' => 'preference',
+            'measure_sid' => '20511103',
+          },
+        ],
+      },
+    }
+  end
+
+  before do
+    allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
+    allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(additional_codes)
   end
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
@@ -75,52 +127,6 @@ RSpec.describe Wizard::Steps::AdditionalCode do
   end
 
   describe '#options_for_select' do
-    let(:additional_codes) do
-      {
-        '105' => {
-          'heading' => {
-            'overlay' => 'Describe your goods in more detail',
-            'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-          },
-          'additional_codes' => [
-            {
-              'code' => '2600',
-              'overlay' => 'The product I am importing is COVID-19 critical',
-              'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
-            },
-            {
-              'code' => '2601',
-              'overlay' => 'The product I am importing is not COVID-19 critical',
-              'hint' => '',
-            },
-          ],
-        },
-
-        '552' => {
-          'heading' => {
-            'overlay' => 'Describe your goods in more detail',
-            'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-          },
-          'additional_codes' => [
-            {
-              'code' => 'B999',
-              'overlay' => 'Other',
-              'hint' => '',
-              'type' => 'preference',
-              'measure_sid' => '20511102',
-            },
-            {
-              'code' => 'B349',
-              'overlay' => 'Hunan Hualian China Industry Co., Ltd; Hunan Hualian Ebillion China Industry Co., Ltd; Hunan Liling Hongguanyao China Industry Co., Ltd; Hunan Hualian Yuxiang China Industry Co., Ltd.',
-              'hint' => '',
-              'type' => 'preference',
-              'measure_sid' => '20511103',
-            },
-          ],
-        },
-      }
-    end
-
     let(:expected_options) do
       [
         OpenStruct.new(
@@ -132,11 +138,6 @@ RSpec.describe Wizard::Steps::AdditionalCode do
           name: '2601 - The product I am importing is not COVID-19 critical',
         ),
       ]
-    end
-
-    before do
-      allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
-      allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(additional_codes)
     end
 
     it 'returns the correct additonal code options for the given measure' do
@@ -178,63 +179,97 @@ RSpec.describe Wizard::Steps::AdditionalCode do
     end
   end
 
-  # describe '#previous_step_path' do
-  #   include Rails.application.routes.url_helpers
-  # end
+  describe '#previous_step_path' do
+    include Rails.application.routes.url_helpers
+
+    let(:applicable_measure_units) { {} }
+
+    before do
+      allow(filtered_commodity).to receive(:applicable_measure_units).and_return(applicable_measure_units)
+    end
+
+    context 'when there is just one measure type id available and measure units are available' do
+      let(:applicable_measure_units) do
+        {
+          'DTN' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => '',
+            'abbreviation' => '100 kg',
+            'unit_question' => 'What is the weight of the goods you will be importing?',
+            'unit_hint' => 'Enter the value in decitonnes (100kg)',
+            'unit' => 'x 100 kg',
+          },
+        }
+      end
+
+      let(:additional_codes) do
+        {
+          '105' => {
+            'heading' => {
+              'overlay' => 'Describe your goods in more detail',
+              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
+            },
+            'additional_codes' => [
+              {
+                'code' => '2600',
+                'overlay' => 'The product I am importing is COVID-19 critical',
+                'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
+              },
+              {
+                'code' => '2601',
+                'overlay' => 'The product I am importing is not COVID-19 critical',
+                'hint' => '',
+              },
+            ],
+          },
+        }
+      end
+
+      it 'returns the measure_amounts path' do
+        expect(step.previous_step_path).to eq(measure_amount_path)
+      end
+    end
+
+    context 'when there is just one measure type id available and no measure units are available' do
+      let(:additional_codes) do
+        {
+          '105' => {
+            'heading' => {
+              'overlay' => 'Describe your goods in more detail',
+              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
+            },
+            'additional_codes' => [
+              {
+                'code' => '2600',
+                'overlay' => 'The product I am importing is COVID-19 critical',
+                'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
+              },
+              {
+                'code' => '2601',
+                'overlay' => 'The product I am importing is not COVID-19 critical',
+                'hint' => '',
+              },
+            ],
+          },
+        }
+      end
+
+      it 'returns the customs path' do
+        expect(step.previous_step_path).to eq(customs_value_path)
+      end
+    end
+
+    context 'when there are multiple measure type ids on the applicable_additional_codes hash' do
+      let(:current_measure_type_id) { '552' }
+
+      it 'returns additional_codes_path with the previous measure_type_id as argument' do
+        expect(step.previous_step_path).to eq(additional_codes_path('105'))
+      end
+    end
+  end
 
   describe '#next_step_path' do
     include Rails.application.routes.url_helpers
-
-    let(:additional_codes) do
-      {
-        '105' => {
-          'heading' => {
-            'overlay' => 'Describe your goods in more detail',
-            'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-          },
-          'additional_codes' => [
-            {
-              'code' => '2600',
-              'overlay' => 'The product I am importing is COVID-19 critical',
-              'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
-            },
-            {
-              'code' => '2601',
-              'overlay' => 'The product I am importing is not COVID-19 critical',
-              'hint' => '',
-            },
-          ],
-        },
-
-        '552' => {
-          'heading' => {
-            'overlay' => 'Describe your goods in more detail',
-            'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-          },
-          'additional_codes' => [
-            {
-              'code' => 'B999',
-              'overlay' => 'Other',
-              'hint' => '',
-              'type' => 'preference',
-              'measure_sid' => '20511102',
-            },
-            {
-              'code' => 'B349',
-              'overlay' => 'Hunan Hualian China Industry Co., Ltd; Hunan Hualian Ebillion China Industry Co., Ltd; Hunan Liling Hongguanyao China Industry Co., Ltd; Hunan Hualian Yuxiang China Industry Co., Ltd.',
-              'hint' => '',
-              'type' => 'preference',
-              'measure_sid' => '20511103',
-            },
-          ],
-        },
-      }
-    end
-
-    before do
-      allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
-      allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(additional_codes)
-    end
 
     context 'when there is just one measure type id on the applicable_additional_codes
     hash' do

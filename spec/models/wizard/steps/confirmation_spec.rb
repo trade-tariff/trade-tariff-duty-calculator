@@ -24,6 +24,30 @@ RSpec.describe Wizard::Steps::Confirmation do
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
+    context 'when there are additonal codes on the session' do
+      let(:user_session) do
+        build(
+          :user_session,
+          additional_code: cumulated_codes,
+        )
+      end
+
+      let(:cumulated_codes) do
+        {
+          '105' => '2340',
+          '104' => '1112',
+        }
+      end
+
+      it 'returns addtional_codes path with the last measure type id as id' do
+        expect(
+          step.previous_step_path,
+        ).to eq(
+          additional_codes_path('104'),
+        )
+      end
+    end
+
     context 'when there are measure amounts on the session' do
       let(:measure_amount) do
         {
