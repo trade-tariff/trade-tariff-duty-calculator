@@ -25,6 +25,10 @@ module Wizard
         available_additional_codes.map { |ac| build_option(ac['code'], ac['overlay']) }
       end
 
+      def measure_type_description
+        applicable_additional_codes[measure_type_id]['measure_type_description'].downcase
+      end
+
       def next_step_path
         return confirm_path if next_measure_type_id.nil?
 
