@@ -17,7 +17,7 @@ class DutyCalculator
   def calculate_duty
     return nil if zero_mfn_duty_no_trade_defence? || strict_processing? || certificate_of_origin?
 
-    options = commodity.import_measures.each_with_object(default_options) do |measure, acc|
+    options = applicable_measures.each_with_object(default_options) do |measure, acc|
       option_klass = measure.measure_type.option
 
       next if option_klass.nil?
