@@ -74,6 +74,7 @@ en:
     certificate_of_origin: Certificate of origin
     customs_value: Customs value
     measure_amount: Import quantity
+    additional_code: Additional code(s)
   activemodel:
     errors:
       models:

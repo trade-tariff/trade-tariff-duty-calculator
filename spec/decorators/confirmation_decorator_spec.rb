@@ -12,6 +12,10 @@ RSpec.describe ConfirmationDecorator do
     {
       'commodity_code' => commodity_code,
       'referred_service' => referred_service,
+      'additional_code' => {
+        '105' => '2340',
+        '103' => '2600',
+      },
     }
   end
 
@@ -24,6 +28,7 @@ RSpec.describe ConfirmationDecorator do
     it 'returns the correct steps' do
       expect(described_class::ORDERED_STEPS).to eq(
         %w[
+          additional_code
           import_date
           import_destination
           country_of_origin
@@ -56,11 +61,20 @@ RSpec.describe ConfirmationDecorator do
         'measure_amount' => {
           'dtn' => '120',
         },
+        'additional_code' => {
+          '105' => '2340',
+          '103' => '2600',
+        },
       }
     end
 
     let(:expected) do
       [
+        {
+          key: 'additional_code',
+          label: 'Additional code(s)',
+          value: '2340, 2600',
+        },
         {
           key: 'import_date',
           label: 'Date of import',
@@ -136,12 +150,24 @@ RSpec.describe ConfirmationDecorator do
   end
 
   describe '#path_for' do
-    it 'returns the correct path' do
-      expect(
-        confirmation_decorator.path_for(
-          key: 'import_date',
-        ),
-      ).to eq("/duty-calculator/#{referred_service}/#{commodity_code}/import-date")
+    context 'when the key is import_date' do
+      it 'returns the correct path' do
+        expect(
+          confirmation_decorator.path_for(
+            key: 'import_date',
+          ),
+        ).to eq("/duty-calculator/#{referred_service}/#{commodity_code}/import-date")
+      end
+    end
+
+    context 'when then key is additional_code' do
+      it 'returns the additional_codes path with the first measure type id as param' do
+        expect(
+          confirmation_decorator.path_for(
+            key: 'additional_code',
+          ),
+        ).to eq('/duty-calculator/additional-codes/105')
+      end
     end
   end
 end
