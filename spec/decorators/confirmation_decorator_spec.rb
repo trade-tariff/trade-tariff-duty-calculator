@@ -147,6 +147,82 @@ RSpec.describe ConfirmationDecorator do
     it 'returns an array with formatted user answers from the session' do
       expect(confirmation_decorator.user_answers).to eq(expected)
     end
+
+    context 'when there are no additional codes on the session' do
+      let(:session_attributes) do
+        {
+          'import_date' => '2090-01-01',
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+          'trader_scheme' => 'yes',
+          'final_use' => 'yes',
+          'planned_processing' => 'commercial_purposes',
+          'certificate_of_origin' => 'no',
+          'customs_value' => {
+            'insurance_cost' => '10',
+            'monetary_value' => '10',
+            'shipping_cost' => '10',
+          },
+          'measure_amount' => {
+            'dtn' => '120',
+          },
+        }
+      end
+
+      let(:expected) do
+        [
+          {
+            key: 'import_date',
+            label: 'Date of import',
+            value: '01 January 2090',
+          },
+          {
+            key: 'import_destination',
+            label: 'Destination',
+            value: 'Northern Ireland',
+          },
+          {
+            key: 'country_of_origin',
+            label: 'Coming from',
+            value: 'United Kingdom',
+          },
+          {
+            key: 'trader_scheme',
+            label: 'Trader scheme',
+            value: 'Yes',
+          },
+          {
+            key: 'final_use',
+            label: 'Final use',
+            value: 'Yes',
+          },
+          {
+            key: 'planned_processing',
+            label: 'Processing',
+            value: 'Commercial purposes',
+          },
+          {
+            key: 'certificate_of_origin',
+            label: 'Certificate of origin',
+            value: 'No',
+          },
+          {
+            key: 'customs_value',
+            label: 'Customs value',
+            value: '£30.00',
+          },
+          {
+            key: 'measure_amount',
+            label: 'Import quantity',
+            value: '120 x 100 kg',
+          },
+        ]
+      end
+
+      it 'does not return any line with additional codes' do
+        expect(confirmation_decorator.user_answers).to eq(expected)
+      end
+    end
   end
 
   describe '#path_for' do
@@ -160,7 +236,7 @@ RSpec.describe ConfirmationDecorator do
       end
     end
 
-    context 'when then key is additional_code' do
+    context 'when the key is additional_code' do
       it 'returns the additional_codes path with the first measure type id as param' do
         expect(
           confirmation_decorator.path_for(

@@ -83,6 +83,8 @@ class ConfirmationDecorator < SimpleDelegator
   end
 
   def additional_codes_for(value)
+    return nil if value.empty?
+
     value.values.join(', ')
   end
 end
