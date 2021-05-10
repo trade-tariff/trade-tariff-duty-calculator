@@ -1,7 +1,7 @@
 module Wizard
   module Steps
     class MeasureAmount
-      STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
+      STEPS_TO_REMOVE_FROM_SESSION = %w[additional_code].freeze
 
       include ActiveModel::Model
       include CommodityHelper
