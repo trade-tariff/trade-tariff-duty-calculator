@@ -4,6 +4,7 @@ class UserSession
   def initialize(session)
     @session = session
     @session['answers'] ||= {}
+    @session['answers'][Wizard::Steps::AdditionalCode.id] ||= {}
   end
 
   def remove_step_ids(ids)
@@ -96,6 +97,18 @@ class UserSession
     }
   end
 
+  def additional_code=(value)
+    session['answers'][Wizard::Steps::AdditionalCode.id].merge!(value)
+  end
+
+  def additional_code
+    session['answers'][Wizard::Steps::AdditionalCode.id]
+  end
+
+  def measure_type_ids
+    session['answers'][Wizard::Steps::AdditionalCode.id].keys
+  end
+
   def commodity_source=(value)
     session['commodity_source'] = value
   end
@@ -158,5 +171,9 @@ class UserSession
 
   def total_amount
     customs_value.values.map(&:to_f).reduce(:+)
+  end
+
+  def commodity_additional_code
+    additional_code.values.join(', ')
   end
 end

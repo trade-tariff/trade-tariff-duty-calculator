@@ -104,32 +104,26 @@ RSpec.describe Api::Commodity, type: :model do
   end
 
   describe '#formatted_commodity_code' do
-    it 'returns the commodity commodity code' do
-      expect(commodity.formatted_commodity_code).to eq('0702 00 00 07')
-    end
-  end
+    context 'when an additional_code is passed' do
+      let(:additional_code) { 'B787' }
 
-  describe '#company_defensive_measures?' do
-    subject(:commodity) { described_class.new(import_measures: measures) }
-
-    let(:measures) { [{ additional_code: additional_code }] }
-
-    context 'when there is an additional code for a company' do
-      let(:additional_code) { { code: 'A111' } }
-
-      it { is_expected.to be_company_defensive_measures }
+      it 'returns a formatted comm code' do
+        expect(commodity.formatted_commodity_code(additional_code)).to eq('0702 00 00 07 (B787)')
+      end
     end
 
-    context 'when there is an additional code not for a company' do
-      let(:additional_code) { { code: 'Z111' } }
-
-      it { is_expected.not_to be_company_defensive_measures }
-    end
-
-    context 'when no additional code is specified' do
+    context 'when a nil additional_code is passed' do
       let(:additional_code) { nil }
 
-      it { is_expected.not_to be_company_defensive_measures }
+      it 'returns a formatted comm code' do
+        expect(commodity.formatted_commodity_code(additional_code)).to eq('0702 00 00 07')
+      end
+    end
+
+    context 'when no additional_code is passed' do
+      it 'returns a formatted comm code' do
+        expect(commodity.formatted_commodity_code).to eq('0702 00 00 07')
+      end
     end
   end
 end

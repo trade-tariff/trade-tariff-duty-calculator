@@ -102,7 +102,8 @@ RSpec.describe DutyCalculator do
                   ['Import duty<br><span class="govuk-green govuk-body-xs"> Third-country duty (UK)</span>', '2.7% * £1,260.89', '£34.04'],
                   ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional duties (safeguard) (UK)</span>', '25.0% * £1,260.89', '£315.22'],
                   ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional Duties (UK)</span>', '25.0% * £1,260.89', '£315.22'],
-                  ['<strong>Duty Total</strong>', nil, '£664.49'],
+                  ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '144.10 GBP / 1000 kg/biodiesel * 2.0', '£288.20'],
+                  ['<strong>Duty Total</strong>', nil, '£952.69'],
                 ],
                 footnote: I18n.t('measure_type_footnotes.103'),
               },
@@ -117,7 +118,8 @@ RSpec.describe DutyCalculator do
                   ['Import duty<br><span class="govuk-green govuk-body-xs"> Tariff preference (UK)</span>', '0.0% * £1,260.89', '£0.00'],
                   ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional duties (safeguard) (UK)</span>', '25.0% * £1,260.89', '£315.22'],
                   ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional Duties (UK)</span>', '25.0% * £1,260.89', '£315.22'],
-                  ['<strong>Duty Total</strong>', nil, '£630.44'],
+                  ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '144.10 GBP / 1000 kg/biodiesel * 2.0', '£288.20'],
+                  ['<strong>Duty Total</strong>', nil, '£918.65'],
                 ],
                 geographical_area_description: 'United Kingdom (excluding Northern Ireland)',
                 footnote: I18n.t('measure_type_footnotes.142'),
@@ -133,7 +135,8 @@ RSpec.describe DutyCalculator do
                   ['Import duty<br><span class="govuk-green govuk-body-xs"> Non Preferential Quota (UK)</span>', '20.0% * £1,260.89', '£252.18'],
                   ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional duties (safeguard) (UK)</span>', '25.0% * £1,260.89', '£315.22'],
                   ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional Duties (UK)</span>', '25.0% * £1,260.89', '£315.22'],
-                  ['<strong>Duty Total</strong>', nil, '£882.62'],
+                  ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '144.10 GBP / 1000 kg/biodiesel * 2.0', '£288.20'],
+                  ['<strong>Duty Total</strong>', nil, '£1,170.82'],
                 ],
                 footnote: I18n.t('measure_type_footnotes.122'),
                 order_number: '054003',
@@ -149,7 +152,8 @@ RSpec.describe DutyCalculator do
                   ['Import duty<br><span class="govuk-green govuk-body-xs"> Suspension - goods for certain categories of ships, boats and other vessels and for drilling or production platforms (UK)</span>', '0.0% * £1,260.89', '£0.00'],
                   ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional duties (safeguard) (UK)</span>', '25.0% * £1,260.89', '£315.22'],
                   ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional Duties (UK)</span>', '25.0% * £1,260.89', '£315.22'],
-                  ['<strong>Duty Total</strong>', nil, '£630.44'],
+                  ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '144.10 GBP / 1000 kg/biodiesel * 2.0', '£288.20'],
+                  ['<strong>Duty Total</strong>', nil, '£918.65'],
                 ],
                 footnote: I18n.t('measure_type_footnotes.117'),
               },
@@ -166,9 +170,9 @@ RSpec.describe DutyCalculator do
             },
           ]
         end
-
         let(:session_attributes) do
           {
+            'import_date' => '2021-01-01',
             'import_destination' => 'XI',
             'country_of_origin' => 'GB',
             'planned_processing' => 'commercial_purposes',
@@ -178,6 +182,7 @@ RSpec.describe DutyCalculator do
               'insurance_cost' => '10',
             },
             'measure_amount' => { 'tnei' => '2' },
+            'additional_code' => { '552' => 'C490' },
             'commodity_source' => 'UK',
             'commodity_code' => commodity_code,
           }

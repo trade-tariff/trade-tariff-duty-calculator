@@ -24,13 +24,12 @@ en:
     xi: Northern Ireland Online Tariff 
   duty_calculations:
     options:
-      company_warning_text: There are trade defence measures applicable for the import of this commodity from certain companies. Please view the %{commodity_link} for more information.
       mfn:
         warning_text: Third-country duty will apply as there is no preferential agreement in place for the import of this commodity.
       import_valuation: Valuation for import
       customs_value: Value of goods + freight + insurance costs
       duty_total_html: <strong>Duty Total</strong>
-      import_duty_html: Import duty<br><span class="govuk-green govuk-body-xs"> %{option_type} (%{commodity_source})</span>
+      import_duty_html: Import duty%{additional_code}<br><span class="govuk-green govuk-body-xs"> %{option_type} (%{commodity_source})</span>
       import_quantity: Import quantity
       option_type:
         third_country_tariff: Third-country duty
@@ -74,6 +73,7 @@ en:
     certificate_of_origin: Certificate of origin
     customs_value: Customs value
     measure_amount: Import quantity
+    additional_code: Additional code(s)
   activemodel:
     errors:
       models:
@@ -117,6 +117,12 @@ en:
             attributes:
               planned_processing:
                 blank: Select one of the available options
+        wizard/steps/additional_code:
+            attributes:
+              measure_type_id:
+                blank: Enter a valid measure type id
+              additional_code:
+                blank: Specify a valid additional code
         wizard/steps/measure_amount:
           attributes:
             answers:

@@ -2,6 +2,7 @@ class ConfirmationDecorator < SimpleDelegator
   include ActionView::Helpers::NumberHelper
 
   ORDERED_STEPS = %w[
+    additional_code
     import_date
     import_destination
     country_of_origin
@@ -20,12 +21,11 @@ class ConfirmationDecorator < SimpleDelegator
   end
 
   def path_for(key:)
-    return send("#{key}_path") unless key == 'import_date'
+    return import_date_path(referred_service: user_session.referred_service, commodity_code: user_session.commodity_code) if key == 'import_date'
 
-    import_date_path(
-      referred_service: user_session.referred_service,
-      commodity_code: user_session.commodity_code,
-    )
+    return additional_codes_path(user_session.additional_code.keys.first) if key == 'additional_code'
+
+    send("#{key}_path")
   end
 
   def user_answers
@@ -51,6 +51,7 @@ class ConfirmationDecorator < SimpleDelegator
     return format_customs_value(value) if key == 'customs_value'
     return format_measure_amount(value) if key == 'measure_amount'
     return country_name_for(value, key) if %w[import_destination country_of_origin].include?(key)
+    return additional_codes_for(value) if key == 'additional_code'
 
     value.humanize
   end
@@ -79,5 +80,11 @@ class ConfirmationDecorator < SimpleDelegator
     return Wizard::Steps::ImportDestination::OPTIONS.find { |c| c.id == value }.name if key == 'import_destination'
 
     Api::GeographicalArea.find(value, user_session.import_destination.downcase.to_sym).description
+  end
+
+  def additional_codes_for(value)
+    return nil if value.empty?
+
+    value.values.join(', ')
   end
 end

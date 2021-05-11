@@ -17,7 +17,7 @@ class DutyCalculator
   def calculate_duty
     return nil if zero_mfn_duty_no_trade_defence? || strict_processing? || certificate_of_origin?
 
-    options = commodity.import_measures.each_with_object(default_options) do |measure, acc|
+    options = applicable_measures.each_with_object(default_options) do |measure, acc|
       option_klass = measure.measure_type.option
 
       next if option_klass.nil?
@@ -47,11 +47,10 @@ class DutyCalculator
 
   def additional_duty_rows
     @additional_duty_rows ||=
-      commodity.import_measures.each_with_object([]) do |measure, acc|
+      applicable_measures.each_with_object([]) do |measure, acc|
         option_klass = measure.measure_type.additional_duty_option
 
         next if option_klass.nil?
-        next if measure.additional_code.company_defensive_code?
         next if measure.all_duties_zero?
 
         acc << option_klass.new(measure, user_session, []).option
@@ -70,5 +69,22 @@ class DutyCalculator
       option[:evaluation] = DutyOptions::Waiver.new(nil, user_session, []).option
       option[:priority] = DutyOptions::Waiver::PRIORITY
     end
+  end
+
+  def applicable_measures
+    @applicable_measures ||= no_additional_code_measures + additional_code_measures
+  end
+
+  def additional_code_measures
+    commodity.import_measures.select do |measure|
+      additional_code = measure.additional_code
+      code_answer = user_session.additional_code[measure.measure_type.id]
+
+      additional_code.present? && code_answer == additional_code.code
+    end
+  end
+
+  def no_additional_code_measures
+    commodity.import_measures.reject(&:additional_code)
   end
 end
