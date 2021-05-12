@@ -1,13 +1,9 @@
 RSpec.describe Wizard::Steps::FinalUse do
-  subject(:step) { described_class.new(user_session, attributes) }
+  subject(:step) { build(:final_use, user_session: user_session, final_use: final_use) }
 
   let(:session_attributes) { {} }
   let(:user_session) { build(:user_session, session_attributes) }
-  let(:attributes) do
-    ActionController::Parameters.new(
-      'final_use' => '',
-    ).permit(:final_use)
-  end
+  let(:final_use) { '' }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
@@ -23,7 +19,7 @@ RSpec.describe Wizard::Steps::FinalUse do
   describe '#validations' do
     context 'when final use answer is blank' do
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error message' do
@@ -34,14 +30,10 @@ RSpec.describe Wizard::Steps::FinalUse do
     end
 
     context 'when final use answer is present' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          'final_use' => 'no',
-        ).permit(:final_use)
-      end
+      let(:final_use) { 'no' }
 
       it 'is a valid object' do
-        expect(step.valid?).to be true
+        expect(step).to be_valid
       end
 
       it 'has no validation errors' do
@@ -53,16 +45,10 @@ RSpec.describe Wizard::Steps::FinalUse do
   end
 
   describe '#save' do
-    let(:attributes) do
-      ActionController::Parameters.new(
-        'final_use' => 'yes',
-      ).permit(:final_use)
-    end
+    let(:final_use) { 'yes' }
 
     it 'saves the trader_scheme to the session' do
-      step.save
-
-      expect(user_session.final_use).to eq('yes')
+      expect { step.save }.to change(user_session, :final_use).from(nil).to('yes')
     end
   end
 
