@@ -1,23 +1,17 @@
 FactoryBot.define do
-  factory :import_date, class: 'Wizard::Steps::ImportDate' do
-    date_3i { '' }
-    date_2i { '' }
-    date_1i { '' }
+  factory :import_date, class: 'Wizard::Steps::ImportDate', parent: :step do
+    transient do
+      possible_attributes do
+        {
+          date_3i: 'import_date(3i)',
+          date_2i: 'import_date(2i)',
+          date_1i: 'import_date(1i)',
+        }
+      end
 
-    user_session { build(:user_session) }
-
-    initialize_with do
-      attributes = ActionController::Parameters.new(
-        'import_date(3i)' => date_3i,
-        'import_date(2i)' => date_2i,
-        'import_date(1i)' => date_1i,
-      ).permit(
-        'import_date(3i)',
-        'import_date(2i)',
-        'import_date(1i)',
-      )
-
-      Wizard::Steps::ImportDate.new(user_session, attributes)
+      date_3i { '' }
+      date_2i { '' }
+      date_1i { '' }
     end
   end
 end
