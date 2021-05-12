@@ -1,5 +1,5 @@
 RSpec.describe Wizard::Steps::Confirmation do
-  subject(:step) { described_class.new(user_session) }
+  subject(:step) { build(:confirmation, user_session: user_session) }
 
   let(:user_session) { build(:user_session) }
 
@@ -24,22 +24,22 @@ RSpec.describe Wizard::Steps::Confirmation do
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
-    context 'when there are additonal codes on the session' do
+    context 'when there are additional codes on the session' do
       let(:user_session) do
         build(
           :user_session,
-          additional_code: cumulated_codes,
+          additional_code: accumulated_codes,
         )
       end
 
-      let(:cumulated_codes) do
+      let(:accumulated_codes) do
         {
           '105' => '2340',
           '104' => '1112',
         }
       end
 
-      it 'returns addtional_codes path with the last measure type id as id' do
+      it 'returns additional_codes path with the last measure type id as id' do
         expect(
           step.previous_step_path,
         ).to eq(
