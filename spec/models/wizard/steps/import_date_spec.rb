@@ -1,19 +1,19 @@
 RSpec.describe Wizard::Steps::ImportDate do
-  subject(:step) { described_class.new(user_session, attributes) }
+  subject(:step) do
+    build(
+      :import_date,
+      user_session: user_session,
+      date_3i: date_3i,
+      date_2i: date_2i,
+      date_1i: date_1i,
+    )
+  end
 
   let(:user_session) { build(:user_session) }
   let(:session) { user_session.session }
-  let(:attributes) do
-    ActionController::Parameters.new(
-      'import_date(3i)' => '12',
-      'import_date(2i)' => '12',
-      'import_date(1i)' => 1.year.from_now.year.to_s,
-    ).permit(
-      'import_date(3i)',
-      'import_date(2i)',
-      'import_date(1i)',
-    )
-  end
+  let(:date_3i) { '12' }
+  let(:date_2i) { '12' }
+  let(:date_1i) { 1.year.from_now.year.to_s }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
@@ -32,20 +32,12 @@ RSpec.describe Wizard::Steps::ImportDate do
 
   describe '#validations' do
     context 'when import date is blank' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          'import_date(3i)' => '',
-          'import_date(2i)' => '',
-          'import_date(1i)' => '',
-        ).permit(
-          'import_date(3i)',
-          'import_date(2i)',
-          'import_date(1i)',
-        )
-      end
+      let(:date_3i) { '' }
+      let(:date_2i) { '' }
+      let(:date_1i) { '' }
 
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error message' do
@@ -56,20 +48,12 @@ RSpec.describe Wizard::Steps::ImportDate do
     end
 
     context 'when import date is incomplete' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          'import_date(3i)' => '',
-          'import_date(2i)' => '12',
-          'import_date(1i)' => '',
-        ).permit(
-          'import_date(3i)',
-          'import_date(2i)',
-          'import_date(1i)',
-        )
-      end
+      let(:date_3i) { '' }
+      let(:date_2i) { '12' }
+      let(:date_1i) { '' }
 
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error message' do
@@ -80,20 +64,12 @@ RSpec.describe Wizard::Steps::ImportDate do
     end
 
     context 'when import date contains non numeric characters' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          'import_date(3i)' => '12',
-          'import_date(2i)' => '12',
-          'import_date(1i)' => '@@',
-        ).permit(
-          'import_date(3i)',
-          'import_date(2i)',
-          'import_date(1i)',
-        )
-      end
+      let(:date_3i) { '12' }
+      let(:date_2i) { '12' }
+      let(:date_1i) { '@@' }
 
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error message' do
@@ -104,20 +80,12 @@ RSpec.describe Wizard::Steps::ImportDate do
     end
 
     context 'when import date is in the past, earlier than 1st Jan 2021' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          'import_date(3i)' => '12',
-          'import_date(2i)' => '12',
-          'import_date(1i)' => '2001',
-        ).permit(
-          'import_date(3i)',
-          'import_date(2i)',
-          'import_date(1i)',
-        )
-      end
+      let(:date_3i) { '31' }
+      let(:date_2i) { '12' }
+      let(:date_1i) { '2020' }
 
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error message' do
@@ -128,20 +96,12 @@ RSpec.describe Wizard::Steps::ImportDate do
     end
 
     context 'when import date is in the past, but not earlier than 1st Jan 2021' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          'import_date(3i)' => '1',
-          'import_date(2i)' => '1',
-          'import_date(1i)' => '2021',
-        ).permit(
-          'import_date(3i)',
-          'import_date(2i)',
-          'import_date(1i)',
-        )
-      end
+      let(:date_3i) { '1' }
+      let(:date_2i) { '1' }
+      let(:date_1i) { '2021' }
 
       it 'is a valid object' do
-        expect(step.valid?).to be true
+        expect(step).to be_valid
       end
 
       it 'has no validation errors' do
@@ -152,20 +112,12 @@ RSpec.describe Wizard::Steps::ImportDate do
     end
 
     context 'when import date is invalid' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          'import_date(3i)' => '12',
-          'import_date(2i)' => '34',
-          'import_date(1i)' => '3000',
-        ).permit(
-          'import_date(3i)',
-          'import_date(2i)',
-          'import_date(1i)',
-        )
-      end
+      let(:date_3i) { '12' }
+      let(:date_2i) { '34' }
+      let(:date_1i) { '3000' }
 
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error message' do
@@ -177,7 +129,7 @@ RSpec.describe Wizard::Steps::ImportDate do
 
     context 'when import date is valid and in future' do
       it 'is a valid object' do
-        expect(step.valid?).to be true
+        expect(step).to be_valid
       end
 
       it 'has no validation errors' do
@@ -192,9 +144,7 @@ RSpec.describe Wizard::Steps::ImportDate do
     let(:expected_date) { Date.parse("#{1.year.from_now.year}-12-12") }
 
     it 'saves the import_date to the session' do
-      step.save
-
-      expect(user_session.import_date).to eq(expected_date)
+      expect { step.save }.to change(user_session, :import_date).from(nil).to(expected_date)
     end
   end
 
