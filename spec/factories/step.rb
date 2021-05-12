@@ -7,7 +7,7 @@ FactoryBot.define do
         acc[attribute_name] = public_send(method_name)
       end
 
-      parameters = ActionController::Parameters.new(attributes).permit(*possible_attributes)
+      parameters = ActionController::Parameters.new(attributes).permit!
 
       new(user_session, parameters)
     end

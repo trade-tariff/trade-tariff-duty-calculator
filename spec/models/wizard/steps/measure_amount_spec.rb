@@ -1,7 +1,14 @@
 RSpec.describe Wizard::Steps::MeasureAmount do
-  subject(:step) { described_class.new(user_session, attributes) }
+  subject(:step) do
+    build(
+      :measure_amount,
+      user_session: user_session,
+      measure_amount: measure_amount,
+    )
+  end
 
   let(:user_session) { build(:user_session, session_attributes) }
+  let(:measure_amount) { { 'dtn' => 500.42, 'hlt' => 204.64 } }
 
   let(:session_attributes) do
     {
@@ -11,47 +18,6 @@ RSpec.describe Wizard::Steps::MeasureAmount do
       'import_date' => '2022-01-01',
     }
   end
-
-  let(:attributes) do
-    ActionController::Parameters.new(
-      'measure_amount' => measure_amount,
-      'applicable_measure_units' => {
-        'HLT' => {
-          'measurement_unit_code' => 'HLT',
-          'measurement_unit_qualifier_code' => '',
-          'abbreviation' => 'hl',
-          'unit_question' => 'What is the volume of the goods that you will be importing?',
-          'unit_hint' => 'Enter the value in hectolitres (100 litres)',
-          'unit' => 'x 100 litres',
-          'measure_sids' => [
-            20_002_280,
-          ],
-        },
-        'DTN' => {
-          'measurement_unit_code' => 'DTN',
-          'measurement_unit_qualifier_code' => '',
-          'abbreviation' => '100 kg',
-          'unit_question' => 'What is the weight of the goods you will be importing?',
-          'unit_hint' => 'Enter the value in decitonnes (100kg)',
-          'unit' => 'x 100 kg',
-          'measure_sids' => [
-            20_005_920,
-            20_056_507,
-            20_073_335,
-            20_076_779,
-            20_090_066,
-            20_105_690,
-            20_078_066,
-            20_102_998,
-            20_108_866,
-            20_085_014,
-          ],
-        },
-      },
-    ).permit!
-  end
-
-  let(:measure_amount) { { 'dtn' => 500.42, 'hlt' => 204.64 } }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
@@ -64,7 +30,7 @@ RSpec.describe Wizard::Steps::MeasureAmount do
       let(:measure_amount) { { 'dtn' => 500.42, 'hlt' => 204.64 } }
 
       it 'is a valid object' do
-        expect(step.valid?).to be true
+        expect(step).to be_valid
       end
 
       it 'has no validation errors' do
@@ -78,7 +44,7 @@ RSpec.describe Wizard::Steps::MeasureAmount do
       let(:measure_amount) { { 'dtn' => 500.42 } }
 
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error message' do
