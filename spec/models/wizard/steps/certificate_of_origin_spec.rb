@@ -1,13 +1,11 @@
 RSpec.describe Wizard::Steps::CertificateOfOrigin do
-  subject(:step) { described_class.new(user_session, attributes) }
+  subject(:step) do
+    build(:certificate_of_origin, user_session: user_session, certificate_of_origin: certificate_of_origin)
+  end
 
   let(:session_attributes) { {} }
   let(:user_session) { build(:user_session, session_attributes) }
-  let(:attributes) do
-    ActionController::Parameters.new(
-      certificate_of_origin: '',
-    ).permit(:certificate_of_origin)
-  end
+  let(:certificate_of_origin) { '' }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
@@ -20,7 +18,7 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
   describe '#validations' do
     context 'when certificate of origin answer is blank' do
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error message' do
@@ -31,14 +29,10 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
     end
 
     context 'when certificate of origin answer is present' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          certificate_of_origin: 'no',
-        ).permit(:certificate_of_origin)
-      end
+      let(:certificate_of_origin) { 'no' }
 
       it 'is a valid object' do
-        expect(step.valid?).to be true
+        expect(step).to be_valid
       end
 
       it 'has no validation errors' do
@@ -50,11 +44,7 @@ RSpec.describe Wizard::Steps::CertificateOfOrigin do
   end
 
   describe '#save' do
-    let(:attributes) do
-      ActionController::Parameters.new(
-        certificate_of_origin: 'yes',
-      ).permit(:certificate_of_origin)
-    end
+    let(:certificate_of_origin) { 'yes' }
 
     it 'saves the certificate_of_origin to the session' do
       step.save
