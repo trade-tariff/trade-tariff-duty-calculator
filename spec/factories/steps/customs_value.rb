@@ -10,8 +10,8 @@ FactoryBot.define do
       end
     end
 
-    monetary_value { 'monetary_value' }
-    insurance_cost { 'insurance_cost' }
-    shipping_cost { 'shipping_cost' }
+    monetary_value { '' }
+    insurance_cost { '' }
+    shipping_cost { '' }
   end
 end
