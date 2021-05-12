@@ -3,15 +3,15 @@ FactoryBot.define do
     transient do
       possible_attributes do
         {
-          date_3i: 'import_date(3i)',
-          date_2i: 'import_date(2i)',
-          date_1i: 'import_date(1i)',
+          day: 'import_date(3i)',
+          month: 'import_date(2i)',
+          year: 'import_date(1i)',
         }
       end
 
-      date_3i { '' }
-      date_2i { '' }
-      date_1i { '' }
+      day { '' }
+      month { '' }
+      year { '' }
     end
   end
 end

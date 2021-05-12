@@ -3,17 +3,17 @@ RSpec.describe Wizard::Steps::ImportDate do
     build(
       :import_date,
       user_session: user_session,
-      date_3i: date_3i,
-      date_2i: date_2i,
-      date_1i: date_1i,
+      day: day,
+      month: month,
+      year: year,
     )
   end
 
   let(:user_session) { build(:user_session) }
   let(:session) { user_session.session }
-  let(:date_3i) { '12' }
-  let(:date_2i) { '12' }
-  let(:date_1i) { 1.year.from_now.year.to_s }
+  let(:day) { '12' }
+  let(:month) { '12' }
+  let(:year) { 1.year.from_now.year.to_s }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
@@ -32,9 +32,9 @@ RSpec.describe Wizard::Steps::ImportDate do
 
   describe '#validations' do
     context 'when import date is blank' do
-      let(:date_3i) { '' }
-      let(:date_2i) { '' }
-      let(:date_1i) { '' }
+      let(:day) { '' }
+      let(:month) { '' }
+      let(:year) { '' }
 
       it 'is not a valid object' do
         expect(step).not_to be_valid
@@ -48,9 +48,9 @@ RSpec.describe Wizard::Steps::ImportDate do
     end
 
     context 'when import date is incomplete' do
-      let(:date_3i) { '' }
-      let(:date_2i) { '12' }
-      let(:date_1i) { '' }
+      let(:day) { '' }
+      let(:month) { '12' }
+      let(:year) { '' }
 
       it 'is not a valid object' do
         expect(step).not_to be_valid
@@ -64,9 +64,9 @@ RSpec.describe Wizard::Steps::ImportDate do
     end
 
     context 'when import date contains non numeric characters' do
-      let(:date_3i) { '12' }
-      let(:date_2i) { '12' }
-      let(:date_1i) { '@@' }
+      let(:day) { '12' }
+      let(:month) { '12' }
+      let(:year) { '@@' }
 
       it 'is not a valid object' do
         expect(step).not_to be_valid
@@ -80,9 +80,9 @@ RSpec.describe Wizard::Steps::ImportDate do
     end
 
     context 'when import date is in the past, earlier than 1st Jan 2021' do
-      let(:date_3i) { '31' }
-      let(:date_2i) { '12' }
-      let(:date_1i) { '2020' }
+      let(:day) { '31' }
+      let(:month) { '12' }
+      let(:year) { '2020' }
 
       it 'is not a valid object' do
         expect(step).not_to be_valid
@@ -96,9 +96,9 @@ RSpec.describe Wizard::Steps::ImportDate do
     end
 
     context 'when import date is in the past, but not earlier than 1st Jan 2021' do
-      let(:date_3i) { '1' }
-      let(:date_2i) { '1' }
-      let(:date_1i) { '2021' }
+      let(:day) { '1' }
+      let(:month) { '1' }
+      let(:year) { '2021' }
 
       it 'is a valid object' do
         expect(step).to be_valid
@@ -112,9 +112,9 @@ RSpec.describe Wizard::Steps::ImportDate do
     end
 
     context 'when import date is invalid' do
-      let(:date_3i) { '12' }
-      let(:date_2i) { '34' }
-      let(:date_1i) { '3000' }
+      let(:day) { '12' }
+      let(:month) { '34' }
+      let(:year) { '3000' }
 
       it 'is not a valid object' do
         expect(step).not_to be_valid
