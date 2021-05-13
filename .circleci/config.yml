@@ -157,10 +157,10 @@ jobs:
           command: "cd trade-tariff-testing && ls -l"
       - run:
           name: "NPM install"
-          command: "npm install"
+          command: "cd trade-tariff-testing && npm install"
       - run:
           name: "Run Tests"
-          command: 'npx cypress run --spec "/*/**/DutyCalculator/**/*spec.js"'
+          command: 'cd trade-tariff-testing && npx cypress run --spec "/*/**/DutyCalculator/**/*spec.js"'
 
 
   deploy_dev:
