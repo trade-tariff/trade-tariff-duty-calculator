@@ -153,6 +153,9 @@ jobs:
           name: "Checkout tests repo"
           command: git clone "https://github.com/trade-tariff/trade-tariff-testing/"
       - run:
+          name: "Change working directory"
+          command: "cd trade-tariff-testing"
+      - run:
           name: "NPM install"
           command: "npm install"
       - run:
