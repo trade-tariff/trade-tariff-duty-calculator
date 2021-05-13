@@ -1,27 +1,21 @@
-<%= link_to('Back', @step.previous_step_path, class: "govuk-back-link") %>
+<%= render 'wizard/steps/shared/back_link' %>
 
-<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
-      <span class="govuk-caption-xl">Calculate import duties</span>
+<span class="govuk-caption-xl">Calculate import duties</span>
 
-      <% if @user_session.import_destination == 'UK' %>
-        <%= render 'gb_options' %>
-      <% elsif @user_session.import_destination == 'XI' %>
-        <%= render 'xi_options' %>
-      <% end %>
+<% if @user_session.import_destination == 'UK' %>
+  <%= render 'gb_options' %>
+<% elsif @user_session.import_destination == 'XI' %>
+  <%= render 'xi_options' %>
+<% end %>
 
-      <%= render 'shared/commodity_details' %>
-      <div class="explore-topics-section">
-        <h2 class="govuk-heading-m govuk-!-margin-top-3">Explore the topic</h2>
-        <ul class="govuk-list">
-          <li>
-            <%= link_to('Check your goods meet the rules of origin', 'https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin', class: 'govuk-link') %>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</main>
+<%= render 'shared/commodity_details' %>
+<div class="explore-topics-section">
+  <h2 class="govuk-heading-m govuk-!-margin-top-3">Explore the topic</h2>
+  <ul class="govuk-list">
+    <li>
+      <%= link_to('Check your goods meet the rules of origin', 'https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin', class: 'govuk-link') %>
+    </li>
+  </ul>
+</div>
 
 <%= javascript_pack_tag 'country-of-origin' %>

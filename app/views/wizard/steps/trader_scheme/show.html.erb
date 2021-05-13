@@ -1,29 +1,23 @@
 <%= link_to('Back', @step.previous_step_path, class: "govuk-back-link") %>
 
-<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
-      <%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: trader_scheme_path do |f| %>
-        <%= f.govuk_error_summary %>
-        <span class="govuk-caption-xl">Calculate import duties</span>
+<%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: trader_scheme_path do |f| %>
+  <%= f.govuk_error_summary %>
+  <span class="govuk-caption-xl">Calculate import duties</span>
 
-        <%= f.govuk_collection_radio_buttons :trader_scheme, Wizard::Steps::TraderScheme::OPTIONS, :id, :name, legend: { text: 'Are you authorised under the UK Trader Scheme?', size: 'xl', tag: 'h1' }, hint: { text: 'If you are moving goods into Northern Ireland which are for sale to, or final use by, end consumers located in the UK and you are authorised under the UK Trader Scheme, then you may declare your goods as being \'not at risk\' where the requirements are met. A not ‘at risk’ good entering Northern Ireland from Great Britain will not be subject to duty.' }, include_hidden: true %>
+  <%= f.govuk_collection_radio_buttons :trader_scheme, Wizard::Steps::TraderScheme::OPTIONS, :id, :name, legend: { text: 'Are you authorised under the UK Trader Scheme?', size: 'xl', tag: 'h1' }, hint: { text: 'If you are moving goods into Northern Ireland which are for sale to, or final use by, end consumers located in the UK and you are authorised under the UK Trader Scheme, then you may declare your goods as being \'not at risk\' where the requirements are met. A not ‘at risk’ good entering Northern Ireland from Great Britain will not be subject to duty.' }, include_hidden: true %>
 
-        <%= f.govuk_submit %>
-      <% end %>
+  <%= f.govuk_submit %>
+<% end %>
 
-      <p class='govuk-body'>If you are not yet authorised, then you can <%= link_to('find out more about applying for authorisation for the UK Trader Scheme', 'https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland-from-1-january-2021', class: 'govuk-link') %>.</p>
+<p class='govuk-body'>If you are not yet authorised, then you can <%= link_to('find out more about applying for authorisation for the UK Trader Scheme', 'https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland-from-1-january-2021', class: 'govuk-link') %>.</p>
 
-      <%= render 'shared/commodity_details' %>
+<%= render 'shared/commodity_details' %>
 
-      <div class="explore-topics-section">
-        <h2 class="govuk-heading-m govuk-!-margin-top-3">Explore the topic</h2>
-        <ul class="govuk-list">
-          <li>
-            <%= link_to('Apply for authorisation for the UK trader scheme', 'https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland', class: 'govuk-link') %>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</main>
+<div class="explore-topics-section">
+  <h2 class="govuk-heading-m govuk-!-margin-top-3">Explore the topic</h2>
+  <ul class="govuk-list">
+    <li>
+      <%= link_to('Apply for authorisation for the UK trader scheme', 'https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland', class: 'govuk-link') %>
+    </li>
+  </ul>
+</div>

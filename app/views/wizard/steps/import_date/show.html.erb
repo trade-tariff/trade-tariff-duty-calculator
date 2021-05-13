@@ -1,17 +1,12 @@
 <%= link_to('Back', commodity_url(commodity.code), class: "govuk-back-link") %>
 
-<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
-      <%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: import_date_path, html: { novalidate: true } do |f| %>
-        <%= f.govuk_error_summary %>
-        <span class="govuk-caption-xl">Calculate import duties</span>
-        <%= f.govuk_date_field :import_date, legend: { text: 'When will the goods be imported?', size: 'xl', tag: 'h1' }, hint: { text: 'As duties and quotas change over time, it may be important to enter the proposed import date. Enter a date from 1st January 2021 or later in the format 27 3 2021.' } %>
-        <%= f.govuk_submit %>
-      <% end %>
-      <p class="govuk-body">The duties that are shown in this service are dependent on the data that you enter and the tariff information that has been supplied to date.</p>
-      <p class="govuk-body">It is possible that this data will change over time.</p>
-      <%= render 'shared/commodity_details' %>
-    </div>
-  </div>
-</main>
+<%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: import_date_path, html: { novalidate: true } do |f| %>
+  <%= f.govuk_error_summary %>
+  <span class="govuk-caption-xl">Calculate import duties</span>
+  <%= f.govuk_date_field :import_date, legend: { text: 'When will the goods be imported?', size: 'xl', tag: 'h1' }, hint: { text: 'As duties and quotas change over time, it may be important to enter the proposed import date. Enter a date from 1st January 2021 or later in the format 27 3 2021.' } %>
+  <%= f.govuk_submit %>
+<% end %>
+<p class="govuk-body">The duties that are shown in this service are dependent on the data that you enter and the tariff information that has been supplied to date.</p>
+<p class="govuk-body">It is possible that this data will change over time.</p>
+<%= render 'shared/commodity_details' %>
+
