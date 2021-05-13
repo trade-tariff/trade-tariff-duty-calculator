@@ -147,7 +147,7 @@ jobs:
 
   cypress:
     docker:
-      - image: 'cimg/node:16.1.0'
+      - image: 'cypress/base:latest'
     steps:
       - run:
           name: "Checkout tests repo"
