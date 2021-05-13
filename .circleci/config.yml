@@ -153,11 +153,11 @@ jobs:
           name: "Checkout tests repo"
           command: git clone "https://github.com/trade-tariff/trade-tariff-testing/"
       - run:
-          name: "pwd"
-          command: "pwd"
+          name: "NPM install"
+          command: "npm install"
       - run:
-          name: "ls -l"
-          command: "ls -l"
+          name: "Run Tests"
+          command: 'npx cypress run --spec "/*/**/DutyCalculator/**/*spec.js"'
 
 
   deploy_dev:
