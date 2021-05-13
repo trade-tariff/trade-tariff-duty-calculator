@@ -1,13 +1,9 @@
 RSpec.describe Wizard::Steps::TraderScheme do
-  subject(:step) { described_class.new(user_session, attributes) }
+  subject(:step) { build(:trader_scheme, user_session: user_session, trader_scheme: trader_scheme) }
 
   let(:user_session) { build(:user_session, session_attributes) }
   let(:session_attributes) { {} }
-  let(:attributes) do
-    ActionController::Parameters.new(
-      trader_scheme: '',
-    ).permit(:trader_scheme)
-  end
+  let(:trader_scheme) { '' }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
@@ -24,7 +20,7 @@ RSpec.describe Wizard::Steps::TraderScheme do
   describe '#validations' do
     context 'when trader scheme answer is blank' do
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error message' do
@@ -35,14 +31,10 @@ RSpec.describe Wizard::Steps::TraderScheme do
     end
 
     context 'when trader scheme answer is present' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          trader_scheme: 'no',
-        ).permit(:trader_scheme)
-      end
+      let(:trader_scheme) { 'no' }
 
       it 'is a valid object' do
-        expect(step.valid?).to be true
+        expect(step).to be_valid
       end
 
       it 'has no validation errors' do
@@ -54,16 +46,10 @@ RSpec.describe Wizard::Steps::TraderScheme do
   end
 
   describe '#save' do
-    let(:attributes) do
-      ActionController::Parameters.new(
-        trader_scheme: 'yes',
-      ).permit(:trader_scheme)
-    end
+    let(:trader_scheme) { 'yes' }
 
     it 'saves the trader_scheme to the session' do
-      step.save
-
-      expect(user_session.trader_scheme).to eq('yes')
+      expect { step.save }.to change(user_session, :trader_scheme).from(nil).to('yes')
     end
   end
 

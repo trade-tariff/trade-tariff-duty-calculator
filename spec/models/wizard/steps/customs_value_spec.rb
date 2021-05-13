@@ -1,19 +1,18 @@
 RSpec.describe Wizard::Steps::CustomsValue do
-  subject(:step) { described_class.new(user_session, attributes) }
-
-  let(:user_session) { build(:user_session, import_date: '2022-01-01') }
-
-  let(:attributes) do
-    ActionController::Parameters.new(
-      monetary_value: '12_500',
-      insurance_cost: '1_200',
-      shipping_cost: '340',
-    ).permit(
-      :monetary_value,
-      :insurance_cost,
-      :shipping_cost,
+  subject(:step) do
+    build(
+      :customs_value,
+      user_session: user_session,
+      monetary_value: monetary_value,
+      insurance_cost: insurance_cost,
+      shipping_cost: shipping_cost,
     )
   end
+
+  let(:user_session) { build(:user_session, import_date: '2022-01-01') }
+  let(:monetary_value) { '12_500' }
+  let(:insurance_cost) { '1_200' }
+  let(:shipping_cost) { '340' }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
@@ -25,14 +24,10 @@ RSpec.describe Wizard::Steps::CustomsValue do
 
   describe '#validations' do
     context 'when monetary_value is blank' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          monetary_value: '',
-        ).permit(:monetary_value)
-      end
+      let(:monetary_value) { '' }
 
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error messages' do
@@ -45,14 +40,10 @@ RSpec.describe Wizard::Steps::CustomsValue do
     end
 
     context 'when monetary_value is 0' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          monetary_value: '0',
-        ).permit(:monetary_value)
-      end
+      let(:monetary_value) { '0' }
 
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error messages' do
@@ -65,14 +56,10 @@ RSpec.describe Wizard::Steps::CustomsValue do
     end
 
     context 'when monetary_value is a negative number' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          monetary_value: '-999',
-        ).permit(:monetary_value)
-      end
+      let(:monetary_value) { '-999' }
 
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error messages' do
@@ -85,34 +72,19 @@ RSpec.describe Wizard::Steps::CustomsValue do
     end
 
     context 'when insurance_cost is blank' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          monetary_value: '1234',
-          insurance_cost: '',
-        ).permit(
-          :monetary_value,
-          :insurance_cost,
-        )
-      end
+      let(:monetary_value) { '1234' }
+      let(:insurance_cost) { '' }
 
       it 'is a valid object' do
-        expect(step.valid?).to be true
+        expect(step).to be_valid
       end
     end
 
     context 'when insurance_cost is a negative number' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          monetary_value: '1234',
-          insurance_cost: '-999',
-        ).permit(
-          :monetary_value,
-          :insurance_cost,
-        )
-      end
+      let(:insurance_cost) { '-999' }
 
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error messages' do
@@ -125,18 +97,11 @@ RSpec.describe Wizard::Steps::CustomsValue do
     end
 
     context 'when insurance_cost is not numeric' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          monetary_value: '1234',
-          insurance_cost: 'sdadsa',
-        ).permit(
-          :monetary_value,
-          :insurance_cost,
-        )
-      end
+      let(:monetary_value) { '1234' }
+      let(:insurance_cost) { 'fff' }
 
       it 'is a not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error messages' do
@@ -149,38 +114,20 @@ RSpec.describe Wizard::Steps::CustomsValue do
     end
 
     context 'when shipping_cost is blank' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          monetary_value: '1234',
-          insurance_cost: '1234',
-          shipping_cost: '',
-        ).permit(
-          :monetary_value,
-          :insurance_cost,
-          :shipping_cost,
-        )
-      end
+      let(:monetary_value) { '1234' }
+      let(:shipping_cost) { '' }
 
       it 'is a valid object' do
-        expect(step.valid?).to be true
+        expect(step).to be_valid
       end
     end
 
     context 'when shipping_cost is not numeric' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          monetary_value: '1234',
-          insurance_cost: '1234',
-          shipping_cost: 'dwsda',
-        ).permit(
-          :monetary_value,
-          :insurance_cost,
-          :shipping_cost,
-        )
-      end
+      let(:monetary_value) { '1234' }
+      let(:shipping_cost) { 'fff' }
 
       it 'is a not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error messages' do
@@ -193,20 +140,11 @@ RSpec.describe Wizard::Steps::CustomsValue do
     end
 
     context 'when shipping_cost is a negative number' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          monetary_value: '1234',
-          insurance_cost: '1234',
-          shipping_cost: '-999',
-        ).permit(
-          :monetary_value,
-          :insurance_cost,
-          :shipping_cost,
-        )
-      end
+      let(:monetary_value) { '1234' }
+      let(:shipping_cost) { '-999' }
 
       it 'is a not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error messages' do

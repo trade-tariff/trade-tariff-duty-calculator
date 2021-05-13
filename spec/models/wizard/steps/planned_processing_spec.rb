@@ -1,18 +1,14 @@
 RSpec.describe Wizard::Steps::PlannedProcessing do
-  subject(:step) { described_class.new(user_session, attributes) }
+  subject(:step) { build(:planned_processing, user_session: user_session, planned_processing: planned_processing) }
 
   let(:session_attributes) { {} }
   let(:user_session) { build(:user_session, session_attributes) }
-  let(:attributes) do
-    ActionController::Parameters.new(
-      'planned_processing' => '',
-    ).permit(:planned_processing)
-  end
+  let(:planned_processing) { '' }
 
   describe '#validations' do
     context 'when planned processing answer is blank' do
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error message' do
@@ -23,14 +19,10 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
     end
 
     context 'when planned processing answer is present' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          'planned_processing' => 'without_any_processing',
-        ).permit(:planned_processing)
-      end
+      let(:planned_processing) { 'without_any_processing' }
 
       it 'is a valid object' do
-        expect(step.valid?).to be true
+        expect(step).to be_valid
       end
 
       it 'has no validation errors' do
@@ -42,16 +34,10 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
   end
 
   describe '#save' do
-    let(:attributes) do
-      ActionController::Parameters.new(
-        'planned_processing' => 'without_any_processing',
-      ).permit(:planned_processing)
-    end
+    let(:planned_processing) { 'without_any_processing' }
 
     it 'saves the planned_processing to the session' do
-      step.save
-
-      expect(user_session.planned_processing).to eq('without_any_processing')
+      expect { step.save }.to change(user_session, :planned_processing).from(nil).to('without_any_processing')
     end
   end
 

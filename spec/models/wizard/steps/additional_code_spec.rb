@@ -1,19 +1,17 @@
 RSpec.describe Wizard::Steps::AdditionalCode do
-  subject(:step) { described_class.new(user_session, attributes) }
+  subject(:step) do
+    build(
+      :additional_code,
+      user_session: user_session,
+      measure_type_id: measure_type_id,
+      additional_code: additional_code,
+    )
+  end
 
   let(:user_session) { build(:user_session, import_date: '2022-01-01') }
   let(:filtered_commodity) { instance_double(Api::Commodity) }
-  let(:current_measure_type_id) { '105' }
-
-  let(:attributes) do
-    ActionController::Parameters.new(
-      measure_type_id: current_measure_type_id,
-      additional_code: '2300',
-    ).permit(
-      :measure_type_id,
-      :additional_code,
-    )
-  end
+  let(:measure_type_id) { '105' }
+  let(:additional_code) { '2300' }
 
   let(:additional_codes) do
     {
@@ -78,14 +76,10 @@ RSpec.describe Wizard::Steps::AdditionalCode do
 
   describe '#validations' do
     context 'when measure_type_id is missing' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          measure_type_id: nil,
-        ).permit(:measure_type_id)
-      end
+      let(:measure_type_id) { nil }
 
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error messages' do
@@ -98,14 +92,10 @@ RSpec.describe Wizard::Steps::AdditionalCode do
     end
 
     context 'when the additional code is not present' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          additional_code: '',
-        ).permit(:additional_code)
-      end
+      let(:additional_code) { nil }
 
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error messages' do
@@ -122,9 +112,7 @@ RSpec.describe Wizard::Steps::AdditionalCode do
     let(:expected_value) { { '105' => '2300' } }
 
     it 'saves the additional code value on to the session' do
-      step.save
-
-      expect(user_session.additional_code).to eq(expected_value)
+      expect { step.save }.to change(user_session, :additional_code).from({}).to(expected_value)
     end
   end
 
@@ -161,13 +149,8 @@ RSpec.describe Wizard::Steps::AdditionalCode do
     end
 
     context 'when there is no additonal code being passed in, but the value is on the session' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          measure_type_id: '105',
-        ).permit(
-          :measure_type_id,
-        )
-      end
+      let(:measure_type_id) { '105' }
+      let(:additional_code) { nil }
 
       let(:session_value) do
         { '105' => '2500', '445' => '5000' }
@@ -180,6 +163,8 @@ RSpec.describe Wizard::Steps::AdditionalCode do
           additional_code: session_value,
         )
       end
+
+      it { is_expected.to be_valid }
 
       it 'returns the value from the session that corresponds to measure type 105' do
         expect(step.additional_code).to eq('2500')
@@ -268,7 +253,7 @@ RSpec.describe Wizard::Steps::AdditionalCode do
     end
 
     context 'when there are multiple measure type ids on the applicable_additional_codes hash' do
-      let(:current_measure_type_id) { '552' }
+      let(:measure_type_id) { '552' }
 
       it 'returns additional_codes_path with the previous measure_type_id as argument' do
         expect(step.previous_step_path).to eq(additional_codes_path('105'))

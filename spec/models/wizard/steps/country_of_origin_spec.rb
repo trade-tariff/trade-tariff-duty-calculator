@@ -1,15 +1,19 @@
 RSpec.describe Wizard::Steps::CountryOfOrigin do
-  subject(:step) { described_class.new(user_session, attributes, opts) }
+  subject(:step) do
+    build(
+      :country_of_origin,
+      user_session: user_session,
+      country_of_origin: country_of_origin,
+      trade_defence: trade_defence,
+      zero_mfn_duty: zero_mfn_duty,
+    )
+  end
 
   let(:user_session) { build(:user_session, session_attributes) }
   let(:session_attributes) { {} }
-  let(:opts) { {} }
-
-  let(:attributes) do
-    ActionController::Parameters.new(
-      country_of_origin: '',
-    ).permit(:country_of_origin)
-  end
+  let(:country_of_origin) { '' }
+  let(:trade_defence) { '' }
+  let(:zero_mfn_duty) { '' }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
@@ -27,7 +31,7 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
   describe '#validations' do
     context 'when country_of_origin is blank' do
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error message' do
@@ -38,14 +42,10 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
     end
 
     context 'when country_of_origin is present' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          country_of_origin: '1',
-        ).permit(:country_of_origin)
-      end
+      let(:country_of_origin) { '1' }
 
       it 'is a valid object' do
-        expect(step.valid?).to be true
+        expect(step).to be_valid
       end
 
       it 'has no validation errors' do
@@ -57,34 +57,22 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
   end
 
   describe '#save' do
-    let(:attributes) do
-      ActionController::Parameters.new(
-        country_of_origin: 'GB',
-      ).permit(:country_of_origin)
-    end
-
-    before do
-      step.save
-    end
+    let(:country_of_origin) { 'GB' }
 
     it 'saves the country_of_origin to the session' do
-      expect(user_session.country_of_origin).to eq 'GB'
+      expect { step.save }.to change(user_session, :country_of_origin).from(nil).to('GB')
     end
 
     context 'when trade_defence and zero_mfn_duty are passed in as options' do
-      let(:opts) do
-        {
-          trade_defence: true,
-          zero_mfn_duty: false,
-        }
-      end
+      let(:trade_defence) { true }
+      let(:zero_mfn_duty) { false }
 
       it 'stores trade_defence on the session' do
-        expect(user_session.trade_defence).to eq(true)
+        expect { step.save }.to change(user_session, :trade_defence).from(nil).to(true)
       end
 
       it 'stores zero_mfn_duty on the session' do
-        expect(user_session.zero_mfn_duty).to eq(false)
+        expect { step.save }.to change(user_session, :zero_mfn_duty).from(nil).to(false)
       end
     end
   end
@@ -122,11 +110,7 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
     end
 
     context 'when on GB to NI route and there is a trade defence in place' do
-      let(:opts) do
-        {
-          trade_defence: true,
-        }
-      end
+      let(:trade_defence) { true }
 
       let(:session_attributes) do
         {
@@ -145,12 +129,8 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
     end
 
     context 'when on GB to NI route and there is no trade defence in place, but a zero_mfn_duty' do
-      let(:opts) do
-        {
-          trade_defence: false,
-          zero_mfn_duty: true,
-        }
-      end
+      let(:trade_defence) { false }
+      let(:zero_mfn_duty) { true }
 
       let(:session_attributes) do
         {
@@ -169,12 +149,8 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
     end
 
     context 'when on GB to NI route and there is no trade defence in place, nor a zero_mfn_duty' do
-      let(:opts) do
-        {
-          trade_defence: false,
-          zero_mfn_duty: false,
-        }
-      end
+      let(:trade_defence) { false }
+      let(:zero_mfn_duty) { false }
 
       let(:session_attributes) do
         {

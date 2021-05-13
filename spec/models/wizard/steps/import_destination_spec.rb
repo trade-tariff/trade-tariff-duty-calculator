@@ -1,13 +1,9 @@
 RSpec.describe Wizard::Steps::ImportDestination do
-  subject(:step) { described_class.new(user_session, attributes) }
+  subject(:step) { build(:import_destination, user_session: user_session, import_destination: import_destination) }
 
   let(:user_session) { build(:user_session, session_attributes) }
   let(:session_attributes) { {} }
-  let(:attributes) do
-    ActionController::Parameters.new(
-      import_destination: '',
-    ).permit(:import_destination)
-  end
+  let(:import_destination) { '' }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
@@ -26,7 +22,7 @@ RSpec.describe Wizard::Steps::ImportDestination do
   describe '#validations' do
     context 'when import destination is blank' do
       it 'is not a valid object' do
-        expect(step.valid?).to be false
+        expect(step).not_to be_valid
       end
 
       it 'adds the correct validation error message' do
@@ -37,14 +33,10 @@ RSpec.describe Wizard::Steps::ImportDestination do
     end
 
     context 'when import destination is present' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          import_destination: 'gb',
-        ).permit(:import_destination)
-      end
+      let(:import_destination) { 'gb' }
 
       it 'is a valid object' do
-        expect(step.valid?).to be true
+        expect(step).to be_valid
       end
 
       it 'has no validation errors' do
@@ -56,37 +48,23 @@ RSpec.describe Wizard::Steps::ImportDestination do
   end
 
   describe '#save' do
-    let(:attributes) do
-      ActionController::Parameters.new(
-        import_destination: 'XI',
-      ).permit(:import_destination)
-    end
+    let(:import_destination) { 'XI' }
 
     it 'saves the import_destination to the session' do
-      step.save
-
-      expect(user_session.import_destination).to eq('XI')
+      expect { step.save }.to change(user_session, :import_destination).from(nil).to('XI')
     end
 
     context 'when importing to XI' do
       it 'sets the commodity source as XI on the session' do
-        step.save
-
-        expect(user_session.commodity_source).to eq('xi')
+        expect { step.save }.to change(user_session, :commodity_source).from(nil).to('xi')
       end
     end
 
     context 'when importing to GB' do
-      let(:attributes) do
-        ActionController::Parameters.new(
-          import_destination: 'GB',
-        ).permit(:import_destination)
-      end
+      let(:import_destination) { 'GB' }
 
       it 'sets the commodity source as UK on the session' do
-        step.save
-
-        expect(user_session.commodity_source).to eq('uk')
+        expect { step.save }.to change(user_session, :commodity_source).from(nil).to('uk')
       end
     end
   end
