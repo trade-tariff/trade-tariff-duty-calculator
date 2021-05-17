@@ -31,21 +31,8 @@ module ExpressionEvaluators
       end
     end
 
-    # TODO: This needs to be refactored. Ticket: HOTT-547
-    def evaluator_for(component)
-      evaluator = if component.ad_valorem?
-                    ExpressionEvaluators::AdValorem.new(measure, user_session)
-                  elsif component.specific_duty?
-                    ExpressionEvaluators::MeasureUnit.new(measure, user_session)
-                  end
-
-      evaluator.component = component
-
-      evaluator
-    end
-
     def value_for(component)
-      evaluator = evaluator_for(component)
+      evaluator = measure.evaluator_for_compound_component(component, user_session)
 
       evaluator.call[:value]
     end
