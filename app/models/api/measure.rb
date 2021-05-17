@@ -36,6 +36,7 @@ module Api
       end
     end
 
+    # Compound components (where there are more than one) need to be evaluated by each individual component and have slightly different logic
     def evaluator_for_compound_component(component, user_session)
       if component.ad_valorem?
         ExpressionEvaluators::AdValorem.new(self, component, user_session)
