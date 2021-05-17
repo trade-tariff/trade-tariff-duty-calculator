@@ -28,11 +28,19 @@ module Api
 
     def evaluator_for(user_session)
       if ad_valorem?
-        ExpressionEvaluators::AdValorem.new(self, user_session)
+        ExpressionEvaluators::AdValorem.new(self, component, user_session)
       elsif specific_duty?
-        ExpressionEvaluators::MeasureUnit.new(self, user_session)
+        ExpressionEvaluators::MeasureUnit.new(self, component, user_session)
       else
-        ExpressionEvaluators::Compound.new(self, user_session)
+        ExpressionEvaluators::Compound.new(self, nil, user_session)
+      end
+    end
+
+    def evaluator_for_compound_component(component, user_session)
+      if component.ad_valorem?
+        ExpressionEvaluators::AdValorem.new(self, component, user_session)
+      elsif component.specific_duty?
+        ExpressionEvaluators::MeasureUnit.new(self, component, user_session)
       end
     end
 

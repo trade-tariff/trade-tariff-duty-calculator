@@ -1,6 +1,6 @@
 RSpec.describe ExpressionEvaluators::AdValorem do
   subject(:evaluator) do
-    described_class.new(measure, user_session)
+    described_class.new(measure, component, user_session)
   end
 
   let(:measure) do
@@ -16,19 +16,20 @@ RSpec.describe ExpressionEvaluators::AdValorem do
         'measure_type_series_id' => 'C',
         'id' => '103',
       },
-      'measure_conditions' => [],
-      'measure_components' => [
-        {
-          'duty_expression_id' => '01',
-          'duty_amount' => 8.0,
-          'monetary_unit_code' => nil,
-          'monetary_unit_abbreviation' => nil,
-          'measurement_unit_code' => nil,
-          'duty_expression_description' => '% or amount',
-          'duty_expression_abbreviation' => '%',
-          'measurement_unit_qualifier_code' => nil,
-        },
-      ],
+    )
+  end
+  let(:component) do
+    Api::MeasureComponent.new(
+      {
+        'duty_expression_id' => '01',
+        'duty_amount' => 8.0,
+        'monetary_unit_code' => nil,
+        'monetary_unit_abbreviation' => nil,
+        'measurement_unit_code' => nil,
+        'duty_expression_description' => '% or amount',
+        'duty_expression_abbreviation' => '%',
+        'measurement_unit_qualifier_code' => nil,
+      },
     )
   end
 

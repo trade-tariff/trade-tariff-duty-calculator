@@ -69,7 +69,7 @@ RSpec.describe Api::Measure do
 
         measure.evaluator_for(user_session)
 
-        expect(ExpressionEvaluators::AdValorem).to have_received(:new).with(measure, user_session)
+        expect(ExpressionEvaluators::AdValorem).to have_received(:new).with(measure, measure.component, user_session)
       end
     end
 
@@ -125,7 +125,7 @@ RSpec.describe Api::Measure do
 
         measure.evaluator_for(user_session)
 
-        expect(ExpressionEvaluators::MeasureUnit).to have_received(:new).with(measure, user_session)
+        expect(ExpressionEvaluators::MeasureUnit).to have_received(:new).with(measure, measure.component, user_session)
       end
     end
 
@@ -201,7 +201,45 @@ RSpec.describe Api::Measure do
 
         measure.evaluator_for(user_session)
 
-        expect(ExpressionEvaluators::Compound).to have_received(:new).with(measure, user_session)
+        expect(ExpressionEvaluators::Compound).to have_received(:new).with(measure, nil, user_session)
+      end
+    end
+  end
+
+  describe '#evaluator_for_compound_component' do
+    subject(:measure) { described_class.new({}) }
+
+    let(:component) { instance_double('Api::MeasureComponent') }
+    let(:ad_valorem) { false }
+    let(:specific_duty) { false }
+    let(:session_attributes) { {} }
+
+    before do
+      allow(component).to receive(:ad_valorem?).and_return(ad_valorem)
+      allow(component).to receive(:specific_duty?).and_return(specific_duty)
+    end
+
+    context 'when an ad_valorem component' do
+      let(:ad_valorem) { true }
+
+      it 'instantiates the correct evaluator' do
+        allow(ExpressionEvaluators::AdValorem).to receive(:new)
+
+        measure.evaluator_for_compound_component(component, user_session)
+
+        expect(ExpressionEvaluators::AdValorem).to have_received(:new).with(measure, component, user_session)
+      end
+    end
+
+    context 'when a specific duty component' do
+      let(:specific_duty) { true }
+
+      it 'instantiates the correct evaluator' do
+        allow(ExpressionEvaluators::MeasureUnit).to receive(:new)
+
+        measure.evaluator_for_compound_component(component, user_session)
+
+        expect(ExpressionEvaluators::MeasureUnit).to have_received(:new).with(measure, component, user_session)
       end
     end
   end
