@@ -31,7 +31,7 @@ RSpec.describe 'Confirmation Page', type: :feature do
     let(:measure_amount) { { 'dtn' => 500.42 } }
 
     let(:expected_content) do
-      "Check your answers\nCommodity code 7202 11 80 00 Change\nDate of import 12 December 2030 Change\nDestination Northern Ireland Change\nComing from United Kingdom Change\nTrader scheme No Change\nCertificate of origin No Change\nCustoms value £1,200.00 Change\nImport quantity 1_200 x 100 kg Change\n"
+      "Check your answers\nCommodity code 7202 11 80 00 Change\nDate of import #{Time.zone.now.strftime('%d %b %Y')} Change\nDestination Northern Ireland Change\nComing from United Kingdom Change\nTrader scheme No Change\nCertificate of origin No Change\nCustoms value £1,200.00 Change\nImport quantity 1_200 x 100 kg Change\nCalculate import duties\n"
     end
 
     let(:expected_links) do

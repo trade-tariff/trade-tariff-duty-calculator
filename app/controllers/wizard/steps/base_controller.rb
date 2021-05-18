@@ -1,33 +1,15 @@
 module Wizard
   module Steps
     class BaseController < ::ApplicationController
+      include CommodityHelper
+
       default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
       after_action :track_session
 
-      helper_method :commodity,
-                    :filtered_commodity,
-                    :commodity_code,
+      helper_method :commodity_code,
                     :commodity_source,
                     :user_session,
                     :country_of_origin_description
-
-      def commodity
-        @commodity ||= Api::Commodity.build(
-          commodity_source,
-          commodity_code,
-          default_query,
-        )
-      end
-
-      def filtered_commodity(filter: default_filter)
-        query = default_query.merge(filter)
-
-        Api::Commodity.build(
-          commodity_source,
-          commodity_code,
-          query,
-        )
-      end
 
       def user_session
         @user_session ||= UserSession.new(session)

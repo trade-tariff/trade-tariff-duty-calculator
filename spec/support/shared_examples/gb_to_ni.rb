@@ -1,18 +1,6 @@
 RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
   let(:commodity) do
-    Api::Commodity.build(
-      commodity_source,
-      commodity_code,
-      default_query,
-    )
-  end
-
-  let(:filtered_commodity) do
-    Api::Commodity.build(
-      commodity_source,
-      commodity_code,
-      filtered_query,
-    )
+    instance_double(Api::Commodity)
   end
 
   let(:description) { 'Some description' }
@@ -20,15 +8,9 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
   let(:import_from) { 'GB' }
   let(:commodity_code) { '7202118000' }
   let(:referred_service) { 'uk' }
-  let(:commodity_source) { :xi }
+  let(:trade_defence) { false }
 
   let(:default_query) do
-    {
-      'as_of' => '2030-12-12',
-    }
-  end
-
-  let(:as_of_now_query) do
     {
       'as_of' => Time.zone.today.iso8601,
     }
@@ -67,21 +49,25 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
     }
   end
 
-  let(:now) { Time.zone.today }
-
   before do
-    allow(filtered_commodity).to receive(:applicable_measure_units).and_return(attributes['applicable_measure_units'])
+    allow(commodity).to receive(:applicable_measure_units).and_return(attributes['applicable_measure_units'])
     allow(Api::Commodity).to receive(:build).with('uk', commodity_code, default_query).and_return(commodity)
-    allow(Api::Commodity).to receive(:build).with('uk', commodity_code, as_of_now_query).and_return(commodity)
-    allow(Api::Commodity).to receive(:build).with('uk', commodity_code, filtered_query).and_return(commodity)
     allow(Api::Commodity).to receive(:build).with('xi', commodity_code, default_query).and_return(commodity)
-    allow(Api::Commodity).to receive(:build).with('xi', commodity_code, filtered_query).and_return(filtered_commodity)
+    allow(commodity).to receive(:code).and_return(commodity_code)
+    allow(commodity).to receive(:description).and_return(description)
+    allow(commodity).to receive(:formatted_commodity_code).and_return('7202 11 80 00')
+    allow(commodity).to receive(:trade_defence).and_return(trade_defence)
+    allow(commodity).to receive(:zero_mfn_duty).and_return(false)
+    allow(commodity).to receive(:import_measures).and_return([])
+    allow(commodity).to receive(:applicable_additional_codes).and_return({})
+    allow(Api::Commodity).to receive(:build).with('xi', commodity_code, default_query).and_return(commodity)
+    allow(Api::Commodity).to receive(:build).with('xi', commodity_code, filtered_query).and_return(commodity)
 
     visit import_date_url(referred_service: referred_service, commodity_code: commodity_code)
 
-    fill_in('wizard_steps_import_date[import_date(3i)]', with: '12')
-    fill_in('wizard_steps_import_date[import_date(2i)]', with: '12')
-    fill_in('wizard_steps_import_date[import_date(1i)]', with: '2030')
+    fill_in('wizard_steps_import_date[import_date(3i)]', with: Time.zone.today.day)
+    fill_in('wizard_steps_import_date[import_date(2i)]', with: Time.zone.today.month)
+    fill_in('wizard_steps_import_date[import_date(1i)]', with: Time.zone.today.year)
 
     click_on('Continue')
 

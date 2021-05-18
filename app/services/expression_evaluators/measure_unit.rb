@@ -1,5 +1,7 @@
 module ExpressionEvaluators
   class MeasureUnit < ExpressionEvaluators::Base
+    include CommodityHelper
+
     def call
       {
         calculation: "#{measure.duty_expression.base} * #{total_quantity}",
@@ -18,14 +20,6 @@ module ExpressionEvaluators
 
         total_quantity * component.duty_amount
       end
-    end
-
-    def commodity
-      @commodity ||= Api::Commodity.build(
-        user_session.commodity_source,
-        user_session.commodity_code,
-        query,
-      )
     end
 
     def total_quantity
