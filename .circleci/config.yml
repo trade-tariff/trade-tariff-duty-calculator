@@ -153,15 +153,8 @@ jobs:
           name: "Checkout tests repo"
           command: git clone "https://github.com/trade-tariff/trade-tariff-testing/"
       - run:
-          name: "Change working directory"
-          command: "cd trade-tariff-testing && ls -l"
-      - run:
-          name: "NPM install"
-          command: "cd trade-tariff-testing && npm install"
-      - run:
-          name: "Run Tests"
-          command: 'cd trade-tariff-testing && npx cypress run --spec "/*/**/DutyCalculator/**/*spec.js"'
-
+          name: "Cypress (dcSmokeTestCI)"
+          command: 'cd trade-tariff-testing && npm install &&  npx cypress run --spec "/*/**/DutyCalculator/dcShared/dcSmokeTestCI.spec.js"'
 
   deploy_dev:
     docker:
