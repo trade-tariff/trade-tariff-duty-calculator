@@ -37,6 +37,14 @@ class UserSession
     session['answers'][Wizard::Steps::CountryOfOrigin.id] = value
   end
 
+  def other_country_of_origin
+    session['answers']['other_country_of_origin']
+  end
+
+  def other_country_of_origin=(value)
+    session['answers']['other_country_of_origin'] = value
+  end
+
   def trader_scheme
     session['answers'][Wizard::Steps::TraderScheme.id]
   end

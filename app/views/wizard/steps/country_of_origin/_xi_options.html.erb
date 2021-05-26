@@ -1,12 +1,23 @@
 <%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: country_of_origin_path do |f| %>
   <%= f.govuk_error_summary %>
-  <%= f.govuk_collection_radio_buttons :country_of_origin, Wizard::Steps::CountryOfOrigin::XI_OPTIONS, :id, :name,
-                                       legend: { text: 'Which country are the goods coming from?', size: 'xl', tag: 'h1' }, hint: { text: 'The duty you are charged may be dependent on the country from which the goods are coming.' }, include_hidden: true %>
 
-  <p class="govuk-body">
-  The functionality to display duties applicable to imports
-  from countries outside of GB and the European Union is currently
-  under construction and will be delivered shortly.
-  </p>
+  <%= f.govuk_radio_buttons_fieldset(:country_of_origin, legend: { text: 'Which country are the goods coming from?', size: 'xl', tag: 'h1' }, hint: { text: 'The duty you are charged may be dependent on the country from which the goods are coming.' }) do %>
+    <%= f.govuk_radio_button :country_of_origin, 'GB', label: { text: 'England, Scotland or Wales (GB)' } %>
+    <%= f.govuk_radio_button :country_of_origin, 'EU', label: { text: 'Ireland or other EU member states' } %>
+    <% if Rails.configuration.row_to_ni == 'true' %>
+      <%= f.govuk_radio_button :country_of_origin, 'OTHER', label: { text: 'Countries outside of GB and European Union' } do %>
+        <%= f.govuk_collection_select :other_country_of_origin, Wizard::Steps::CountryOfOrigin.options_for(commodity_source), :id, :name, options: { prompt: true }, label: { text: 'Where are the goods coming from?' } %>
+        <span class="govuk-hint govuk-!-margin-top-3">
+          When autocomplete results are available, use up and down arrows to review and enter to select. Touch device users, explore by touch or with swipe gestures.
+        </span>
+      <% end %>
+    <% else %>
+      <p class="govuk-body text-muted">
+        The functionality to display duties applicable to imports from countries outside of GB and the European Union is currently under construction and will be delivered shortly.
+      </p>
+    <% end %>
+  <% end %>
   <%= f.govuk_submit %>
 <% end %>
+
+<%= javascript_pack_tag 'other-country-of-origin' %>

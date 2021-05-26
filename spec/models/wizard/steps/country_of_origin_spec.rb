@@ -4,6 +4,7 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
       :country_of_origin,
       user_session: user_session,
       country_of_origin: country_of_origin,
+      other_country_of_origin: other_country_of_origin,
       trade_defence: trade_defence,
       zero_mfn_duty: zero_mfn_duty,
     )
@@ -12,6 +13,7 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
   let(:user_session) { build(:user_session, session_attributes) }
   let(:session_attributes) { {} }
   let(:country_of_origin) { '' }
+  let(:other_country_of_origin) { '' }
   let(:trade_defence) { '' }
   let(:zero_mfn_duty) { '' }
 
@@ -41,8 +43,8 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
       end
     end
 
-    context 'when country_of_origin is present' do
-      let(:country_of_origin) { '1' }
+    context 'when country_of_origin is present, but not OTHER' do
+      let(:country_of_origin) { 'GB' }
 
       it 'is a valid object' do
         expect(step).to be_valid
@@ -52,6 +54,36 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
         step.valid?
 
         expect(step.errors.messages[:country_of_origin]).to be_empty
+      end
+    end
+
+    context 'when country_of_origin is OTHER' do
+      let(:country_of_origin) { 'OTHER' }
+
+      context 'when other_country_of_origin is present' do
+        let(:other_country_of_origin) { 'AR' }
+
+        it 'is a valid object' do
+          expect(step).to be_valid
+        end
+
+        it 'has no validation errors' do
+          step.valid?
+
+          expect(step.errors.messages[:country_of_origin]).to be_empty
+        end
+      end
+
+      context 'when other_country_of_origin is not present' do
+        it 'is not a valid object' do
+          expect(step).not_to be_valid
+        end
+
+        it 'adds the correct validation error message' do
+          step.valid?
+
+          expect(step.errors.messages[:country_of_origin]).to eq(['Enter a valid origin for this import'])
+        end
       end
     end
   end

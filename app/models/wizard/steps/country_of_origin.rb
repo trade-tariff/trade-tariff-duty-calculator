@@ -8,16 +8,13 @@ module Wizard
         planned_processing
       ].freeze
 
-      XI_OPTIONS = [
-        OpenStruct.new(id: 'GB', name: 'England, Scotland or Wales (GB)'),
-        OpenStruct.new(id: 'EU', name: 'Ireland or other EU member states'),
-      ].freeze
-
       attr_reader :zero_mfn_duty, :trade_defence
 
       attribute :country_of_origin, :string
+      attribute :other_country_of_origin, :string
 
       validates :country_of_origin, presence: true
+      validate :other_country_of_origin_presence, if: :other_country_of_origin?
 
       def initialize(user_session, attributes = {}, opts = {})
         super(user_session, attributes)
@@ -32,6 +29,7 @@ module Wizard
 
       def save
         user_session.country_of_origin = country_of_origin
+        user_session.other_country_of_origin = other_country_of_origin
         user_session.trade_defence = trade_defence
         user_session.zero_mfn_duty = zero_mfn_duty
       end
@@ -53,6 +51,16 @@ module Wizard
       end
 
       private
+
+      def other_country_of_origin_presence
+        return if other_country_of_origin.present?
+
+        errors.add(:country_of_origin, :blank)
+      end
+
+      def other_country_of_origin?
+        country_of_origin == 'OTHER'
+      end
 
       def next_step_for_gb_to_ni
         return trade_remedies_path if trade_defence
