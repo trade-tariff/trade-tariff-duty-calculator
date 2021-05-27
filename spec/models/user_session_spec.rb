@@ -167,9 +167,9 @@ RSpec.describe UserSession do
     end
 
     context 'when the key is present on the session' do
-      subject(:user_session) { build(:user_session, country_of_origin: '1234') }
+      subject(:user_session) { build(:user_session, country_of_origin: 'GB') }
 
-      let(:expected_country) { '1234' }
+      let(:expected_country) { 'GB' }
 
       it 'returns the value from the session' do
         expect(user_session.country_of_origin).to eq(expected_country)
@@ -178,12 +178,38 @@ RSpec.describe UserSession do
   end
 
   describe '#country_of_origin=' do
-    let(:expected_country) { '1234' }
+    let(:expected_country) { 'GB' }
 
     it 'sets the key on the session' do
-      user_session.country_of_origin = '1234'
+      user_session.country_of_origin = 'GB'
 
       expect(session['answers'][Wizard::Steps::CountryOfOrigin.id]).to eq(expected_country)
+    end
+  end
+
+  describe '#other_country_of_origin=' do
+    let(:expected_country) { 'AR' }
+
+    it 'sets the key on the session' do
+      user_session.other_country_of_origin = 'AR'
+
+      expect(session['answers']['other_country_of_origin']).to eq(expected_country)
+    end
+  end
+
+  describe '#other_country_of_origin' do
+    it 'returns empty string if the key is not on the session' do
+      expect(user_session.other_country_of_origin).to be_empty
+    end
+
+    context 'when the key is present on the session' do
+      subject(:user_session) { build(:user_session, country_of_origin: 'OTHER', other_country_of_origin: 'AR') }
+
+      let(:expected_country) { 'AR' }
+
+      it 'returns the value from the session' do
+        expect(user_session.other_country_of_origin).to eq(expected_country)
+      end
     end
   end
 
