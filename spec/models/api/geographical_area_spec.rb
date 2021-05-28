@@ -85,6 +85,29 @@ RSpec.describe Api::GeographicalArea do
     end
   end
 
+  describe '.other_countries' do
+    let(:expected_members) do
+      %w[AT BE BG CY CZ DE DK EE ES EU FI FR GR HR HU IE IT LT LU LV MT NL PL PT RO SE SI SK]
+    end
+    let(:members) { described_class.other_countries.map(&:id) }
+
+    it 'returns non-eu results' do
+      expect(members.length).to be_positive
+    end
+
+    it 'returns none of the member countries of the EU' do
+      expect(members).not_to include(expected_members)
+    end
+
+    it 'doesn\'t return UK' do
+      expect(members).not_to include('UK')
+    end
+
+    it 'doesn\'t return XI' do
+      expect(members).not_to include('XI')
+    end
+  end
+
   describe '.find' do
     it 'returns the country found by id' do
       country = described_class.find(id)

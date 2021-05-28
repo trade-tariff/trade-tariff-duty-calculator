@@ -1,6 +1,7 @@
 module Api
   class GeographicalArea < Api::Base
     EU = '1013'.freeze
+    UK = %w[GB].freeze
 
     has_many :children_geographical_areas, GeographicalArea
 
@@ -24,6 +25,12 @@ module Api
       countries = build_collection(service, 'Country')
       countries << northern_ireland if service == :uk
       countries
+    end
+
+    def self.other_countries(service = :xi)
+      eu_ids = european_union_members(service).map(&:geographical_area_id).concat(UK)
+      build_collection(service, 'Country')
+        .reject { |country| eu_ids.include?(country.geographical_area_id) }
     end
 
     def self.european_union_members(service = :xi)
