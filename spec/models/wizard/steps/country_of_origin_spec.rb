@@ -216,5 +216,27 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
         )
       end
     end
+
+    context 'when on RoW to NI route' do
+      let(:session_attributes) do
+        {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'OTHER',
+          'other_country_of_origin' => 'AR',
+        }
+      end
+
+      context 'when there is a trade defence in place' do
+        let(:trade_defence) { true }
+
+        it 'returns the customs_value_path' do
+          expect(
+            step.next_step_path,
+          ).to eq(
+            trade_remedies_path,
+          )
+        end
+      end
+    end
   end
 end

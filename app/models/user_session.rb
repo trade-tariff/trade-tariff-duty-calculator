@@ -177,6 +177,10 @@ class UserSession
     import_destination == 'UK' && country_of_origin != 'XI'
   end
 
+  def row_to_ni_route?
+    import_destination == 'XI' && country_of_origin == 'OTHER' && other_country_of_origin.present?
+  end
+
   def total_amount
     customs_value.values.map(&:to_f).reduce(:+)
   end
