@@ -14,6 +14,8 @@ module Wizard
       private
 
       def permitted_params
+        return {} unless params.key?(:wizard_steps_country_of_origin)
+
         params.require(:wizard_steps_country_of_origin).permit(
           :country_of_origin,
           :other_country_of_origin,
