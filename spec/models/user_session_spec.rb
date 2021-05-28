@@ -503,6 +503,27 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#row_to_ni_route?' do
+    context 'when import country is XI and origin country is anything but GB or any EU member' do
+      subject(:user_session) do
+        build(
+          :user_session,
+          import_destination: 'XI',
+          country_of_origin: 'OTHER',
+          other_country_of_origin: 'AR',
+        )
+      end
+
+      it 'returns true' do
+        expect(user_session.row_to_ni_route?).to be true
+      end
+    end
+
+    it 'returns false otherwise' do
+      expect(user_session.row_to_ni_route?).to be false
+    end
+  end
+
   describe '#commodity_additional_code' do
     context 'when additional code answers have been stored' do
       subject(:user_session) { build(:user_session, additional_code: { '103' => 'C999', '105' => 'B111' }) }

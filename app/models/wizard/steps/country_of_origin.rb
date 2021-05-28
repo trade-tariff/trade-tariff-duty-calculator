@@ -44,6 +44,8 @@ module Wizard
         return next_step_for_gb_to_ni if user_session.gb_to_ni_route?
 
         return next_step_for_row_to_gb if user_session.row_to_gb_route?
+
+        next_step_for_row_to_ni
       end
 
       def previous_step_path
@@ -67,6 +69,10 @@ module Wizard
         return duty_path if zero_mfn_duty
 
         trader_scheme_path
+      end
+
+      def next_step_for_row_to_ni
+        return trade_remedies_path if trade_defence
       end
 
       def next_step_for_row_to_gb
