@@ -91,10 +91,6 @@ RSpec.describe Api::GeographicalArea do
     end
     let(:members) { described_class.non_eu_countries.map(&:id) }
 
-    it 'returns non-eu results' do
-      expect(members.length).to be_positive
-    end
-
     it 'returns a non-EU country' do
       expect(members).to include('US')
     end
