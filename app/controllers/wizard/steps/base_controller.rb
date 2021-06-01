@@ -2,9 +2,11 @@ module Wizard
   module Steps
     class BaseController < ::ApplicationController
       include CommodityHelper
+      include ServiceHelper
 
       default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
       after_action :track_session
+      before_action :ensure_session_integrity
 
       helper_method :commodity_code,
                     :commodity_source,
@@ -57,6 +59,10 @@ module Wizard
           commodity_source: user_session.commodity_source,
           referred_service: user_session.referred_service,
         })
+      end
+
+      def ensure_session_integrity
+        return redirect_to trade_tariff_url if commodity_code.blank?
       end
     end
   end
