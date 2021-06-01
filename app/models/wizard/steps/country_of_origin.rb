@@ -34,8 +34,8 @@ module Wizard
         user_session.zero_mfn_duty = zero_mfn_duty
       end
 
-      def self.options_for(service, other = false)
-        return Api::GeographicalArea.other_countries(service.to_sym) if other
+      def self.options_for(service, include_eu_members = true)
+        return Api::GeographicalArea.non_eu_countries(service.to_sym) unless include_eu_members
 
         Api::GeographicalArea.list_countries(service.to_sym)
       end

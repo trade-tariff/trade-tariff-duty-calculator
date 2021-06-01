@@ -6,7 +6,7 @@
     <%= f.govuk_radio_button :country_of_origin, 'EU', label: { text: 'Ireland or other EU member states' } %>
     <% if Rails.configuration.row_to_ni == 'true' %>
       <%= f.govuk_radio_button :country_of_origin, 'OTHER', label: { text: 'Countries outside of GB and European Union' } do %>
-        <%= f.govuk_collection_select :other_country_of_origin, Wizard::Steps::CountryOfOrigin.options_for(commodity_source, true), :id, :name, options: { prompt: true }, label: { text: 'Where are the goods coming from?' } %>
+        <%= f.govuk_collection_select :other_country_of_origin, Wizard::Steps::CountryOfOrigin.options_for(commodity_source, false), :id, :name, options: { prompt: true }, label: { text: 'Where are the goods coming from?' } %>
         <span class="govuk-hint govuk-!-margin-top-3">
           When autocomplete results are available, use up and down arrows to review and enter to select. Touch device users, explore by touch or with swipe gestures.
         </span>

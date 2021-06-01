@@ -27,7 +27,7 @@ module Api
       countries
     end
 
-    def self.other_countries(service = :xi)
+    def self.non_eu_countries(service = :xi)
       eu_ids = european_union_members(service).map(&:geographical_area_id).concat(UK)
       build_collection(service, 'Country')
         .reject { |country| eu_ids.include?(country.geographical_area_id) }
