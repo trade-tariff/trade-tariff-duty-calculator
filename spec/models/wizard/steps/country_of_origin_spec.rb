@@ -237,6 +237,34 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
           )
         end
       end
+
+      context 'when there is no trade defence in place' do
+        let(:trade_defence) { false }
+
+        context 'when there is a zero mfn duty' do
+          let(:zero_mfn_duty) { true }
+
+          it 'returns the customs_value_path' do
+            expect(
+              step.next_step_path,
+            ).to eq(
+              customs_value_path,
+            )
+          end
+        end
+
+        context 'when there is no zero mfn duty' do
+          let(:zero_mfn_duty) { false }
+
+          it 'returns the trader_scheme_path' do
+            expect(
+              step.next_step_path,
+            ).to eq(
+              trader_scheme_path,
+            )
+          end
+        end
+      end
     end
   end
 end
