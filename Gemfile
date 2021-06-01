@@ -27,7 +27,7 @@ gem 'logstash-event'
 gem 'govuk_design_system_formbuilder'
 
 # API client for the trade tariff api
-gem 'uktt', '~> 2.0.1', git: 'https://github.com/trade-tariff/uktt.git'
+gem 'uktt', git: 'https://github.com/trade-tariff/uktt.git'
 
 # Sentry for errors tracking
 gem 'sentry-raven'
