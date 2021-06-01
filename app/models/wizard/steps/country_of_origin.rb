@@ -73,6 +73,9 @@ module Wizard
 
       def next_step_for_row_to_ni
         return trade_remedies_path if trade_defence
+        return customs_value_path if zero_mfn_duty
+
+        trader_scheme_path
       end
 
       def next_step_for_row_to_gb
