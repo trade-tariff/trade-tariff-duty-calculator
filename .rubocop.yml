@@ -27,6 +27,8 @@ Metrics/ModuleLength:
   Enabled: false
 RSpec/ExampleLength:
   Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Max: 11
 RSpec/NestedGroups:
   Enabled: false
 Rails/SaveBang:
