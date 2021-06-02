@@ -219,12 +219,30 @@ RSpec.describe Wizard::Steps::CustomsValue do
         allow(user_session).to receive(:row_to_gb_route?).and_return(true)
       end
 
-      it 'returns certificate_of_origin_path' do
+      it 'returns country_of_origin_path' do
         expect(
           step.previous_step_path,
         ).to eq(
           country_of_origin_path,
         )
+      end
+    end
+
+    context 'when on RoW to NI route' do
+      before do
+        allow(user_session).to receive(:row_to_ni_route?).and_return(true)
+      end
+
+      context 'when there is a zero mfn duty' do
+        it 'returns country_of_origin_path' do
+          allow(user_session).to receive(:zero_mfn_duty).and_return(true)
+
+          expect(
+            step.previous_step_path,
+          ).to eq(
+            country_of_origin_path,
+          )
+        end
       end
     end
   end
