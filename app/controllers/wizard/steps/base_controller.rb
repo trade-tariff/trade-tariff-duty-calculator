@@ -19,7 +19,7 @@ module Wizard
 
       def country_of_origin_description
         Api::GeographicalArea.find(
-          user_session.country_of_origin,
+          country_of_origin_code,
           user_session.import_destination.downcase.to_sym,
         ).description
       end
@@ -45,7 +45,7 @@ module Wizard
       end
 
       def default_filter
-        { 'filter[geographical_area_id]' => user_session.country_of_origin }
+        { 'filter[geographical_area_id]' => country_of_origin_code }
       end
 
       def default_query
@@ -63,6 +63,12 @@ module Wizard
 
       def ensure_session_integrity
         return redirect_to trade_tariff_url if commodity_code.blank?
+      end
+
+      def country_of_origin_code
+        return user_session.other_country_of_origin if user_session.country_of_origin == 'OTHER'
+
+        user_session.country_of_origin
       end
     end
   end

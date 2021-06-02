@@ -5,9 +5,9 @@ class DutyCalculator
   end
 
   def result
-    return nil if user_session.ni_to_gb_route? || user_session.eu_to_ni_route?
+    return nil if user_session.ni_to_gb_route? || user_session.eu_to_ni_route? || no_duty_applies?
 
-    calculate_duty if user_session.gb_to_ni_route? || user_session.row_to_gb_route?
+    calculate_duty
   end
 
   private
@@ -15,8 +15,6 @@ class DutyCalculator
   attr_reader :user_session, :commodity
 
   def calculate_duty
-    return nil if zero_mfn_duty_no_trade_defence? || strict_processing? || certificate_of_origin?
-
     options = applicable_measures.each_with_object(default_options) do |measure, acc|
       option_klass = measure.measure_type.option
 
@@ -86,5 +84,13 @@ class DutyCalculator
 
   def no_additional_code_measures
     commodity.import_measures.reject(&:additional_code)
+  end
+
+  def no_duty_applies?
+    relevant_route? && (zero_mfn_duty_no_trade_defence? || strict_processing? || certificate_of_origin?)
+  end
+
+  def relevant_route?
+    user_session.gb_to_ni_route? || user_session.row_to_gb_route?
   end
 end
