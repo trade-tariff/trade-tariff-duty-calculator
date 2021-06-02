@@ -23,7 +23,7 @@ module Wizard
       end
 
       def opts
-        return opts_for_ni_to_gb_route if answer == 'GB' && user_session.import_destination == 'XI'
+        return trade_defence_mfn_opts if %w[GB OTHER].include?(answer) && user_session.import_destination == 'XI'
 
         {}
       end
@@ -36,7 +36,7 @@ module Wizard
         { 'filter[geographical_area_id]' => answer }
       end
 
-      def opts_for_ni_to_gb_route
+      def trade_defence_mfn_opts
         {
           trade_defence: commodity.trade_defence,
           zero_mfn_duty: filtered_commodity(filter: geographical_area_id_filter).zero_mfn_duty,
