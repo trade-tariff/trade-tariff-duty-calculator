@@ -223,6 +223,7 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
           'import_destination' => 'XI',
           'country_of_origin' => 'OTHER',
           'other_country_of_origin' => 'AR',
+          'commodity_source' => 'xi',
         }
       end
 
@@ -250,6 +251,12 @@ RSpec.describe Wizard::Steps::CountryOfOrigin do
             ).to eq(
               customs_value_path,
             )
+          end
+
+          it 'sets the commodity source to UK' do
+            expect {
+              step.next_step_path
+            }.to change(user_session, :commodity_source).from('xi').to('uk')
           end
         end
 
