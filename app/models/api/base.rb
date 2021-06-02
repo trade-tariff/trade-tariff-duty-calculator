@@ -1,6 +1,8 @@
 module Api
   class Base
     def self.inherited(child)
+      super
+
       child.include ActiveModel::Model
       child.include ActiveModel::Attributes
 

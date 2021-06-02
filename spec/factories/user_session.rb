@@ -1,9 +1,9 @@
 Dir[File.join(__dir__, '../../app/models/wizard/steps/', '*.rb')].sort.each { |file| require_relative file }
 
+POSSIBLE_ANSWERS = Wizard::Steps.constants.map { |step| "Wizard::Steps::#{step}".constantize.id }
+
 FactoryBot.define do
   factory :user_session do
-    POSSIBLE_ANSWERS = Wizard::Steps.constants.map { |step| "Wizard::Steps::#{step}".constantize.id }
-
     commodity_code   { nil }
     commodity_source { nil }
     referred_service { nil }
