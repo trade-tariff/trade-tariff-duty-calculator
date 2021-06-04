@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   end
 
   scope path: '/duty-calculator/' do
+    get 'ping', to: 'healthcheck#ping'
+    get 'healthcheck', to: 'healthcheck#healthcheck'
+
     get 'import-destination', to: 'wizard/steps/import_destination#show'
     post 'import-destination', to: 'wizard/steps/import_destination#create'
 
@@ -40,9 +43,6 @@ Rails.application.routes.draw do
     get 'additional-codes/:measure_type_id', to: 'wizard/steps/additional_codes#show', as: 'additional_codes'
     post 'additional-codes/:measure_type_id', to: 'wizard/steps/additional_codes#create'
   end
-
-  get 'ping', to: 'healthcheck#ping'
-  get 'healthcheck', to: 'healthcheck#healthcheck'
 
   get '404', to: 'errors#not_found', via: :all
   get '422', to: 'errors#unprocessable_entity', via: :all
