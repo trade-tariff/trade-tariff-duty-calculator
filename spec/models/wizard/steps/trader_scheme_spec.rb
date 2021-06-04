@@ -86,6 +86,27 @@ RSpec.describe Wizard::Steps::TraderScheme do
         )
       end
     end
+
+    context 'when on RoW to NI route and answer is no' do
+      let(:answer) { 'no' }
+
+      let(:session_attributes) do
+        {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'OTHER',
+          'other_country_of_origin' => 'AR',
+          'trader_scheme' => answer,
+        }
+      end
+
+      it 'returns trade_remedies_path' do
+        expect(
+          step.next_step_path,
+        ).to eq(
+          trade_remedies_path,
+        )
+      end
+    end
   end
 
   describe '#previous_step_path' do
