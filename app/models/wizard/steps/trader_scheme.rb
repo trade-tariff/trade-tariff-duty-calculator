@@ -27,6 +27,8 @@ module Wizard
       def next_step_path
         return final_use_path if user_session.trader_scheme == 'yes'
         return certificate_of_origin_path if user_session.gb_to_ni_route?
+
+        trade_remedies_path
       end
 
       def previous_step_path
