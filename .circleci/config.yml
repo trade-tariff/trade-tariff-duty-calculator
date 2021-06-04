@@ -39,9 +39,13 @@ commands:
       - run:
           name: "Push new app in dark mode"
           command: |
-            # Push as "dark" instance
             export BUILDPACK="https://github.com/cloudfoundry/ruby-buildpack.git#<< parameters.buildpack_version >>"
 
+            # Enables /healthcheck to show the current deployed git sha
+            export GIT_NEW_REVISION=$(git rev-parse --short HEAD)
+            echo $GIT_NEW_REVISION >REVISION
+
+            # Push as "dark" instance
             cf push "$CF_APP-<< parameters.environment_key >>-dark" -f deploy_manifest.yml --no-route --buildpack $BUILDPACK
 
             # Map dark route
@@ -55,7 +59,7 @@ commands:
           command: |
             sleep 15
             # Verify new version is working on dark URL.
-            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$CF_APP-<< parameters.environment_key >>-dark.london.cloudapps.digital/ping`
+            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$CF_APP-<< parameters.environment_key >>-dark.london.cloudapps.digital/duty-calculator/ping`
 
             if [ "$HTTPCODE" -ne 200 ];then
               echo "dark route not available, failing deploy ($HTTPCODE)"
