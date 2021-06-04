@@ -52,6 +52,75 @@ RSpec.describe Wizard::Steps::FinalUse do
     end
   end
 
+  describe '#heading' do
+    context 'when on GB to NI route' do
+      let(:session_attributes) do
+        {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+        }
+      end
+
+      it 'returns the correct heading' do
+        expect(step.heading).to eq('Are your goods for sale to, or final use by, end-consumers located in the United Kingdom?')
+      end
+    end
+
+    context 'when on RoW to NI' do
+      let(:session_attributes) do
+        {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'OTHER',
+          'other_country_of_origin' => 'AR',
+        }
+      end
+
+      it 'returns the correct heading' do
+        expect(step.heading).to eq('Are your goods for sale to, or final use by, end-consumers located in the Northern Ireland?')
+      end
+    end
+  end
+
+  describe '#options' do
+    let(:expected) do
+      [
+        OpenStruct.new(id: 'yes', name: I18n.t("final_use.#{locale_key}.yes_option")),
+        OpenStruct.new(id: 'no', name: I18n.t("final_use.#{locale_key}.no_option")),
+      ]
+    end
+
+    let(:locale_key) { 'gb_to_ni' }
+
+    context 'when on GB to NI route' do
+      let(:session_attributes) do
+        {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+        }
+      end
+
+      it 'returns the correct heading' do
+        expect(step.options).to eq(expected)
+      end
+    end
+
+    context 'when on RoW to NI' do
+      let(:session_attributes) do
+        {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'OTHER',
+          'other_country_of_origin' => 'AR',
+        }
+      end
+
+      let(:locale_key) { 'row_to_ni' }
+
+      it 'returns the correct heading' do
+        expect(step.options).to eq(expected)
+      end
+    end
+  end
+
   describe '#next_step_path' do
     include Rails.application.routes.url_helpers
 
@@ -60,7 +129,6 @@ RSpec.describe Wizard::Steps::FinalUse do
         {
           'import_destination' => 'XI',
           'country_of_origin' => 'GB',
-          'trader_scheme' => 'yes',
           'final_use' => 'yes',
         }
       end
@@ -79,7 +147,6 @@ RSpec.describe Wizard::Steps::FinalUse do
         {
           'import_destination' => 'XI',
           'country_of_origin' => 'GB',
-          'trader_scheme' => 'yes',
           'final_use' => 'no',
         }
       end
@@ -89,6 +156,25 @@ RSpec.describe Wizard::Steps::FinalUse do
           step.next_step_path,
         ).to eq(
           certificate_of_origin_path,
+        )
+      end
+    end
+
+    context 'when on RoW to NI route and final use answer is no' do
+      let(:session_attributes) do
+        {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'OTHER',
+          'other_country_of_origin' => 'AR',
+          'final_use' => 'no',
+        }
+      end
+
+      it 'returns trade_remedies_path' do
+        expect(
+          step.next_step_path,
+        ).to eq(
+          trade_remedies_path,
         )
       end
     end
