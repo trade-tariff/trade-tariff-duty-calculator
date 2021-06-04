@@ -59,7 +59,7 @@ commands:
           command: |
             sleep 15
             # Verify new version is working on dark URL.
-            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$CF_APP-<< parameters.environment_key >>-dark.london.cloudapps.digital/ping`
+            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$CF_APP-<< parameters.environment_key >>-dark.london.cloudapps.digital/duty-calculator/ping`
 
             if [ "$HTTPCODE" -ne 200 ];then
               echo "dark route not available, failing deploy ($HTTPCODE)"
