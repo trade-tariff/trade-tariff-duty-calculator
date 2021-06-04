@@ -17,6 +17,10 @@ module Wizard
 
       def previous_step_for_row_to_ni
         return country_of_origin_path if user_session.trade_defence
+        return planned_processing_path if user_session.planned_processing == 'commercial_processing'
+        return final_use_path if user_session.final_use == 'no'
+
+        trader_scheme_path
       end
     end
   end
