@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
     get 'confirm', to: 'wizard/steps/confirmation#show'
 
-    get 'trade-remedies', to: 'pages#trade_remedies'
+    get 'trade-remedies', to: 'wizard/steps/trade_remedies#show'
 
     get 'duty', to: 'wizard/steps/duty#show'
 

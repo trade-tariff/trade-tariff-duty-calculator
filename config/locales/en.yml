@@ -62,7 +62,14 @@ en:
         waiver: 'Option %{option_no}: Claiming a waiver – Exchange rate'
 
 
-
+  trade_remedies:
+    gb_to_ni:
+      heading: Duties apply to this import
+      body: As this commodity attracts a trade defence measure, imports of this commodity are treated as 'at risk' under all circumstances.
+    row_to_ni:
+      trade_defence:
+        heading: EU duties apply to this import
+        body: As this commodity attracts a trade defence measure, imports of this commodity are treated as 'at risk'.
   confirmation_page:
     import_date: Date of import
     import_destination: Destination
