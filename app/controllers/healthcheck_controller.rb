@@ -4,6 +4,6 @@ class HealthcheckController < ApplicationController
   end
 
   def healthcheck
-    render status: :ok, body: CURRENT_REVISION
+    render status: :ok, json: { git_sha1: CURRENT_REVISION }
   end
 end
