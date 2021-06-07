@@ -80,7 +80,7 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
     end
 
     context 'when on RoW to NI route' do
-      context 'when the answer is commercial_purposes' do
+      context 'when the answer is commercial_processing' do
         let(:answer) { 'commercial_processing' }
 
         let(:session_attributes) do
