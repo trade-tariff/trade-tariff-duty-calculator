@@ -36,7 +36,7 @@ module Wizard
       end
 
       def next_step_for_row_to_ni
-        return trade_remedies_path if user_session.planned_processing == 'commercial_processing'
+        return trade_remedies_path unless user_session.planned_processing == 'commercial_purposes'
 
         # TODO: We need to add the link to a stop page here - that will come in soon
       end

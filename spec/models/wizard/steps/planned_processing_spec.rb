@@ -100,6 +100,69 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
           )
         end
       end
+
+      context 'when the answer is annual_turnover' do
+        let(:answer) { 'annual_turnover' }
+
+        let(:session_attributes) do
+          {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'OTHER',
+            'other_country_of_origin' => 'AR',
+            'planned_processing' => answer,
+          }
+        end
+
+        it 'returns trade_remedies_path' do
+          expect(
+            step.next_step_path,
+          ).to eq(
+            trade_remedies_path,
+          )
+        end
+      end
+
+      context 'when the answer is without_any_processing' do
+        let(:answer) { 'without_any_processing' }
+
+        let(:session_attributes) do
+          {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'OTHER',
+            'other_country_of_origin' => 'AR',
+            'planned_processing' => answer,
+          }
+        end
+
+        it 'returns trade_remedies_path' do
+          expect(
+            step.next_step_path,
+          ).to eq(
+            trade_remedies_path,
+          )
+        end
+      end
+
+      context 'when the answer is commercial_purposes' do
+        let(:answer) { 'commercial_purposes' }
+
+        let(:session_attributes) do
+          {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'OTHER',
+            'other_country_of_origin' => 'AR',
+            'planned_processing' => answer,
+          }
+        end
+
+        it 'returns no path for now' do
+          expect(
+            step.next_step_path,
+          ).to eq(
+            nil,
+          )
+        end
+      end
     end
   end
 
