@@ -49,31 +49,56 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
       {
         'import_destination' => 'XI',
         'country_of_origin' => 'GB',
-        'trader_scheme' => 'yes',
-        'final_use' => 'yes',
         'planned_processing' => answer,
       }
     end
 
-    context 'when on GB to NI route and answer is not commercial_purposes' do
-      it 'returns duty_path' do
-        expect(
-          step.next_step_path,
-        ).to eq(
-          duty_path,
-        )
+    context 'when on GB to NI route' do
+      context 'when the answer is not commercial_purposes' do
+        let(:answer) { 'without_any_processing' }
+
+        it 'returns duty_path' do
+          expect(
+            step.next_step_path,
+          ).to eq(
+            duty_path,
+          )
+        end
+      end
+
+      context 'when the answer is commercial_purposes' do
+        let(:answer) { 'commercial_purposes' }
+
+        it 'returns certificate_of_origin_path' do
+          expect(
+            step.next_step_path,
+          ).to eq(
+            certificate_of_origin_path,
+          )
+        end
       end
     end
 
-    context 'when on GB to NI route and answer is commercial_purposes' do
-      let(:answer) { 'commercial_purposes' }
+    context 'when on RoW to NI route' do
+      context 'when the answer is commercial_purposes' do
+        let(:answer) { 'commercial_processing' }
 
-      it 'returns duty_path' do
-        expect(
-          step.next_step_path,
-        ).to eq(
-          certificate_of_origin_path,
-        )
+        let(:session_attributes) do
+          {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'OTHER',
+            'other_country_of_origin' => 'AR',
+            'planned_processing' => answer,
+          }
+        end
+
+        it 'returns trade_remedies_path' do
+          expect(
+            step.next_step_path,
+          ).to eq(
+            trade_remedies_path,
+          )
+        end
       end
     end
   end

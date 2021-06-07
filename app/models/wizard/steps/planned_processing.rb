@@ -19,6 +19,8 @@ module Wizard
 
       def next_step_path
         return next_step_for_gb_to_ni if user_session.gb_to_ni_route?
+
+        next_step_for_row_to_ni
       end
 
       def previous_step_path
@@ -31,6 +33,12 @@ module Wizard
         return duty_path unless user_session.planned_processing == 'commercial_purposes'
 
         certificate_of_origin_path
+      end
+
+      def next_step_for_row_to_ni
+        return trade_remedies_path if user_session.planned_processing == 'commercial_processing'
+
+        # TODO: We need to add the link to a stop page here - that will come in soon
       end
     end
   end
