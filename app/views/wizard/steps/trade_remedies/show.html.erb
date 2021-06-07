@@ -11,8 +11,8 @@
     <%= render partial: 'wizard/steps/trade_remedies/shared/context', locals: { heading: t('trade_remedies.row_to_ni.trader_scheme.heading'), body: t('trade_remedies.row_to_ni.trader_scheme.body_html') } %>
   <% elsif user_session.final_use == 'no' %>
     <%= render partial: 'wizard/steps/trade_remedies/shared/context', locals: { heading: t('trade_remedies.row_to_ni.final_use.heading'), body: t('trade_remedies.row_to_ni.final_use.body') } %>
-  <% elsif user_session.planned_processing == 'commercial_processing' %>
-    <%= render partial: 'wizard/steps/trade_remedies/shared/context', locals: { heading: t('trade_remedies.row_to_ni.commercial_processing.heading'), body: t('trade_remedies.row_to_ni.commercial_processing.body') } %>
+  <% elsif user_session.planned_processing != 'commercial_purposes' %>
+    <%= render partial: 'wizard/steps/trade_remedies/shared/context', locals: { heading: t('trade_remedies.row_to_ni.no_commercial_purposes.heading'), body: t('trade_remedies.row_to_ni.no_commercial_purposes.body') } %>
   <% end %>
 <% end %>
 

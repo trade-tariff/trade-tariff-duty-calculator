@@ -84,6 +84,18 @@ RSpec.describe Wizard::Steps::TradeRemedy do
         end
       end
 
+      context 'when goods are for commercial purposes' do
+        let(:planned_processing) { 'commercial_purposes' }
+
+        it 'returns no path at all for now' do
+          expect(
+            step.previous_step_path,
+          ).to eq(
+            nil,
+          )
+        end
+      end
+
       context 'when goods are not for final use' do
         let(:final_use) { 'no' }
 
