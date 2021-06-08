@@ -47,6 +47,31 @@ RSpec.describe Wizard::Steps::Vat do
     end
   end
 
+  describe '#vat_options' do
+    let(:user_session) { build(:user_session, commodity_code: '0809400500', commodity_source: 'uk') }
+
+    let(:expected_options) do
+      [
+        OpenStruct.new(
+          id: 'VATR',
+          name: 'VAT reduced rate 5% (5.0)',
+        ),
+        OpenStruct.new(
+          id: 'VATZ',
+          name: 'VAT zero rate (0.0)',
+        ),
+        OpenStruct.new(
+          id: 'VAT',
+          name: 'Value added tax (20.0)',
+        ),
+      ]
+    end
+
+    it 'returns the correct VAT options' do
+      expect(step.vat_options).to eq expected_options
+    end
+  end
+
   describe '#next_step_path' do
   end
 
