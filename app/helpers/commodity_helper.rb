@@ -21,6 +21,10 @@ module CommodityHelper
     @applicable_additional_codes ||= filtered_commodity.applicable_additional_codes
   end
 
+  def applicable_vat_options
+    @applicable_vat_options ||= filtered_commodity.applicable_vat_options
+  end
+
   private
 
   def default_query

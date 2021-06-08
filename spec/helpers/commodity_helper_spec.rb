@@ -4,9 +4,18 @@ RSpec.describe CommodityHelper do
   end
 
   let(:commodity_source) { 'xi' }
-  let(:commodity_code) { '0102291010' }
+  let(:commodity_code) { '0809400500' }
   let(:import_destination) { 'XI' }
   let(:as_of) { Time.zone.today.iso8601 }
+
+  let(:user_session) do
+    build(
+      :user_session,
+      import_destination: import_destination,
+      commodity_source: commodity_source,
+      commodity_code: commodity_code,
+    )
+  end
 
   describe '#filtered_commodity' do
     before do
@@ -102,6 +111,52 @@ RSpec.describe CommodityHelper do
         commodity_code,
         expected_filter,
       )
+    end
+  end
+
+  describe '#applicable_vat_options' do
+    let(:expected_options) do
+      {
+        'VAT' => 'Value added tax (20.0)',
+        'VATR' => 'VAT reduced rate 5% (5.0)',
+        'VATZ' => 'VAT zero rate (0.0)',
+      }
+    end
+
+    it 'returns the applicable vat options' do
+      expect(helper.applicable_vat_options).to eq(expected_options)
+    end
+  end
+
+  describe '#applicable_additional_codes' do
+    let(:expected_options) do
+      {
+        '105' => {
+          'additional_codes' => [
+            {
+              'code' => '2600',
+              'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
+              'measure_sid' => 20_126_513,
+              'overlay' => 'The product I am importing is COVID-19 critical',
+            },
+            {
+              'code' => '2601',
+              'hint' => '',
+              'measure_sid' => 20_126_512,
+              'overlay' => 'The product I am importing is not COVID-19 critical',
+            },
+          ],
+          'heading' => {
+            'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
+            'overlay' => 'Describe your goods in more detail',
+          },
+          'measure_type_description' => 'Non preferential duty under authorised use',
+        },
+      }
+    end
+
+    it 'returns the applicable additional codes' do
+      expect(helper.applicable_additional_codes).to eq(expected_options)
     end
   end
 end

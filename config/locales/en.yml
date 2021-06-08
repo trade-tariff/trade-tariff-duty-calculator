@@ -154,3 +154,7 @@ en:
               blank: Enter a valid import quantity.
               not_a_number: Enter a numeric import quantity.
               greater_than: Enter an import quantity value greater than zero.
+        wizard/steps/vat:
+          attributes:
+            vat:
+              blank: Select one of the available options
