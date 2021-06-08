@@ -23,7 +23,9 @@ module Wizard
         end
       end
 
-      def next_step_path; end
+      def next_step_path
+        confirm_path
+      end
 
       def previous_step_path; end
     end

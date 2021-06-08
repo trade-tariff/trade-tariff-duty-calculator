@@ -73,6 +73,15 @@ RSpec.describe Wizard::Steps::Vat do
   end
 
   describe '#next_step_path' do
+    include Rails.application.routes.url_helpers
+
+    it 'returns confirm_path' do
+      expect(
+        step.next_step_path,
+      ).to eq(
+        confirm_path,
+      )
+    end
   end
 
   describe '#previous_step_path' do
