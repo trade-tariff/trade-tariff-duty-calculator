@@ -15,7 +15,7 @@ module Wizard
 
       def permitted_params
         params.require(:wizard_steps_vat).permit(
-          :vat_code,
+          :vat,
         )
       end
     end

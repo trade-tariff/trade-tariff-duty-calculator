@@ -24,6 +24,20 @@ RSpec.describe Wizard::Steps::Confirmation do
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
+    context 'when there is a VAT code on the session' do
+      before do
+        allow(user_session).to receive(:vat).and_return('VATZ')
+      end
+
+      it 'returns vat_path' do
+        expect(
+          step.previous_step_path,
+        ).to eq(
+          vat_path,
+        )
+      end
+    end
+
     context 'when there are additional codes on the session' do
       let(:user_session) do
         build(

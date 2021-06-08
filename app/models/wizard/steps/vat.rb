@@ -27,7 +27,12 @@ module Wizard
         confirm_path
       end
 
-      def previous_step_path; end
+      def previous_step_path
+        return additional_codes_path(user_session.measure_type_ids.last) unless user_session.additional_code.empty?
+        return measure_amount_path unless user_session.measure_amount.empty?
+
+        customs_value_path
+      end
     end
   end
 end

@@ -60,6 +60,7 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
     allow(commodity).to receive(:zero_mfn_duty).and_return(false)
     allow(commodity).to receive(:import_measures).and_return([])
     allow(commodity).to receive(:applicable_additional_codes).and_return({})
+    allow(commodity).to receive(:applicable_vat_options).and_return({})
     allow(Api::Commodity).to receive(:build).with('xi', commodity_code, default_query).and_return(commodity)
     allow(Api::Commodity).to receive(:build).with('xi', commodity_code, filtered_query).and_return(commodity)
 
