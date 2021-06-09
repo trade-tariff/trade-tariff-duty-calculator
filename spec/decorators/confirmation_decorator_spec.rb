@@ -38,6 +38,7 @@ RSpec.describe ConfirmationDecorator do
           certificate_of_origin
           customs_value
           measure_amount
+          vat
         ],
       )
     end
@@ -65,6 +66,7 @@ RSpec.describe ConfirmationDecorator do
           '105' => '2340',
           '103' => '2600',
         },
+        'vat' => 'VATZ',
       }
     end
 
@@ -120,6 +122,11 @@ RSpec.describe ConfirmationDecorator do
           label: 'Import quantity',
           value: '120 x 100 kg',
         },
+        {
+          key: 'vat',
+          label: 'Applicable VAT rate',
+          value: 'flibble',
+        },
       ]
     end
 
@@ -138,10 +145,18 @@ RSpec.describe ConfirmationDecorator do
       }
     end
 
+    let(:applicable_vat_options) do
+      {
+        'VATZ' => 'flibble',
+        'VATR' => 'foobar',
+      }
+    end
+
     before do
       allow(Api::GeographicalArea).to receive(:find).with('GB', :xi).and_return(gb)
       allow(gb).to receive(:description).and_return('United Kingdom')
       allow(commodity).to receive(:applicable_measure_units).and_return(applicable_measure_units)
+      allow(commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
     end
 
     it 'returns an array with formatted user answers from the session' do
@@ -220,6 +235,82 @@ RSpec.describe ConfirmationDecorator do
       end
 
       it 'does not return any line with additional codes' do
+        expect(confirmation_decorator.user_answers).to eq(expected)
+      end
+    end
+
+    context 'when there is not VAT option on the session' do
+      let(:session_attributes) do
+        {
+          'import_date' => '2090-01-01',
+          'import_destination' => 'XI',
+          'country_of_origin' => 'GB',
+          'trader_scheme' => 'yes',
+          'final_use' => 'yes',
+          'planned_processing' => 'commercial_purposes',
+          'certificate_of_origin' => 'no',
+          'customs_value' => {
+            'insurance_cost' => '10',
+            'monetary_value' => '10',
+            'shipping_cost' => '10',
+          },
+          'measure_amount' => {
+            'dtn' => '120',
+          },
+        }
+      end
+
+      let(:expected) do
+        [
+          {
+            key: 'import_date',
+            label: 'Date of import',
+            value: '01 January 2090',
+          },
+          {
+            key: 'import_destination',
+            label: 'Destination',
+            value: 'Northern Ireland',
+          },
+          {
+            key: 'country_of_origin',
+            label: 'Coming from',
+            value: 'United Kingdom',
+          },
+          {
+            key: 'trader_scheme',
+            label: 'Trader scheme',
+            value: 'Yes',
+          },
+          {
+            key: 'final_use',
+            label: 'Final use',
+            value: 'Yes',
+          },
+          {
+            key: 'planned_processing',
+            label: 'Processing',
+            value: 'Commercial purposes',
+          },
+          {
+            key: 'certificate_of_origin',
+            label: 'Certificate of origin',
+            value: 'No',
+          },
+          {
+            key: 'customs_value',
+            label: 'Customs value',
+            value: '£30.00',
+          },
+          {
+            key: 'measure_amount',
+            label: 'Import quantity',
+            value: '120 x 100 kg',
+          },
+        ]
+      end
+
+      it 'does not return any line with the selected vat code' do
         expect(confirmation_decorator.user_answers).to eq(expected)
       end
     end

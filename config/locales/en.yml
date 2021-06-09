@@ -99,6 +99,7 @@ en:
     customs_value: Customs value
     measure_amount: Import quantity
     additional_code: Additional code(s)
+    vat: Applicable VAT rate
   activemodel:
     errors:
       models:

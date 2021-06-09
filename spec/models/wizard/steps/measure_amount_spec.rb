@@ -120,12 +120,14 @@ RSpec.describe Wizard::Steps::MeasureAmount do
     include Rails.application.routes.url_helpers
 
     let(:applicable_additional_codes) { {} }
+    let(:applicable_vat_options) { {} }
     let(:first_measure_type_id) { '105' }
     let(:filtered_commodity) { instance_double(Api::Commodity) }
 
     before do
       allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
       allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(applicable_additional_codes)
+      allow(filtered_commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
     end
 
     context 'when there are applicable additional codes available' do
@@ -181,6 +183,79 @@ RSpec.describe Wizard::Steps::MeasureAmount do
         ).to eq(
           additional_codes_path(first_measure_type_id),
         )
+      end
+    end
+
+    context 'when there are less than 2 applicable vat options' do
+      let(:additional_codes) do
+        {
+          '105' => {
+            'measure_type_description' => 'third-country duty',
+            'heading' => {
+              'overlay' => 'Describe your goods in more detail',
+              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
+            },
+            'additional_codes' => [
+              {
+                'code' => '2600',
+                'overlay' => 'The product I am importing is COVID-19 critical',
+                'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
+              },
+              {
+                'code' => '2601',
+                'overlay' => 'The product I am importing is not COVID-19 critical',
+                'hint' => '',
+              },
+            ],
+          },
+        }
+      end
+
+      let(:applicable_vat_options) do
+        {
+          'VATZ' => 'flibble',
+        }
+      end
+
+      it 'returns confirm_path' do
+        expect(step.next_step_path).to eq(confirm_path)
+      end
+    end
+
+    context 'when there are more than 1 applicable vat options' do
+      let(:additional_codes) do
+        {
+          '105' => {
+            'measure_type_description' => 'third-country duty',
+            'heading' => {
+              'overlay' => 'Describe your goods in more detail',
+              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
+            },
+            'additional_codes' => [
+              {
+                'code' => '2600',
+                'overlay' => 'The product I am importing is COVID-19 critical',
+                'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
+              },
+              {
+                'code' => '2601',
+                'overlay' => 'The product I am importing is not COVID-19 critical',
+                'hint' => '',
+              },
+            ],
+          },
+        }
+      end
+
+      let(:applicable_vat_options) do
+        {
+          'VATZ' => 'flibble',
+          'VATR' => 'foobar',
+        }
+      end
+
+      it 'returns vat_path' do
+        expect(step.next_step_path).to eq(vat_path)
       end
     end
 

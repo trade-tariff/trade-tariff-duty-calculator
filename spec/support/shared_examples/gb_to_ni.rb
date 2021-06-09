@@ -49,6 +49,8 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
     }
   end
 
+  let(:applicable_vat_options) { {} }
+
   before do
     allow(commodity).to receive(:applicable_measure_units).and_return(attributes['applicable_measure_units'])
     allow(Api::Commodity).to receive(:build).with('uk', commodity_code, default_query).and_return(commodity)
@@ -60,7 +62,7 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording
     allow(commodity).to receive(:zero_mfn_duty).and_return(false)
     allow(commodity).to receive(:import_measures).and_return([])
     allow(commodity).to receive(:applicable_additional_codes).and_return({})
-    allow(commodity).to receive(:applicable_vat_options).and_return({})
+    allow(commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
     allow(Api::Commodity).to receive(:build).with('xi', commodity_code, default_query).and_return(commodity)
     allow(Api::Commodity).to receive(:build).with('xi', commodity_code, filtered_query).and_return(commodity)
 

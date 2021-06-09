@@ -30,9 +30,10 @@ module Wizard
       end
 
       def next_step_path
-        return confirm_path if next_measure_type_id.nil?
+        return additional_codes_path(next_measure_type_id) if next_measure_type_id.present?
+        return vat_path if applicable_vat_options.keys.count > 1
 
-        additional_codes_path(next_measure_type_id)
+        confirm_path
       end
 
       def previous_step_path

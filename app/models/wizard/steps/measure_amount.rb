@@ -55,6 +55,8 @@ module Wizard
       def next_step_path
         return additional_codes_path(applicable_additional_codes.keys.first) if applicable_additional_codes.present?
 
+        return vat_path if applicable_vat_options.keys.count > 1
+
         confirm_path
       end
 

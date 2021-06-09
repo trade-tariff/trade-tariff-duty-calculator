@@ -12,6 +12,7 @@ class ConfirmationDecorator < SimpleDelegator
     certificate_of_origin
     customs_value
     measure_amount
+    vat
   ].freeze
 
   def initialize(object, commodity)
@@ -52,6 +53,7 @@ class ConfirmationDecorator < SimpleDelegator
     return format_measure_amount(value) if key == 'measure_amount'
     return country_name_for(value, key) if %w[import_destination country_of_origin].include?(key)
     return additional_codes_for(value) if key == 'additional_code'
+    return vat_label(value) if key == 'vat'
 
     value.humanize
   end
@@ -82,6 +84,10 @@ class ConfirmationDecorator < SimpleDelegator
     value = user_session.other_country_of_origin if value == 'OTHER'
 
     Api::GeographicalArea.find(value, user_session.import_destination.downcase.to_sym).description
+  end
+
+  def vat_label(value)
+    commodity.applicable_vat_options[value]
   end
 
   def additional_codes_for(value)
