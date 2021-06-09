@@ -4,6 +4,8 @@ FROM ruby:2.7.3-alpine as builder
 # The application runs from /app
 WORKDIR /app
 
+ENV API_SERVICE_BACKEND_URL_OPTIONS='{"uk":"http://localhost:3000/","xi":"http://localhost:3000/"}'
+
 # Add the timezone as it's not configured by default in Alpine
 RUN apk add --update --no-cache tzdata && \
   cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
@@ -44,7 +46,7 @@ RUN rm -rf node_modules log tmp && \
       find /usr/local/bundle/gems -name "*.html" -delete
 
 # Build runtime image
-FROM ruby:2.7.2-alpine as production
+FROM ruby:2.7.3-alpine as production
 
 # The application runs from /app
 WORKDIR /app
@@ -58,3 +60,5 @@ RUN apk add --update --no-cache libpq tzdata && \
 # Copy files generated in the builder image
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
+
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
