@@ -11,7 +11,7 @@ module DutyOptions
 
     def option
       {
-        footnote: localised_footnote.html_safe,
+        footnote: localised_footnote,
         warning_text: nil,
         values: option_values,
       }
@@ -78,7 +78,7 @@ module DutyOptions
       [
         I18n.t('duty_calculations.options.duty_total_html').html_safe,
         nil,
-        number_to_currency(duty_totals),
+        "<strong>#{number_to_currency(duty_totals)}</strong>".html_safe,
       ]
     end
 
@@ -105,9 +105,9 @@ module DutyOptions
     end
 
     def localised_footnote
-      return I18n.t("measure_type_footnotes.#{measure.measure_type.id}") unless measure.measure_type.remedial?
+      return I18n.t("measure_type_footnotes.#{measure.measure_type.id}").html_safe unless measure.measure_type.additional_option?
 
-      I18n.t("measure_type_footnotes.#{measure.measure_type.id}", link: link)
+      I18n.t("measure_type_footnotes.#{measure.measure_type.id}", link: link).html_safe
     end
 
     def link

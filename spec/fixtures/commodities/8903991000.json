@@ -5,6 +5,8 @@
       "trade_defence": true,
       "applicable_measure_units": {
       },
+      "applicable_vat_options": {
+      },
       "meursing_code": false
     }
   },

@@ -1,10 +1,10 @@
-RSpec.describe DutyOptions::AdditionalDuty::ProvisionalAntiDumping do
+RSpec.describe DutyOptions::AdditionalDuty::Vat do
   subject(:service) { described_class.new(measure, user_session, additional_duty_rows) }
 
   describe '#option' do
-    let(:commodity_source) { 'xi' }
-    let(:commodity_code) { '0702000008' }
-    let(:geographical_area_description) { 'GSP – General Framework' }
+    let(:commodity_source) { 'uk' }
+    let(:commodity_code) { '0809400500' }
+    let(:geographical_area_description) { 'All countries (1011)' }
 
     let(:session_attributes) do
       {
@@ -14,7 +14,7 @@ RSpec.describe DutyOptions::AdditionalDuty::ProvisionalAntiDumping do
           'shipping_cost' => '40',
           'insurance_cost' => '10',
         },
-        'country_of_origin' => 'CN',
+        'country_of_origin' => 'IN',
         'commodity_source' => commodity_source,
         'commodity_code' => commodity_code,
       }
@@ -24,10 +24,10 @@ RSpec.describe DutyOptions::AdditionalDuty::ProvisionalAntiDumping do
 
     let(:additional_duty_rows) { [] }
 
-    context 'when the measure is a provisional anti-dumping duty' do
+    context 'when the measure is a VAT' do
       let(:measure) do
         Api::Measure.new(
-          measure_type: { id: '552' },
+          measure_type: { id: '305' },
           measure_components: [measure_component],
           measure_conditions: [],
           geographical_area: {
@@ -43,15 +43,11 @@ RSpec.describe DutyOptions::AdditionalDuty::ProvisionalAntiDumping do
         }
       end
 
-      let(:link) do
-        'https://dev.trade-tariff.service.gov.uk/xi/commodities/0702000008?country=CN#import'
-      end
-
       let(:duty_html) do
         I18n.t(
-          'duty_calculations.options.import_duty_html',
+          'duty_calculations.options.vat_html',
           commodity_source: commodity_source.upcase,
-          option_type: 'Provisional anti-dumping duty',
+          option_type: 'Vat',
           additional_code: nil,
         )
       end

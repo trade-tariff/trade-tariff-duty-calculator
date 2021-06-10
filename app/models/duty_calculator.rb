@@ -70,11 +70,11 @@ class DutyCalculator
   end
 
   def applicable_measures
-    @applicable_measures ||= no_additional_code_measures + additional_code_measures
+    @applicable_measures ||= no_additional_code_measures + additional_code_measures + vat_measures
   end
 
   def additional_code_measures
-    commodity.import_measures.select do |measure|
+    commodity.import_measures.reject(&:vat).select do |measure|
       additional_code = measure.additional_code
       code_answer = user_session.additional_code[measure.measure_type.id]
 
@@ -82,8 +82,18 @@ class DutyCalculator
     end
   end
 
+  def vat_measures
+    commodity.import_measures.each_with_object([]) do |measure, acc|
+      vat_type = measure.vat_type
+
+      next if vat_type.nil?
+
+      acc << measure if commodity.applicable_vat_options.keys.size == 1 || user_session.vat == vat_type
+    end
+  end
+
   def no_additional_code_measures
-    commodity.import_measures.reject(&:additional_code)
+    commodity.import_measures.reject(&:additional_code).reject(&:vat)
   end
 
   def no_duty_applies?

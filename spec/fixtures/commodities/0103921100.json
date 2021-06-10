@@ -16,6 +16,8 @@
           ]
         }
       },
+      "applicable_vat_options": {
+      },
       "meursing_code": false
     }
   },

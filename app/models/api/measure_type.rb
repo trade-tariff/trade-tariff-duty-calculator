@@ -17,6 +17,7 @@ module Api
     }.freeze
 
     TYPE_ADDITIONAL_OPTION_MAPPING = {
+      '305' => ::DutyOptions::AdditionalDuty::Vat,
       '551' => ::DutyOptions::AdditionalDuty::ProvisionalAntiDumping,
       '552' => ::DutyOptions::AdditionalDuty::DefinitiveAntiDumping,
       '553' => ::DutyOptions::AdditionalDuty::ProvisionalCountervailing,
@@ -24,8 +25,6 @@ module Api
       '695' => ::DutyOptions::AdditionalDuty::AdditionalDuties,
       '696' => ::DutyOptions::AdditionalDuty::AdditionalDutiesSafeguard,
     }.freeze
-
-    REMEDIAL_IDS = %w[551 552 553 554].freeze
 
     attributes :description,
                :national,
@@ -48,8 +47,8 @@ module Api
       TYPE_ADDITIONAL_OPTION_MAPPING[id]
     end
 
-    def remedial?
-      id.in?(REMEDIAL_IDS)
+    def additional_option?
+      id.in?(TYPE_ADDITIONAL_OPTION_MAPPING.keys)
     end
   end
 end

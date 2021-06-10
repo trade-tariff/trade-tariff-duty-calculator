@@ -288,4 +288,107 @@ RSpec.describe Api::Measure do
       expect(measure.component.duty_expression_id).to eq('01')
     end
   end
+
+  describe '#all_duties_zero?' do
+    subject(:measure) do
+      described_class.new(
+        'id' => 2_046_828,
+        'duty_expression' => {
+          'base' => '35.10 EUR / 100 kg',
+          'formatted_base' => "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
+        },
+        'measure_type' => {
+          'description' => 'Third country duty',
+          'national' => nil,
+          'measure_type_series_id' => 'C',
+          'id' => '103',
+        },
+        'vat' => vat,
+        'measure_conditions' => [],
+        'measure_components' => [
+          {
+            'duty_expression_id' => '01',
+            'duty_amount' => duty_amount,
+            'monetary_unit_code' => 'EUR',
+            'monetary_unit_abbreviation' => nil,
+            'measurement_unit_code' => 'DTN',
+            'duty_expression_description' => '% or amount',
+            'duty_expression_abbreviation' => '%',
+            'measurement_unit_qualifier_code' => nil,
+          },
+        ],
+      )
+    end
+
+    let(:duty_amount) { 35 }
+    let(:vat) { false }
+
+    context 'when the measure is VAT' do
+      let(:vat) { true }
+
+      it 'returns false' do
+        expect(measure.all_duties_zero?).to be false
+      end
+    end
+
+    it 'returns false' do
+      expect(measure.all_duties_zero?).to be false
+    end
+
+    context 'when duty amount on the measure is 0' do
+      let(:duty_amount) { 0 }
+
+      it 'returns true' do
+        expect(measure.all_duties_zero?).to be true
+      end
+    end
+  end
+
+  describe '#vat_type' do
+    subject(:measure) do
+      described_class.new(
+        'id' => 2_046_828,
+        'measure_type' => {
+          'description' => 'Third country duty',
+          'national' => nil,
+          'measure_type_series_id' => 'C',
+          'id' => '103',
+        },
+        'vat' => vat,
+        'measure_conditions' => [],
+        'additional_code' => additional_code,
+      )
+    end
+
+    let(:vat) { true }
+    let(:additional_code) do
+      {
+        'code' => 'foo',
+        'description' => 'COFCO International Argentina S.A.',
+        'formatted_description' => 'COFCO International Argentina S.A.',
+      }
+    end
+
+    context 'when the measure is not VAT' do
+      let(:vat) { false }
+
+      it 'returns nil' do
+        expect(measure.vat_type).to be nil
+      end
+    end
+
+    context 'when the measure is VAT' do
+      context 'when there is no additional code' do
+        let(:additional_code) { {} }
+
+        it 'returns VAT' do
+          expect(measure.vat_type).to eq('VAT')
+        end
+      end
+
+      it 'returns foo' do
+        expect(measure.vat_type).to eq('foo')
+      end
+    end
+  end
 end
