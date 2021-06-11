@@ -9,6 +9,7 @@
     <%= tag :meta, property: 'og:image', content: asset_pack_path('media/images/govuk-opengraph-image.png') %>
     <%= tag :meta, name: 'theme-color', content: '#0b0c0c' %>
     <%= tag :meta, name: 'robots', content: 'noindex,nofollow' %>
+    <%= render partial: 'layouts/google_tag_manager' %>
     <%= favicon_link_tag asset_pack_path('media/images/favicon.ico') %>
     <%= favicon_link_tag asset_pack_path('media/images/govuk-mask-icon.svg'), rel: 'mask-icon', type: 'image/svg', color: "#0b0c0c" %>
     <%= favicon_link_tag asset_pack_path('media/images/govuk-apple-touch-icon.png'), rel: 'apple-touch-icon', type: 'image/png' %>
@@ -20,6 +21,7 @@
   </head>
 
   <body class="govuk-template__body ">
+    <%= render partial: 'layouts/google_tag_manager_no_script' %>
     <script>
       document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
     </script>
