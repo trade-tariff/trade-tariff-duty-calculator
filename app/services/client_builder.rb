@@ -11,6 +11,7 @@ class ClientBuilder
       host,
       DEFAULT_VERSION,
       DEFAULT_FORMAT,
+      public_routing,
     )
   end
 
@@ -18,5 +19,9 @@ class ClientBuilder
 
   def host
     Rails.application.config.api_options[@service]
+  end
+
+  def public_routing
+    Rails.application.config.public_routing
   end
 end
