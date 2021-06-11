@@ -26,7 +26,7 @@ module Wizard
       end
 
       def previous_step_path
-        trader_scheme_path if user_session.gb_to_ni_route?
+        trader_scheme_path
       end
 
       def options

@@ -244,6 +244,42 @@ RSpec.describe Wizard::Steps::CustomsValue do
           )
         end
       end
+
+      context 'when the goods are not for commercial_purposes' do
+        let(:user_session) { build(:user_session, planned_processing: 'annual_turnover') }
+
+        it 'returns planned_processing_path' do
+          expect(
+            step.previous_step_path,
+          ).to eq(
+            planned_processing_path,
+          )
+        end
+      end
+
+      context 'when the goods are not for final use' do
+        let(:user_session) { build(:user_session, final_use: 'no') }
+
+        it 'returns final_use_path' do
+          expect(
+            step.previous_step_path,
+          ).to eq(
+            final_use_path,
+          )
+        end
+      end
+
+      context 'when trader is not part of a trader scheme' do
+        let(:user_session) { build(:user_session, trader_scheme: 'no') }
+
+        it 'returns trader_scheme_path' do
+          expect(
+            step.previous_step_path,
+          ).to eq(
+            trader_scheme_path,
+          )
+        end
+      end
     end
   end
 
