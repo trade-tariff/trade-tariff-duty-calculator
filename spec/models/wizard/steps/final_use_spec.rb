@@ -192,7 +192,25 @@ RSpec.describe Wizard::Steps::FinalUse do
         }
       end
 
-      it 'returns country_of_origin_path' do
+      it 'returns trader_scheme_path' do
+        expect(
+          step.previous_step_path,
+        ).to eq(
+          trader_scheme_path,
+        )
+      end
+    end
+
+    context 'when on RoW to NI route' do
+      let(:session_attributes) do
+        {
+          'import_destination' => 'XI',
+          'country_of_origin' => 'OTHER',
+          'other_country_of_origin' => 'AR',
+        }
+      end
+
+      it 'returns trader_scheme_path' do
         expect(
           step.previous_step_path,
         ).to eq(

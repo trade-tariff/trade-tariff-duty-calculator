@@ -32,7 +32,7 @@ module Wizard
       end
 
       def previous_step_path
-        country_of_origin_path if user_session.gb_to_ni_route?
+        country_of_origin_path
       end
     end
   end
