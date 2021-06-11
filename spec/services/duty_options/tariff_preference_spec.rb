@@ -49,7 +49,7 @@ RSpec.describe DutyOptions::TariffPreference do
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source.upcase, option_type: 'Tariff preference', additional_code: nil), '5.0% * £1,050.00', '£52.50'],
-            [I18n.t('duty_calculations.options.duty_total_html'), nil, '£52.50'],
+            [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£52.50</strong>'],
           ],
           geographical_area_description: 'GSP – General Framework',
         }
@@ -127,7 +127,7 @@ RSpec.describe DutyOptions::TariffPreference do
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_quantity'), nil, '120.0 x 100 kg'],
             [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source.upcase, option_type: 'Tariff preference', additional_code: nil), '35.10 EUR / 100 kg * 120.0', '£3,596.12'],
-            [I18n.t('duty_calculations.options.duty_total_html'), nil, '£3,596.12'],
+            [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£3,596.12</strong>'],
           ],
           geographical_area_description: 'GSP – General Framework',
         }
@@ -214,7 +214,7 @@ RSpec.describe DutyOptions::TariffPreference do
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source.upcase, option_type: 'Tariff preference', additional_code: nil), 'foo', '£15.00'],
-            [I18n.t('duty_calculations.options.duty_total_html'), nil, '£15.00'],
+            [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£15.00</strong>'],
           ],
           geographical_area_description: 'GSP – General Framework',
         }
