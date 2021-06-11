@@ -24,6 +24,7 @@ RSpec.describe ClientBuilder do
           'http://uk.localhost:3018',
           'v2',
           'jsonapi',
+          false,
         )
       end
     end
@@ -38,6 +39,7 @@ RSpec.describe ClientBuilder do
           'http://xi.localhost:3019',
           'v2',
           'jsonapi',
+          false,
         )
       end
     end
