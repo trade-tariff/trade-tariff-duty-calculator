@@ -64,7 +64,7 @@ RSpec.shared_context 'GB to NI' do # rubocop: disable RSpec/ContextWording, RSpe
     allow(commodity).to receive(:import_measures).and_return([])
     allow(commodity).to receive(:applicable_additional_codes).and_return(applicable_additional_codes)
     allow(commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
-    allow(Api::Commodity).to receive(:build).with('xi', commodity_code, default_query).and_return(commodity)
+    allow(Api::Commodity).to receive(:build).with('uk', commodity_code, filtered_query).and_return(commodity)
     allow(Api::Commodity).to receive(:build).with('xi', commodity_code, filtered_query).and_return(commodity)
 
     visit import_date_url(referred_service: referred_service, commodity_code: commodity_code)

@@ -1,6 +1,7 @@
 RSpec.describe CommodityHelper do
   before do
     allow(helper).to receive(:user_session).and_return(user_session)
+    allow(Api::Commodity).to receive(:build).and_call_original
   end
 
   let(:commodity_source) { 'xi' }
@@ -12,14 +13,30 @@ RSpec.describe CommodityHelper do
     build(
       :user_session,
       import_destination: import_destination,
+      country_of_origin: 'GB',
       commodity_source: commodity_source,
       commodity_code: commodity_code,
     )
   end
 
+  let(:expected_filter) do
+    {
+      'as_of' => Time.zone.today.iso8601,
+      'filter[geographical_area_id]' => 'GB',
+    }
+  end
+
   describe '#filtered_commodity' do
-    before do
-      allow(Api::Commodity).to receive(:build)
+    context 'when the commodity source is passed' do
+      it 'uses the passed commodity source' do
+        helper.filtered_commodity(source: 'uk')
+
+        expect(Api::Commodity).to have_received(:build).with(
+          'uk',
+          commodity_code,
+          expected_filter,
+        )
+      end
     end
 
     context 'when not on RoW to NI route' do
@@ -32,13 +49,6 @@ RSpec.describe CommodityHelper do
           commodity_code: commodity_code,
           other_country_of_origin: '',
         )
-      end
-
-      let(:expected_filter) do
-        {
-          'as_of' => Time.zone.today.iso8601,
-          'filter[geographical_area_id]' => 'GB',
-        }
       end
 
       it 'returns a correctly filtered commodity' do
@@ -84,10 +94,6 @@ RSpec.describe CommodityHelper do
   end
 
   describe '#commodity' do
-    before do
-      allow(Api::Commodity).to receive(:build)
-    end
-
     let(:user_session) do
       build(
         :user_session,
@@ -125,6 +131,16 @@ RSpec.describe CommodityHelper do
 
     it 'returns the applicable vat options' do
       expect(helper.applicable_vat_options).to eq(expected_options)
+    end
+
+    it 'always fetches data from the uk source' do
+      helper.applicable_vat_options
+
+      expect(Api::Commodity).to have_received(:build).with(
+        'uk',
+        commodity_code,
+        expected_filter,
+      )
     end
   end
 

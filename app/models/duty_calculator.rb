@@ -1,4 +1,6 @@
 class DutyCalculator
+  include CommodityHelper
+
   def initialize(user_session, commodity)
     @user_session = user_session
     @commodity = commodity
@@ -83,12 +85,14 @@ class DutyCalculator
   end
 
   def vat_measures
-    commodity.import_measures.each_with_object([]) do |measure, acc|
+    uk_filtered_commodity = filtered_commodity(source: 'uk')
+
+    uk_filtered_commodity.import_measures.each_with_object([]) do |measure, acc|
       vat_type = measure.vat_type
 
       next if vat_type.nil?
 
-      acc << measure if commodity.applicable_vat_options.keys.size == 1 || user_session.vat == vat_type
+      acc << measure if uk_filtered_commodity.applicable_vat_options.keys.size == 1 || user_session.vat == vat_type
     end
   end
 
