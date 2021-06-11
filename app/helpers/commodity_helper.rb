@@ -1,9 +1,9 @@
 module CommodityHelper
-  def filtered_commodity(filter: default_filter)
+  def filtered_commodity(filter: default_filter, source: user_session.commodity_source)
     query = default_query.merge(filter)
 
     Api::Commodity.build(
-      user_session.commodity_source,
+      source,
       user_session.commodity_code,
       query,
     )
@@ -22,7 +22,7 @@ module CommodityHelper
   end
 
   def applicable_vat_options
-    @applicable_vat_options ||= filtered_commodity.applicable_vat_options
+    @applicable_vat_options ||= filtered_commodity(source: 'uk').applicable_vat_options
   end
 
   private
