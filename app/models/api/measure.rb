@@ -55,7 +55,16 @@ module Api
     end
 
     def all_duties_zero?
+      return false if vat.present?
+
       all_components.all? { |component| component.duty_amount.zero? }
+    end
+
+    def vat_type
+      return if vat.blank?
+      return 'VAT' if additional_code.attributes.values.all?(&:blank?)
+
+      additional_code.code
     end
 
     private

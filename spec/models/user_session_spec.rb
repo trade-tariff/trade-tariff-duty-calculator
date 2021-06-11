@@ -47,6 +47,30 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#vat=' do
+    let(:expected_value) { 'VATZ' }
+
+    it 'sets the key on the session' do
+      user_session.vat = 'VATZ'
+
+      expect(session['answers'][Wizard::Steps::Vat.id]).to eq(expected_value)
+    end
+  end
+
+  describe '#vat' do
+    it 'returns nil if the key is not on the session' do
+      expect(user_session.vat).to be nil
+    end
+
+    context 'when the key is present on the session' do
+      subject(:user_session) { build(:user_session, vat: 'VATZ') }
+
+      it 'returns the value from the session' do
+        expect(user_session.vat).to eq('VATZ')
+      end
+    end
+  end
+
   describe '#import_destination=' do
     let(:expected_country) { 'ni' }
 

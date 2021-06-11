@@ -31,6 +31,7 @@ en:
       duty_total_html: <strong>Duty Total</strong>
       import_duty_html: Import duty%{additional_code}<br><span class="govuk-green govuk-body-xs"> %{option_type} (%{commodity_source})</span>
       import_quantity: Import quantity
+      vat_html: Import duty<br><span class="govuk-green govuk-body-xs"> VAT (UK)</span>
       option_type:
         third_country_tariff: Third-country duty
         tariff_preference: Tariff preference
@@ -48,6 +49,7 @@ en:
         provisional_countervailing: Provisional countervailing duty
         additional_duties: Additional Duties
         additional_duties_safeguard:  Additional duties (safeguard)
+        vat: VAT
       heading:
         third_country_tariff: 'Option %{option_no}: Third-country duty'
         tariff_preference: 'Option %{option_no}: Tariff preference - %{geographical_area_description}'
@@ -99,6 +101,7 @@ en:
     customs_value: Customs value
     measure_amount: Import quantity
     additional_code: Additional code(s)
+    vat: Applicable VAT rate
   activemodel:
     errors:
       models:
@@ -154,3 +157,7 @@ en:
               blank: Enter a valid import quantity.
               not_a_number: Enter a numeric import quantity.
               greater_than: Enter an import quantity value greater than zero.
+        wizard/steps/vat:
+          attributes:
+            vat:
+              blank: Select one of the available options

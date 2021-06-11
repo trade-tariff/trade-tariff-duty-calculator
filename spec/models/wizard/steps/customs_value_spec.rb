@@ -293,9 +293,11 @@ RSpec.describe Wizard::Steps::CustomsValue do
 
       let(:first_measure_type_id) { '105' }
       let(:applicable_additional_codes) { {} }
+      let(:applicable_vat_options) { {} }
 
       before do
         allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(applicable_additional_codes)
+        allow(filtered_commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
       end
 
       context 'when there are applicable additional codes available' do
@@ -350,6 +352,39 @@ RSpec.describe Wizard::Steps::CustomsValue do
             step.next_step_path,
           ).to eq(
             additional_codes_path(first_measure_type_id),
+          )
+        end
+      end
+
+      context 'when there is just one VAT option' do
+        let(:applicable_vat_options) do
+          {
+            'VATZ' => 'flibble',
+          }
+        end
+
+        it 'returns confirmation_path' do
+          expect(
+            step.next_step_path,
+          ).to eq(
+            confirm_path,
+          )
+        end
+      end
+
+      context 'when there are multiple VAT options' do
+        let(:applicable_vat_options) do
+          {
+            'VATZ' => 'flibble',
+            'VAT' => 'foo',
+          }
+        end
+
+        it 'returns confirmation_path' do
+          expect(
+            step.next_step_path,
+          ).to eq(
+            vat_path,
           )
         end
       end

@@ -34,6 +34,9 @@ Rails.application.routes.draw do
     get 'measure-amount', to: 'wizard/steps/measure_amount#show'
     post 'measure-amount', to: 'wizard/steps/measure_amount#create'
 
+    get 'vat', to: 'wizard/steps/vat#show'
+    post 'vat', to: 'wizard/steps/vat#create'
+
     get 'confirm', to: 'wizard/steps/confirmation#show'
 
     get 'trade-remedies', to: 'wizard/steps/trade_remedies#show'

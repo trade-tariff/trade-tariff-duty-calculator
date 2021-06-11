@@ -5,6 +5,34 @@
       "trade_defence": false,
       "applicable_measure_units": {
       },
+      "applicable_additional_codes": {
+        "105": {
+          "measure_type_description": "Non preferential duty under authorised use",
+          "heading": {
+            "overlay": "Describe your goods in more detail",
+            "hint": "To trade this commodity, you need to specify an additional 4 digits, known as an additional code"
+          },
+          "additional_codes": [
+            {
+              "code": "2600",
+              "overlay": "The product I am importing is COVID-19 critical",
+              "hint": "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
+              "measure_sid": 20126513
+            },
+            {
+              "code": "2601",
+              "overlay": "The product I am importing is not COVID-19 critical",
+              "hint": "",
+              "measure_sid": 20126512
+            }
+          ]
+        }
+      },
+      "applicable_vat_options": {
+        "VATR": "VAT reduced rate 5% (5.0)",
+        "VATZ": "VAT zero rate (0.0)",
+        "VAT": "Value added tax (20.0)"
+      },
       "meursing_code": false
     }
   },

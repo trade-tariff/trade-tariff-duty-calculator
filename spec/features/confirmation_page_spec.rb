@@ -1,37 +1,9 @@
 RSpec.describe 'Confirmation Page', type: :feature do
   include_context 'GB to NI' do
-    let(:attributes) do
-      ActionController::Parameters.new(
-        'measure_amount' => measure_amount,
-        'applicable_measure_units' => {
-          'DTN' => {
-            'measurement_unit_code' => 'DTN',
-            'measurement_unit_qualifier_code' => '',
-            'abbreviation' => '100 kg',
-            'unit_question' => 'What is the weight of the goods you will be importing?',
-            'unit_hint' => 'Enter the value in decitonnes (100kg)',
-            'unit' => 'x 100 kg',
-            'measure_sids' => [
-              20_005_920,
-              20_056_507,
-              20_073_335,
-              20_076_779,
-              20_090_066,
-              20_105_690,
-              20_078_066,
-              20_102_998,
-              20_108_866,
-              20_085_014,
-            ],
-          },
-        },
-      ).permit!
-    end
-
     let(:measure_amount) { { 'dtn' => 500.42 } }
 
     let(:expected_content) do
-      "Check your answers\nCommodity code 7202 11 80 00 Change\nDate of import #{I18n.l(Time.zone.today)} Change\nDestination Northern Ireland Change\nComing from United Kingdom Change\nTrader scheme No Change\nCertificate of origin No Change\nCustoms value £1,200.00 Change\nImport quantity 1_200 x 100 kg Change\nCalculate import duties\n"
+      "Check your answers\nCommodity code 7202 11 80 00 Change\nDate of import #{I18n.l(Time.zone.today)} Change\nDestination Northern Ireland Change\nComing from United Kingdom Change\nTrader scheme No Change\nCertificate of origin No Change\nCustoms value £1,200.00 Change\nImport quantity 1_200 x 100 kg Change\nApplicable VAT rate foobar Change\nCalculate import duties\n"
     end
 
     let(:expected_links) do
@@ -44,7 +16,15 @@ RSpec.describe 'Confirmation Page', type: :feature do
         '/duty-calculator/certificate-of-origin',
         '/duty-calculator/customs-value',
         '/duty-calculator/measure-amount',
+        '/duty-calculator/vat',
       ]
+    end
+
+    let(:applicable_vat_options) do
+      {
+        'VATR' => 'flibble',
+        'VATZ' => 'foobar',
+      }
     end
 
     before do
@@ -61,6 +41,10 @@ RSpec.describe 'Confirmation Page', type: :feature do
       click_on('Continue')
 
       fill_in('wizard_steps_measure_amount[dtn]', with: '1_200')
+
+      click_on('Continue')
+
+      choose(option: 'VATZ')
 
       click_on('Continue')
     end

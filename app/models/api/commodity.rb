@@ -5,6 +5,7 @@ module Api
 
     meta_attribute :duty_calculator, :applicable_measure_units
     meta_attribute :duty_calculator, :applicable_additional_codes
+    meta_attribute :duty_calculator, :applicable_vat_options
     meta_attribute :duty_calculator, :trade_defence
     meta_attribute :duty_calculator, :zero_mfn_duty
 

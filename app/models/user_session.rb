@@ -149,6 +149,14 @@ class UserSession
     session['answers'][Wizard::Steps::MeasureAmount.id] || {}
   end
 
+  def vat=(values)
+    session['answers'][Wizard::Steps::Vat.id] = values
+  end
+
+  def vat
+    session['answers'][Wizard::Steps::Vat.id]
+  end
+
   def monetary_value
     session['answers'][Wizard::Steps::CustomsValue.id].try(:[], 'monetary_value')
   end
