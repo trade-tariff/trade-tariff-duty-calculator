@@ -36,7 +36,7 @@ RSpec.describe Wizard::Steps::AdditionalCodesController do
         expect(assigns[:step]).to be_a(Wizard::Steps::AdditionalCode)
       end
 
-      it { expect(response).to redirect_to(confirm_path) }
+      it { expect(response).to redirect_to(vat_path) }
       it { expect { response }.to change(session, :additional_code).from({}).to('105' => '2600') }
     end
 

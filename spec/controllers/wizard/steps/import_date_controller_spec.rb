@@ -20,9 +20,7 @@ RSpec.describe Wizard::Steps::ImportDateController do
     it { expect { response }.to change(session, :commodity_code).from(nil).to(commodity_code) }
     it { expect { response }.to change(session, :commodity_source).from(nil).to(referred_service) }
     it { expect { response }.to change(session, :referred_service).from(nil).to(referred_service) }
-    it { expect { response }.to change(session, :country_of_origin).from('OTHER').to(nil) }
-    # TODO: Should we clear this answer
-    it { expect { response }.not_to change(session, :other_country_of_origin).from('AR') }
+    it { expect { response }.to change(session, :country_of_origin).from('GB').to(nil) }
   end
 
   describe 'POST #create' do
