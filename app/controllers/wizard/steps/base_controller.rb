@@ -4,6 +4,8 @@ module Wizard
       include CommodityHelper
       include ServiceHelper
 
+      rescue_from StandardError, with: :handle_exception
+
       default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
       after_action :track_session
       before_action :ensure_session_integrity
@@ -59,6 +61,12 @@ module Wizard
           commodity_source: user_session.commodity_source,
           referred_service: user_session.referred_service,
         })
+      end
+
+      def handle_exception(exception)
+        Raven.user_context(session.to_h.except('_csrf_token'))
+
+        raise exception
       end
 
       def ensure_session_integrity
