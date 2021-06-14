@@ -26,6 +26,9 @@
         }
       },
       "applicable_vat_options": {
+        "VATR": "VAT reduced rate 5% (5.0)",
+        "VATZ": "VAT zero rate (0.0)",
+        "VAT": "Value added tax (20.0)"
       },
       "applicable_additional_codes": {
         "105": {
