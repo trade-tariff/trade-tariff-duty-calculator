@@ -27,6 +27,29 @@
       },
       "applicable_vat_options": {
       },
+      "applicable_additional_codes": {
+        "105": {
+          "additional_codes": [
+            {
+              "code": "2600",
+              "hint": "",
+              "measure_sid": 20126513,
+              "overlay": "The product I am importing is COVID-19 critical"
+            },
+            {
+              "code": "2601",
+              "hint": "",
+              "measure_sid": 20126512,
+              "overlay": "The product I am importing is not COVID-19 critical"
+            }
+          ],
+          "heading": {
+            "hint": "To trade this commodity, you need to specify an additional 4 digits, known as an additional code",
+            "overlay": "Describe your goods in more detail"
+          },
+          "measure_type_description": "Non preferential duty under authorised use"
+        }
+      },
       "meursing_code": false
     }
   },
