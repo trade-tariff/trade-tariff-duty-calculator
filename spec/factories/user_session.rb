@@ -22,4 +22,15 @@ FactoryBot.define do
       UserSession.new(session)
     end
   end
+
+  trait :with_commodity_information do
+    commodity_code { '0702000007' }
+    commodity_source { 'uk' }
+    referred_service { 'uk' }
+  end
+
+  trait :with_country_of_origin do
+    country_of_origin { 'OTHER' }
+    other_country_of_origin { 'AR' }
+  end
 end

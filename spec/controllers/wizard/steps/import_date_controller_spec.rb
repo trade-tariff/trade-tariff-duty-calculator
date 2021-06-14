@@ -3,7 +3,7 @@ RSpec.describe Wizard::Steps::ImportDateController do
     allow(UserSession).to receive(:new).and_return(session)
   end
 
-  let(:session) { build(:user_session) }
+  let(:session) { build(:user_session, :with_country_of_origin) }
   let(:commodity_code) { '01234567890' }
   let(:referred_service) { 'uk' }
 
@@ -20,6 +20,9 @@ RSpec.describe Wizard::Steps::ImportDateController do
     it { expect { response }.to change(session, :commodity_code).from(nil).to(commodity_code) }
     it { expect { response }.to change(session, :commodity_source).from(nil).to(referred_service) }
     it { expect { response }.to change(session, :referred_service).from(nil).to(referred_service) }
+    it { expect { response }.to change(session, :country_of_origin).from('OTHER').to(nil) }
+    # TODO: Should we clear this answer
+    it { expect { response }.not_to change(session, :other_country_of_origin).from('AR') }
   end
 
   describe 'POST #create' do
