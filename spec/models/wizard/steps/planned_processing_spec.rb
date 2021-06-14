@@ -159,7 +159,7 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
           expect(
             step.next_step_path,
           ).to eq(
-            nil,
+            row_to_ni_duty_path,
           )
         end
       end
