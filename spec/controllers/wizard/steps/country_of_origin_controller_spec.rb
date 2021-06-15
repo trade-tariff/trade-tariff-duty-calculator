@@ -3,7 +3,7 @@ RSpec.describe Wizard::Steps::CountryOfOriginController do
     allow(UserSession).to receive(:new).and_return(session)
   end
 
-  let(:session) { build(:user_session, :with_commodity_information) }
+  let(:session) { build(:user_session, :with_commodity_information, import_destination: 'XI') }
 
   describe 'GET #show' do
     subject(:response) { get :show }
@@ -31,16 +31,16 @@ RSpec.describe Wizard::Steps::CountryOfOriginController do
 
     context 'when the step answers are valid' do
       let(:country_of_origin) { 'OTHER' }
-      let(:other_country_of_origin) { 'RO' }
+      let(:other_country_of_origin) { 'AR' }
 
       it 'assigns the correct step' do
         response
         expect(assigns[:step]).to be_a(Wizard::Steps::CountryOfOrigin)
       end
 
-      it { expect(response).to redirect_to(trader_scheme_path) }
+      it { expect(response).to redirect_to(trade_remedies_path) }
       it { expect { response }.to change(session, :country_of_origin).from(nil).to('OTHER') }
-      it { expect { response }.to change(session, :other_country_of_origin).from('').to('RO') }
+      it { expect { response }.to change(session, :other_country_of_origin).from('').to('AR') }
     end
 
     context 'when the step answers are invalid' do
