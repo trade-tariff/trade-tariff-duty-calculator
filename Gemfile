@@ -37,11 +37,10 @@ gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'brakeman'
-  # Debugging
   gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'pry-rails'
-  # GOV.UK interpretation of rubocop for linting Ruby
+  gem 'rails-controller-testing'
   gem 'rubocop-govuk'
   gem 'scss_lint-govuk'
 end

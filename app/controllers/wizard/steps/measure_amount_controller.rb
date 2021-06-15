@@ -31,7 +31,7 @@ module Wizard
       def measure_amount_answers
         return {} unless params.key?(:wizard_steps_measure_amount)
 
-        params.require(:wizard_steps_measure_amount).permit(*applicable_measure_unit_keys)
+        params.require(:wizard_steps_measure_amount).permit(*applicable_measure_unit_keys).to_h
       end
     end
   end

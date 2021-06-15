@@ -22,4 +22,43 @@ FactoryBot.define do
       UserSession.new(session)
     end
   end
+
+  trait :with_commodity_information do
+    commodity_code { '0702000007' }
+    commodity_source { 'uk' }
+    referred_service { 'uk' }
+  end
+
+  trait :with_import_date do
+    import_date { '2025-01-01' }
+  end
+
+  trait :with_import_destination do
+    import_destination { 'XI' }
+  end
+
+  trait :with_country_of_origin do
+    country_of_origin { 'GB' }
+    other_country_of_origin { '' }
+  end
+
+  trait :with_trader_scheme do
+    trader_scheme { 'no' }
+  end
+
+  trait :with_certificate_of_origin do
+    certificate_of_origin { 'yes' }
+  end
+
+  trait :with_customs_value do
+    customs_value { {  'monetary_value' => '1200' } }
+  end
+
+  trait :with_measure_amount do
+    measure_amount { { 'dtn' => '100' } }
+  end
+
+  trait :with_vat do
+    vat { 'VATZ' }
+  end
 end

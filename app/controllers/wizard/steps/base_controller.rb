@@ -64,7 +64,8 @@ module Wizard
       end
 
       def handle_exception(exception)
-        Raven.user_context(session.to_h.except('_csrf_token'))
+        Raven.user_context(user_session.session.to_h.except('_csrf_token'))
+        track_session
 
         raise exception
       end
