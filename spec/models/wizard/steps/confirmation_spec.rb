@@ -24,10 +24,8 @@ RSpec.describe Wizard::Steps::Confirmation do
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
-    context 'when there is a VAT code on the session' do
-      before do
-        allow(user_session).to receive(:vat).and_return('VATZ')
-      end
+    context 'when there are more than one applicable vat options' do
+      let(:user_session) { build(:user_session, :with_commodity_information) }
 
       it 'returns vat_path' do
         expect(
@@ -38,10 +36,23 @@ RSpec.describe Wizard::Steps::Confirmation do
       end
     end
 
+    context 'when there us just one  applicable vat option available' do
+      let(:user_session) { build(:user_session, commodity_code: '0102291010') }
+
+      it 'returns vat_path' do
+        expect(
+          step.previous_step_path,
+        ).to eq(
+          customs_value_path,
+        )
+      end
+    end
+
     context 'when there are additional codes on the session' do
       let(:user_session) do
         build(
           :user_session,
+          commodity_code: '0103921100',
           additional_code: accumulated_codes,
         )
       end
@@ -69,6 +80,13 @@ RSpec.describe Wizard::Steps::Confirmation do
         }
       end
 
+      let(:user_session) do
+        build(
+          :user_session,
+          commodity_code: '0103921100',
+        )
+      end
+
       before do
         allow(user_session).to receive(:measure_amount).and_return(measure_amount)
       end
@@ -83,6 +101,13 @@ RSpec.describe Wizard::Steps::Confirmation do
     end
 
     context 'when there are no measure amounts on the session' do
+      let(:user_session) do
+        build(
+          :user_session,
+          commodity_code: '0103921100',
+        )
+      end
+
       before do
         allow(user_session).to receive(:measure_amount).and_return({})
       end
