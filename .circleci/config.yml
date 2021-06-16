@@ -235,6 +235,7 @@ workflows:
               ignore:
                 - master
       - build:
+          context: trade-tariff
           requires:
             - test
       - deploy_dev:
