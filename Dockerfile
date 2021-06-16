@@ -4,15 +4,10 @@ FROM ruby:2.7.3-alpine as builder
 # The application runs from /app
 WORKDIR /app
 
-# Add the timezone as it's not configured by default in Alpine
-RUN apk add --update --no-cache tzdata && \
-  cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
-  echo "Europe/London" > /etc/timezone
-
-# build-base: complication tools for bundle
+# build-base: compilation tools for bundle
+# git: used to pull gems from git
 # yarn: node package manager
-# postgresql-dev: postgres driver and libraries
-RUN apk add --no-cache build-base git yarn postgresql-dev
+RUN apk add --no-cache build-base git yarn
 
 # Install bundler to run bundle exec
 # This should be the same version as the Gemfile.lock
@@ -48,12 +43,6 @@ FROM ruby:2.7.3-alpine as production
 
 # The application runs from /app
 WORKDIR /app
-
-# Add postgres driver library
-# Add the timezone as it's not configured by default in Alpine
-RUN apk add --update --no-cache libpq tzdata && \
-  cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
-  echo "Europe/London" > /etc/timezone
 
 # Copy files generated in the builder image
 COPY --from=builder /app /app
