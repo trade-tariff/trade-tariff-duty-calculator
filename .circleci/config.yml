@@ -136,9 +136,13 @@ jobs:
     docker:
       - image: cimg/ruby:2.7.3-node
     steps:
+      - checkout
       - run:
           name: "Build Docker image"
-          command: docker build -t tariff-dutycalculator:ci .
+          command: |
+            pwd
+            ls -l
+            docker build -t tariff-dutycalculator:ci .
 
   test:
     docker:
