@@ -132,6 +132,14 @@ jobs:
       - store_artifacts:
           path: brakeman_results.html
 
+  build:
+    docker:
+      - image: cimg/ruby:2.7.3-node
+    steps:
+      - run:
+          name: "Build Docker image"
+          command: docker build -t tariff-dutycalculator:ci .
+
   test:
     docker:
       - image: cimg/ruby:2.7.3-node
@@ -212,6 +220,9 @@ workflows:
             branches:
               ignore:
                 - master
+      - build:
+          requires:
+            - test
       - deploy_dev:
           context: trade-tariff
           filters:
