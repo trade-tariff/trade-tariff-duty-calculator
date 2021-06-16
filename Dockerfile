@@ -4,8 +4,6 @@ FROM ruby:2.7.3-alpine as builder
 # The application runs from /app
 WORKDIR /app
 
-ENV API_SERVICE_BACKEND_URL_OPTIONS='{"uk":"http://localhost:3000/","xi":"http://localhost:3000/"}'
-
 # Add the timezone as it's not configured by default in Alpine
 RUN apk add --update --no-cache tzdata && \
   cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
