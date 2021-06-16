@@ -137,11 +137,11 @@ jobs:
       - image: cimg/ruby:2.7.3-node
     steps:
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
           name: "Build Docker image"
           command: |
-            pwd
-            ls -l
             docker build -t tariff-dutycalculator:ci .
 
   test:
