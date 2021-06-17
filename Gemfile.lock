@@ -1,8 +1,9 @@
 GIT
   remote: https://github.com/trade-tariff/uktt.git
-  revision: 6fbdaec1cc88ca9aa0d4e0a8b742c29d75de3304
+  revision: ab4a7b6c39e091be26e503485abfbb031d845477
+  branch: filter_fix
   specs:
-    uktt (2.2.0)
+    uktt (2.2.1)
       retriable
 
 GEM
