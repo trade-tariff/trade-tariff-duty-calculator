@@ -1,7 +1,6 @@
 GIT
   remote: https://github.com/trade-tariff/uktt.git
-  revision: ab4a7b6c39e091be26e503485abfbb031d845477
-  branch: filter_fix
+  revision: 9e7d1e947f483ccef44ae3de8cfa97e5a47dc1b0
   specs:
     uktt (2.2.1)
       retriable
