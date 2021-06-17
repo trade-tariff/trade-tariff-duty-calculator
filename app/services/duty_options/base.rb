@@ -43,7 +43,7 @@ module DutyOptions
       presented_rows = []
       presented_rows << I18n.t(
         'duty_calculations.options.import_duty_html',
-        commodity_source: user_session.commodity_source.upcase,
+        commodity_source: presented_commodity_source,
         option_type: option_type,
         additional_code: formatted_additional_code,
       ).html_safe
@@ -124,6 +124,10 @@ module DutyOptions
 
     def additional_code
       measure.additional_code&.code
+    end
+
+    def presented_commodity_source
+      user_session.commodity_source.upcase == 'XI' ? 'EU' : 'UK'
     end
   end
 end
