@@ -3,6 +3,12 @@ en:
     formats:
       default: "%d %B %Y"
   number:
+    # Used in NumberHelper.number_to_percentage()
+    percentage:
+      format:
+        precision: 2
+        separator: "."
+        delimiter: ","
     # Used in NumberHelper.number_to_currency()
     currency:
       format:
@@ -16,6 +22,7 @@ en:
         # round_mode:
         significant: false
         strip_insignificant_zeros: false
+
   title:
     uk: UK Global Online Tariff
     xi: Northern Ireland Online Tariff 
@@ -30,6 +37,7 @@ en:
       customs_value: Value of goods + freight + insurance costs
       duty_total_html: <strong>Duty Total</strong>
       import_duty_html: Import duty%{additional_code}<br><span class="govuk-green govuk-body-xs"> %{option_type} (%{commodity_source})</span>
+      vat_duty_html: VAT <br><span class="govuk-green govuk-body-xs"> %{option_type}</span>
       import_quantity: Import quantity
       vat_html: Import duty<br><span class="govuk-green govuk-body-xs"> VAT (UK)</span>
       option_type:
@@ -49,7 +57,11 @@ en:
         provisional_countervailing: Provisional countervailing duty
         additional_duties: Additional Duties
         additional_duties_safeguard:  Additional duties (safeguard)
-        vat: VAT
+        vat_type:
+          vate: VAT exempt
+          vatz: Zero rate
+          vatr: Reduced rate
+          vat: Standard rate
       heading:
         third_country_tariff: 'Option %{option_no}: Third-country duty'
         tariff_preference: 'Option %{option_no}: Tariff preference - %{geographical_area_description}'

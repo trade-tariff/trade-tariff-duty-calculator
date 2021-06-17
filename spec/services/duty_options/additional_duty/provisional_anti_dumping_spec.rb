@@ -60,7 +60,7 @@ RSpec.describe DutyOptions::AdditionalDuty::ProvisionalAntiDumping do
         {
           warning_text: nil,
           footnote: nil,
-          values: [[duty_html, '5.0% * £1,050.00', '£52.50']],
+          values: [[duty_html, '5.00% * £1,050.00', '£52.50']],
           value: 52.5,
         }
       end
