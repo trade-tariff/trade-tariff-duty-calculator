@@ -3,6 +3,7 @@ en:
     formats:
       default: "%d %B %Y"
   number:
+    # Used in NumberHelper.number_to_percentage()
     percentage:
       format:
         precision: 2
