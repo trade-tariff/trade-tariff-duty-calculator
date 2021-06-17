@@ -35,7 +35,7 @@ RSpec.describe ExpressionEvaluators::AdValorem do
 
   let(:expected_evaluation) do
     {
-      calculation: '8.0% * £30.00',
+      calculation: '8.00% * £30.00',
       formatted_value: '£2.40',
       value: 2.4,
     }

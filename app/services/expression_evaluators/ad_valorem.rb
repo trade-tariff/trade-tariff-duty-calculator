@@ -2,7 +2,7 @@ module ExpressionEvaluators
   class AdValorem < ExpressionEvaluators::Base
     def call
       {
-        calculation: "#{component.duty_amount}% * #{number_to_currency(total_amount)}",
+        calculation: "#{number_to_percentage(component.duty_amount)} * #{number_to_currency(total_amount)}",
         value: value,
         formatted_value: number_to_currency(value),
       }

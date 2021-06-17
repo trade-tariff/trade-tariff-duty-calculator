@@ -30,6 +30,7 @@ RSpec.describe DutyOptions::AdditionalDuty::Vat do
           measure_type: { id: '305' },
           measure_components: [measure_component],
           measure_conditions: [],
+          vat: true,
           geographical_area: {
             description: geographical_area_description,
           },
@@ -45,9 +46,9 @@ RSpec.describe DutyOptions::AdditionalDuty::Vat do
 
       let(:duty_html) do
         I18n.t(
-          'duty_calculations.options.vat_html',
+          'duty_calculations.options.vat_duty_html',
           commodity_source: commodity_source.upcase,
-          option_type: 'Vat',
+          option_type: 'Standard rate',
           additional_code: nil,
         )
       end
@@ -56,7 +57,7 @@ RSpec.describe DutyOptions::AdditionalDuty::Vat do
         {
           warning_text: nil,
           footnote: nil,
-          values: [[duty_html, '5.0% * £1,050.00', '£52.50']],
+          values: [[duty_html, '5.00% * £1,050.00', '£52.50']],
           value: 52.5,
         }
       end

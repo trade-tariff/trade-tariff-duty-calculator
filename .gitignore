@@ -34,4 +34,6 @@ yarn-debug.log*
 .env.*.local
 *.log
 
+dump.rdb
+
 .nvimlog
