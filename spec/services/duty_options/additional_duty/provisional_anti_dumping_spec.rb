@@ -50,7 +50,7 @@ RSpec.describe DutyOptions::AdditionalDuty::ProvisionalAntiDumping do
       let(:duty_html) do
         I18n.t(
           'duty_calculations.options.import_duty_html',
-          commodity_source: commodity_source.upcase,
+          commodity_source: 'EU',
           option_type: 'Provisional anti-dumping duty',
           additional_code: nil,
         )

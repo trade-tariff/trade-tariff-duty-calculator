@@ -44,7 +44,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
           footnote: I18n.t('measure_type_footnotes.103'),
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
-            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source, option_type: 'Third-country duty', additional_code: nil), '5.00% * £1,050.00', '£52.50'],
+            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'EU', option_type: 'Third-country duty', additional_code: nil), '5.00% * £1,050.00', '£52.50'],
             [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£52.50</strong>'],
           ],
         }
@@ -112,7 +112,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
             [I18n.t('duty_calculations.options.import_quantity'), nil, '120.0 x 100 kg'],
-            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source, option_type: 'Third-country duty', additional_code: nil), '35.10 EUR / 100 kg * 120.0', '£3,596.12'],
+            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'EU', option_type: 'Third-country duty', additional_code: nil), '35.10 EUR / 100 kg * 120.0', '£3,596.12'],
             [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£3,596.12</strong>'],
           ],
         }
@@ -195,7 +195,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
           footnote: I18n.t('measure_type_footnotes.103'),
           values: [
             [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
-            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: commodity_source, option_type: 'Third-country duty', additional_code: nil), 'foo', '£15.00'],
+            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'EU', option_type: 'Third-country duty', additional_code: nil), 'foo', '£15.00'],
             [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£15.00</strong>'],
           ],
         }
