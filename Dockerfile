@@ -7,7 +7,9 @@ WORKDIR /app
 # build-base: compilation tools for bundle
 # git: used to pull gems from git
 # yarn: node package manager
-RUN apk add --no-cache build-base git yarn
+RUN apk add --update --no-cache build-base git yarn tzdata && \
+  cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
+  echo "Europe/London" > /etc/timezone
 
 # Install bundler to run bundle exec
 # This should be the same version as the Gemfile.lock
