@@ -52,7 +52,7 @@ en:
 
     '103': >- # Third country duty
       <p class="govuk-body">
-        A ‘Third country’ duty is the tariff charged where there isn’t a trade agreement or a customs union with the UK. It can also be referred to as the Most Favoured Nation (<abbr title="Most Favoured Nation">MFN</abbr>) rate.
+        A ‘Third country’ duty is the tariff charged where there isn’t a trade agreement or a customs union available. It can also be referred to as the Most Favoured Nation (<abbr title="Most Favoured Nation">MFN</abbr>) rate.
       </p>
 
     '104': >- # Conventional duty
