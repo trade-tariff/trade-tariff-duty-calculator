@@ -1,29 +1,18 @@
 version: '3.6'
 
-volumes:
-  dbdata:
-
 services:
-  db:
-    image: postgres:11-alpine
-    # To preserve data between runs of docker-compose, we mount a folder from the host machine.
-    volumes:
-      - dbdata:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=developmentpassword
-
   web:
-    image: dfedigital/govuk-rails-boilerplate:${BRANCH_TAG:-latest}
-    command: ash -c "bundle exec rails db:setup db:migrate && bundle exec rails server -b '0.0.0.0'"
+    build: .
     ports:
-      - 3000:3000
-    depends_on:
-      - db
+      - 3002:3000
     environment:
       - RAILS_ENV=production
-      - DB_HOST=db
-      - DB_DATABASE=trade-tariff-duty-calculator
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=developmentpassword
       - SECRET_KEY_BASE=abcd1234
       - RAILS_SERVE_STATIC_FILES=true
+      - API_SERVICE_BACKEND_URL_OPTIONS={"uk":"https://tariff-frontend-dev.london.cloudapps.digital","xi":"https://tariff-frontend-dev.london.cloudapps.digital/xi"}
+      - DUTY_CALCULATOR_HOST=http://localhost:3000
+      - TRADE_TARIFF_FRONTEND_URL=http://localhost:3000
+      - ROW_TO_NI=true
+      - ROUTE_THROUGH_FRONTEND=true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

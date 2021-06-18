@@ -1,22 +1,19 @@
 # Build compilation image
-FROM ruby:2.7.2-alpine as builder
+FROM ruby:2.7.3-alpine as builder
 
 # The application runs from /app
 WORKDIR /app
 
-# Add the timezone as it's not configured by default in Alpine
-RUN apk add --update --no-cache tzdata && \
+# build-base: compilation tools for bundle
+# git: used to pull gems from git
+# yarn: node package manager
+RUN apk add --update --no-cache build-base git yarn tzdata && \
   cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
   echo "Europe/London" > /etc/timezone
 
-# build-base: complication tools for bundle
-# yarn: node package manager
-# postgresql-dev: postgres driver and libraries
-RUN apk add --no-cache build-base yarn postgresql-dev
-
 # Install bundler to run bundle exec
 # This should be the same version as the Gemfile.lock
-RUN gem install bundler:2.1.4 --no-document
+RUN gem install bundler:2.2.18 --no-document
 RUN bundle config set without 'development test'
 
 # Install gems defined in Gemfile
@@ -44,17 +41,17 @@ RUN rm -rf node_modules log tmp && \
       find /usr/local/bundle/gems -name "*.html" -delete
 
 # Build runtime image
-FROM ruby:2.7.2-alpine as production
+FROM ruby:2.7.3-alpine as production
+
+RUN apk add --update --no-cache tzdata && \
+  cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
+  echo "Europe/London" > /etc/timezone
 
 # The application runs from /app
 WORKDIR /app
 
-# Add postgres driver library
-# Add the timezone as it's not configured by default in Alpine
-RUN apk add --update --no-cache libpq tzdata && \
-  cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
-  echo "Europe/London" > /etc/timezone
-
 # Copy files generated in the builder image
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
+
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
