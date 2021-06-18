@@ -35,6 +35,11 @@ RSpec.describe Wizard::Steps::BaseController do
       response
       expect(NewRelic::Agent).to have_received(:add_custom_attributes).with(expected_tracked_attributes)
     end
+
+    it 'initializes the CommodityContextService' do
+      response
+      expect(Thread.current[:commodity_context_service]).to be_a(CommodityContextService)
+    end
   end
 
   describe 'GET #error' do

@@ -1,20 +1,17 @@
 module CommodityHelper
   def filtered_commodity(filter: default_filter, source: user_session.commodity_source)
+    commodity_source = source || user_session.commodity_source
+    commodity_code = user_session.commodity_code
     query = default_query.merge(filter)
 
-    Api::Commodity.build(
-      source,
-      user_session.commodity_code,
-      query,
-    )
+    commodity_context_service.call(commodity_source, commodity_code, query)
   end
 
   def commodity
-    @commodity ||= Api::Commodity.build(
-      user_session.commodity_source,
-      user_session.commodity_code,
-      default_query,
-    )
+    commodity_source = user_session.commodity_source
+    commodity_code = user_session.commodity_code
+
+    commodity_context_service.call(commodity_source, commodity_code, default_query)
   end
 
   def applicable_additional_codes
@@ -27,18 +24,16 @@ module CommodityHelper
 
   private
 
-  def default_query
-    { 'as_of' => as_of }
+  def commodity_context_service
+    Thread.current[:commodity_context_service]
   end
 
   def default_filter
     { 'filter[geographical_area_id]' => country_of_origin_code }
   end
 
-  def as_of
-    return user_session.import_date.iso8601 if user_session.import_date.present?
-
-    Time.zone.today.iso8601
+  def default_query
+    { 'as_of' => (user_session.import_date || Time.zone.today).iso8601 }
   end
 
   def country_of_origin_code

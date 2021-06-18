@@ -2,6 +2,7 @@ RSpec.describe CommodityHelper do
   before do
     allow(helper).to receive(:user_session).and_return(user_session)
     allow(Api::Commodity).to receive(:build).and_call_original
+    allow(Thread.current[:commodity_context_service]).to receive(:call).and_call_original
   end
 
   let(:commodity_source) { 'xi' }
@@ -27,6 +28,12 @@ RSpec.describe CommodityHelper do
   end
 
   describe '#filtered_commodity' do
+    it 'retrieves commodities via the CommodityContextService' do
+      helper.filtered_commodity
+
+      expect(Thread.current[:commodity_context_service]).to have_received(:call).with(commodity_source, commodity_code, expected_filter)
+    end
+
     context 'when the commodity source is passed' do
       it 'uses the passed commodity source' do
         helper.filtered_commodity(source: 'uk')
@@ -107,6 +114,12 @@ RSpec.describe CommodityHelper do
       {
         'as_of' => Time.zone.today.iso8601,
       }
+    end
+
+    it 'retrieves commodities via the CommodityContextService' do
+      helper.commodity
+
+      expect(Thread.current[:commodity_context_service]).to have_received(:call).with(commodity_source, commodity_code, expected_filter)
     end
 
     it 'returns an unfiltered commodity' do
