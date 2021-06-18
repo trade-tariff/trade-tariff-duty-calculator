@@ -36,7 +36,7 @@ module ExpressionEvaluators
     end
 
     def measure_applicable_units
-      filtered_commodity.applicable_measure_units.select do |_unit, values|
+      commodity.applicable_measure_units.select do |_unit, values|
         values['measure_sids'].include?(measure.id)
       end
     end

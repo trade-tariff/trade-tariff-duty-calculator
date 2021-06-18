@@ -43,6 +43,10 @@ RUN rm -rf node_modules log tmp && \
 # Build runtime image
 FROM ruby:2.7.3-alpine as production
 
+RUN apk add --update --no-cache tzdata && \
+  cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
+  echo "Europe/London" > /etc/timezone
+
 # The application runs from /app
 WORKDIR /app
 
