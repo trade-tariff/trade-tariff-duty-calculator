@@ -9,6 +9,7 @@ module Wizard
       default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
       after_action :track_session
       before_action :ensure_session_integrity
+      before_action :initialize_commodity_context_service
 
       helper_method :commodity_code,
                     :commodity_source,
@@ -46,14 +47,6 @@ module Wizard
         params[:referred_service] || user_session.commodity_source
       end
 
-      def default_filter
-        { 'filter[geographical_area_id]' => country_of_origin_code }
-      end
-
-      def default_query
-        { 'as_of' => (user_session.import_date || Time.zone.today).iso8601 }
-      end
-
       def track_session
         ::NewRelic::Agent.add_custom_attributes({
           session: user_session.session.to_h.except('_csrf_token'),
@@ -74,10 +67,8 @@ module Wizard
         return redirect_to trade_tariff_url if commodity_code.blank?
       end
 
-      def country_of_origin_code
-        return user_session.other_country_of_origin if user_session.country_of_origin == 'OTHER'
-
-        user_session.country_of_origin
+      def initialize_commodity_context_service
+        Thread.current[:commodity_context_service] = CommodityContextService.new
       end
     end
   end
