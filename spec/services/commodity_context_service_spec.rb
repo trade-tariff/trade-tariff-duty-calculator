@@ -6,7 +6,9 @@ describe CommodityContextService do
   let(:query) { { 'as_of' => '2021-01-01', 'filter[geographical_area_id]' => 'AR' } }
 
   it 'generates a sha of the query' do
-    allow(Digest::SHA2).to receive(:hexdigest).with(query.to_json)
+    allow(Digest::SHA2).to receive(:hexdigest)
+    service.call(commodity_source, commodity_code, query)
+    expect(Digest::SHA2).to have_received(:hexdigest).with(query.to_json)
   end
 
   context 'when a commodity has not already been fetched' do

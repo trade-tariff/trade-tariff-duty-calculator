@@ -10,9 +10,8 @@ module CommodityHelper
   def commodity
     commodity_source = user_session.commodity_source
     commodity_code = user_session.commodity_code
-    query = default_query
 
-    commodity_context_service.call(commodity_source, commodity_code, query)
+    commodity_context_service.call(commodity_source, commodity_code, default_query)
   end
 
   def applicable_additional_codes
