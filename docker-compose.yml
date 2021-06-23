@@ -4,8 +4,9 @@ services:
   web:
     build: .
     ports:
-      - 3002:3000
+      - 3000:8080
     environment:
+      - PORT=8080
       - RAILS_ENV=production
       - SECRET_KEY_BASE=abcd1234
       - RAILS_SERVE_STATIC_FILES=true
@@ -14,5 +15,3 @@ services:
       - TRADE_TARIFF_FRONTEND_URL=http://localhost:3000
       - ROW_TO_NI=true
       - ROUTE_THROUGH_FRONTEND=true
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
