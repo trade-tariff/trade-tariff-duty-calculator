@@ -58,6 +58,12 @@ FactoryBot.define do
     measure_amount { { 'dtn' => '100' } }
   end
 
+  trait :row_to_ni do
+    import_destination { 'XI' }
+    country_of_origin { 'OTHER' }
+    other_country_of_origin { 'AR' }
+  end
+
   trait :with_vat do
     vat { 'VATZ' }
   end

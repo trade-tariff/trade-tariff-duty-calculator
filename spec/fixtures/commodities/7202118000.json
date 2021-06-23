@@ -24,6 +24,11 @@
   },
   "import_measures": [
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20057876,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -84,6 +89,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20040869,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -144,6 +154,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20041036,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -223,6 +238,11 @@
       }
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20124406,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -283,6 +303,11 @@
       }
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20121925,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -1650,6 +1675,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": -591133,
       "origin": "uk",
       "effective_start_date": "2020-08-01T00:00:00.000Z",
@@ -2798,6 +2828,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 1881982,
       "origin": "eu",
       "effective_start_date": "1999-01-01T00:00:00.000Z",
@@ -3959,6 +3994,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 3822192,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",

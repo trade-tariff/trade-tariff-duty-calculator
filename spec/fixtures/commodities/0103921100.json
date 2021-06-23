@@ -18,11 +18,17 @@
       },
       "applicable_vat_options": {
       },
-      "meursing_code": false
+      "meursing_code": false,
+      "source": "uk"
     }
   },
   "import_measures": [
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": -581142,
       "origin": "uk",
       "effective_start_date": "2020-08-01T00:00:00.000Z",
@@ -1171,6 +1177,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 3717656,
       "origin": "eu",
       "effective_start_date": "2019-12-14T00:00:00.000Z",
@@ -2373,6 +2384,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 2046828,
       "origin": "eu",
       "effective_start_date": "2000-07-01T00:00:00.000Z",
@@ -3534,6 +3550,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 2982601,
       "origin": "eu",
       "effective_start_date": "2008-01-01T00:00:00.000Z",
@@ -4686,6 +4707,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 3288802,
       "origin": "eu",
       "effective_start_date": "2013-02-01T00:00:00.000Z",
@@ -5864,6 +5890,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 3522473,
       "origin": "eu",
       "effective_start_date": "2017-01-01T00:00:00.000Z",
@@ -7077,6 +7108,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 3822121,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -7139,6 +7175,11 @@
   ],
   "export_measures": [
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 2982601,
       "origin": "eu",
       "effective_start_date": "2008-01-01T00:00:00.000Z",
@@ -8291,6 +8332,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 3288802,
       "origin": "eu",
       "effective_start_date": "2013-02-01T00:00:00.000Z",

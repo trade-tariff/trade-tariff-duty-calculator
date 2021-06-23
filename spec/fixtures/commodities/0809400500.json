@@ -38,6 +38,11 @@
   },
   "import_measures": [
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20001235,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -1365,6 +1370,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": -1009503019,
       "origin": "uk",
       "effective_start_date": "2019-09-01T00:00:00.000Z",
@@ -2701,6 +2711,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20087819,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -4054,6 +4069,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20097836,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -5423,6 +5443,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20104713,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",

@@ -163,6 +163,29 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
           )
         end
       end
+
+      context 'when the ROW_TO_NI flag is true' do
+        let(:answer) { 'commercial_purposes' }
+
+        let(:session_attributes) do
+          {
+            'import_destination' => 'XI',
+            'country_of_origin' => 'OTHER',
+            'other_country_of_origin' => 'AR',
+            'planned_processing' => answer,
+          }
+        end
+        
+        it 'returns customs_value path' do
+          allow(Rails.configuration).to receive(:row_to_ni).and_return('true')
+
+          expect(
+            step.next_step_path,
+          ).to eq(
+            customs_value_path,
+          )
+        end
+      end
     end
   end
 

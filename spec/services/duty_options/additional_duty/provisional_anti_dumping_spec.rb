@@ -27,6 +27,11 @@ RSpec.describe DutyOptions::AdditionalDuty::ProvisionalAntiDumping do
     context 'when the measure is a provisional anti-dumping duty' do
       let(:measure) do
         Api::Measure.new(
+          meta: {
+            duty_calculator: {
+              source: 'uk',
+            },
+          },
           measure_type: { id: '552' },
           measure_components: [measure_component],
           measure_conditions: [],
@@ -50,7 +55,7 @@ RSpec.describe DutyOptions::AdditionalDuty::ProvisionalAntiDumping do
       let(:duty_html) do
         I18n.t(
           'duty_calculations.options.import_duty_html',
-          commodity_source: 'EU',
+          commodity_source: 'UK',
           option_type: 'Provisional anti-dumping duty',
           additional_code: nil,
         )
