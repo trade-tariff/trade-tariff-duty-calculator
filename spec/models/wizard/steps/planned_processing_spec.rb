@@ -175,7 +175,7 @@ RSpec.describe Wizard::Steps::PlannedProcessing do
             'planned_processing' => answer,
           }
         end
-        
+
         it 'returns customs_value path' do
           allow(Rails.configuration).to receive(:row_to_ni).and_return('true')
 
