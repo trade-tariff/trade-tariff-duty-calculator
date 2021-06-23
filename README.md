@@ -63,3 +63,20 @@ bundle exec scss-lint app/webpacker/styles
 
 Check the file `manifest.yml` for customisation of name (you may need to change it as there could be a conflict on that name), buildpacks and eventual services (PostgreSQL needs to be [set up](https://docs.cloud.service.gov.uk/deploying_services/postgresql/)).
 
+
+## Running locally in docker-compose
+
+### Prerequisites
+
+* You have working Docker environment
+* You have docker-compose installed 
+
+
+### Run
+
+  1. Clone this repo and change to it's root directory
+  2. Run ``docker-compose up ``
+  3. Open your browser to `http://0.0.0.0:3000/duty-calculator/ping` to verify it's running.
+  4. Start the journey with the commodity ID you want to test (It uses the dev environment API by default)
+     e.g `http://0.0.0.0:3000/duty-calculator/uk/9620001000/import-date`
+
