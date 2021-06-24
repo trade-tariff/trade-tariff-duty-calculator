@@ -314,6 +314,7 @@ workflows:
               ignore:
                 - master
       - build:
+          name: build_dev
           context: trade-tariff
           dev-build: true
           requires:
@@ -325,7 +326,14 @@ workflows:
               ignore:
                 - master
           requires:
-            - build
+            - build_dev
+      - build:
+          name: build_live
+          context: trade-tariff
+          filters:
+            branches:
+              only:
+                - master
       - deploy_staging:
           context: trade-tariff
           filters:
