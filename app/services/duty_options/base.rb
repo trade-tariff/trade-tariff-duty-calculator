@@ -14,6 +14,7 @@ module DutyOptions
         footnote: localised_footnote,
         warning_text: nil,
         values: option_values,
+        value: value,
       }
     end
 
@@ -66,6 +67,10 @@ module DutyOptions
       duty_evaluation[:unit]
     end
 
+    def value
+      duty_evaluation[:value]
+    end
+
     def valuation_row
       [
         I18n.t('duty_calculations.options.import_valuation'),
@@ -104,10 +109,16 @@ module DutyOptions
       additional_duty_options.map { |additional_duty| additional_duty[:value] }
     end
 
-    def localised_footnote
+    def base_localised_footnote
       return I18n.t("measure_type_footnotes.#{measure.measure_type.id}").html_safe unless measure.measure_type.additional_option?
 
       I18n.t("measure_type_footnotes.#{measure.measure_type.id}", link: link).html_safe
+    end
+
+    def localised_footnote
+      return base_localised_footnote unless user_session.row_to_ni_route?
+
+      base_localised_footnote.concat(I18n.t("row_to_ni_route.#{measure.source}.footnote").html_safe)
     end
 
     def link
@@ -127,7 +138,7 @@ module DutyOptions
     end
 
     def presented_commodity_source
-      user_session.commodity_source.upcase == 'XI' ? 'EU' : 'UK'
+      measure.source == 'xi' ? 'EU' : 'UK'
     end
   end
 end

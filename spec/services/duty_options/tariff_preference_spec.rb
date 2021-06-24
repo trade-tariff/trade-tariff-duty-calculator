@@ -21,6 +21,11 @@ RSpec.describe DutyOptions::TariffPreference do
 
     let(:measure) do
       Api::Measure.new(
+        'meta' => {
+          'duty_calculator' => {
+            'source' => 'xi',
+          },
+        },
         measure_type: { id: '142' },
         measure_components: [measure_component],
         measure_conditions: [],
@@ -51,6 +56,7 @@ RSpec.describe DutyOptions::TariffPreference do
             [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'EU', option_type: 'Tariff preference', additional_code: nil), '5.00% * £1,050.00', '£52.50'],
             [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£52.50</strong>'],
           ],
+          value: 52.5,
           geographical_area_description: 'GSP – General Framework',
         }
       end
@@ -65,6 +71,11 @@ RSpec.describe DutyOptions::TariffPreference do
 
       let(:measure) do
         Api::Measure.new(
+          'meta' => {
+            'duty_calculator' => {
+              'source' => 'xi',
+            },
+          },
           id: 2_046_828,
           duty_expression: {
             base: '35.10 EUR / 100 kg',
@@ -129,6 +140,7 @@ RSpec.describe DutyOptions::TariffPreference do
             [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'EU', option_type: 'Tariff preference', additional_code: nil), '35.10 EUR / 100 kg * 120.0', '£3,596.12'],
             [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£3,596.12</strong>'],
           ],
+          value: 3596.12136,
           geographical_area_description: 'GSP – General Framework',
         }
       end
@@ -143,6 +155,11 @@ RSpec.describe DutyOptions::TariffPreference do
 
       let(:measure) do
         Api::Measure.new(
+          'meta' => {
+            'duty_calculator' => {
+              'source' => 'xi',
+            },
+          },
           id: 2_046_828,
           duty_expression: {
             base: 'foo',
@@ -216,6 +233,7 @@ RSpec.describe DutyOptions::TariffPreference do
             [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'EU', option_type: 'Tariff preference', additional_code: nil), 'foo', '£15.00'],
             [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£15.00</strong>'],
           ],
+          value: 15.0,
           geographical_area_description: 'GSP – General Framework',
         }
       end

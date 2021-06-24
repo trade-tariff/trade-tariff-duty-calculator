@@ -9,6 +9,8 @@ module Api
     has_one :order_number, OrderNumber
     has_one :additional_code, AdditionalCode
 
+    meta_attribute :duty_calculator, :source
+
     attributes :id,
                :origin,
                :additional_code,

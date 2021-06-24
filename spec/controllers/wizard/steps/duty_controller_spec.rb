@@ -28,5 +28,23 @@ RSpec.describe Wizard::Steps::DutyController do
 
     it { expect(response).to have_http_status(:ok) }
     it { expect(response).to render_template('wizard/steps/duty/show') }
+
+    it 'calls the DutyCalculator' do
+      response
+      expect(DutyCalculator).to have_received(:new)
+    end
+
+    context 'when on ROW to NI' do
+      let(:session) { build(:user_session, :with_commodity_information, :row_to_ni) }
+      let(:row_to_ni_duty_calculator) { instance_double('RowToNiDutyCalculator', result: []) }
+
+      it 'calls the RowToNiDutyCalculator' do
+        allow(RowToNiDutyCalculator).to receive(:new).and_return(row_to_ni_duty_calculator)
+
+        response
+
+        expect(RowToNiDutyCalculator).to have_received(:new)
+      end
+    end
   end
 end

@@ -109,6 +109,11 @@
   ],
   "import_measures": [
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20117464,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -211,6 +216,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20001033,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -1538,6 +1548,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": -1009503001,
       "origin": "uk",
       "effective_start_date": "2019-09-01T00:00:00.000Z",
@@ -2874,6 +2889,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20087914,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -4227,6 +4247,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20087764,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -5580,6 +5605,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20097835,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -6949,6 +6979,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20125841,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -7151,6 +7186,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20079770,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -7278,6 +7318,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20079865,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -7355,6 +7400,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20079960,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -7442,6 +7492,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20128800,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -7739,6 +7794,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20091266,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -7856,6 +7916,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20114595,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -7916,6 +7981,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20057235,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -7994,6 +8064,11 @@
       }
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20079675,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8054,6 +8129,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20071061,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8114,6 +8194,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20120637,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8174,6 +8259,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20048974,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8234,6 +8324,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20050307,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8294,6 +8389,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20091431,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8354,6 +8454,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20080055,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8414,6 +8519,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20056658,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8474,6 +8584,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20072577,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8552,6 +8667,11 @@
       }
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20090823,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8612,6 +8732,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20110012,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8672,6 +8797,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20079580,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8732,6 +8862,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20065051,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8783,6 +8918,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20076187,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8843,6 +8983,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20076175,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8921,6 +9066,11 @@
       }
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20103130,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -8999,6 +9149,11 @@
       }
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20097258,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9059,6 +9214,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20097244,
       "origin": "eu",
       "effective_start_date": "2021-02-01T00:00:00.000Z",
@@ -9137,6 +9297,11 @@
       }
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20127862,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9215,6 +9380,11 @@
       }
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20111086,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9293,6 +9463,11 @@
       }
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20131766,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9353,6 +9528,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20119797,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9413,6 +9593,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20052091,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9473,6 +9658,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20080340,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9533,6 +9723,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20078873,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9593,6 +9788,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20104484,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9653,6 +9853,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20125953,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9713,6 +9918,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20077265,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9773,6 +9983,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20102126,
       "origin": "eu",
       "effective_start_date": "2021-01-20T00:00:00.000Z",
@@ -9833,6 +10048,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20080967,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9893,6 +10113,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20107595,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -9953,6 +10178,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20080245,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -10013,6 +10243,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20126151,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -10073,6 +10308,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20131765,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -10133,6 +10373,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20126263,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -10193,6 +10438,11 @@
       "order_number": null
     },
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20083876,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
@@ -10255,6 +10505,11 @@
   ],
   "export_measures": [
     {
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      },
       "id": 20087880,
       "origin": "eu",
       "effective_start_date": "2021-01-01T00:00:00.000Z",
