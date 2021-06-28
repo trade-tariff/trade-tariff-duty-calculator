@@ -68,7 +68,7 @@ module ExpressionEvaluators
     end
 
     def xi_measure_amounts
-      @xi_measure_amounts ||= filtered_commodity(source: 'uk').applicable_measure_units
+      @xi_measure_amounts ||= filtered_commodity(source: 'xi').applicable_measure_units
     end
   end
 end
