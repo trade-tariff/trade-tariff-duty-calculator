@@ -13,7 +13,7 @@ module Wizard
       end
 
       def nominated_duty_options
-        return RowToNiDutyCalculator.new(user_session).result if user_session.row_to_ni_route?
+        return RowToNiDutyCalculator.new(user_session).result if user_session.deltas_applicable?
 
         DutyCalculator.new(user_session, filtered_commodity).result
       end

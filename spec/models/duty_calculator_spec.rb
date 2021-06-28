@@ -195,6 +195,18 @@ RSpec.describe DutyCalculator do
         it 'returns the correct duty options' do
           expect(calculator.result).to eq(expected_result)
         end
+
+        context 'when deltas are applicable' do
+          let(:user_session) { build(:user_session, :deltas_applicable, :with_commodity_information, :with_customs_value) }
+
+          let(:expected_footnote) do
+            "<p class=\"govuk-body\">\n  A ‘Third country’ duty is the tariff charged where there isn’t a trade agreement or a customs union available. It can also be referred to as the Most Favoured Nation (<abbr title=\"Most Favoured Nation\">MFN</abbr>) rate.\n</p><p class=\"govuk-body\">UK import duties apply, as the difference between the UK third country duty and the EU third country duty is lower than 3% of the customs value of your trade.</p>"
+          end
+
+          it 'returns the correct 3rd country duty footnote' do
+            expect(calculator.result.first[:evaluation][:footnote]).to eq(expected_footnote)
+          end
+        end
       end
     end
   end

@@ -110,23 +110,13 @@ module DutyOptions
     end
 
     def base_localised_footnote
-      return I18n.t("measure_type_footnotes.#{measure.measure_type.id}").html_safe unless measure.measure_type.additional_option?
-
-      I18n.t("measure_type_footnotes.#{measure.measure_type.id}", link: link).html_safe
+      I18n.t("measure_type_footnotes.#{measure.measure_type.id}").html_safe
     end
 
     def localised_footnote
-      return base_localised_footnote unless user_session.row_to_ni_route?
+      return base_localised_footnote unless user_session.deltas_applicable?
 
       base_localised_footnote.concat(I18n.t("row_to_ni_route.#{measure.source}.footnote").html_safe)
-    end
-
-    def link
-      "#{trade_tariff_frontend_url}/#{relative_path}"
-    end
-
-    def relative_path
-      "#{user_session.commodity_source}/commodities/#{user_session.commodity_code}?country=#{user_session.country_of_origin}#import"
     end
 
     def formatted_additional_code
