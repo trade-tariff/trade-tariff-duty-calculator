@@ -36,7 +36,13 @@ module ExpressionEvaluators
     end
 
     def measure_applicable_units
-      filtered_commodity.applicable_measure_units.select do |_unit, values|
+      unless user_session.deltas_applicable?
+        return filtered_commodity.applicable_measure_units.select do |_unit, values|
+          values['measure_sids'].include?(measure.id)
+        end
+      end
+
+      convoluted_hashes.select do |_unit, values|
         values['measure_sids'].include?(measure.id)
       end
     end
@@ -49,11 +55,20 @@ module ExpressionEvaluators
       component.monetary_unit_code == 'EUR'
     end
 
-    def query
-      {
-        'as_of' => user_session.import_date.iso8601,
-        'filter[geographical_area_id]' => user_session.country_of_origin,
-      }
+    def convoluted_hashes
+      @convoluted_hashes ||=
+        uk_measure_amounts.merge(xi_measure_amounts) do |_key, uk_amounts, xi_amounts|
+          uk_amounts['measure_sids'] += xi_amounts['measure_sids']
+          uk_amounts
+        end
+    end
+
+    def uk_measure_amounts
+      @uk_measure_amounts ||= filtered_commodity(source: 'uk').applicable_measure_units
+    end
+
+    def xi_measure_amounts
+      @xi_measure_amounts ||= filtered_commodity(source: 'uk').applicable_measure_units
     end
   end
 end

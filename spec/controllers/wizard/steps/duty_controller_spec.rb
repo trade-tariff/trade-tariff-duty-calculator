@@ -35,7 +35,7 @@ RSpec.describe Wizard::Steps::DutyController do
     end
 
     context 'when on ROW to NI' do
-      let(:session) { build(:user_session, :with_commodity_information, :row_to_ni) }
+      let(:session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
       let(:row_to_ni_duty_calculator) { instance_double('RowToNiDutyCalculator', result: []) }
 
       it 'calls the RowToNiDutyCalculator' do

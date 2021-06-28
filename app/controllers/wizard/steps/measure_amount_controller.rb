@@ -25,13 +25,19 @@ module Wizard
       end
 
       def applicable_measure_units
-        filtered_commodity.applicable_measure_units
+        return filtered_commodity.applicable_measure_units unless user_session.deltas_applicable?
+
+        applicable_measure_units_for(source: 'uk').merge(applicable_measure_units_for(source: 'xi'))
       end
 
       def measure_amount_answers
         return {} unless params.key?(:wizard_steps_measure_amount)
 
         params.require(:wizard_steps_measure_amount).permit(*applicable_measure_unit_keys).to_h
+      end
+
+      def applicable_measure_units_for(source:)
+        filtered_commodity(source: source).applicable_measure_units
       end
     end
   end

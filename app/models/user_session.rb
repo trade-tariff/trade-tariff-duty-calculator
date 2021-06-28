@@ -196,4 +196,8 @@ class UserSession
   def commodity_additional_code
     additional_code.values.join(', ')
   end
+
+  def deltas_applicable?
+    row_to_ni_route? && planned_processing == 'commercial_purposes'
+  end
 end

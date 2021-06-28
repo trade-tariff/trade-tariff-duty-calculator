@@ -1,5 +1,6 @@
 class ConfirmationDecorator < SimpleDelegator
   include ActionView::Helpers::NumberHelper
+  include CommodityHelper
 
   ORDERED_STEPS = %w[
     additional_code
@@ -87,7 +88,7 @@ class ConfirmationDecorator < SimpleDelegator
   end
 
   def vat_label(value)
-    commodity.applicable_vat_options[value]
+    applicable_vat_options[value]
   end
 
   def additional_codes_for(value)

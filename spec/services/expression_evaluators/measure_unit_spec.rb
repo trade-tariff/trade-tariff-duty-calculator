@@ -63,4 +63,12 @@ RSpec.describe ExpressionEvaluators::MeasureUnit do
   it 'returns a properly calculated evaluation' do
     expect(evaluator.call).to eq(expected_evaluation)
   end
+
+  context 'when on a route with applicable deltas' do
+    let(:user_session) { build(:user_session, :deltas_applicable, session_attributes) }
+
+    it 'returns a properly calculated evaluation' do
+      expect(evaluator.call).to eq(expected_evaluation)
+    end
+  end
 end

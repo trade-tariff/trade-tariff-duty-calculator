@@ -17,7 +17,7 @@ FactoryBot.define do
       end
 
       session = { 'answers' => answers.merge('other_country_of_origin' => other_country_of_origin) }
-      session.merge!(attributes.stringify_keys)
+      session.merge!(attributes.stringify_keys.except(*answers.keys))
 
       UserSession.new(session)
     end
@@ -58,13 +58,23 @@ FactoryBot.define do
     measure_amount { { 'dtn' => '100' } }
   end
 
-  trait :row_to_ni do
+  trait :deltas_applicable do
     import_destination { 'XI' }
     country_of_origin { 'OTHER' }
     other_country_of_origin { 'AR' }
+    planned_processing { 'commercial_purposes' }
   end
 
   trait :with_vat do
     vat { 'VATZ' }
+  end
+
+  trait :with_additional_codes do
+    additional_code do
+      {
+        '105' => '2340',
+        '103' => '2600',
+      }
+    end
   end
 end

@@ -561,4 +561,23 @@ RSpec.describe UserSession do
       it { expect(user_session.commodity_additional_code).to eq('') }
     end
   end
+
+  describe '#deltas_applicable?' do
+    context 'when on RoW to NI route and planned_processing is commercial_purposes' do
+      subject(:user_session) do
+        build(
+          :user_session,
+          :deltas_applicable,
+        )
+      end
+
+      it 'returns true' do
+        expect(user_session.deltas_applicable?).to be true
+      end
+    end
+
+    it 'returns false' do
+      expect(user_session.deltas_applicable?).to be false
+    end
+  end
 end
