@@ -9,8 +9,10 @@ RSpec.describe ConfirmationDecorator do
       commodity_code,
     )
   end
+
   let(:commodity_code) { '0702000007' }
   let(:commodity_source) { 'uk' }
+
   let(:user_session) do
     build(
       :user_session,
@@ -26,8 +28,6 @@ RSpec.describe ConfirmationDecorator do
       :with_vat,
     )
   end
-
-  let(:referred_service) { 'uk' }
 
   describe 'ORDERED_STEPS' do
     it 'returns the correct steps' do
@@ -50,31 +50,6 @@ RSpec.describe ConfirmationDecorator do
   end
 
   describe '#user_answers' do
-    let(:session_attributes) do
-      {
-        'import_date' => '2090-01-01',
-        'import_destination' => 'XI',
-        'country_of_origin' => 'GB',
-        'trader_scheme' => 'yes',
-        'final_use' => 'yes',
-        'planned_processing' => 'commercial_purposes',
-        'certificate_of_origin' => 'no',
-        'customs_value' => {
-          'insurance_cost' => '10',
-          'monetary_value' => '10',
-          'shipping_cost' => '10',
-        },
-        'measure_amount' => {
-          'dtn' => '120',
-        },
-        'additional_code' => {
-          '105' => '2340',
-          '103' => '2600',
-        },
-        'vat' => 'VATZ',
-      }
-    end
-
     let(:expected) do
       [
         { key: 'additional_code', label: 'Additional code(s)', value: '2340, 2600' },
@@ -101,7 +76,7 @@ RSpec.describe ConfirmationDecorator do
           confirmation_decorator.path_for(
             key: 'import_date',
           ),
-        ).to eq("/duty-calculator/#{referred_service}/#{commodity_code}/import-date")
+        ).to eq("/duty-calculator/uk/#{commodity_code}/import-date")
       end
     end
 
