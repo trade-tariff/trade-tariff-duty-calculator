@@ -8,6 +8,7 @@ module Api
     meta_attribute :duty_calculator, :applicable_vat_options
     meta_attribute :duty_calculator, :trade_defence
     meta_attribute :duty_calculator, :zero_mfn_duty
+    meta_attribute :duty_calculator, :source
 
     attributes :producline_suffix,
                :number_indents,
