@@ -55,7 +55,7 @@ RSpec.describe Wizard::Steps::ConfirmationController do
 
     it 'contains the links that allow users to go back and change their answers' do
       expected_links.each do |link|
-        expect(response.body).to have_link('Change', href: link)
+        expect(response.body).to include(link)
       end
     end
 
