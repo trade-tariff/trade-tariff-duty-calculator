@@ -17,7 +17,9 @@ module Wizard
 
       def save
         user_session.additional_code = {
-          measure_type_id => additional_code,
+          user_session.commodity_source => user_session.additional_code.merge(
+            measure_type_id => additional_code,
+          ),
         }
       end
 

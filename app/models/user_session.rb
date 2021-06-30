@@ -4,7 +4,7 @@ class UserSession
   def initialize(session)
     @session = session
     @session['answers'] ||= {}
-    @session['answers'][Wizard::Steps::AdditionalCode.id] ||= {}
+    @session['answers'][Wizard::Steps::AdditionalCode.id] ||= { 'xi' => {}, 'uk' => {} }
   end
 
   def remove_step_ids(ids)
@@ -106,15 +106,15 @@ class UserSession
   end
 
   def additional_code=(value)
-    session['answers'][Wizard::Steps::AdditionalCode.id].merge!(value)
+    session['answers'][Wizard::Steps::AdditionalCode.id].deep_merge!(value)
   end
 
-  def additional_code
-    session['answers'][Wizard::Steps::AdditionalCode.id]
+  def additional_code(source: commodity_source)
+    session['answers'][Wizard::Steps::AdditionalCode.id][source]
   end
 
   def measure_type_ids
-    session['answers'][Wizard::Steps::AdditionalCode.id].keys
+    session['answers'][Wizard::Steps::AdditionalCode.id][commodity_source].keys
   end
 
   def commodity_source=(value)

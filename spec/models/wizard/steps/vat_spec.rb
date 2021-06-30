@@ -3,7 +3,7 @@ RSpec.describe Wizard::Steps::Vat do
 
   let(:vat) { nil }
 
-  let(:user_session) { build(:user_session) }
+  let(:user_session) { build(:user_session, :with_commodity_information) }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
@@ -91,22 +91,16 @@ RSpec.describe Wizard::Steps::Vat do
       let(:user_session) do
         build(
           :user_session,
-          additional_code: accumulated_codes,
+          :with_commodity_information,
+          :with_additional_codes,
         )
-      end
-
-      let(:accumulated_codes) do
-        {
-          '105' => '2340',
-          '104' => '1112',
-        }
       end
 
       it 'returns additional_codes path with the last measure type id as id' do
         expect(
           step.previous_step_path,
         ).to eq(
-          additional_codes_path('104'),
+          additional_codes_path('103'),
         )
       end
     end

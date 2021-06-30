@@ -186,8 +186,8 @@ RSpec.describe DutyCalculator do
               'insurance_cost' => '10',
             },
             'measure_amount' => { 'tnei' => '2' },
-            'additional_code' => { '552' => 'C490' },
-            'commodity_source' => 'UK',
+            'additional_code' => { 'uk' => { '552' => 'C490' } },
+            'commodity_source' => 'uk',
             'commodity_code' => commodity_code,
           }
         end

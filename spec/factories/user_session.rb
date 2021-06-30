@@ -72,8 +72,14 @@ FactoryBot.define do
   trait :with_additional_codes do
     additional_code do
       {
-        '105' => '2340',
-        '103' => '2600',
+        'uk' => {
+          '105' => '2340',
+          '103' => '2600',
+        },
+        'xi' => {
+          '105' => '2340',
+          '103' => '2600',
+        },
       }
     end
   end

@@ -8,7 +8,7 @@ RSpec.describe Wizard::Steps::AdditionalCode do
     )
   end
 
-  let(:user_session) { build(:user_session, import_date: '2022-01-01') }
+  let(:user_session) { build(:user_session, :with_commodity_information, import_date: '2022-01-01') }
   let(:filtered_commodity) { instance_double(Api::Commodity) }
   let(:measure_type_id) { '105' }
   let(:additional_code) { '2300' }
@@ -154,22 +154,19 @@ RSpec.describe Wizard::Steps::AdditionalCode do
       let(:measure_type_id) { '105' }
       let(:additional_code) { nil }
 
-      let(:session_value) do
-        { '105' => '2500', '445' => '5000' }
-      end
-
       let(:user_session) do
         build(
           :user_session,
+          :with_additional_codes,
+          :with_commodity_information,
           import_date: '2022-01-01',
-          additional_code: session_value,
         )
       end
 
       it { is_expected.to be_valid }
 
       it 'returns the value from the session that corresponds to measure type 105' do
-        expect(step.additional_code).to eq('2500')
+        expect(step.additional_code).to eq('2340')
       end
     end
   end

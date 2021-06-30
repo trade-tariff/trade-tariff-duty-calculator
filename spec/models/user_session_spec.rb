@@ -191,7 +191,7 @@ RSpec.describe UserSession do
     end
 
     context 'when the key is present on the session' do
-      subject(:user_session) { build(:user_session, country_of_origin: 'GB') }
+      subject(:user_session) { build(:user_session, :with_commodity_information, country_of_origin: 'GB') }
 
       let(:expected_country) { 'GB' }
 
@@ -343,30 +343,30 @@ RSpec.describe UserSession do
     subject(:user_session) do
       build(
         :user_session,
-        additional_code: cumulated_codes,
+        :with_commodity_information,
+        :with_additional_codes,
       )
     end
 
-    let(:cumulated_codes) do
-      {
-        '105' => '2340',
-        '104' => '1112',
-      }
-    end
-
     it 'returns the correct value from the session' do
-      expect(user_session.additional_code).to eq(cumulated_codes)
+      expect(user_session.additional_code).to eq({ '103' => '2600', '105' => '2340' })
     end
   end
 
   describe '#additional_code=' do
-    let(:value) { { '105' => '2300' } }
-    let(:new_value) { { '104' => '2511' } }
+    let(:value) { { 'uk' => { '105' => '2300' } } }
+    let(:expected_value) do
+      { 'uk' => { '105' => '2300' }, 'xi' => {} }
+    end
+    let(:new_value) { { 'uk' => { '104' => '2511' } } }
 
     let(:merged_session) do
       {
-        '105' => '2300',
-        '104' => '2511',
+        'uk' => {
+          '105' => '2300',
+          '104' => '2511',
+        },
+        'xi' => {},
       }
     end
 
@@ -375,7 +375,7 @@ RSpec.describe UserSession do
     end
 
     it 'stores the hash on the session' do
-      expect(session['answers'][Wizard::Steps::AdditionalCode.id]).to eq(value)
+      expect(session['answers'][Wizard::Steps::AdditionalCode.id]).to eq(expected_value)
     end
 
     it 'merges new additional codes to the existing ones' do
@@ -389,19 +389,13 @@ RSpec.describe UserSession do
     subject(:user_session) do
       build(
         :user_session,
-        additional_code: cumulated_codes,
+        :with_additional_codes,
+        :with_commodity_information,
       )
     end
 
-    let(:cumulated_codes) do
-      {
-        '105' => '2340',
-        '104' => '1112',
-      }
-    end
-
     it 'returns the measure type ids from the session' do
-      expect(user_session.measure_type_ids).to eq(%w[105 104])
+      expect(user_session.measure_type_ids).to eq(%w[105 103])
     end
   end
 
@@ -550,13 +544,15 @@ RSpec.describe UserSession do
 
   describe '#commodity_additional_code' do
     context 'when additional code answers have been stored' do
-      subject(:user_session) { build(:user_session, additional_code: { '103' => 'C999', '105' => 'B111' }) }
+      subject(:user_session) do
+        build(:user_session, :with_additional_codes, :with_commodity_information)
+      end
 
-      it { expect(user_session.commodity_additional_code).to eq('C999, B111') }
+      it { expect(user_session.commodity_additional_code).to eq('2340, 2600') }
     end
 
     context 'when additional code answers have not been stored' do
-      subject(:user_session) { build(:user_session) }
+      subject(:user_session) { build(:user_session, :with_commodity_information) }
 
       it { expect(user_session.commodity_additional_code).to eq('') }
     end
