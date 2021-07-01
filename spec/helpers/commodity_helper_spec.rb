@@ -204,7 +204,7 @@ RSpec.describe CommodityHelper do
       }
     end
 
-    context 'when on deltas are applicable' do
+    context 'when deltas are applicable' do
       let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
 
       it 'fetches the uk commodity' do
@@ -224,7 +224,7 @@ RSpec.describe CommodityHelper do
       end
     end
 
-    context 'when on deltas are not applicable' do
+    context 'when deltas are not applicable' do
       let(:user_session) { build(:user_session, :with_commodity_information) }
 
       it 'fetches the uk commodity' do
