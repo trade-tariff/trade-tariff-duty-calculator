@@ -188,4 +188,68 @@ RSpec.describe CommodityHelper do
       expect(helper.applicable_additional_codes).to eq(expected_options)
     end
   end
+
+  describe '#applicable_measure_units' do
+    let(:expected_measure_units) do
+      {
+        'DTN' => {
+          'abbreviation' => '100 kg',
+          'measure_sids' => [20_005_920, 20_056_507, 20_073_335, 20_076_779, 20_090_066, 20_105_690, 20_078_066, 20_102_998, 20_108_866, 20_085_014],
+          'measurement_unit_code' => 'DTN',
+          'measurement_unit_qualifier_code' => '',
+          'unit' => 'x 100 kg',
+          'unit_hint' => 'Enter the value in decitonnes (100kg)',
+          'unit_question' => 'What is the weight of the goods you will be importing?',
+        },
+      }
+    end
+
+    context 'when deltas are applicable' do
+      let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
+
+      it 'fetches the uk commodity' do
+        helper.applicable_measure_units
+
+        expect(Api::Commodity).to have_received(:build).with('uk', anything, anything)
+      end
+
+      it 'fetches the xi commodity' do
+        helper.applicable_measure_units
+
+        expect(Api::Commodity).to have_received(:build).with('xi', anything, anything)
+      end
+
+      it 'fetches the measure units' do
+        expect(helper.applicable_measure_units).to eq(expected_measure_units)
+      end
+    end
+
+    context 'when deltas are not applicable' do
+      let(:user_session) { build(:user_session, :with_commodity_information) }
+
+      it 'fetches the uk commodity' do
+        helper.applicable_measure_units
+
+        expect(Api::Commodity).to have_received(:build).with('uk', anything, anything)
+      end
+
+      it 'does not fetch the xi commodity' do
+        helper.applicable_measure_units
+
+        expect(Api::Commodity).not_to have_received(:build).with('xi', anything, anything)
+      end
+
+      it 'fetches the measure units' do
+        expect(helper.applicable_measure_units).to eq(expected_measure_units)
+      end
+    end
+  end
+
+  describe '#applicable_measure_unit_keys' do
+    let(:user_session) { build(:user_session, :with_commodity_information) }
+
+    it 'returns the keys of the applicable_measure_units' do
+      expect(helper.applicable_measure_unit_keys).to eq(%w[dtn])
+    end
+  end
 end
