@@ -59,5 +59,4 @@ module CommodityHelper
   def xi_measure_units
     filtered_commodity(source: 'xi').applicable_measure_units
   end
-
 end
