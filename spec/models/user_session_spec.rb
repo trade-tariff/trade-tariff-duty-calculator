@@ -339,7 +339,7 @@ RSpec.describe UserSession do
     end
   end
 
-  describe '#additional_code' do
+  describe '#additional_code_uk' do
     subject(:user_session) do
       build(
         :user_session,
@@ -348,17 +348,31 @@ RSpec.describe UserSession do
       )
     end
 
-    it 'returns the correct value from the session' do
-      expect(user_session.additional_code).to eq({ '103' => '2600', '105' => '2340' })
+    it 'returns the correct value from the session for the uk source' do
+      expect(user_session.additional_code_uk).to eq({ '103' => '2600', '105' => '2340' })
     end
   end
 
-  describe '#additional_code=' do
-    let(:value) { { 'uk' => { '105' => '2300' } } }
+  describe '#additional_code_xi' do
+    subject(:user_session) do
+      build(
+        :user_session,
+        :with_commodity_information,
+        :with_additional_codes,
+      )
+    end
+
+    it 'returns the correct value from the session for the uk source' do
+      expect(user_session.additional_code_xi).to eq({ '103' => '2600', '105' => '2340' })
+    end
+  end
+
+  describe '#additional_code_uk=' do
+    let(:value) { { '105' => '2300' } }
     let(:expected_value) do
       { 'uk' => { '105' => '2300' }, 'xi' => {} }
     end
-    let(:new_value) { { 'uk' => { '104' => '2511' } } }
+    let(:new_value) { { '104' => '2511' } }
 
     let(:merged_session) do
       {
@@ -371,7 +385,7 @@ RSpec.describe UserSession do
     end
 
     before do
-      user_session.additional_code = value
+      user_session.additional_code_uk = value
     end
 
     it 'stores the hash on the session' do
@@ -379,7 +393,39 @@ RSpec.describe UserSession do
     end
 
     it 'merges new additional codes to the existing ones' do
-      user_session.additional_code = new_value
+      user_session.additional_code_uk = new_value
+
+      expect(session['answers'][Wizard::Steps::AdditionalCode.id]).to eq(merged_session)
+    end
+  end
+
+  describe '#additional_code_xi=' do
+    let(:value) { { '105' => '2300' } }
+    let(:expected_value) do
+      { 'xi' => { '105' => '2300' }, 'uk' => {} }
+    end
+    let(:new_value) { { '104' => '2511' } }
+
+    let(:merged_session) do
+      {
+        'xi' => {
+          '105' => '2300',
+          '104' => '2511',
+        },
+        'uk' => {},
+      }
+    end
+
+    before do
+      user_session.additional_code_xi = value
+    end
+
+    it 'stores the hash on the session' do
+      expect(session['answers'][Wizard::Steps::AdditionalCode.id]).to eq(expected_value)
+    end
+
+    it 'merges new additional codes to the existing ones' do
+      user_session.additional_code_xi = new_value
 
       expect(session['answers'][Wizard::Steps::AdditionalCode.id]).to eq(merged_session)
     end
@@ -542,19 +588,19 @@ RSpec.describe UserSession do
     end
   end
 
-  describe '#commodity_additional_code' do
+  describe '#additional_codes' do
     context 'when additional code answers have been stored' do
       subject(:user_session) do
         build(:user_session, :with_additional_codes, :with_commodity_information)
       end
 
-      it { expect(user_session.commodity_additional_code).to eq('2340, 2600') }
+      it { expect(user_session.additional_codes).to eq('2340, 2600') }
     end
 
     context 'when additional code answers have not been stored' do
       subject(:user_session) { build(:user_session, :with_commodity_information) }
 
-      it { expect(user_session.commodity_additional_code).to eq('') }
+      it { expect(user_session.additional_codes).to eq('') }
     end
   end
 

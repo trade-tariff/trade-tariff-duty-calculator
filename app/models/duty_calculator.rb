@@ -78,8 +78,7 @@ class DutyCalculator
   def additional_code_measures
     commodity.import_measures.reject(&:vat).select do |measure|
       additional_code = measure.additional_code
-      code_answer = user_session.additional_code[measure.measure_type.id]
-
+      code_answer = user_session.public_send("additional_code_#{commodity.source}")[measure.measure_type.id]
       additional_code.present? && code_answer == additional_code.code
     end
   end

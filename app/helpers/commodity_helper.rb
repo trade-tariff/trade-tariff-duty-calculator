@@ -15,7 +15,25 @@ module CommodityHelper
   end
 
   def applicable_additional_codes
-    @applicable_additional_codes ||= filtered_commodity.applicable_additional_codes
+    @applicable_additional_codes ||=
+      {}.tap do |additional_codes|
+        if user_session.deltas_applicable?
+          additional_codes['uk'] = filtered_commodity(source: 'uk').applicable_additional_codes
+          additional_codes['xi'] = filtered_commodity(source: 'xi').applicable_additional_codes
+        else
+          additional_codes[user_session.commodity_source] = filtered_commodity(source: user_session.commodity_source).applicable_additional_codes
+        end
+      end
+  end
+
+  def applicable_additional_codes?
+    applicable_additional_codes.values.any?(&:present?)
+  end
+
+  def applicable_measure_type_ids
+    @applicable_measure_type_ids ||= applicable_additional_codes.each_with_object([]) { |(_service, additional_codes), acc|
+      acc << additional_codes.keys
+    }.flatten.uniq
   end
 
   def applicable_vat_options

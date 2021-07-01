@@ -160,26 +160,28 @@ RSpec.describe CommodityHelper do
   describe '#applicable_additional_codes' do
     let(:expected_options) do
       {
-        '105' => {
-          'additional_codes' => [
-            {
-              'code' => '2600',
-              'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
-              'measure_sid' => 20_126_513,
-              'overlay' => 'The product I am importing is COVID-19 critical',
+        'xi' => {
+          '105' => {
+            'additional_codes' => [
+              {
+                'code' => '2600',
+                'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
+                'measure_sid' => 20_126_513,
+                'overlay' => 'The product I am importing is COVID-19 critical',
+              },
+              {
+                'code' => '2601',
+                'hint' => '',
+                'measure_sid' => 20_126_512,
+                'overlay' => 'The product I am importing is not COVID-19 critical',
+              },
+            ],
+            'heading' => {
+              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
+              'overlay' => 'Describe your goods in more detail',
             },
-            {
-              'code' => '2601',
-              'hint' => '',
-              'measure_sid' => 20_126_512,
-              'overlay' => 'The product I am importing is not COVID-19 critical',
-            },
-          ],
-          'heading' => {
-            'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-            'overlay' => 'Describe your goods in more detail',
+            'measure_type_description' => 'Non preferential duty under authorised use',
           },
-          'measure_type_description' => 'Non preferential duty under authorised use',
         },
       }
     end
