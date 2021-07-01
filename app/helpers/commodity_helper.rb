@@ -22,6 +22,16 @@ module CommodityHelper
     @applicable_vat_options ||= filtered_commodity(source: 'uk').applicable_vat_options
   end
 
+  def applicable_measure_units
+    return filtered_commodity.applicable_measure_units unless user_session.deltas_applicable?
+
+    uk_measure_units.merge(xi_measure_units)
+  end
+
+  def applicable_measure_unit_keys
+    applicable_measure_units.keys.map(&:downcase)
+  end
+
   private
 
   def commodity_context_service
@@ -41,4 +51,13 @@ module CommodityHelper
 
     user_session.country_of_origin
   end
+
+  def uk_measure_units
+    filtered_commodity(source: 'uk').applicable_measure_units
+  end
+
+  def xi_measure_units
+    filtered_commodity(source: 'xi').applicable_measure_units
+  end
+
 end

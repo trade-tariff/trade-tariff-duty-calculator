@@ -66,7 +66,7 @@ class ConfirmationDecorator < SimpleDelegator
   def format_measure_amount(value)
     return if commodity.applicable_measure_units.blank?
 
-    value.map { |k, v| "#{v} #{commodity.applicable_measure_units[k.upcase]['unit']}" }
+    value.map { |k, v| "#{v} #{applicable_measure_units[k.upcase]['unit']}" }
          .join('<br>')
          .html_safe
   end
