@@ -52,7 +52,7 @@ RSpec.describe ConfirmationDecorator do
   describe '#user_answers' do
     let(:expected) do
       [
-        { key: 'additional_code', label: 'Additional code(s)', value: '2340, 2600' },
+        { key: 'additional_code', label: 'Additional code(s)', value: '2340, 2600, 2340, 2600' },
         { key: 'import_date', label: 'Date of import', value: '01 January 2025' },
         { key: 'import_destination', label: 'Destination', value: 'Northern Ireland' },
         { key: 'country_of_origin', label: 'Coming from', value: 'United Kingdom' },
