@@ -76,10 +76,6 @@ module Wizard
         applicable_measure_type_ids[previous_measure_type_index]
       end
 
-      # def available_measure_types
-      #   @available_measure_types ||= (applicable_additional_codes['uk'].keys + applicable_additional_codes['xi'].keys).uniq
-      # end
-
       def next_measure_type_index
         @next_measure_type_index ||= applicable_measure_type_ids.find_index(measure_type_id) + 1
       end
