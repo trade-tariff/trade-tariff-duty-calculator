@@ -19,7 +19,8 @@
       },
       "applicable_vat_options": {
       },
-      "meursing_code": false
+      "meursing_code": false,
+      "source": "uk"
     }
   },
   "import_measures": [
