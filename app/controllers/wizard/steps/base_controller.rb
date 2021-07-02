@@ -16,10 +16,6 @@ module Wizard
                     :user_session,
                     :country_of_origin_description
 
-      def user_session
-        @user_session ||= UserSession.new(session)
-      end
-
       def country_of_origin_description
         Api::GeographicalArea.find(
           country_of_origin_code,

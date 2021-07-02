@@ -53,7 +53,7 @@ module Wizard
       end
 
       def next_step_path
-        return additional_codes_path(applicable_additional_codes.keys.first) if applicable_additional_codes.present?
+        return additional_codes_path(applicable_measure_type_ids.first) if applicable_additional_codes?
 
         return vat_path if applicable_vat_options.keys.count > 1
 

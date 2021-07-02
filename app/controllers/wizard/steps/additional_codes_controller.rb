@@ -15,7 +15,8 @@ module Wizard
 
       def permitted_params
         params.require(:wizard_steps_additional_code).permit(
-          :additional_code,
+          :additional_code_uk,
+          :additional_code_xi,
         ).merge(measure_type_id)
       end
 

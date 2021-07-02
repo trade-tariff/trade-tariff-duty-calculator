@@ -25,7 +25,7 @@ class ConfirmationDecorator < SimpleDelegator
   def path_for(key:)
     return import_date_path(referred_service: user_session.referred_service, commodity_code: user_session.commodity_code) if key == 'import_date'
 
-    return additional_codes_path(user_session.additional_code.keys.first) if key == 'additional_code'
+    return additional_codes_path(applicable_measure_type_ids.first) if key == 'additional_code'
 
     send("#{key}_path")
   end

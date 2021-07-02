@@ -105,12 +105,20 @@ class UserSession
     }
   end
 
-  def additional_code=(value)
-    session['answers'][Wizard::Steps::AdditionalCode.id].deep_merge!(value)
+  def additional_code_uk=(value)
+    session['answers'][Wizard::Steps::AdditionalCode.id]['uk'].merge!(value)
   end
 
-  def additional_code(source: commodity_source)
-    session['answers'][Wizard::Steps::AdditionalCode.id][source]
+  def additional_code_xi=(value)
+    session['answers'][Wizard::Steps::AdditionalCode.id]['xi'].merge!(value)
+  end
+
+  def additional_code_uk
+    session['answers'][Wizard::Steps::AdditionalCode.id]['uk']
+  end
+
+  def additional_code_xi
+    session['answers'][Wizard::Steps::AdditionalCode.id]['xi']
   end
 
   def measure_type_ids
@@ -193,8 +201,8 @@ class UserSession
     customs_value.values.map(&:to_f).reduce(:+)
   end
 
-  def commodity_additional_code
-    additional_code.values.join(', ')
+  def additional_codes
+    (additional_code_uk.values + additional_code_xi.values).uniq.join(', ')
   end
 
   def deltas_applicable?

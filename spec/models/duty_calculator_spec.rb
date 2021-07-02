@@ -2,7 +2,7 @@ RSpec.describe DutyCalculator do
   subject(:calculator) { described_class.new(user_session, commodity) }
 
   let(:user_session) { build(:user_session, session_attributes) }
-  let(:commodity_source) { :xi }
+  let(:commodity_source) { :uk }
   let(:commodity_code) { '7202118000' }
 
   let(:commodity) do
@@ -66,7 +66,7 @@ RSpec.describe DutyCalculator do
               'shipping_cost' => '250.89',
               'insurance_cost' => '10',
             },
-            'commodity_source' => 'UK',
+            'commodity_source' => 'uk',
           }
         end
 
@@ -186,7 +186,7 @@ RSpec.describe DutyCalculator do
               'insurance_cost' => '10',
             },
             'measure_amount' => { 'tnei' => '2' },
-            'additional_code' => { 'uk' => { '552' => 'C490' } },
+            'additional_code' => { 'uk' => { '552' => 'C490' }, 'xi' => {} },
             'commodity_source' => 'uk',
             'commodity_code' => commodity_code,
           }

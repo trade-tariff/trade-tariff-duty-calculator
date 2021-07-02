@@ -161,7 +161,9 @@ en:
             attributes:
               measure_type_id:
                 blank: Enter a valid measure type id
-              additional_code:
+              additional_code_uk:
+                blank: Specify a valid additional code
+              additional_code_xi:
                 blank: Specify a valid additional code
         wizard/steps/measure_amount:
           attributes:
