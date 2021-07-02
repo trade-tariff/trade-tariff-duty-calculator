@@ -92,8 +92,8 @@ class ConfirmationDecorator < SimpleDelegator
   end
 
   def additional_codes_for(value)
-    return nil if value[user_session.commodity_source].empty?
+    return nil unless value.values.any? { |v| v.values.compact.present? }
 
-    value[user_session.commodity_source].values.join(', ')
+    user_session.additional_codes
   end
 end
