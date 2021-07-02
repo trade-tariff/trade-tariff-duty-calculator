@@ -594,7 +594,7 @@ RSpec.describe UserSession do
         build(:user_session, :with_additional_codes, :with_commodity_information)
       end
 
-      it { expect(user_session.additional_codes).to eq('2340, 2600') }
+      it { expect(user_session.additional_codes).to eq('2340, 2600, 2340, 2600') }
     end
 
     context 'when additional code answers have not been stored' do
