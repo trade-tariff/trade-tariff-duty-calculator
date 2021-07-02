@@ -208,4 +208,38 @@ class UserSession
   def deltas_applicable?
     row_to_ni_route? && planned_processing == 'commercial_purposes'
   end
+
+  def import_into_gb?
+    import_destination == 'UK'
+  end
+
+  def no_duty_to_pay?
+    no_duty_route? || possible_duty_route? && no_duty_applies?
+  end
+
+  private
+
+  def no_duty_route?
+    ni_to_gb_route? || eu_to_ni_route?
+  end
+
+  def possible_duty_route?
+    gb_to_ni_route? || row_to_gb_route?
+  end
+
+  def no_duty_applies?
+    zero_mfn_duty_no_trade_defence? || strict_processing? || certificate_of_origin?
+  end
+
+  def strict_processing?
+    planned_processing.in?(%w[without_any_processing annual_turnover commercial_processing])
+  end
+
+  def zero_mfn_duty_no_trade_defence?
+    !trade_defence && zero_mfn_duty
+  end
+
+  def certificate_of_origin?
+    certificate_of_origin == 'yes'
+  end
 end

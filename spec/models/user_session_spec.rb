@@ -622,4 +622,58 @@ RSpec.describe UserSession do
       expect(user_session.deltas_applicable?).to be false
     end
   end
+
+  describe '#import_into_gb?' do
+    subject(:user_session) { build(:user_session, import_destination: import_destination) }
+
+    context 'when the import_destination is UK' do
+      let(:import_destination) { 'UK' }
+
+      it { is_expected.to be_import_into_gb }
+    end
+
+    context 'when the import_destination is not UK' do
+      let(:import_destination) { 'XI' }
+
+      it { is_expected.not_to be_import_into_gb }
+    end
+  end
+
+  describe '#no_duty_to_pay?' do
+    context 'when on a no duty route into ni' do
+      subject(:user_session) { build(:user_session, :with_no_duty_route_eu) }
+
+      it { is_expected.to be_no_duty_to_pay }
+    end
+
+    context 'when on a no duty route into gb' do
+      subject(:user_session) { build(:user_session, :with_no_duty_route_gb) }
+
+      it { is_expected.to be_no_duty_to_pay }
+    end
+
+    context 'when on a possible duty_route' do
+      %i[with_possible_duty_route_into_gb with_possible_duty_route_into_ni].each do |route_trait|
+        context 'when with zero_mfn_duty' do
+          subject(:user_session) { build(:user_session, route_trait, :zero_mfn_duty) }
+
+          it { is_expected.to be_no_duty_to_pay }
+        end
+
+        context 'when no duty applies' do
+          %w[without_any_processing annual_turnover commercial_processing].each do |processing|
+            subject(:user_session) { build(:user_session, route_trait, planned_processing: processing) }
+
+            it { is_expected.to be_no_duty_to_pay }
+          end
+        end
+
+        context 'when the trader has a certificate of origin' do
+          subject(:user_session) { build(:user_session, route_trait, :with_certificate_of_origin) }
+
+          it { is_expected.to be_no_duty_to_pay }
+        end
+      end
+    end
+  end
 end

@@ -7,20 +7,30 @@ class RowToNiDutyCalculator
     @user_session = user_session
   end
 
-  def result
-    uk_mfn_option = uk_options.find { |option| option[:key] == DutyOptions::ThirdCountryTariff.id }
-    xi_mfn_option = xi_options.find { |option| option[:key] == DutyOptions::ThirdCountryTariff.id }
-
-    [DutyOptions::Chooser.new(uk_mfn_option, xi_mfn_option, user_session.total_amount).option]
+  def options
+    uk_options.each_with_object(default_options) do |uk_option, acc|
+      case uk_option[:key]
+      when DutyOptions::ThirdCountryTariff.id
+        acc << DutyOptions::Chooser.new(uk_option, eu_options.mfn, user_session.total_amount).option
+      when DutyOptions::TariffPreference.id
+        acc << DutyOptions::Chooser.new(uk_option, eu_options.cheapest_preference, user_session.total_amount).option
+      end
+    end
   end
 
   private
 
   def uk_options
-    @uk_options ||= DutyCalculator.new(user_session, filtered_commodity(source: 'uk')).result
+    @uk_options ||= DutyCalculator.new(user_session, filtered_commodity(source: 'uk')).options
   end
 
-  def xi_options
-    @xi_options ||= DutyCalculator.new(user_session, filtered_commodity(source: 'xi')).result
+  def eu_options
+    @eu_options ||= DutyCalculator.new(user_session, filtered_commodity(source: 'xi')).options
+  end
+
+  def default_options
+    return [] if eu_options.preferences.blank? && uk_options.preferences.present?
+
+    OptionCollection.new(eu_options.preferences)
   end
 end

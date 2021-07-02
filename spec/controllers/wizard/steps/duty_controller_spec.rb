@@ -6,7 +6,7 @@ RSpec.describe Wizard::Steps::DutyController do
   end
 
   let(:session) { build(:user_session, :with_commodity_information) }
-  let(:duty_calculator) { instance_double('DutyCalculator', result: []) }
+  let(:duty_calculator) { instance_double('DutyCalculator', options: []) }
 
   describe 'GET #show' do
     subject(:response) { get :show }
@@ -36,7 +36,7 @@ RSpec.describe Wizard::Steps::DutyController do
 
     context 'when on ROW to NI' do
       let(:session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
-      let(:row_to_ni_duty_calculator) { instance_double('RowToNiDutyCalculator', result: []) }
+      let(:row_to_ni_duty_calculator) { instance_double('RowToNiDutyCalculator', options: []) }
 
       it 'calls the RowToNiDutyCalculator' do
         allow(RowToNiDutyCalculator).to receive(:new).and_return(row_to_ni_duty_calculator)

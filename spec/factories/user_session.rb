@@ -83,4 +83,28 @@ FactoryBot.define do
       }
     end
   end
+
+  trait :with_no_duty_route_eu do
+    country_of_origin { 'RO' }
+    import_destination { 'XI' }
+  end
+
+  trait :with_no_duty_route_gb do
+    country_of_origin { 'XI' }
+    import_destination { 'UK' }
+  end
+
+  trait :with_possible_duty_route_into_ni do
+    country_of_origin { 'GB' }
+    import_destination { 'XI' }
+  end
+
+  trait :with_possible_duty_route_into_gb do
+    country_of_origin { 'IN' }
+    import_destination { 'UK' }
+  end
+
+  trait :zero_mfn_duty do
+    zero_mfn_duty { true }
+  end
 end
