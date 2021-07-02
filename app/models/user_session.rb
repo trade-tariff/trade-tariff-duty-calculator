@@ -202,7 +202,7 @@ class UserSession
   end
 
   def additional_codes
-    (additional_code_uk.values + additional_code_xi.values).compact.uniq.join(', ')
+    (additional_code_uk.values + additional_code_xi.values).compact.join(', ')
   end
 
   def deltas_applicable?
