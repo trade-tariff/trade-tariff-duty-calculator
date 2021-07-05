@@ -13,19 +13,27 @@ class OptionCollection
     @options << option
   end
 
+  def uniq(&block)
+    self.class.new(super(&block))
+  end
+
   def sort_by(&block)
     self.class.new(super(&block))
   end
 
-  def preferences
-    @preferences ||= select { |option| option[:key] == DutyOptions::TariffPreference.id }
+  def tariff_preference_options
+    @tariff_preference_options ||= select { |option| option[:key] == DutyOptions::TariffPreference.id }
   end
 
-  def cheapest_preference
-    @cheapest_preference ||= preferences.min_by { |option| option[:evaluation][:value] } || mfn
+  def third_country_tariff_options
+    @third_country_tariff_options ||= select { |option| option[:key] == DutyOptions::ThirdCountryTariff.id }
   end
 
-  def mfn
-    @mfn ||= find { |option| option[:key] == DutyOptions::ThirdCountryTariff.id }
+  def cheapest_tariff_preference_option
+    @cheapest_tariff_preference_option ||= tariff_preference_options.min_by { |option| option[:evaluation][:value] }
+  end
+
+  def third_country_tariff_option
+    @third_country_tariff_option ||= find { |option| option[:key] == DutyOptions::ThirdCountryTariff.id }
   end
 end

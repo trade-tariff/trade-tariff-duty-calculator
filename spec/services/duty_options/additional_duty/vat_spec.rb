@@ -27,6 +27,7 @@ RSpec.describe DutyOptions::AdditionalDuty::Vat do
     context 'when the measure is a VAT' do
       let(:measure) do
         Api::Measure.new(
+          id: 2_046_828,
           measure_type: { id: '305' },
           measure_components: [measure_component],
           measure_conditions: [],
@@ -34,6 +35,7 @@ RSpec.describe DutyOptions::AdditionalDuty::Vat do
           geographical_area: {
             description: geographical_area_description,
           },
+          meta: { 'duty_calculator' => { 'source' => 'uk' } },
         )
       end
 
@@ -59,6 +61,8 @@ RSpec.describe DutyOptions::AdditionalDuty::Vat do
           footnote: nil,
           values: [[duty_html, '5.00% * £1,050.00', '£52.50']],
           value: 52.5,
+          measure_sid: 2_046_828,
+          source: 'uk',
         }
       end
 

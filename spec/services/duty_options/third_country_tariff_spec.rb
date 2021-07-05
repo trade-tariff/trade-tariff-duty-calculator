@@ -20,14 +20,11 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
 
     let(:measure) do
       Api::Measure.new(
-        'meta' => {
-          'duty_calculator' => {
-            'source' => 'xi',
-          },
-        },
+        id: 2_046_828,
         measure_type: { id: '103' },
         measure_components: [measure_component],
         measure_conditions: [],
+        meta: { 'duty_calculator' => { 'source' => 'xi' } },
       )
     end
 
@@ -53,6 +50,8 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
             [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£52.50</strong>'],
           ],
           value: 52.5,
+          measure_sid: 2_046_828,
+          source: 'xi',
         }
       end
 
@@ -66,11 +65,6 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
 
       let(:measure) do
         Api::Measure.new(
-          'meta' => {
-            'duty_calculator' => {
-              'source' => 'xi',
-            },
-          },
           id: 2_046_828,
           duty_expression: {
             base: '35.10 EUR / 100 kg',
@@ -84,6 +78,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
           },
           measure_conditions: [],
           measure_components: [measure_component],
+          meta: { 'duty_calculator' => { 'source' => 'xi' } },
         )
       end
 
@@ -127,6 +122,8 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
             [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£3,596.12</strong>'],
           ],
           value: 3596.12136,
+          measure_sid: 2_046_828,
+          source: 'xi',
         }
       end
 
@@ -140,18 +137,14 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
 
       let(:measure) do
         Api::Measure.new(
-          'meta' => {
-            'duty_calculator' => {
-              'source' => 'xi',
-            },
-          },
-          'id' => 2_046_828,
+          id: 2_046_828,
           measure_type: { id: '103' },
-          'duty_expression' => {
+          duty_expression: {
             'base' => 'foo',
             'formatted_base' => 'foo',
           },
-          'measure_components' => measure_components,
+          measure_components: measure_components,
+          meta: { 'duty_calculator' => { 'source' => 'xi' } },
         )
       end
 
@@ -216,6 +209,8 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
             [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£15.00</strong>'],
           ],
           value: 15.0,
+          measure_sid: 2_046_828,
+          source: 'xi',
         }
       end
 

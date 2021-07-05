@@ -15,6 +15,8 @@ module DutyOptions
         warning_text: nil,
         values: option_values,
         value: value,
+        measure_sid: measure.id,
+        source: measure.source,
       }
     end
 

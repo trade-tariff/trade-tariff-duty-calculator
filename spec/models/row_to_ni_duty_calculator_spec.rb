@@ -1,5 +1,5 @@
 RSpec.describe RowToNiDutyCalculator do
-  subject(:calculator) { described_class.new(user_session) }
+  subject(:calculator) { described_class.new(user_session, uk_options, xi_options) }
 
   let(:user_session) do
     build(
@@ -13,60 +13,193 @@ RSpec.describe RowToNiDutyCalculator do
       :with_customs_value,
       :with_measure_amount,
       :with_vat,
-      :with_additional_codes,
     )
   end
 
-  let(:third_country_tariff_option) do
-    {
-      key: 'third_country_tariff',
-      evaluation: {
-        footnote: "<p class=\"govuk-body\">\n  A ‘Third country’ duty is the tariff charged where there isn’t a trade agreement or a customs union available. It can also be referred to as the Most Favoured Nation (<abbr title=\"Most Favoured Nation\">MFN</abbr>) rate.\n</p>",
-        warning_text: 'Third-country duty will apply as there is no preferential agreement in place for the import of this commodity.',
-        values: [
-          ['Valuation for import', 'Value of goods + freight + insurance costs', '£1,260.89'],
-          ['Import quantity', nil, '0.0 x 100 kg'],
-          ['Import duty<br><span class="govuk-green govuk-body-xs"> Third-country duty (UK)</span>', '35.10 EUR / 100 kg * 0.0', '£0.00'],
-          ['<strong>Duty Total</strong>', nil, '<strong>£0.00</strong>'],
-        ],
-        value: 0.0,
-      },
-      priority: 1,
-    }
+  before do
+    allow(DutyOptions::Chooser).to receive(:new).and_call_original
   end
 
   describe '#options' do
-    before do
-      # allow(DutyCalculator).to receive(:new).and_return(instance_double('DutyCalculator', options: options))
-      allow(DutyOptions::Chooser).to receive(:new).and_call_original
+    let(:uk_third_country_tariff_option) do
+      build(
+        :duty_option_result,
+        :third_country_tariff,
+        :uk,
+        value: 0.2,
+      )
+    end
+
+    let(:xi_third_country_tariff_option) do
+      build(
+        :duty_option_result,
+        :third_country_tariff,
+        :xi,
+        value: 1.2,
+      )
+    end
+
+    let(:uk_tariff_preference_option) do
+      build(
+        :duty_option_result,
+        :tariff_preference,
+        :uk,
+        value: 100,
+      )
+    end
+    let(:xi_tariff_preference_option) do
+      build(
+        :duty_option_result,
+        :tariff_preference,
+        :xi,
+        value: 101,
+      )
+    end
+
+    let(:xi_cheapest_tariff_preference_option) do
+      build(
+        :duty_option_result,
+        :tariff_preference,
+        :xi,
+        value: 0.4,
+      )
     end
 
     context 'when there are tariff preferences in both duty calculations' do
-      it 'passes the uk preference option and the eu preference option'
+      let(:uk_options) do
+        OptionCollection.new(
+          [
+            uk_tariff_preference_option,
+            uk_third_country_tariff_option,
+          ],
+        )
+      end
+      let(:xi_options) do
+        OptionCollection.new(
+          [
+            xi_tariff_preference_option,
+            xi_third_country_tariff_option,
+          ],
+        )
+      end
+
+      it 'passes the uk preference option and the xi preference option' do
+        calculator.options
+
+        expect(DutyOptions::Chooser).to have_received(:new).with(uk_tariff_preference_option, xi_tariff_preference_option, user_session.total_amount)
+      end
     end
 
     context 'when there is a tariff preference only in the uk duty calculation' do
-      it 'passes the uk preference option and the eu mfn option'
+      let(:uk_options) do
+        OptionCollection.new(
+          [
+            uk_tariff_preference_option,
+            uk_third_country_tariff_option,
+          ],
+        )
+      end
+      let(:xi_options) do
+        OptionCollection.new(
+          [
+            xi_third_country_tariff_option,
+          ],
+        )
+      end
+
+      it 'passes the uk preference option and the xi mfn option' do
+        calculator.options
+
+        expect(DutyOptions::Chooser).to have_received(:new).with(
+          uk_tariff_preference_option,
+          xi_third_country_tariff_option,
+          user_session.total_amount,
+        )
+      end
+
+      it 'returns the correct options' do
+        expect(calculator.options.to_a).to eq([uk_third_country_tariff_option])
+      end
     end
 
-    context 'when there is a tariff preference only in the eu duty calculation' do
-      it 'returns the eu tariff preference'
-      it 'does not pass a tariff preference'
+    context 'when there is a tariff preference only in the xi duty calculation' do
+      let(:uk_options) do
+        OptionCollection.new(
+          [
+            uk_third_country_tariff_option,
+          ],
+        )
+      end
+      let(:xi_options) do
+        OptionCollection.new(
+          [
+            xi_tariff_preference_option,
+            xi_third_country_tariff_option,
+          ],
+        )
+      end
+
+      it 'returns the correct options' do
+        expect(calculator.options.to_a).to eq([uk_third_country_tariff_option, xi_tariff_preference_option])
+      end
     end
 
     context 'when there are multiple tariff preferences in the both duty calculations' do
-      it 'returns the result of the duty option chooser'
-      it 'passes the uk tariff preferences and the cheapest eu preference'
+      let(:uk_options) do
+        OptionCollection.new(
+          [
+            uk_third_country_tariff_option,
+            uk_tariff_preference_option,
+            uk_tariff_preference_option,
+          ],
+        )
+      end
+      let(:xi_options) do
+        OptionCollection.new(
+          [
+            xi_tariff_preference_option,
+            xi_cheapest_tariff_preference_option,
+            xi_third_country_tariff_option,
+          ],
+        )
+      end
+
+      it 'returns the correct options' do
+        expect(calculator.options.to_a).to eq([uk_third_country_tariff_option, xi_cheapest_tariff_preference_option])
+      end
+
+      it 'passes the uk tariff preferences and the cheapest xi preference' do
+        calculator.options
+
+        expect(DutyOptions::Chooser).to have_received(:new).with(
+          uk_tariff_preference_option,
+          xi_cheapest_tariff_preference_option,
+          user_session.total_amount,
+        ).twice
+      end
     end
 
-    context 'when there are multiple tariff preferences in the eu duty calculation and none in the uk duty calculation' do
-      it 'returns the eu tariff preferences'
-      it 'does not pass a tariff preference'
-    end
+    context 'when there are multiple tariff preferences in the xi duty calculation and none in the uk duty calculation' do
+      let(:uk_options) do
+        OptionCollection.new(
+          [
+            uk_third_country_tariff_option,
+          ],
+        )
+      end
+      let(:xi_options) do
+        OptionCollection.new(
+          [
+            xi_tariff_preference_option,
+            xi_cheapest_tariff_preference_option,
+            xi_third_country_tariff_option,
+          ],
+        )
+      end
 
-    it 'returns something' do
-      build(:duty_option_result, :third_country_tariff)
-      # expect(calculator.options.as_json).to include(third_country_tariff_option)
+      it 'returns the correct options' do
+        expect(calculator.options.to_a).to eq([uk_third_country_tariff_option, xi_tariff_preference_option, xi_cheapest_tariff_preference_option])
+      end
     end
   end
 end
