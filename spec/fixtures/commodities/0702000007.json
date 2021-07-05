@@ -53,7 +53,8 @@
           "measure_type_description": "Non preferential duty under authorised use"
         }
       },
-      "meursing_code": false
+      "meursing_code": false,
+      "source": "uk"
     }
   },
   "producline_suffix": "80",

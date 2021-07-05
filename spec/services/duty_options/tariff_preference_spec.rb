@@ -26,6 +26,7 @@ RSpec.describe DutyOptions::TariffPreference do
             'source' => 'xi',
           },
         },
+        id: 2_046_828,
         measure_type: { id: '142' },
         measure_components: [measure_component],
         measure_conditions: [],
@@ -58,6 +59,8 @@ RSpec.describe DutyOptions::TariffPreference do
           ],
           value: 52.5,
           geographical_area_description: 'GSP – General Framework',
+          measure_sid: 2_046_828,
+          source: 'xi',
         }
       end
 
@@ -142,6 +145,8 @@ RSpec.describe DutyOptions::TariffPreference do
           ],
           value: 3596.12136,
           geographical_area_description: 'GSP – General Framework',
+          measure_sid: 2_046_828,
+          source: 'xi',
         }
       end
 
@@ -235,6 +240,8 @@ RSpec.describe DutyOptions::TariffPreference do
           ],
           value: 15.0,
           geographical_area_description: 'GSP – General Framework',
+          measure_sid: 2_046_828,
+          source: 'xi',
         }
       end
 

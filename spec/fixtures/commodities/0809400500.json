@@ -33,7 +33,8 @@
         "VATZ": "VAT zero rate (0.0)",
         "VAT": "Value added tax (20.0)"
       },
-      "meursing_code": false
+      "meursing_code": false,
+      "source": "uk"
     }
   },
   "import_measures": [

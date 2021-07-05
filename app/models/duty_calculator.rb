@@ -6,17 +6,7 @@ class DutyCalculator
     @commodity = commodity
   end
 
-  def result
-    return nil if user_session.ni_to_gb_route? || user_session.eu_to_ni_route? || no_duty_applies?
-
-    calculate_duty
-  end
-
-  private
-
-  attr_reader :user_session, :commodity
-
-  def calculate_duty
+  def options
     options = applicable_measures.each_with_object(default_options) do |measure, acc|
       option_klass = measure.measure_type.option
 
@@ -33,17 +23,9 @@ class DutyCalculator
     options.sort_by { |h| h[:priority] }
   end
 
-  def zero_mfn_duty_no_trade_defence?
-    !user_session.trade_defence && user_session.zero_mfn_duty
-  end
+  private
 
-  def strict_processing?
-    %w[without_any_processing annual_turnover commercial_processing].include?(user_session.planned_processing)
-  end
-
-  def certificate_of_origin?
-    user_session.certificate_of_origin == 'yes'
-  end
+  attr_reader :user_session, :commodity
 
   def additional_duty_rows
     @additional_duty_rows ||=
@@ -58,9 +40,9 @@ class DutyCalculator
   end
 
   def default_options
-    return [waiver_option] if user_session.gb_to_ni_route?
+    return OptionCollection.new([waiver_option]) if user_session.gb_to_ni_route?
 
-    []
+    OptionCollection.new([])
   end
 
   def waiver_option
@@ -97,13 +79,5 @@ class DutyCalculator
 
   def no_additional_code_measures
     commodity.import_measures.reject(&:additional_code).reject(&:vat)
-  end
-
-  def no_duty_applies?
-    relevant_route? && (zero_mfn_duty_no_trade_defence? || strict_processing? || certificate_of_origin?)
-  end
-
-  def relevant_route?
-    user_session.gb_to_ni_route? || user_session.row_to_gb_route?
   end
 end
