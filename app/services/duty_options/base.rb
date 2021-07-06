@@ -111,14 +111,8 @@ module DutyOptions
       additional_duty_options.map { |additional_duty| additional_duty[:value] }
     end
 
-    def base_localised_footnote
-      I18n.t("measure_type_footnotes.#{measure.measure_type.id}").html_safe
-    end
-
     def localised_footnote
-      return base_localised_footnote unless user_session.deltas_applicable?
-
-      base_localised_footnote.concat(I18n.t("row_to_ni_route.#{measure.source}.footnote").html_safe)
+      I18n.t("measure_type_footnotes.#{measure.measure_type.id}").html_safe
     end
 
     def formatted_additional_code
