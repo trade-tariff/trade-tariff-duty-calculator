@@ -26,6 +26,8 @@ module Api
       '696' => ::DutyOptions::AdditionalDuty::AdditionalDutiesSafeguard,
     }.freeze
 
+    SUPPORTED_MEASURE_TYPE_IDS = (TYPE_OPTION_MAPPING.keys + TYPE_ADDITIONAL_OPTION_MAPPING.keys).freeze
+
     attributes :description,
                :national,
                :measure_type_series_id,
