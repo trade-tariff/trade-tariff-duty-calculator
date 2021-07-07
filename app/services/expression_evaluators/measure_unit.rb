@@ -4,7 +4,7 @@ module ExpressionEvaluators
 
     def call
       {
-        calculation: "#{measure.duty_expression.base} * #{total_quantity}",
+        calculation: "#{measure.duty_expression.base} * #{sprintf('%f', total_quantity).gsub(/0+$/, '').gsub(/\.$/, '.0')}",
         value: value,
         formatted_value: number_to_currency(value),
         unit: measure_unit_answers.first[:unit],

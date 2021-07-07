@@ -118,42 +118,84 @@ RSpec.describe DutyOptions::TariffPreference do
         }
       end
 
-      let(:session_attributes) do
-        {
-          'import_date' => '2022-01-01',
-          'customs_value' => {
-            'monetary_value' => '1000',
-            'shipping_cost' => '40',
-            'insurance_cost' => '10',
-          },
-          'measure_amount' => {
-            'dtn' => '120',
-          },
-          'commodity_source' => commodity_source,
-          'commodity_code' => commodity_code,
-        }
+      context 'when the amount is an integer' do
+        let(:session_attributes) do
+          {
+            'import_date' => '2022-01-01',
+            'customs_value' => {
+              'monetary_value' => '1000',
+              'shipping_cost' => '40',
+              'insurance_cost' => '10',
+            },
+            'measure_amount' => {
+              'dtn' => '120',
+            },
+            'commodity_source' => commodity_source,
+            'commodity_code' => commodity_code,
+          }
+        end
+
+        let(:expected_table) do
+          {
+            warning_text: nil,
+            footnote: I18n.t('measure_type_footnotes.142'),
+            values: [
+              [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
+              [I18n.t('duty_calculations.options.import_quantity'), nil, '120.0 x 100 kg'],
+              [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'EU', option_type: 'Tariff preference', additional_code: nil), '35.10 EUR / 100 kg * 120.0', '£3,596.12'],
+              [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£3,596.12</strong>'],
+            ],
+            value: 3596.12136,
+            geographical_area_description: 'GSP – General Framework',
+            measure_sid: 2_046_828,
+            source: 'xi',
+            category: :tariff_preference,
+          }
+        end
+
+        it 'produces a correct option' do
+          expect(service.option).to eq(expected_table)
+        end
       end
 
-      let(:expected_table) do
-        {
-          warning_text: nil,
-          footnote: I18n.t('measure_type_footnotes.142'),
-          values: [
-            [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
-            [I18n.t('duty_calculations.options.import_quantity'), nil, '120.0 x 100 kg'],
-            [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'EU', option_type: 'Tariff preference', additional_code: nil), '35.10 EUR / 100 kg * 120.0', '£3,596.12'],
-            [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£3,596.12</strong>'],
-          ],
-          value: 3596.12136,
-          geographical_area_description: 'GSP – General Framework',
-          measure_sid: 2_046_828,
-          source: 'xi',
-          category: :tariff_preference,
-        }
-      end
+      context 'when the amount has more than four decimals' do
+        let(:session_attributes) do
+          {
+            'import_date' => '2022-01-01',
+            'customs_value' => {
+              'monetary_value' => '1000',
+              'shipping_cost' => '40',
+              'insurance_cost' => '10',
+            },
+            'measure_amount' => {
+              'dtn' => '0.00001',
+            },
+            'commodity_source' => commodity_source,
+            'commodity_code' => commodity_code,
+          }
+        end
 
-      it 'produces a correct option' do
-        expect(service.option).to eq(expected_table)
+        let(:expected_table) do
+          {
+            warning_text: nil,
+            footnote: I18n.t('measure_type_footnotes.142'),
+            values: [
+              [I18n.t('duty_calculations.options.import_valuation'), I18n.t('duty_calculations.options.customs_value'), '£1,050.00'],
+              [I18n.t('duty_calculations.options.import_quantity'), nil, '  0.00001 x 100 kg'],
+              [I18n.t('duty_calculations.options.import_duty_html', commodity_source: 'EU', option_type: 'Tariff preference', additional_code: nil), '35.10 EUR / 100 kg * 0.00001', '£0.00'],
+              [I18n.t('duty_calculations.options.duty_total_html'), nil, '<strong>£0.00</strong>'],
+            ],
+            value: 0.00029967678,
+            geographical_area_description: 'GSP – General Framework',
+            measure_sid: 2_046_828,
+            source: 'xi',
+            category: :tariff_preference,
+          }
+        end
+
+        it 'produces a correct option' do
+          expect(service.option).to eq(expected_table)
+        end
       end
     end
 
