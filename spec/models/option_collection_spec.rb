@@ -70,4 +70,8 @@ RSpec.describe OptionCollection do
   describe '#third_country_tariff_option' do
     it { expect(collection.third_country_tariff_option).to eq(third_country_tariff_option) }
   end
+
+  describe '#cheapest_quota_option' do
+    it { expect(collection.cheapest_quota_option).to be_nil }
+  end
 end

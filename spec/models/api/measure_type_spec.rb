@@ -59,4 +59,18 @@ RSpec.describe Api::MeasureType do
       it { expect(measure_type.additional_option?).to be false }
     end
   end
+
+  describe '.supported_option_category?' do
+    context 'when there is a corresponding option for the category' do
+      let(:category) { :quota }
+
+      it { expect(described_class.supported_option_category?(category)).to be true }
+    end
+
+    context 'when there is not a corresponding option for the category' do
+      let(:category) { :flibble }
+
+      it { expect(described_class.supported_option_category?(category)).to be false }
+    end
+  end
 end

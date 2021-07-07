@@ -45,9 +45,7 @@ class OptionCollection
     @cheapest_suspension_option ||= suspension_options.min_by { |option| option[:evaluation][:value] }
   end
 
-  def cheapest_quota_option
-    @cheapest_quota_option ||= nil
-  end
+  def cheapest_quota_option; end
 
   def third_country_tariff_option
     @third_country_tariff_option ||= find { |option| option[:key] == DutyOptions::ThirdCountryTariff.id }
