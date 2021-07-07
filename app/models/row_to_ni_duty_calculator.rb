@@ -62,6 +62,7 @@ class RowToNiDutyCalculator
     options = []
     options = default_options_for(:tariff_preference) if use_eu_options?(:tariff_preference)
     options = default_options_for(:suspension) if use_eu_options?(:suspension)
+    options = default_options_for(:quota) if use_eu_options?(:quota)
 
     OptionCollection.new(options)
   end
@@ -70,14 +71,6 @@ class RowToNiDutyCalculator
     footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{category}.xi_only.xi")
 
     xi_options.public_send("#{category}_options").each do |option|
-      option[:evaluation][:footnote] = option[:evaluation][:footnote].concat(footnote_suffix).html_safe
-    end
-  end
-
-  def default_tariff_preference_options
-    footnote_suffix = I18n.t('row_to_ni_measure_type_footnotes_suffixes.tariff_preference.xi_only.xi')
-
-    xi_options.tariff_preference_options.each do |option|
       option[:evaluation][:footnote] = option[:evaluation][:footnote].concat(footnote_suffix).html_safe
     end
   end

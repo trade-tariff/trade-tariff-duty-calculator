@@ -8,6 +8,8 @@ RSpec.describe OptionCollection do
       cheapest_tariff_preference_option,
       suspension_option,
       cheapest_suspension_option,
+      quota_option,
+      cheapest_quota_option,
     ]
   end
 
@@ -46,6 +48,20 @@ RSpec.describe OptionCollection do
       value: 0.5,
     )
   end
+  let(:quota_option) do
+    build(
+      :duty_option_result,
+      :quota,
+      value: 100,
+    )
+  end
+  let(:cheapest_quota_option) do
+    build(
+      :duty_option_result,
+      :quota,
+      value: 0.5,
+    )
+  end
 
   describe '#tariff_preference_options' do
     it { expect(collection.tariff_preference_options).to eq([tariff_preference_option, cheapest_tariff_preference_option]) }
@@ -57,6 +73,10 @@ RSpec.describe OptionCollection do
 
   describe '#suspension_options' do
     it { expect(collection.suspension_options).to eq([suspension_option, cheapest_suspension_option]) }
+  end
+
+  describe '#quota_options' do
+    it { expect(collection.quota_options).to eq([quota_option, cheapest_quota_option]) }
   end
 
   describe '#cheapest_tariff_preference_option' do
@@ -72,6 +92,6 @@ RSpec.describe OptionCollection do
   end
 
   describe '#cheapest_quota_option' do
-    it { expect(collection.cheapest_quota_option).to be_nil }
+    it { expect(collection.cheapest_quota_option).to eq(cheapest_quota_option) }
   end
 end

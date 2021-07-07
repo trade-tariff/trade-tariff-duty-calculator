@@ -33,6 +33,10 @@ class OptionCollection
     @suspension_options ||= select { |option| option[:evaluation][:category] == DutyOptions::Suspension::Base::CATEGORY }
   end
 
+  def quota_options
+    @quota_options ||= select { |option| option[:evaluation][:category] == DutyOptions::Quota::Base::CATEGORY }
+  end
+
   def third_country_tariff_options
     @third_country_tariff_options ||= select { |option| option[:evaluation][:category] == DutyOptions::ThirdCountryTariff::CATEGORY }
   end
@@ -45,7 +49,9 @@ class OptionCollection
     @cheapest_suspension_option ||= suspension_options.min_by { |option| option[:evaluation][:value] }
   end
 
-  def cheapest_quota_option; end
+  def cheapest_quota_option
+    @cheapest_quota_option ||= quota_options.min_by { |option| option[:evaluation][:value] }
+  end
 
   def third_country_tariff_option
     @third_country_tariff_option ||= find { |option| option[:key] == DutyOptions::ThirdCountryTariff.id }
