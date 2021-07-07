@@ -1236,7 +1236,7 @@ en:
         <p class="govuk-body">
           EU suspensions may be applied, as the difference between the UK suspension duty and the EU suspension duty exceeds 3% of the customs value of your trade.
         </p>
-    quotas:
+    quota:
       uk_only:
         uk:
           <p class="govuk-body">

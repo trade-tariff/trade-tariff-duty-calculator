@@ -31,7 +31,7 @@ class RowToNiDutyCalculator
 
                  uk_only = cheapest_xi_option.nil?
 
-                 footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{category}.uk_only.#{option[:evaluation][:source]}", uk_only_text: uk_only_text_for(category, option, uk_option)) if uk_only
+                 footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{category}.uk_only.#{option[:evaluation][:source]}", uk_only_text: uk_only_text_for(category, option, uk_option)).html_safe if uk_only
 
                  option
                end
