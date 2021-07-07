@@ -30,6 +30,8 @@ class RowToNiDutyCalculator
                  option
                end
 
+      next if option.blank?
+
       footnote_suffix ||= I18n.t("row_to_ni_measure_type_footnotes.#{option[:key]}.#{option[:evaluation][:source]}").html_safe
 
       option[:evaluation][:footnote] = option[:evaluation][:footnote].concat(footnote_suffix).html_safe
