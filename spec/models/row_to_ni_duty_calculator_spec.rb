@@ -65,6 +65,34 @@ RSpec.describe RowToNiDutyCalculator do
       )
     end
 
+    let(:unhandled_option) do
+      build(
+        :duty_option_result,
+        :unhandled,
+      )
+    end
+
+    context 'when there are unhandled options' do
+      let(:uk_options) do
+        OptionCollection.new(
+          [
+            unhandled_option,
+          ],
+        )
+      end
+      let(:xi_options) do
+        OptionCollection.new(
+          [
+            unhandled_option,
+          ],
+        )
+      end
+
+      it 'returns an empty OptionCollection' do
+        expect(calculator.options.to_a).to eq([])
+      end
+    end
+
     context 'when there are tariff preferences in both duty calculations' do
       let(:uk_options) do
         OptionCollection.new(
