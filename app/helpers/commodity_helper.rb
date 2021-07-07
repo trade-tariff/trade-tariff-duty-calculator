@@ -18,10 +18,17 @@ module CommodityHelper
     @applicable_additional_codes ||=
       {}.tap do |additional_codes|
         if user_session.deltas_applicable?
-          additional_codes['uk'] = filtered_commodity(source: 'uk').applicable_additional_codes
-          additional_codes['xi'] = filtered_commodity(source: 'xi').applicable_additional_codes
+          additional_codes['uk'] = filtered_commodity(source: 'uk').applicable_additional_codes.slice(
+            *Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS,
+          )
+
+          additional_codes['xi'] = filtered_commodity(source: 'xi').applicable_additional_codes.slice(
+            *Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS,
+          )
         else
-          additional_codes[user_session.commodity_source] = filtered_commodity(source: user_session.commodity_source).applicable_additional_codes
+          additional_codes[user_session.commodity_source] = filtered_commodity.applicable_additional_codes.slice(
+            *Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS,
+          )
         end
       end
   end
