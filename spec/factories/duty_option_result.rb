@@ -41,6 +41,12 @@ FactoryBot.define do
     priority { DutyOptions::TariffPreference::PRIORITY }
   end
 
+  trait :unhandled do
+    key { :unhandled }
+    measure_type_id { 'flibble' }
+    priority { -500 }
+  end
+
   trait :uk do
     source { 'uk' }
   end
