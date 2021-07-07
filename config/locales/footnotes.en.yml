@@ -1180,7 +1180,7 @@ en:
       </p>
 
   
-  row_to_ni_measure_type_footnotes:
+  row_to_ni_measure_type_footnotes_suffixes:
     third_country_tariff:
       uk:
         <p class="govuk-body">
@@ -1213,3 +1213,36 @@ en:
         <p class="govuk-body">
           EU preferential duties may be applied, as the difference between the UK preferential duty and the EU preferential duty exceeds 3% of the customs value of your trade.
         </p>
+    suspension:
+      xi_only:
+        xi:
+          <p class="govuk-body">
+            EU suspension duties may be applied.
+          </p>
+      uk_only:
+        uk:
+          <p class="govuk-body">
+            UK suspension duties may be applied, as the difference between the UK suspension duty and the EU third-country duty is lower than 3% of the customs value of your trade.
+          </p>
+        xi:
+          <p class="govuk-body">
+            The UK %{uk_only_text} is not available, as the difference between the UK suspended duty and the EU third-country duty exceeds 3% of the customs value of your trade.
+          </p>
+      uk:
+        <p class="govuk-body">
+          UK suspensions may be applied, as the difference between the UK suspension duty and the EU suspension duty is lower than 3% of the customs value of your trade.
+        </p>
+      xi:
+        <p class="govuk-body">
+          EU suspensions may be applied, as the difference between the UK suspension duty and the EU suspension duty exceeds 3% of the customs value of your trade.
+        </p>
+    quotas:
+      uk_only:
+        uk:
+          <p class="govuk-body">
+            UK quotas may be used, as the difference between the UK in-quota duty and the EU third-country duty is lower than 3% of the customs value of your trade.
+          </p>
+        xi:
+          <p class="govuk-body">
+            The UK quota %{uk_only_text} is not available, as the difference between the UK quota duty and the EU third-country duty exceeds 3% of the customs value of your trade.
+          </p>

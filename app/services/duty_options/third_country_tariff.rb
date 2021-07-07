@@ -1,6 +1,7 @@
 module DutyOptions
   class ThirdCountryTariff < DutyOptions::Base
     PRIORITY = 1
+    CATEGORY = :third_country_tariff
 
     def option
       super().merge(

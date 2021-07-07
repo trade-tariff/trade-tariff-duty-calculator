@@ -2,6 +2,7 @@ module DutyOptions
   module Quota
     class Base < DutyOptions::Base
       PRIORITY = 3
+      CATEGORY = :quota
 
       def option
         super().merge(

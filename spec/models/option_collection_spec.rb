@@ -6,6 +6,8 @@ RSpec.describe OptionCollection do
       third_country_tariff_option,
       tariff_preference_option,
       cheapest_tariff_preference_option,
+      suspension_option,
+      cheapest_suspension_option,
     ]
   end
 
@@ -30,13 +32,39 @@ RSpec.describe OptionCollection do
       value: 0.5,
     )
   end
+  let(:suspension_option) do
+    build(
+      :duty_option_result,
+      :suspension,
+      value: 100,
+    )
+  end
+  let(:cheapest_suspension_option) do
+    build(
+      :duty_option_result,
+      :suspension,
+      value: 0.5,
+    )
+  end
 
   describe '#tariff_preference_options' do
     it { expect(collection.tariff_preference_options).to eq([tariff_preference_option, cheapest_tariff_preference_option]) }
   end
 
+  describe '#third_country_tariff_options' do
+    it { expect(collection.third_country_tariff_options).to eq([third_country_tariff_option]) }
+  end
+
+  describe '#suspension_options' do
+    it { expect(collection.suspension_options).to eq([suspension_option, cheapest_suspension_option]) }
+  end
+
   describe '#cheapest_tariff_preference_option' do
     it { expect(collection.cheapest_tariff_preference_option).to eq(cheapest_tariff_preference_option) }
+  end
+
+  describe '#cheapest_suspension_option' do
+    it { expect(collection.cheapest_suspension_option).to eq(cheapest_suspension_option) }
   end
 
   describe '#third_country_tariff_option' do

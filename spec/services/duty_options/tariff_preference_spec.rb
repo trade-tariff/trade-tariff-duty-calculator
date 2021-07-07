@@ -61,6 +61,7 @@ RSpec.describe DutyOptions::TariffPreference do
           geographical_area_description: 'GSP – General Framework',
           measure_sid: 2_046_828,
           source: 'xi',
+          category: :tariff_preference,
         }
       end
 
@@ -147,6 +148,7 @@ RSpec.describe DutyOptions::TariffPreference do
           geographical_area_description: 'GSP – General Framework',
           measure_sid: 2_046_828,
           source: 'xi',
+          category: :tariff_preference,
         }
       end
 
@@ -242,6 +244,7 @@ RSpec.describe DutyOptions::TariffPreference do
           geographical_area_description: 'GSP – General Framework',
           measure_sid: 2_046_828,
           source: 'xi',
+          category: :tariff_preference,
         }
       end
 

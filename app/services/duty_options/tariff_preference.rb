@@ -1,6 +1,7 @@
 module DutyOptions
   class TariffPreference < DutyOptions::Base
     PRIORITY = 2
+    CATEGORY = :tariff_preference
 
     def option
       super().merge(

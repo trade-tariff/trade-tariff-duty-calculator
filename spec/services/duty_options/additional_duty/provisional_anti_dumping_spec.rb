@@ -66,6 +66,7 @@ RSpec.describe DutyOptions::AdditionalDuty::ProvisionalAntiDumping do
           value: 52.5,
           measure_sid: 2_046_828,
           source: 'uk',
+          category: :additional_duty,
         }
       end
 
