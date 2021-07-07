@@ -63,7 +63,7 @@ module DutyOptions
     end
 
     def total_quantity
-      sprintf('%10f', duty_evaluation[:total_quantity]).gsub(/0+$/, '').gsub(/\.$/, '.0')
+      number_with_precision(duty_evaluation[:total_quantity], precision: 10, significant: false, strip_insignificant_zeros: true)
     end
 
     def unit

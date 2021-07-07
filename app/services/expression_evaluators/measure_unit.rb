@@ -3,8 +3,9 @@ module ExpressionEvaluators
     include CommodityHelper
 
     def call
+      quantity_string = number_with_precision(total_quantity, precision: 10, significant: false, strip_insignificant_zeros: true)
       {
-        calculation: "#{measure.duty_expression.base} * #{sprintf('%f', total_quantity).gsub(/0+$/, '').gsub(/\.$/, '.0')}",
+        calculation: "#{measure.duty_expression.base} * #{quantity_string}",
         value: value,
         formatted_value: number_to_currency(value),
         unit: measure_unit_answers.first[:unit],
