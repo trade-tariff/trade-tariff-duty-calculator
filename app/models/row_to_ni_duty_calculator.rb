@@ -9,30 +9,36 @@ class RowToNiDutyCalculator
 
   def options
     options = uk_options.each_with_object(default_options) do |uk_option, acc|
-      option = case uk_option[:key]
-               when DutyOptions::ThirdCountryTariff.id
+      category = uk_option[:evaluation][:category]
+
+      next unless Api::MeasureType.supported_option_category?(category)
+
+      option = if category == DutyOptions::ThirdCountryTariff::CATEGORY
                  DutyOptions::Chooser.new(
                    uk_option,
                    xi_options.third_country_tariff_option,
                    user_session.total_amount,
                  ).option
-               when DutyOptions::TariffPreference.id
+               else
+                 cheapest_xi_option = xi_options.public_send("cheapest_#{category}_option")
+                 xi_option = cheapest_xi_option || xi_options.third_country_tariff_option
+
                  option = DutyOptions::Chooser.new(
                    uk_option,
-                   xi_options.cheapest_tariff_preference_option || xi_options.third_country_tariff_option,
+                   xi_option,
                    user_session.total_amount,
                  ).option
 
-                 uk_only = xi_options.cheapest_tariff_preference_option.nil?
+                 uk_only = cheapest_xi_option.nil?
 
-                 footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes.#{option[:key]}.uk_only.#{option[:evaluation][:source]}") if uk_only
+                 footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{category}.uk_only.#{option[:evaluation][:source]}", uk_only_text: uk_only_text_for(category, option, uk_option)).html_safe if uk_only
 
                  option
                end
 
       next if option.blank?
 
-      footnote_suffix ||= I18n.t("row_to_ni_measure_type_footnotes.#{option[:key]}.#{option[:evaluation][:source]}").html_safe
+      footnote_suffix ||= I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{option[:key]}.#{option[:evaluation][:source]}").html_safe
 
       option[:evaluation][:footnote] = option[:evaluation][:footnote].concat(footnote_suffix).html_safe
 
@@ -54,15 +60,17 @@ class RowToNiDutyCalculator
 
   def default_options
     options = []
-    options = default_tariff_preference_options if use_eu_tariff_preference_options?
+    options = default_options_for(:tariff_preference) if use_eu_options?(:tariff_preference)
+    options = default_options_for(:suspension) if use_eu_options?(:suspension)
+    options = default_options_for(:quota) if use_eu_options?(:quota)
 
     OptionCollection.new(options)
   end
 
-  def default_tariff_preference_options
-    footnote_suffix = I18n.t('row_to_ni_measure_type_footnotes.tariff_preference.xi_only.xi')
+  def default_options_for(category)
+    footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{category}.xi_only.xi")
 
-    xi_options.tariff_preference_options.each do |option|
+    xi_options.public_send("#{category}_options").each do |option|
       option[:evaluation][:footnote] = option[:evaluation][:footnote].concat(footnote_suffix).html_safe
     end
   end
@@ -84,7 +92,14 @@ class RowToNiDutyCalculator
     options.reject { |option| option == option_to_reject }
   end
 
-  def use_eu_tariff_preference_options?
-    xi_options.tariff_preference_options.present? && uk_options.tariff_preference_options.blank?
+  def use_eu_options?(category)
+    xi_options.public_send("#{category}_options").present? && uk_options.public_send("#{category}_options").blank?
+  end
+
+  def uk_only_text_for(category, option, uk_option)
+    return option[:evaluation][:order_number] if category == DutyOptions::Quota::Base::CATEGORY
+    return I18n.t("duty_calculations.options.option_type.#{uk_option[:key]}") if category == DutyOptions::Suspension::Base::CATEGORY
+
+    ''
   end
 end

@@ -26,15 +26,31 @@ class OptionCollection
   end
 
   def tariff_preference_options
-    @tariff_preference_options ||= select { |option| option[:key] == DutyOptions::TariffPreference.id }
+    @tariff_preference_options ||= select { |option| option[:evaluation][:category] == DutyOptions::TariffPreference::CATEGORY }
+  end
+
+  def suspension_options
+    @suspension_options ||= select { |option| option[:evaluation][:category] == DutyOptions::Suspension::Base::CATEGORY }
+  end
+
+  def quota_options
+    @quota_options ||= select { |option| option[:evaluation][:category] == DutyOptions::Quota::Base::CATEGORY }
   end
 
   def third_country_tariff_options
-    @third_country_tariff_options ||= select { |option| option[:key] == DutyOptions::ThirdCountryTariff.id }
+    @third_country_tariff_options ||= select { |option| option[:evaluation][:category] == DutyOptions::ThirdCountryTariff::CATEGORY }
   end
 
   def cheapest_tariff_preference_option
     @cheapest_tariff_preference_option ||= tariff_preference_options.min_by { |option| option[:evaluation][:value] }
+  end
+
+  def cheapest_suspension_option
+    @cheapest_suspension_option ||= suspension_options.min_by { |option| option[:evaluation][:value] }
+  end
+
+  def cheapest_quota_option
+    @cheapest_quota_option ||= quota_options.min_by { |option| option[:evaluation][:value] }
   end
 
   def third_country_tariff_option

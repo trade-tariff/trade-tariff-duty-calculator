@@ -52,6 +52,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
           value: 52.5,
           measure_sid: 2_046_828,
           source: 'xi',
+          category: :third_country_tariff,
         }
       end
 
@@ -124,6 +125,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
           value: 3596.12136,
           measure_sid: 2_046_828,
           source: 'xi',
+          category: :third_country_tariff,
         }
       end
 
@@ -211,6 +213,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff do
           value: 15.0,
           measure_sid: 2_046_828,
           source: 'xi',
+          category: :third_country_tariff,
         }
       end
 

@@ -17,6 +17,7 @@ module DutyOptions
         value: value,
         measure_sid: measure.id,
         source: measure.source,
+        category: self.class::CATEGORY,
       }
     end
 
