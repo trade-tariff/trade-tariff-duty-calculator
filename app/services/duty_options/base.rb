@@ -63,7 +63,14 @@ module DutyOptions
     end
 
     def total_quantity
-      number_with_precision(duty_evaluation[:total_quantity], precision: 10, significant: false, strip_insignificant_zeros: true)
+      if /[\.e]/ !~ duty_evaluation[:total_quantity].to_s || /\.\d$/ =~ duty_evaluation[:total_quantity].to_s
+        precision = 2
+        strip_zeroes = false
+      else
+        precision = 10
+        strip_zeroes = true
+      end
+      number_with_precision(duty_evaluation[:total_quantity], precision: precision, significant: false, strip_insignificant_zeros: strip_zeroes)
     end
 
     def unit

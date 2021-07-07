@@ -3,7 +3,14 @@ module ExpressionEvaluators
     include CommodityHelper
 
     def call
-      quantity_string = number_with_precision(total_quantity, precision: 10, significant: false, strip_insignificant_zeros: true)
+      if /[\.e]/ !~ total_quantity.to_s || /\.\d$/ =~ total_quantity.to_s
+        precision = 2
+        strip_zeroes = false
+      else
+        precision = 10
+        strip_zeroes = true
+      end
+      quantity_string = number_with_precision(total_quantity, precision: precision, significant: false, strip_insignificant_zeros: strip_zeroes)
       {
         calculation: "#{measure.duty_expression.base} * #{quantity_string}",
         value: value,
