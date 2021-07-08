@@ -1,5 +1,5 @@
 # Build compilation image
-FROM ruby:2.7.3-alpine as builder
+FROM ruby:2.7.4-alpine as builder
 
 # The application runs from /app
 WORKDIR /app
@@ -42,7 +42,7 @@ RUN rm -rf node_modules log tmp && \
       find /usr/local/bundle/gems -name "*.html" -delete
 
 # Build runtime image
-FROM ruby:2.7.3-alpine as production
+FROM ruby:2.7.4-alpine as production
 
 RUN apk add --update --no-cache tzdata && \
   cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
