@@ -4,7 +4,7 @@ class UserSession
   def initialize(session)
     @session = session
     @session['answers'] ||= {}
-    @session['answers'][Wizard::Steps::AdditionalCode.id] ||= { 'xi' => {}, 'uk' => {} }
+    @session['answers'][Steps::AdditionalCode.id] ||= { 'xi' => {}, 'uk' => {} }
   end
 
   def remove_step_ids(ids)
@@ -12,29 +12,29 @@ class UserSession
   end
 
   def import_date
-    return if session['answers'][Wizard::Steps::ImportDate.id].blank?
+    return if session['answers'][Steps::ImportDate.id].blank?
 
-    Date.parse(session['answers'][Wizard::Steps::ImportDate.id])
+    Date.parse(session['answers'][Steps::ImportDate.id])
   end
 
   def import_date=(value)
-    session['answers'][Wizard::Steps::ImportDate.id] = value
+    session['answers'][Steps::ImportDate.id] = value
   end
 
   def import_destination
-    session['answers'][Wizard::Steps::ImportDestination.id]
+    session['answers'][Steps::ImportDestination.id]
   end
 
   def import_destination=(value)
-    session['answers'][Wizard::Steps::ImportDestination.id] = value
+    session['answers'][Steps::ImportDestination.id] = value
   end
 
   def country_of_origin
-    session['answers'][Wizard::Steps::CountryOfOrigin.id]
+    session['answers'][Steps::CountryOfOrigin.id]
   end
 
   def country_of_origin=(value)
-    session['answers'][Wizard::Steps::CountryOfOrigin.id] = value
+    session['answers'][Steps::CountryOfOrigin.id] = value
   end
 
   def other_country_of_origin
@@ -46,35 +46,35 @@ class UserSession
   end
 
   def trader_scheme
-    session['answers'][Wizard::Steps::TraderScheme.id]
+    session['answers'][Steps::TraderScheme.id]
   end
 
   def trader_scheme=(value)
-    session['answers'][Wizard::Steps::TraderScheme.id] = value
+    session['answers'][Steps::TraderScheme.id] = value
   end
 
   def final_use
-    session['answers'][Wizard::Steps::FinalUse.id]
+    session['answers'][Steps::FinalUse.id]
   end
 
   def final_use=(value)
-    session['answers'][Wizard::Steps::FinalUse.id] = value
+    session['answers'][Steps::FinalUse.id] = value
   end
 
   def certificate_of_origin
-    session['answers'][Wizard::Steps::CertificateOfOrigin.id]
+    session['answers'][Steps::CertificateOfOrigin.id]
   end
 
   def certificate_of_origin=(value)
-    session['answers'][Wizard::Steps::CertificateOfOrigin.id] = value
+    session['answers'][Steps::CertificateOfOrigin.id] = value
   end
 
   def planned_processing
-    session['answers'][Wizard::Steps::PlannedProcessing.id]
+    session['answers'][Steps::PlannedProcessing.id]
   end
 
   def planned_processing=(value)
-    session['answers'][Wizard::Steps::PlannedProcessing.id] = value
+    session['answers'][Steps::PlannedProcessing.id] = value
   end
 
   def trade_defence
@@ -94,11 +94,11 @@ class UserSession
   end
 
   def customs_value
-    session['answers'][Wizard::Steps::CustomsValue.id]
+    session['answers'][Steps::CustomsValue.id]
   end
 
   def customs_value=(values)
-    session['answers'][Wizard::Steps::CustomsValue.id] = {
+    session['answers'][Steps::CustomsValue.id] = {
       'monetary_value' => values['monetary_value'],
       'shipping_cost' => values['shipping_cost'],
       'insurance_cost' => values['insurance_cost'],
@@ -106,23 +106,23 @@ class UserSession
   end
 
   def additional_code_uk=(value)
-    session['answers'][Wizard::Steps::AdditionalCode.id]['uk'].merge!(value)
+    session['answers'][Steps::AdditionalCode.id]['uk'].merge!(value)
   end
 
   def additional_code_xi=(value)
-    session['answers'][Wizard::Steps::AdditionalCode.id]['xi'].merge!(value)
+    session['answers'][Steps::AdditionalCode.id]['xi'].merge!(value)
   end
 
   def additional_code_uk
-    session['answers'][Wizard::Steps::AdditionalCode.id]['uk']
+    session['answers'][Steps::AdditionalCode.id]['uk']
   end
 
   def additional_code_xi
-    session['answers'][Wizard::Steps::AdditionalCode.id]['xi']
+    session['answers'][Steps::AdditionalCode.id]['xi']
   end
 
   def measure_type_ids
-    session['answers'][Wizard::Steps::AdditionalCode.id][commodity_source].keys
+    session['answers'][Steps::AdditionalCode.id][commodity_source].keys
   end
 
   def commodity_source=(value)
@@ -150,31 +150,31 @@ class UserSession
   end
 
   def measure_amount=(values)
-    session['answers'][Wizard::Steps::MeasureAmount.id] = values
+    session['answers'][Steps::MeasureAmount.id] = values
   end
 
   def measure_amount
-    session['answers'][Wizard::Steps::MeasureAmount.id] || {}
+    session['answers'][Steps::MeasureAmount.id] || {}
   end
 
   def vat=(values)
-    session['answers'][Wizard::Steps::Vat.id] = values
+    session['answers'][Steps::Vat.id] = values
   end
 
   def vat
-    session['answers'][Wizard::Steps::Vat.id]
+    session['answers'][Steps::Vat.id]
   end
 
   def monetary_value
-    session['answers'][Wizard::Steps::CustomsValue.id].try(:[], 'monetary_value')
+    session['answers'][Steps::CustomsValue.id].try(:[], 'monetary_value')
   end
 
   def shipping_cost
-    session['answers'][Wizard::Steps::CustomsValue.id].try(:[], 'shipping_cost')
+    session['answers'][Steps::CustomsValue.id].try(:[], 'shipping_cost')
   end
 
   def insurance_cost
-    session['answers'][Wizard::Steps::CustomsValue.id].try(:[], 'insurance_cost')
+    session['answers'][Steps::CustomsValue.id].try(:[], 'insurance_cost')
   end
 
   def ni_to_gb_route?

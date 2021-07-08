@@ -1,0 +1,34 @@
+<%= render 'steps/shared/back_link' %>
+
+<%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: planned_processing_path do |f| %>
+  <%= f.govuk_error_summary %>
+  <span class="govuk-caption-xl">Calculate import duties</span>
+
+  <%= f.govuk_radio_buttons_fieldset(:planned_processing,  hint: { text: 'If your goods are for sale to, or final use by, end consumers in the United Kingdom, you may be able to declare goods as not ‘at risk’, and pay no duty on those goods. You will not be able to declare your goods not ‘at risk’, if your goods are for commercial processing in Northern Ireland, unless they meet one of the exemptions.' }, legend: { text: 'How will these goods be processed after they are moved into Northern Ireland?', size: 'xl', tag: 'h1' }) do %>
+    <br>
+    <%= f.govuk_radio_button :planned_processing, 'annual_turnover', label: { text: 'If the importer had a total <strong>annual turnover</strong> of less than <strong>£500,000</strong> in its most recent complete financial year, then select this option to move on'.html_safe }, link_errors: true %>
+    <p class="govuk-body govuk-!-margin-bottom-7 govuk-!-margin-top-5">Alternatively, if the turnover exceeds this threshold, please select one of the following three options to identify the processing that will be carried on the goods on arrival in Northern Ireland.</p>
+    <div class='govuk-!-margin-bottom-3' >
+      <%= f.govuk_radio_button :planned_processing, 'without_any_processing', label: { text: 'The goods <strong>will not be subject to processing in Northern Ireland<strong>'.html_safe } %>
+    </div>
+    <%= f.govuk_radio_button :planned_processing, 'commercial_processing', label: { text: 'The goods will undergo <strong>commercial processing</strong> for one of these purposes:'.html_safe }, hint: { text: '<ul><li>the sale of <strong>food</strong> to end consumers in the UK</li><li><strong>construction</strong>, where the processed goods form a permanent part of a structure that is constructed and located in NI by the importer</li> <li>direct provision of <strong>health or care services</strong> by the importer in NI</li> <li><strong>not for profit</strong> activities in NI, where there is no subsequent sale of the processed good by the importer</li><li>the final use of <strong>animal feed</strong> on premises located in NI by the importer.</li> </ul>'.html_safe } %>
+    <%= f.govuk_radio_button :planned_processing, 'commercial_purposes', label: { text: 'The goods will be processed for <strong>commercial purposes other than those listed above</strong>'.html_safe } %>
+  <% end %>
+
+
+  <%= f.govuk_submit %>
+<% end %>
+
+<%= render 'shared/commodity_details' %>
+
+<div class="explore-topics-section">
+  <h2 class="govuk-heading-m govuk-!-margin-top-3">Explore the topic</h2>
+  <ul class="govuk-list">
+    <li>
+      <%= link_to('Additional requirements for when you bring goods into Northern Ireland for processing', 'https://www.gov.uk/guidance/check-if-you-can-declare-goods-you-bring-into-northern-ireland-not-at-risk-of-moving-to-the-eu-from-1-january-2021#processing', class: 'govuk-link') %>
+    </li>
+    <li>
+      <%= link_to('Apply to pay less duty on goods you import for specific uses', 'https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses', class: 'govuk-link') %>
+    </li>
+  </ul>
+</div>

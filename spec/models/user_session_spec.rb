@@ -27,7 +27,7 @@ RSpec.describe UserSession do
     it 'sets the key on the session' do
       user_session.import_date = '2025-01-01'
 
-      expect(session['answers'][Wizard::Steps::ImportDate.id]).to eq(expected_date)
+      expect(session['answers'][Steps::ImportDate.id]).to eq(expected_date)
     end
   end
 
@@ -53,7 +53,7 @@ RSpec.describe UserSession do
     it 'sets the key on the session' do
       user_session.vat = 'VATZ'
 
-      expect(session['answers'][Wizard::Steps::Vat.id]).to eq(expected_value)
+      expect(session['answers'][Steps::Vat.id]).to eq(expected_value)
     end
   end
 
@@ -77,7 +77,7 @@ RSpec.describe UserSession do
     it 'sets the key on the session' do
       user_session.import_destination = 'ni'
 
-      expect(session['answers'][Wizard::Steps::ImportDestination.id]).to eq(expected_country)
+      expect(session['answers'][Steps::ImportDestination.id]).to eq(expected_country)
     end
   end
 
@@ -103,7 +103,7 @@ RSpec.describe UserSession do
     it 'sets the key on the session' do
       user_session.trader_scheme = 'yes'
 
-      expect(session['answers'][Wizard::Steps::TraderScheme.id]).to eq(expected_response)
+      expect(session['answers'][Steps::TraderScheme.id]).to eq(expected_response)
     end
   end
 
@@ -129,7 +129,7 @@ RSpec.describe UserSession do
     it 'sets the key on the session' do
       user_session.final_use = 'yes'
 
-      expect(session['answers'][Wizard::Steps::FinalUse.id]).to eq(expected_response)
+      expect(session['answers'][Steps::FinalUse.id]).to eq(expected_response)
     end
   end
 
@@ -155,7 +155,7 @@ RSpec.describe UserSession do
     it 'sets the key for without any processing in the session' do
       user_session.planned_processing = 'without_any_processing'
 
-      expect(session['answers'][Wizard::Steps::PlannedProcessing.id]).to eq(expected_response)
+      expect(session['answers'][Steps::PlannedProcessing.id]).to eq(expected_response)
     end
   end
 
@@ -181,7 +181,7 @@ RSpec.describe UserSession do
     it 'sets the key on the session' do
       user_session.certificate_of_origin = 'yes'
 
-      expect(session['answers'][Wizard::Steps::CertificateOfOrigin.id]).to eq(expected_response)
+      expect(session['answers'][Steps::CertificateOfOrigin.id]).to eq(expected_response)
     end
   end
 
@@ -207,7 +207,7 @@ RSpec.describe UserSession do
     it 'sets the key on the session' do
       user_session.country_of_origin = 'GB'
 
-      expect(session['answers'][Wizard::Steps::CountryOfOrigin.id]).to eq(expected_country)
+      expect(session['answers'][Steps::CountryOfOrigin.id]).to eq(expected_country)
     end
   end
 
@@ -317,7 +317,7 @@ RSpec.describe UserSession do
     it 'stores the hash on the session' do
       user_session.customs_value = value
 
-      expect(session['answers'][Wizard::Steps::CustomsValue.id]).to eq(value)
+      expect(session['answers'][Steps::CustomsValue.id]).to eq(value)
     end
   end
 
@@ -335,7 +335,7 @@ RSpec.describe UserSession do
     it 'stores the hash on the session' do
       user_session.measure_amount = value
 
-      expect(session['answers'][Wizard::Steps::MeasureAmount.id]).to eq(value)
+      expect(session['answers'][Steps::MeasureAmount.id]).to eq(value)
     end
   end
 
@@ -389,13 +389,13 @@ RSpec.describe UserSession do
     end
 
     it 'stores the hash on the session' do
-      expect(session['answers'][Wizard::Steps::AdditionalCode.id]).to eq(expected_value)
+      expect(session['answers'][Steps::AdditionalCode.id]).to eq(expected_value)
     end
 
     it 'merges new additional codes to the existing ones' do
       user_session.additional_code_uk = new_value
 
-      expect(session['answers'][Wizard::Steps::AdditionalCode.id]).to eq(merged_session)
+      expect(session['answers'][Steps::AdditionalCode.id]).to eq(merged_session)
     end
   end
 
@@ -421,13 +421,13 @@ RSpec.describe UserSession do
     end
 
     it 'stores the hash on the session' do
-      expect(session['answers'][Wizard::Steps::AdditionalCode.id]).to eq(expected_value)
+      expect(session['answers'][Steps::AdditionalCode.id]).to eq(expected_value)
     end
 
     it 'merges new additional codes to the existing ones' do
       user_session.additional_code_xi = new_value
 
-      expect(session['answers'][Wizard::Steps::AdditionalCode.id]).to eq(merged_session)
+      expect(session['answers'][Steps::AdditionalCode.id]).to eq(merged_session)
     end
   end
 

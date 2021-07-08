@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :customs_value, class: 'Wizard::Steps::CustomsValue', parent: :step do
+  factory :customs_value, class: 'Steps::CustomsValue', parent: :step do
     transient do
       possible_attributes do
         {
