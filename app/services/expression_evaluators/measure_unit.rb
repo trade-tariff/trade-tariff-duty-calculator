@@ -3,8 +3,9 @@ module ExpressionEvaluators
     include CommodityHelper
 
     def call
+      quantity_string = NumberWithHighPrecisionFormatter.new(total_quantity)
       {
-        calculation: "#{measure.duty_expression.base} * #{total_quantity}",
+        calculation: "#{measure.duty_expression.base} * #{quantity_string.call}",
         value: value,
         formatted_value: number_to_currency(value),
         unit: measure_unit_answers.first[:unit],

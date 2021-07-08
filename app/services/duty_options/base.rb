@@ -63,7 +63,7 @@ module DutyOptions
     end
 
     def total_quantity
-      duty_evaluation[:total_quantity]
+      NumberWithHighPrecisionFormatter.new(duty_evaluation[:total_quantity]).call
     end
 
     def unit

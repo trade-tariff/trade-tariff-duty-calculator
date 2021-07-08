@@ -34,7 +34,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit do
 
   let(:expected_evaluation) do
     {
-      calculation: '35.10 EUR / 100 kg * 120.0',
+      calculation: '35.10 EUR / 100 kg * 120.00',
       value: 3596.12136,
       formatted_value: '£3,596.12',
       total_quantity: 120.0,
