@@ -45,8 +45,6 @@ Rails.application.routes.draw do
 
     get 'additional-codes/:measure_type_id', to: 'wizard/steps/additional_codes#show', as: 'additional_codes'
     post 'additional-codes/:measure_type_id', to: 'wizard/steps/additional_codes#create'
-
-    get 'row-to-ni-duty', to: 'pages#row_to_ni_duty'
   end
 
   get '404', to: 'errors#not_found', via: :all
