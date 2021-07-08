@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :additional_code, class: 'Wizard::Steps::AdditionalCode', parent: :step do
+  factory :additional_code, class: 'Steps::AdditionalCode', parent: :step do
     transient { possible_attributes { { measure_type_id: 'measure_type_id', additional_code_uk: 'additional_code_uk', additional_code_xi: 'additional_code_xi' } } }
 
     measure_type_id { '105' }

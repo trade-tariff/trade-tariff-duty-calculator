@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :confirmation, class: 'Wizard::Steps::Confirmation', parent: :step do
+  factory :confirmation, class: 'Steps::Confirmation', parent: :step do
     transient { possible_attributes { {} } }
   end
 end

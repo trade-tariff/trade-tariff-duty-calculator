@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :step, class: 'Wizard::Steps::Base' do
+  factory :step, class: 'Steps::Base' do
     user_session { build(:user_session) }
 
     initialize_with do

@@ -80,7 +80,7 @@ class ConfirmationDecorator < SimpleDelegator
   end
 
   def country_name_for(value, key)
-    return Wizard::Steps::ImportDestination::OPTIONS.find { |c| c.id == value }.name if key == 'import_destination'
+    return Steps::ImportDestination::OPTIONS.find { |c| c.id == value }.name if key == 'import_destination'
 
     value = user_session.other_country_of_origin if value == 'OTHER'
 

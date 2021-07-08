@@ -117,31 +117,31 @@ en:
   activemodel:
     errors:
       models:
-        wizard/steps/import_date:
+        steps/import_date:
           attributes:
             import_date:
               invalid_date: Enter a valid date, no earlier than 1st January 2021
-        wizard/steps/import_destination:
+        steps/import_destination:
           attributes:
             import_destination:
               blank: Select a destination
-        wizard/steps/country_of_origin:
+        steps/country_of_origin:
           attributes:
             country_of_origin:
               blank: Enter a valid origin for this import
-        wizard/steps/trader_scheme:
+        steps/trader_scheme:
           attributes:
             trader_scheme:
               blank: Select one of the two options
-        wizard/steps/final_use:
+        steps/final_use:
           attributes:
             final_use:
               blank: Select one of the two options
-        wizard/steps/certificate_of_origin:
+        steps/certificate_of_origin:
           attributes:
             certificate_of_origin:
               blank: Select one of the two options
-        wizard/steps/customs_value:
+        steps/customs_value:
           attributes:
             monetary_value:
               blank: Enter a valid monetary value
@@ -153,11 +153,11 @@ en:
             insurance_cost:
               greater_than_or_equal_to: Enter a insurance cost value greater than or equal to zero
               not_a_number: Enter a numeric insurance cost or leave the field blank
-        wizard/steps/planned_processing:
+        steps/planned_processing:
             attributes:
               planned_processing:
                 blank: Select one of the available options
-        wizard/steps/additional_code:
+        steps/additional_code:
             attributes:
               measure_type_id:
                 blank: Enter a valid measure type id
@@ -165,13 +165,13 @@ en:
                 blank: Specify a valid additional code
               additional_code_xi:
                 blank: Specify a valid additional code
-        wizard/steps/measure_amount:
+        steps/measure_amount:
           attributes:
             answers:
               blank: Enter a valid import quantity.
               not_a_number: Enter a numeric import quantity.
               greater_than: Enter an import quantity value greater than zero.
-        wizard/steps/vat:
+        steps/vat:
           attributes:
             vat:
               blank: Select one of the available options

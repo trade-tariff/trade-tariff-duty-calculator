@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :country_of_origin, class: 'Wizard::Steps::CountryOfOrigin' do
+  factory :country_of_origin, class: 'Steps::CountryOfOrigin' do
     country_of_origin { '' }
     zero_mfn_duty { '' }
     trade_defence { '' }

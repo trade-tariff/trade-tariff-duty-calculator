@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :import_destination, class: 'Wizard::Steps::ImportDestination', parent: :step do
+  factory :import_destination, class: 'Steps::ImportDestination', parent: :step do
     transient do
       possible_attributes { { import_destination: 'import_destination' } }
     end

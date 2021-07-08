@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :import_date, class: 'Wizard::Steps::ImportDate', parent: :step do
+  factory :import_date, class: 'Steps::ImportDate', parent: :step do
     transient do
       possible_attributes do
         {
