@@ -1184,11 +1184,11 @@ en:
     third_country_tariff:
       uk:
         <p class="govuk-body">
-        UK import duties apply, as the difference between the UK third country duty and the EU third country duty is lower than 3% of the customs value of your trade.
+          UK import duties apply, as the difference between the UK third country duty and the EU third country duty is lower than 3% of the customs value of your trade.
         </p>
       xi:
         <p class="govuk-body">
-        EU import duties apply, as the difference between the UK third country duty and the EU third country duty exceeds 3% of the customs value of your trade.
+          EU import duties apply, as the difference between the UK third country duty and the EU third country duty exceeds 3% of the customs value of your trade.
         </p>
     tariff_preference:
       xi_only:

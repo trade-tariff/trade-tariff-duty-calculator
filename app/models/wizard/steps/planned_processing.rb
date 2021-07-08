@@ -37,9 +37,8 @@ module Wizard
 
       def next_step_for_row_to_ni
         return trade_remedies_path unless user_session.planned_processing == 'commercial_purposes'
-        return customs_value_path if Rails.configuration.row_to_ni == 'true'
 
-        row_to_ni_duty_path
+        customs_value_path
       end
     end
   end
