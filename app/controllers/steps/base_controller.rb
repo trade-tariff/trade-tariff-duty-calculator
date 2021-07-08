@@ -11,9 +11,9 @@ module Steps
     before_action :initialize_commodity_context_service
 
     helper_method :commodity_code,
-      :commodity_source,
-      :user_session,
-      :country_of_origin_description
+                  :commodity_source,
+                  :user_session,
+                  :country_of_origin_description
 
     def country_of_origin_description
       Api::GeographicalArea.find(
