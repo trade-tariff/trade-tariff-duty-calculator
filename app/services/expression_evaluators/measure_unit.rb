@@ -3,16 +3,9 @@ module ExpressionEvaluators
     include CommodityHelper
 
     def call
-      if /[\.e]/ !~ total_quantity.to_s || /\.\d$/ =~ total_quantity.to_s
-        precision = 2
-        strip_zeroes = false
-      else
-        precision = 10
-        strip_zeroes = true
-      end
-      quantity_string = number_with_precision(total_quantity, precision: precision, significant: false, strip_insignificant_zeros: strip_zeroes)
+      quantity_string = NumberWithHighPrecisionFormatter.new(total_quantity)
       {
-        calculation: "#{measure.duty_expression.base} * #{quantity_string}",
+        calculation: "#{measure.duty_expression.base} * #{quantity_string.call}",
         value: value,
         formatted_value: number_to_currency(value),
         unit: measure_unit_answers.first[:unit],

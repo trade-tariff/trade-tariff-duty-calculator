@@ -32,87 +32,43 @@ RSpec.describe ExpressionEvaluators::MeasureUnit do
     )
   end
 
-  context 'with an integer quantity' do
-    let(:expected_evaluation) do
-      {
-        calculation: '35.10 EUR / 100 kg * 120.00',
-        value: 3596.12136,
-        formatted_value: '£3,596.12',
-        total_quantity: 120.0,
-        unit: 'x 100 kg',
-      }
-    end
-
-    let(:session_attributes) do
-      {
-        'import_date' => '2022-01-01',
-        'customs_value' => {
-          'insurance_cost' => '10',
-          'monetary_value' => '10',
-          'shipping_cost' => '10',
-        },
-        'measure_amount' => {
-          'dtn' => '120',
-        },
-        'commodity_source' => 'xi',
-        'commodity_code' => '0103921100',
-      }
-    end
-
-    let(:user_session) { build(:user_session, session_attributes) }
-
-    it 'returns a properly calculated evaluation' do
-      expect(evaluator.call).to eq(expected_evaluation)
-    end
-
-    context 'when on a route with applicable deltas' do
-      let(:user_session) { build(:user_session, :deltas_applicable, session_attributes) }
-
-      it 'returns a properly calculated evaluation' do
-        expect(evaluator.call).to eq(expected_evaluation)
-      end
-    end
+  let(:expected_evaluation) do
+    {
+      calculation: '35.10 EUR / 100 kg * 120.00',
+      value: 3596.12136,
+      formatted_value: '£3,596.12',
+      total_quantity: 120.0,
+      unit: 'x 100 kg',
+    }
   end
 
-  context 'with a quantity with more four decimals' do
-    let(:expected_evaluation) do
-      {
-        calculation: '35.10 EUR / 100 kg * 0.00012',
-        value: 0.00359612136,
-        formatted_value: '£0.00',
-        total_quantity: 0.00012,
-        unit: 'x 100 kg',
-      }
-    end
+  let(:session_attributes) do
+    {
+      'import_date' => '2022-01-01',
+      'customs_value' => {
+        'insurance_cost' => '10',
+        'monetary_value' => '10',
+        'shipping_cost' => '10',
+      },
+      'measure_amount' => {
+        'dtn' => '120',
+      },
+      'commodity_source' => 'xi',
+      'commodity_code' => '0103921100',
+    }
+  end
 
-    let(:session_attributes) do
-      {
-        'import_date' => '2022-01-01',
-        'customs_value' => {
-          'insurance_cost' => '10',
-          'monetary_value' => '10',
-          'shipping_cost' => '10',
-        },
-        'measure_amount' => {
-          'dtn' => '0.00012',
-        },
-        'commodity_source' => 'xi',
-        'commodity_code' => '0103921100',
-      }
-    end
+  let(:user_session) { build(:user_session, session_attributes) }
 
-    let(:user_session) { build(:user_session, session_attributes) }
+  it 'returns a properly calculated evaluation' do
+    expect(evaluator.call).to eq(expected_evaluation)
+  end
+
+  context 'when on a route with applicable deltas' do
+    let(:user_session) { build(:user_session, :deltas_applicable, session_attributes) }
 
     it 'returns a properly calculated evaluation' do
       expect(evaluator.call).to eq(expected_evaluation)
-    end
-
-    context 'when on a route with applicable deltas' do
-      let(:user_session) { build(:user_session, :deltas_applicable, session_attributes) }
-
-      it 'returns a properly calculated evaluation' do
-        expect(evaluator.call).to eq(expected_evaluation)
-      end
     end
   end
 end
