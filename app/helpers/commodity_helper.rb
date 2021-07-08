@@ -38,9 +38,7 @@ module CommodityHelper
   end
 
   def applicable_measure_type_ids
-    @applicable_measure_type_ids ||= applicable_additional_codes.each_with_object([]) { |(_service, additional_codes), acc|
-      acc << additional_codes.keys
-    }.flatten.uniq
+    @applicable_measure_type_ids ||= applicable_additional_codes.flat_map { |_service, additional_codes| additional_codes.keys }.uniq
   end
 
   def applicable_vat_options
