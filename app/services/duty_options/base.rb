@@ -3,10 +3,11 @@ module DutyOptions
     include ActionView::Helpers::NumberHelper
     include ServiceHelper
 
-    def initialize(measure, user_session, additional_duty_options)
+    def initialize(measure, user_session, additional_duty_options, vat_measure)
       @measure = measure
       @user_session = user_session
       @additional_duty_options = additional_duty_options
+      @vat_measure = vat_measure
     end
 
     def option
@@ -27,12 +28,13 @@ module DutyOptions
 
     protected
 
-    attr_reader :measure, :user_session, :additional_duty_options
+    attr_reader :measure, :user_session, :additional_duty_options, :vat_measure
 
     def option_values
       table = [valuation_row]
       table += measure_rows
       table += additional_duty_rows
+      table << vat_row if vat_measure.present?
       table << duty_totals_row
       table
     end
@@ -56,6 +58,20 @@ module DutyOptions
 
     def measure_unit_row
       [I18n.t('duty_calculations.options.import_quantity'), nil, "#{total_quantity} #{unit}"]
+    end
+
+    def vat_row
+      presented_row = []
+      presented_row << I18n.t(
+        'duty_calculations.options.vat_duty_html',
+        option_type: localised_vat_type,
+      ).html_safe
+
+      presented_row.concat(vat_evaluation.slice(:calculation, :formatted_value).values)
+    end
+
+    def localised_vat_type
+      I18n.t("duty_calculations.options.option_type.vat_type.#{vat_measure.vat_type.downcase}")
     end
 
     def measure_unit?
@@ -90,6 +106,15 @@ module DutyOptions
       ]
     end
 
+    def vat_evaluation
+      @vat_evaluation ||= ExpressionEvaluators::Vat.new(
+        vat_measure,
+        vat_measure.component,
+        user_session,
+        duty_totals,
+      ).call
+    end
+
     def duty_evaluation
       @duty_evaluation ||= measure.evaluator_for(user_session).call
     end
@@ -98,6 +123,14 @@ module DutyOptions
       duty_values = [duty_evaluation[:value]]
 
       (additional_duty_values + duty_values).inject(:+)
+    end
+
+    def duty_totals_plus_vat
+      duty_totals + vat_total
+    end
+
+    def vat_total
+      vat_evaluation[:value]
     end
 
     def option_type
@@ -126,6 +159,10 @@ module DutyOptions
 
     def presented_commodity_source
       measure.source == 'xi' ? 'EU' : 'UK'
+    end
+
+    def uk_filtered_commodity
+      filtered_commodity(source: 'uk')
     end
   end
 end

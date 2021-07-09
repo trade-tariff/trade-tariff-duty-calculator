@@ -14,7 +14,7 @@ class DutyCalculator
 
       option = {}
       option[:key] = option_klass.id
-      option[:evaluation] = option_klass.new(measure, user_session, additional_duty_rows).option
+      option[:evaluation] = option_klass.new(measure, user_session, additional_duty_rows, vat_measure).option
       option[:priority] = option_klass::PRIORITY
 
       acc << option
@@ -35,7 +35,7 @@ class DutyCalculator
         next if option_klass.nil?
         next if measure.all_duties_zero?
 
-        acc << option_klass.new(measure, user_session, []).option
+        acc << option_klass.new(measure, user_session, [], nil).option
       end
   end
 
@@ -48,13 +48,13 @@ class DutyCalculator
   def waiver_option
     {}.tap do |option|
       option[:key] = DutyOptions::Waiver.id
-      option[:evaluation] = DutyOptions::Waiver.new(nil, user_session, []).option
+      option[:evaluation] = DutyOptions::Waiver.new(nil, user_session, [], nil).option
       option[:priority] = DutyOptions::Waiver::PRIORITY
     end
   end
 
   def applicable_measures
-    @applicable_measures ||= no_additional_code_measures + additional_code_measures + vat_measures
+    @applicable_measures ||= no_additional_code_measures + additional_code_measures
   end
 
   def additional_code_measures
@@ -65,16 +65,18 @@ class DutyCalculator
     end
   end
 
-  def vat_measures
-    uk_filtered_commodity = filtered_commodity(source: 'uk')
+  def vat_measure
+    @vat_measure ||= begin
+      vat_measures = uk_filtered_commodity.import_measures.select(&:vat)
 
-    uk_filtered_commodity.import_measures.each_with_object([]) do |measure, acc|
-      vat_type = measure.vat_type
+      return vat_measures.first if vat_measures.size == 1
 
-      next if vat_type.nil?
-
-      acc << measure if uk_filtered_commodity.applicable_vat_options.keys.size == 1 || user_session.vat == vat_type
+      vat_measures.find { |measure| measure.vat_type == user_session.vat }
     end
+  end
+
+  def uk_filtered_commodity
+    filtered_commodity(source: 'uk')
   end
 
   def no_additional_code_measures
