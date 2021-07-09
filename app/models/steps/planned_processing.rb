@@ -35,7 +35,7 @@ module Steps
     end
 
     def next_step_for_row_to_ni
-      return trade_remedies_path unless user_session.planned_processing == 'commercial_purposes'
+      return trade_remedies_path if user_session.planned_processing == 'commercial_purposes'
 
       customs_value_path
     end
