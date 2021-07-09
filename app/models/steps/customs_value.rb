@@ -55,7 +55,7 @@ module Steps
     private
 
     def previous_step_for_gb_to_ni
-      return trade_remedies_path if user_session.trade_defence
+      return interstitial_path if user_session.trade_defence
 
       certificate_of_origin_path
     end

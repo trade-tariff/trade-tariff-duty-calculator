@@ -1,4 +1,4 @@
-RSpec.describe Steps::TradeRemediesController do
+RSpec.describe Steps::InterstitialController do
   before do
     allow(UserSession).to receive(:new).and_return(session)
   end
@@ -10,10 +10,10 @@ RSpec.describe Steps::TradeRemediesController do
 
     it 'assigns the correct step' do
       response
-      expect(assigns[:step]).to be_a(Steps::TradeRemedy)
+      expect(assigns[:step]).to be_a(Steps::Interstitial)
     end
 
     it { expect(response).to have_http_status(:ok) }
-    it { expect(response).to render_template('trade_remedies/show') }
+    it { expect(response).to render_template('interstitial/show') }
   end
 end

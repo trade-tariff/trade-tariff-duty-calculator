@@ -34,7 +34,7 @@ RSpec.describe Steps::TraderSchemeController do
         expect(assigns[:step]).to be_a(Steps::TraderScheme)
       end
 
-      it { expect(response).to redirect_to(trade_remedies_path) }
+      it { expect(response).to redirect_to(interstitial_path) }
       it { expect { response }.to change(session, :trader_scheme).from(nil).to('no') }
     end
 

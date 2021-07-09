@@ -66,14 +66,14 @@ module Steps
     end
 
     def next_step_for_gb_to_ni
-      return trade_remedies_path if trade_defence
+      return interstitial_path if trade_defence
       return duty_path if zero_mfn_duty
 
       trader_scheme_path
     end
 
     def next_step_for_row_to_ni
-      return trade_remedies_path if trade_defence
+      return interstitial_path if trade_defence
       return trader_scheme_path unless zero_mfn_duty
 
       user_session.commodity_source = 'uk'

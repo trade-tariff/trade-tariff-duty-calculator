@@ -38,7 +38,7 @@ RSpec.describe Steps::CountryOfOriginController do
         expect(assigns[:step]).to be_a(Steps::CountryOfOrigin)
       end
 
-      it { expect(response).to redirect_to(trade_remedies_path) }
+      it { expect(response).to redirect_to(interstitial_path) }
       it { expect { response }.to change(session, :country_of_origin).from(nil).to('OTHER') }
       it { expect { response }.to change(session, :other_country_of_origin).from('').to('AR') }
     end

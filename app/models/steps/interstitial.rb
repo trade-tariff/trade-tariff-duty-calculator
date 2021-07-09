@@ -1,5 +1,5 @@
 module Steps
-  class TradeRemedy < Steps::Base
+  class Interstitial < Steps::Base
     STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
 
     def next_step_path
