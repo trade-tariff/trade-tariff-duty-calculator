@@ -27,7 +27,7 @@ RSpec.describe Steps::PlannedProcessingController do
     end
 
     context 'when the step answers are valid' do
-      let(:planned_processing) { attributes_for(:planned_processing, planned_processing: 'without_any_processing') }
+      let(:planned_processing) { attributes_for(:planned_processing, planned_processing: 'commercial_purposes') }
 
       it 'assigns the correct step' do
         response
@@ -35,7 +35,7 @@ RSpec.describe Steps::PlannedProcessingController do
       end
 
       it { expect(response).to redirect_to(trade_remedies_path) }
-      it { expect { response }.to change(session, :planned_processing).from(nil).to('without_any_processing') }
+      it { expect { response }.to change(session, :planned_processing).from(nil).to('commercial_purposes') }
     end
 
     context 'when the step answers are invalid' do

@@ -96,7 +96,7 @@ RSpec.describe Steps::PlannedProcessing do
           expect(
             step.next_step_path,
           ).to eq(
-            trade_remedies_path,
+            customs_value_path,
           )
         end
       end
@@ -113,11 +113,11 @@ RSpec.describe Steps::PlannedProcessing do
           }
         end
 
-        it 'returns trade_remedies_path' do
+        it 'returns customs_value_path' do
           expect(
             step.next_step_path,
           ).to eq(
-            trade_remedies_path,
+            customs_value_path,
           )
         end
       end
@@ -134,11 +134,11 @@ RSpec.describe Steps::PlannedProcessing do
           }
         end
 
-        it 'returns trade_remedies_path' do
+        it 'returns customs_value_path' do
           expect(
             step.next_step_path,
           ).to eq(
-            trade_remedies_path,
+            customs_value_path,
           )
         end
       end
@@ -159,7 +159,7 @@ RSpec.describe Steps::PlannedProcessing do
           expect(
             step.next_step_path,
           ).to eq(
-            customs_value_path,
+            trade_remedies_path,
           )
         end
       end

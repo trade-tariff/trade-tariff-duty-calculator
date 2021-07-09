@@ -62,7 +62,7 @@ FactoryBot.define do
     import_destination { 'XI' }
     country_of_origin { 'OTHER' }
     other_country_of_origin { 'AR' }
-    planned_processing { 'commercial_purposes' }
+    planned_processing { 'commercial_processing' }
   end
 
   trait :with_vat do

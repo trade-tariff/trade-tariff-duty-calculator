@@ -206,7 +206,7 @@ class UserSession
   end
 
   def deltas_applicable?
-    row_to_ni_route? && planned_processing == 'commercial_purposes'
+    row_to_ni_route? && planned_processing != 'commercial_purposes'
   end
 
   def import_into_gb?
