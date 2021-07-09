@@ -17,7 +17,6 @@ module Api
     }.freeze
 
     TYPE_ADDITIONAL_OPTION_MAPPING = {
-      '305' => ::DutyOptions::AdditionalDuty::Vat,
       '551' => ::DutyOptions::AdditionalDuty::ProvisionalAntiDumping,
       '552' => ::DutyOptions::AdditionalDuty::DefinitiveAntiDumping,
       '553' => ::DutyOptions::AdditionalDuty::ProvisionalCountervailing,

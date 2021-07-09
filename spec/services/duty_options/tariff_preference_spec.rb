@@ -1,5 +1,5 @@
 RSpec.describe DutyOptions::TariffPreference do
-  subject(:service) { described_class.new(measure, user_session, additional_duty_rows) }
+  subject(:service) { described_class.new(measure, user_session, additional_duty_rows, nil) }
 
   describe '#option' do
     let(:commodity_source) { 'xi' }
@@ -33,6 +33,7 @@ RSpec.describe DutyOptions::TariffPreference do
         geographical_area: {
           description: geographical_area_description,
         },
+        vat: false,
       )
     end
 
