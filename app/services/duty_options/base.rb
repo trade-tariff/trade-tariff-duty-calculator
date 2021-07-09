@@ -102,7 +102,7 @@ module DutyOptions
       [
         I18n.t('duty_calculations.options.duty_total_html').html_safe,
         nil,
-        "<strong>#{number_to_currency(duty_totals)}</strong>".html_safe,
+        "<strong>#{number_to_currency(duty_totals_plus_vat)}</strong>".html_safe,
       ]
     end
 
@@ -130,6 +130,8 @@ module DutyOptions
     end
 
     def vat_total
+      return 0 if vat_measure.blank?
+
       vat_evaluation[:value]
     end
 
