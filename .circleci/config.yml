@@ -19,7 +19,7 @@ commands:
         type: string
       buildpack_version:
         type: string
-        default: "v1.8.39"
+        default: "v1.8.43"
     steps:
       - checkout
       - run:
@@ -193,7 +193,7 @@ commands:
 jobs:
   checking:
     docker:
-      - image: 'cimg/ruby:2.7.3-node'
+      - image: 'cimg/ruby:2.7.4-node'
     steps:
       - checkout
       - ruby/install-deps
@@ -217,7 +217,7 @@ jobs:
         default: false
         type: boolean
     docker:
-      - image: cimg/ruby:2.7.3-node
+      - image: cimg/ruby:2.7.4-node
     steps:
       - checkout
       - setup_remote_docker:
@@ -235,7 +235,7 @@ jobs:
 
   test:
     docker:
-      - image: cimg/ruby:2.7.3-node
+      - image: cimg/ruby:2.7.4-node
         environment:
           BUNDLE_JOBS: "3"
           BUNDLE_RETRY: "3"
@@ -268,7 +268,7 @@ jobs:
 
   deploy_dev:
     docker:
-      - image: cimg/ruby:2.7.3
+      - image: cimg/ruby:2.7.4
     environment:
       SENTRY_ENVIRONMENT: "development"
     steps:
@@ -280,7 +280,7 @@ jobs:
 
   deploy_staging:
     docker:
-      - image: cimg/ruby:2.7.3
+      - image: cimg/ruby:2.7.4
     environment:
       SENTRY_ENVIRONMENT: "staging"
     steps:
@@ -292,7 +292,7 @@ jobs:
 
   deploy_production:
     docker:
-      - image: cimg/ruby:2.7.3
+      - image: cimg/ruby:2.7.4
     environment:
       SENTRY_ENVIRONMENT: "production"
     steps:
