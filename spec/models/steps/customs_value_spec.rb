@@ -188,11 +188,11 @@ RSpec.describe Steps::CustomsValue do
       context 'when there is a trade defence' do
         let(:user_session) { build(:user_session, trade_defence: true) }
 
-        it 'returns trade_remedies_path' do
+        it 'returns interstitial_path' do
           expect(
             step.previous_step_path,
           ).to eq(
-            trade_remedies_path,
+            interstitial_path,
           )
         end
       end

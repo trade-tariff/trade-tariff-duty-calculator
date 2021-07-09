@@ -76,7 +76,7 @@ en:
         waiver: 'Option %{option_no}: Claiming a waiver – Exchange rate'
 
 
-  trade_remedies:
+  interstitial:
     gb_to_ni:
       heading: Duties apply to this import
       body: As this commodity attracts a trade defence measure, imports of this commodity are treated as 'at risk' under all circumstances.

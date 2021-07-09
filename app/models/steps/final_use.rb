@@ -21,7 +21,7 @@ module Steps
       return planned_processing_path if user_session.final_use == 'yes'
       return certificate_of_origin_path if user_session.gb_to_ni_route?
 
-      trade_remedies_path
+      interstitial_path
     end
 
     def previous_step_path

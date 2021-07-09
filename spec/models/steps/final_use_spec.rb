@@ -170,11 +170,11 @@ RSpec.describe Steps::FinalUse do
         }
       end
 
-      it 'returns trade_remedies_path' do
+      it 'returns interstitial_path' do
         expect(
           step.next_step_path,
         ).to eq(
-          trade_remedies_path,
+          interstitial_path,
         )
       end
     end

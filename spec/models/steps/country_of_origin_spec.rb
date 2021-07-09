@@ -151,11 +151,11 @@ RSpec.describe Steps::CountryOfOrigin do
         }
       end
 
-      it 'returns the trade_remedies_path' do
+      it 'returns the interstitial_path' do
         expect(
           step.next_step_path,
         ).to eq(
-          trade_remedies_path,
+          interstitial_path,
         )
       end
     end
@@ -234,7 +234,7 @@ RSpec.describe Steps::CountryOfOrigin do
           expect(
             step.next_step_path,
           ).to eq(
-            trade_remedies_path,
+            interstitial_path,
           )
         end
       end

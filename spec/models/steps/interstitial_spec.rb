@@ -1,4 +1,4 @@
-RSpec.describe Steps::TradeRemedy do
+RSpec.describe Steps::Interstitial do
   subject(:step) { described_class.new(user_session) }
 
   let(:user_session) do

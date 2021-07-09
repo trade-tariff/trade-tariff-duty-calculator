@@ -34,7 +34,7 @@ RSpec.describe Steps::FinalUseController do
         expect(assigns[:step]).to be_a(Steps::FinalUse)
       end
 
-      it { expect(response).to redirect_to(trade_remedies_path) }
+      it { expect(response).to redirect_to(interstitial_path) }
       it { expect { response }.to change(session, :final_use).from(nil).to('no') }
     end
 
