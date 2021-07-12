@@ -2,15 +2,19 @@ source 'https://rubygems.org'
 
 ruby File.read('.ruby-version').chomp
 
+gem 'actionpack', '~> 6'
+gem 'actionview', '~> 6'
+gem 'activemodel', '~> 6'
+gem 'activerecord', '~> 6'
+gem 'activesupport', '~> 6'
 gem 'bootsnap', require: false
-gem 'canonical-rails'
 gem 'foreman'
 gem 'govuk_design_system_formbuilder', '= 2.4.0'
 gem 'lograge'
 gem 'logstash-event'
 gem 'newrelic_rpm'
 gem 'puma'
-gem 'rails', '~> 6'
+gem 'railties', '~> 6'
 gem 'sentry-raven'
 gem 'uktt', git: 'https://github.com/trade-tariff/uktt.git'
 gem 'webpacker'
