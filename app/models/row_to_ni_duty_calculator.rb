@@ -68,7 +68,7 @@ class RowToNiDutyCalculator
   end
 
   def default_options_for(category)
-    footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{category}.xi_only.xi")
+    footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{category}.xi_only.xi").html_safe
 
     xi_options.public_send("#{category}_options").each do |option|
       option[:evaluation][:footnote] = option[:evaluation][:footnote].concat(footnote_suffix).html_safe
