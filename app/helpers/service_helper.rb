@@ -27,6 +27,10 @@ module ServiceHelper
     service_url_for('/feedback')
   end
 
+  def help_url
+    service_url_for('/help')
+  end
+
   def trade_tariff_frontend_url
     @trade_tariff_frontend_url ||= Rails.configuration.trade_tariff_frontend_url
   end
