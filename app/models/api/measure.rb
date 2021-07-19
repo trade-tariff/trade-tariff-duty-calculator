@@ -12,21 +12,22 @@ module Api
     meta_attribute :duty_calculator, :source
 
     attributes :id,
-               :origin,
                :additional_code,
-               :effective_start_date,
-               :effective_end_date,
-               :import,
-               :excise,
-               :vat,
                :duty_expression,
-               :measure_type,
-               :legal_acts,
-               :national_measurement_units,
-               :geographical_area,
+               :effective_end_date,
+               :effective_start_date,
+               :excise,
                :excluded_countries,
                :footnotes,
-               :order_number
+               :geographical_area,
+               :import,
+               :legal_acts,
+               :measure_type,
+               :national_measurement_units,
+               :order_number,
+               :origin,
+               :reduction_indicator,
+               :vat
 
     def evaluator_for(user_session)
       if ad_valorem?
