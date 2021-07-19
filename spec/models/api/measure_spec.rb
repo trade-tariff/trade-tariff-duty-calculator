@@ -44,6 +44,7 @@ RSpec.describe Api::Measure do
                                                     excise: false,
                                                     vat: true,
                                                     legal_acts: [],
+                                                    reduction_indicator: 1,
                                                     national_measurement_units: [],
                                                     excluded_countries: [],
                                                     footnotes: []
