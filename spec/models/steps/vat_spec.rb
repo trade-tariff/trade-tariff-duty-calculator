@@ -99,6 +99,20 @@ RSpec.describe Steps::Vat, :step, :user_session do
       end
     end
 
+    context 'when there are excise additional codes' do
+      let(:user_session) do
+        build(
+          :user_session,
+          :with_commodity_information,
+          :with_excise_additional_codes,
+        )
+      end
+
+      it 'returns excise_path' do
+        expect(step.previous_step_path).to eq(excise_path('DBC'))
+      end
+    end
+
     context 'when there are measure amounts on the session' do
       let(:measure_amount) do
         {

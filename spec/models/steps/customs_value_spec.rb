@@ -336,44 +336,16 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
         let(:applicable_additional_codes) do
           {
             '105' => {
-              'heading' => {
-                'overlay' => 'Describe your goods in more detail',
-                'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-              },
               'additional_codes' => [
-                {
-                  'code' => '2600',
-                  'overlay' => 'The product I am importing is COVID-19 critical',
-                  'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
-                },
-                {
-                  'code' => '2601',
-                  'overlay' => 'The product I am importing is not COVID-19 critical',
-                  'hint' => '',
-                },
+                { 'code' => '2600' },
+                { 'code' => '2601' },
               ],
             },
 
             '552' => {
-              'heading' => {
-                'overlay' => 'Describe your goods in more detail',
-                'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-              },
               'additional_codes' => [
-                {
-                  'code' => 'B999',
-                  'overlay' => 'Other',
-                  'hint' => '',
-                  'type' => 'preference',
-                  'measure_sid' => '20511102',
-                },
-                {
-                  'code' => 'B349',
-                  'overlay' => 'Hunan Hualian China Industry Co., Ltd; Hunan Hualian Ebillion China Industry Co., Ltd; Hunan Liling Hongguanyao China Industry Co., Ltd; Hunan Hualian Yuxiang China Industry Co., Ltd.',
-                  'hint' => '',
-                  'type' => 'preference',
-                  'measure_sid' => '20511103',
-                },
+                { 'code' => 'B999' },
+                { 'code' => 'B349' },
               ],
             },
           }
@@ -385,6 +357,23 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
           ).to eq(
             additional_codes_path(first_measure_type_id),
           )
+        end
+      end
+
+      context 'when there are excise additional codes' do
+        let(:applicable_additional_codes) do
+          {
+            '306' => {
+              'additional_codes' => [
+                { 'code' => 'X411' },
+                { 'code' => 'X444' },
+              ],
+            },
+          }
+        end
+
+        it 'returns excise_path' do
+          expect(step.next_step_path).to eq(excise_path('306'))
         end
       end
 

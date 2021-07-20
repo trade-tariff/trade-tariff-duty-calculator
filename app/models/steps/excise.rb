@@ -32,14 +32,15 @@ module Steps
     end
 
     def next_step_path
-      return additional_codes_path(next_measure_type_id) if next_measure_type_id.present?
+      return excise_path(next_measure_type_id) if next_measure_type_id.present?
       return vat_path if applicable_vat_options.keys.count > 1
 
       confirm_path
     end
 
     def previous_step_path
-      return additional_codes_path(previous_measure_type_id) if previous_measure_type_id.present?
+      return excise_path(previous_measure_type_id) if previous_measure_type_id.present?
+      return additional_codes_path(applicable_measure_type_ids.first) if applicable_additional_codes?
 
       return measure_amount_path if filtered_commodity.applicable_measure_units.present?
 
@@ -54,16 +55,20 @@ module Steps
       applicable_excise_additional_codes[measure_type_id]['additional_codes']
     end
 
-    def next_measure_type_id; end
+    def next_measure_type_id
+      return nil if next_measure_type_index > applicable_excise_measure_type_ids.size - 1
+
+      applicable_excise_measure_type_ids[next_measure_type_index]
+    end
 
     def previous_measure_type_id; end
 
     def next_measure_type_index
-      @next_measure_type_index ||= applicable_measure_type_ids.find_index(measure_type_id) + 1
+      @next_measure_type_index ||= applicable_excise_measure_type_ids.find_index(measure_type_id) + 1
     end
 
     def previous_measure_type_index
-      @previous_measure_type_index ||= applicable_measure_type_ids.find_index(measure_type_id) - 1
+      @previous_measure_type_index ||= applicable_excise_measure_type_ids.find_index(measure_type_id) - 1
     end
   end
 end
