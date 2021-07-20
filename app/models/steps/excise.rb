@@ -25,8 +25,13 @@ module Steps
       user_session.excise_additional_code_xi = { measure_type_id => additional_code_xi }
     end
 
-    def options_for_select_for(source:)
-      available_additional_codes_for(source: source).map { |ac| build_option(ac['code'], ac['overlay']) }
+    def options_for_radio_buttons_for(source:)
+      available_additional_codes_for(source: source).map do |additional_code|
+        OpenStruct.new(
+          id: additional_code['code'].sub('X', ''),
+          name: additional_code['overlay'],
+        )
+      end
     end
 
     def measure_type_description_for(source:)
@@ -54,13 +59,6 @@ module Steps
       return {} if applicable_excise_additional_codes[source][measure_type_id].blank?
 
       applicable_excise_additional_codes[source][measure_type_id]['additional_codes']
-    end
-
-    def build_option(code, overlay)
-      OpenStruct.new(
-        id: code,
-        name: "#{code} - #{overlay}".html_safe,
-      )
     end
 
     def next_measure_type_id; end

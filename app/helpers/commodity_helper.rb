@@ -56,8 +56,16 @@ module CommodityHelper
     applicable_additional_codes.values.any?(&:present?)
   end
 
+  def applicable_excise_additional_codes?
+    applicable_excise_additional_codes.values.any?(&:present?)
+  end
+
   def applicable_measure_type_ids
     @applicable_measure_type_ids ||= applicable_additional_codes.flat_map { |_service, additional_codes| additional_codes.keys }.uniq
+  end
+
+  def applicable_excise_measure_type_ids
+    @applicable_excise_measure_type_ids ||= applicable_excise_additional_codes.flat_map { |_service, additional_codes| additional_codes.keys }.uniq
   end
 
   def applicable_vat_options

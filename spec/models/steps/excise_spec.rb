@@ -18,49 +18,49 @@ RSpec.describe Steps::Excise do
         'additional_codes' => [
           {
             'code' => 'X520',
-            'overlay' => 'EXCISE - FULL, 520, UNREBATED LIGHT OIL, OTHER',
+            'overlay' => '520 - Light oil: unrebated (unmarked) – other unrebated light oil',
             'hint' => '',
             'measure_sid' => -485_461,
           },
           {
             'code' => 'X522',
-            'overlay' => 'EXCISE - FULL, 522, REBATED LIGHT OIL, UNLEADED FUEL',
+            'overlay' => '522 - Light oil: rebated – unleaded petrol',
             'hint' => '',
             'measure_sid' => -485_453,
           },
           {
             'code' => 'X541',
-            'overlay' => 'EXCISE - FULL, 541, UNREBATED HEAVY OIL',
+            'overlay' => '541 - Heavy oil: unrebated (unmarked, including Diesel Engine Road Vehicle (DERV) or road fuel extender and unmarked kerosene or unmarked gas oil for which no marking waiver has been granted)',
             'hint' => '',
             'measure_sid' => -485_455,
           },
           {
             'code' => 'X542',
-            'overlay' => 'EXCISE - FULL, 542, KEROSENE AS OFF-ROAD MOTOR VEHICLE FUEL',
+            'overlay' => '542 - Heavy oil: kerosene to be used as motor fuel off road or in an excepted vehicle',
             'hint' => '',
             'measure_sid' => -485_456,
           },
           {
             'code' => 'X551',
-            'overlay' => 'EXCISE - FULL, 551, REBATED HEAVY OIL, KEROSENE',
+            'overlay' => '551 - Heavy oil: kerosene (marked or unmarked under marking waiver, including heavy oil aviation turbine fuel) to be used other than as motor fuel off-road or in an excepted vehicle',
             'hint' => '',
             'measure_sid' => -485_457,
           },
           {
             'code' => 'X556',
-            'overlay' => 'EXCISE - FULL, 556, REBATED HEAVY OIL, GAS OIL',
+            'overlay' => '556 - Heavy oil: gas oil (marked or unmarked under marking waiver)',
             'hint' => '',
             'measure_sid' => -485_458,
           },
           {
             'code' => 'X561',
-            'overlay' => 'EXCISE - FULL, 561, REBATED HEAVY OIL, FUEL OIL',
+            'overlay' => '561 - Heavy oil: fuel oil (unmarked)',
             'hint' => '',
             'measure_sid' => -485_459,
           },
           {
             'code' => 'X570',
-            'overlay' => 'EXCISE - FULL, 570, REBATED HEAVY OIL, OTHER',
+            'overlay' => '570 - Heavy oil: other (unmarked)',
             'hint' => '',
             'measure_sid' => -485_460,
           },
@@ -120,9 +120,7 @@ RSpec.describe Steps::Excise do
       it 'adds the correct validation error messages' do
         step.valid?
 
-        expect(step.errors.messages[:additional_code_uk].to_a).to eq(
-          ['Specify a valid additional code'],
-        )
+        expect(step.errors.messages[:additional_code_uk].to_a).to eq(['Select an excise class'])
       end
     end
 
@@ -145,7 +143,7 @@ RSpec.describe Steps::Excise do
         step.valid?
 
         expect(step.errors.messages[:additional_code_xi].to_a).to eq(
-          ['Specify a valid additional code'],
+          ['Select an excise class'],
         )
       end
     end
@@ -167,46 +165,46 @@ RSpec.describe Steps::Excise do
     end
   end
 
-  describe '#options_for_select' do
+  describe '#options_for_radio_buttons_for' do
     let(:expected_options) do
       [
         OpenStruct.new(
-          id: 'X520',
-          name: 'X520 - EXCISE - FULL, 520, UNREBATED LIGHT OIL, OTHER',
+          id: '520',
+          name: '520 - Light oil: unrebated (unmarked) – other unrebated light oil',
         ),
         OpenStruct.new(
-          id: 'X522',
-          name: 'X522 - EXCISE - FULL, 522, REBATED LIGHT OIL, UNLEADED FUEL',
+          id: '522',
+          name: '522 - Light oil: rebated – unleaded petrol',
         ),
         OpenStruct.new(
-          id: 'X541',
-          name: 'X541 - EXCISE - FULL, 541, UNREBATED HEAVY OIL',
+          id: '541',
+          name: '541 - Heavy oil: unrebated (unmarked, including Diesel Engine Road Vehicle (DERV) or road fuel extender and unmarked kerosene or unmarked gas oil for which no marking waiver has been granted)',
         ),
         OpenStruct.new(
-          id: 'X542',
-          name: 'X542 - EXCISE - FULL, 542, KEROSENE AS OFF-ROAD MOTOR VEHICLE FUEL',
+          id: '542',
+          name: '542 - Heavy oil: kerosene to be used as motor fuel off road or in an excepted vehicle',
         ),
         OpenStruct.new(
-          id: 'X551',
-          name: 'X551 - EXCISE - FULL, 551, REBATED HEAVY OIL, KEROSENE',
+          id: '551',
+          name: '551 - Heavy oil: kerosene (marked or unmarked under marking waiver, including heavy oil aviation turbine fuel) to be used other than as motor fuel off-road or in an excepted vehicle',
         ),
         OpenStruct.new(
-          id: 'X556',
-          name: 'X556 - EXCISE - FULL, 556, REBATED HEAVY OIL, GAS OIL',
+          id: '556',
+          name: '556 - Heavy oil: gas oil (marked or unmarked under marking waiver)',
         ),
         OpenStruct.new(
-          id: 'X561',
-          name: 'X561 - EXCISE - FULL, 561, REBATED HEAVY OIL, FUEL OIL',
+          id: '561',
+          name: '561 - Heavy oil: fuel oil (unmarked)',
         ),
         OpenStruct.new(
-          id: 'X570',
-          name: 'X570 - EXCISE - FULL, 570, REBATED HEAVY OIL, OTHER',
+          id: '570',
+          name: '570 - Heavy oil: other (unmarked)',
         ),
       ]
     end
 
     it 'returns the correct additonal code options for the given measure' do
-      expect(step.options_for_select_for(source: 'uk')).to eq(expected_options)
+      expect(step.options_for_radio_buttons_for(source: 'uk')).to eq(expected_options)
     end
   end
 

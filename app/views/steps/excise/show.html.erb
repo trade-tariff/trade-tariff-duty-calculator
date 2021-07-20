@@ -3,14 +3,37 @@
 <%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: excise_path do |f| %>
   <%= f.govuk_error_summary %>
   <span class="govuk-caption-xl">Calculate import duties</span>
-  <h1 class="govuk-heading-xl">Describe your goods in more detail</h1>
+  <h1 class="govuk-heading-xl">Which class of excise is applicable to your trade?</h1>
 
-  <% if @step.excise_applicable_additional_codes.dig('uk', @step.measure_type_id).present? %>
-    <%= f.govuk_collection_select :additional_code_uk, @step.options_for_select_for(source: 'uk'), :id, :name, options: { prompt: true }, label: { text: '' }, hint: { text: "To trade this commodity in the United Kingdom, you need to specify an additional 4 digits, known as an additional code. This affects the #{@step.measure_type_description_for(source: 'uk')}." } %>
+  <% excise_link = link_to('UK Trade: excise, duties, reliefs, drawbacks and allowances (opens in new browser window)', 'https://www.gov.uk/government/publications/uk-trade-tariff-excise-duties-reliefs-drawbacks-and-allowances/uk-trade-tariff-excise-duties-reliefs-drawbacks-and-allowances', class: 'govuk-link', target: '_blank') %>
+  <% if @step.applicable_excise_additional_codes.dig('uk', @step.measure_type_id).present? %>
+    <%=
+      f.govuk_collection_radio_buttons(
+        :additional_code_uk,
+        @step.options_for_radio_buttons_for(source: 'uk'),
+        :id,
+        :name,
+        legend: { text: '' },
+        hint: {
+          text: sanitize("<p>There are multiple excise duties that could be applied to trade in this commodity code in the United Kingdom. Select which class of excise duty applies to your trade</p><p>For more information on excise duty classes, please see #{excise_link}</p>") 
+        }
+      )
+    %>
   <% end %>
 
-  <% if @step.excise_applicable_additional_codes.dig('xi', @step.measure_type_id).present? %>
-    <%= f.govuk_collection_select :additional_code_xi, @step.options_for_select_for(source: 'xi'), :id, :name, options: { prompt: true }, label: { text: '' }, hint: { text: "To trade this commodity in Northern Ireland, you need to specify an additional 4 digits, known as an additional code. This affects the #{@step.measure_type_description_for(source: 'xi')}." } %>
+  <% if @step.applicable_excise_additional_codes.dig('xi', @step.measure_type_id).present? %>
+    <%=
+      f.govuk_collection_radio_buttons(
+        :additional_code_xi,
+        @step.options_for_radio_buttons_for(source: 'xi'),
+        :id,
+        :name,
+        legend: { text: '' },
+        hint: {
+          text: sanitize("<p>There are multiple excise duties that could be applied to trade in this commodity code into Northern Ireland. Select which class of excise duty applies to your trade</p><p>For more information on excise duty classes, please see #{excise_link}</p>") 
+        }
+      )
+    %>
   <% end %>
   <%= f.govuk_submit %>
 <% end %>
