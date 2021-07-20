@@ -14,8 +14,7 @@ module Steps
 
     def permitted_params
       params.require(:steps_excise).permit(
-        :additional_code_uk,
-        :additional_code_xi,
+        :additional_code,
       ).merge(measure_type_id)
     end
 

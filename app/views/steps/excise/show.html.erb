@@ -6,34 +6,19 @@
   <h1 class="govuk-heading-xl">Which class of excise is applicable to your trade?</h1>
 
   <% excise_link = link_to('UK Trade: excise, duties, reliefs, drawbacks and allowances (opens in new browser window)', 'https://www.gov.uk/government/publications/uk-trade-tariff-excise-duties-reliefs-drawbacks-and-allowances/uk-trade-tariff-excise-duties-reliefs-drawbacks-and-allowances', class: 'govuk-link', target: '_blank') %>
-  <% if @step.applicable_excise_additional_codes.dig('uk', @step.measure_type_id).present? %>
-    <%=
-      f.govuk_collection_radio_buttons(
-        :additional_code_uk,
-        @step.options_for_radio_buttons_for(source: 'uk'),
-        :id,
-        :name,
-        legend: { text: '' },
-        hint: {
-          text: sanitize("<p>There are multiple excise duties that could be applied to trade in this commodity code in the United Kingdom. Select which class of excise duty applies to your trade</p><p>For more information on excise duty classes, please see #{excise_link}</p>") 
-        }
-      )
-    %>
-  <% end %>
 
-  <% if @step.applicable_excise_additional_codes.dig('xi', @step.measure_type_id).present? %>
-    <%=
-      f.govuk_collection_radio_buttons(
-        :additional_code_xi,
-        @step.options_for_radio_buttons_for(source: 'xi'),
-        :id,
-        :name,
-        legend: { text: '' },
-        hint: {
-          text: sanitize("<p>There are multiple excise duties that could be applied to trade in this commodity code into Northern Ireland. Select which class of excise duty applies to your trade</p><p>For more information on excise duty classes, please see #{excise_link}</p>") 
-        }
-      )
-    %>
-  <% end %>
+  <%=
+    f.govuk_collection_radio_buttons(
+      :additional_code,
+      @step.options_for_radio_buttons,
+      :id,
+      :name,
+      legend: { text: '' },
+      hint: {
+        text: sanitize("<p>There are multiple excise duties that could be applied to trade in this commodity code. Select which class of excise duty applies to your trade</p><p>For more information on excise duty classes, please see #{excise_link}</p>") 
+      }
+    )
+  %>
+
   <%= f.govuk_submit %>
 <% end %>

@@ -34,22 +34,9 @@ module CommodityHelper
   end
 
   def applicable_excise_additional_codes
-    @applicable_excise_additional_codes ||=
-      {}.tap do |additional_codes|
-        if user_session.deltas_applicable?
-          additional_codes['uk'] = filtered_commodity(source: 'uk').applicable_additional_codes.slice(
-            *Api::MeasureType::EXCISE_MEASURE_TYPE_IDS,
-          )
-
-          additional_codes['xi'] = filtered_commodity(source: 'xi').applicable_additional_codes.slice(
-            *Api::MeasureType::EXCISE_MEASURE_TYPE_IDS,
-          )
-        else
-          additional_codes[user_session.commodity_source] = filtered_commodity.applicable_additional_codes.slice(
-            *Api::MeasureType::EXCISE_MEASURE_TYPE_IDS,
-          )
-        end
-      end
+    @applicable_excise_additional_codes ||= filtered_commodity(source: 'uk').applicable_additional_codes.slice(
+      *Api::MeasureType::EXCISE_MEASURE_TYPE_IDS,
+    )
   end
 
   def applicable_additional_codes?
@@ -65,7 +52,7 @@ module CommodityHelper
   end
 
   def applicable_excise_measure_type_ids
-    @applicable_excise_measure_type_ids ||= applicable_excise_additional_codes.flat_map { |_service, additional_codes| additional_codes.keys }.uniq
+    @applicable_excise_measure_type_ids ||= applicable_excise_additional_codes.keys
   end
 
   def applicable_vat_options

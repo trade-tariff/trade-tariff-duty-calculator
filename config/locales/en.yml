@@ -169,9 +169,7 @@ en:
             attributes:
               measure_type_id:
                 blank: Enter a valid measure type id
-              additional_code_uk:
-                blank: Select an excise class
-              additional_code_xi:
+              additional_code:
                 blank: Select an excise class
         steps/measure_amount:
           attributes:

@@ -194,61 +194,59 @@ RSpec.describe CommodityHelper do
   describe '#applicable_excise_additional_codes' do
     let(:expected_options) do
       {
-        'xi' => {
-          '306' => {
-            'measure_type_description' => 'Excises',
-            'heading' => nil,
-            'additional_codes' => [
-              {
-                'code' => 'X520',
-                'overlay' => '520 - Light oil: unrebated (unmarked) – other unrebated light oil',
-                'hint' => '',
-                'measure_sid' => -485_461,
-              },
-              {
-                'code' => 'X522',
-                'overlay' => '522 - Light oil: rebated – unleaded petrol',
-                'hint' => '',
-                'measure_sid' => -485_453,
-              },
-              {
-                'code' => 'X541',
-                'overlay' => '541 - Heavy oil: unrebated (unmarked, including Diesel Engine Road Vehicle (DERV) or road fuel extender and unmarked kerosene or unmarked gas oil for which no marking waiver has been granted)',
-                'hint' => '',
-                'measure_sid' => -485_455,
-              },
-              {
-                'code' => 'X542',
-                'overlay' => '542 - Heavy oil: kerosene to be used as motor fuel off road or in an excepted vehicle',
-                'hint' => '',
-                'measure_sid' => -485_456,
-              },
-              {
-                'code' => 'X551',
-                'overlay' => '551 - Heavy oil: kerosene (marked or unmarked under marking waiver, including heavy oil aviation turbine fuel) to be used other than as motor fuel off-road or in an excepted vehicle',
-                'hint' => '',
-                'measure_sid' => -485_457,
-              },
-              {
-                'code' => 'X556',
-                'overlay' => '556 - Heavy oil: gas oil (marked or unmarked under marking waiver)',
-                'hint' => '',
-                'measure_sid' => -485_458,
-              },
-              {
-                'code' => 'X561',
-                'overlay' => '561 - Heavy oil: fuel oil (unmarked)',
-                'hint' => '',
-                'measure_sid' => -485_459,
-              },
-              {
-                'code' => 'X570',
-                'overlay' => '570 - Heavy oil: other (unmarked)',
-                'hint' => '',
-                'measure_sid' => -485_460,
-              },
-            ],
-          },
+        '306' => {
+          'measure_type_description' => 'Excises',
+          'heading' => nil,
+          'additional_codes' => [
+            {
+              'code' => 'X520',
+              'overlay' => '520 - Light oil: unrebated (unmarked) – other unrebated light oil',
+              'hint' => '',
+              'measure_sid' => -485_461,
+            },
+            {
+              'code' => 'X522',
+              'overlay' => '522 - Light oil: rebated – unleaded petrol',
+              'hint' => '',
+              'measure_sid' => -485_453,
+            },
+            {
+              'code' => 'X541',
+              'overlay' => '541 - Heavy oil: unrebated (unmarked, including Diesel Engine Road Vehicle (DERV) or road fuel extender and unmarked kerosene or unmarked gas oil for which no marking waiver has been granted)',
+              'hint' => '',
+              'measure_sid' => -485_455,
+            },
+            {
+              'code' => 'X542',
+              'overlay' => '542 - Heavy oil: kerosene to be used as motor fuel off road or in an excepted vehicle',
+              'hint' => '',
+              'measure_sid' => -485_456,
+            },
+            {
+              'code' => 'X551',
+              'overlay' => '551 - Heavy oil: kerosene (marked or unmarked under marking waiver, including heavy oil aviation turbine fuel) to be used other than as motor fuel off-road or in an excepted vehicle',
+              'hint' => '',
+              'measure_sid' => -485_457,
+            },
+            {
+              'code' => 'X556',
+              'overlay' => '556 - Heavy oil: gas oil (marked or unmarked under marking waiver)',
+              'hint' => '',
+              'measure_sid' => -485_458,
+            },
+            {
+              'code' => 'X561',
+              'overlay' => '561 - Heavy oil: fuel oil (unmarked)',
+              'hint' => '',
+              'measure_sid' => -485_459,
+            },
+            {
+              'code' => 'X570',
+              'overlay' => '570 - Heavy oil: other (unmarked)',
+              'hint' => '',
+              'measure_sid' => -485_460,
+            },
+          ],
         },
       }
     end

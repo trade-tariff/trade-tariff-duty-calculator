@@ -87,13 +87,8 @@ FactoryBot.define do
   trait :with_excise_additional_codes do
     excise do
       {
-        'uk' => {
-          '306' => 'X444',
-        },
-        'xi' => {
-          'DBC' => 'X369',
-          '306' => 'X111',
-        },
+        '306' => 'X444',
+        'DBC' => 'X369',
       }
     end
   end
