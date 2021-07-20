@@ -2,7 +2,7 @@ module Steps
   class Vat < Steps::Base
     include CommodityHelper
 
-    STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
+    STEPS_TO_REMOVE_FROM_SESSION = %w[excise].freeze
 
     attribute :vat, :string
 

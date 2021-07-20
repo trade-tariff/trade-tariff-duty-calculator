@@ -114,6 +114,7 @@ en:
     measure_amount: Import quantity
     additional_code: Additional code(s)
     vat: Applicable VAT rate
+    excise: Excise additional code
   activemodel:
     errors:
       models:

@@ -218,6 +218,10 @@ class UserSession
     (additional_code_uk.values + additional_code_xi.values).compact.join(', ')
   end
 
+  def excise_additional_codes
+    excise_additional_code.values.join(', ')
+  end
+
   def deltas_applicable?
     row_to_ni_route? && planned_processing != 'commercial_purposes'
   end

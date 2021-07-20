@@ -52,6 +52,7 @@ module Steps
 
     def next_step_path
       return additional_codes_path(applicable_measure_type_ids.first) if applicable_additional_codes?
+      return excise_path(applicable_excise_measure_type_ids.first) if applicable_excise_additional_codes?
 
       return vat_path if applicable_vat_options.keys.count > 1
 

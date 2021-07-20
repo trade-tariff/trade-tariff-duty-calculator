@@ -106,18 +106,13 @@ RSpec.describe Steps::MeasureAmount, :step, :user_session do
 
   describe '#previous_step_path' do
     it 'returns customs_value_path' do
-      expect(
-        step.previous_step_path,
-      ).to eq(
-        customs_value_path,
-      )
+      expect(step.previous_step_path).to eq(customs_value_path)
     end
   end
 
   describe '#next_step_path' do
     let(:applicable_additional_codes) { {} }
     let(:applicable_vat_options) { {} }
-    let(:first_measure_type_id) { '105' }
     let(:filtered_commodity) { instance_double(Api::Commodity) }
 
     before do
@@ -130,44 +125,16 @@ RSpec.describe Steps::MeasureAmount, :step, :user_session do
       let(:applicable_additional_codes) do
         {
           '105' => {
-            'heading' => {
-              'overlay' => 'Describe your goods in more detail',
-              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-            },
             'additional_codes' => [
-              {
-                'code' => '2600',
-                'overlay' => 'The product I am importing is COVID-19 critical',
-                'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
-              },
-              {
-                'code' => '2601',
-                'overlay' => 'The product I am importing is not COVID-19 critical',
-                'hint' => '',
-              },
+              { 'code' => '2600' },
+              { 'code' => '2601' },
             ],
           },
 
           '552' => {
-            'heading' => {
-              'overlay' => 'Describe your goods in more detail',
-              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-            },
             'additional_codes' => [
-              {
-                'code' => 'B999',
-                'overlay' => 'Other',
-                'hint' => '',
-                'type' => 'preference',
-                'measure_sid' => '20511102',
-              },
-              {
-                'code' => 'B349',
-                'overlay' => 'Hunan Hualian China Industry Co., Ltd; Hunan Hualian Ebillion China Industry Co., Ltd; Hunan Liling Hongguanyao China Industry Co., Ltd; Hunan Hualian Yuxiang China Industry Co., Ltd.',
-                'hint' => '',
-                'type' => 'preference',
-                'measure_sid' => '20511103',
-              },
+              { 'code' => 'B999' },
+              { 'code' => 'B349' },
             ],
           },
         }
@@ -177,36 +144,29 @@ RSpec.describe Steps::MeasureAmount, :step, :user_session do
         expect(
           step.next_step_path,
         ).to eq(
-          additional_codes_path(first_measure_type_id),
+          additional_codes_path('105'),
         )
       end
     end
 
-    context 'when there are less than 2 applicable vat options' do
-      let(:additional_codes) do
+    context 'when there are applicable excise additional codes available' do
+      let(:applicable_additional_codes) do
         {
-          '105' => {
-            'measure_type_description' => 'third-country duty',
-            'heading' => {
-              'overlay' => 'Describe your goods in more detail',
-              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-            },
+          '306' => {
             'additional_codes' => [
-              {
-                'code' => '2600',
-                'overlay' => 'The product I am importing is COVID-19 critical',
-                'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
-              },
-              {
-                'code' => '2601',
-                'overlay' => 'The product I am importing is not COVID-19 critical',
-                'hint' => '',
-              },
+              { 'code' => 'X411' },
+              { 'code' => 'X444' },
             ],
           },
         }
       end
 
+      it 'redirects to the additional_codes_path of the first measure type id' do
+        expect(step.next_step_path).to eq(excise_path('306'))
+      end
+    end
+
+    context 'when there are less than 2 applicable vat options' do
       let(:applicable_vat_options) do
         {
           'VATZ' => 'flibble',
@@ -219,30 +179,6 @@ RSpec.describe Steps::MeasureAmount, :step, :user_session do
     end
 
     context 'when there are more than 1 applicable vat options' do
-      let(:additional_codes) do
-        {
-          '105' => {
-            'measure_type_description' => 'third-country duty',
-            'heading' => {
-              'overlay' => 'Describe your goods in more detail',
-              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-            },
-            'additional_codes' => [
-              {
-                'code' => '2600',
-                'overlay' => 'The product I am importing is COVID-19 critical',
-                'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
-              },
-              {
-                'code' => '2601',
-                'overlay' => 'The product I am importing is not COVID-19 critical',
-                'hint' => '',
-              },
-            ],
-          },
-        }
-      end
-
       let(:applicable_vat_options) do
         {
           'VATZ' => 'flibble',
