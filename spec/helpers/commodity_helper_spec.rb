@@ -191,6 +191,73 @@ RSpec.describe CommodityHelper do
     end
   end
 
+  describe '#applicable_excise_additional_codes' do
+    let(:expected_options) do
+      {
+        'xi' => {
+          '306' => {
+            'measure_type_description' => 'Excises',
+            'heading' => nil,
+            'additional_codes' => [
+              {
+                'code' => 'X520',
+                'overlay' => 'EXCISE - FULL, 520, UNREBATED LIGHT OIL, OTHER',
+                'hint' => '',
+                'measure_sid' => -485_461,
+              },
+              {
+                'code' => 'X522',
+                'overlay' => 'EXCISE - FULL, 522, REBATED LIGHT OIL, UNLEADED FUEL',
+                'hint' => '',
+                'measure_sid' => -485_453,
+              },
+              {
+                'code' => 'X541',
+                'overlay' => 'EXCISE - FULL, 541, UNREBATED HEAVY OIL',
+                'hint' => '',
+                'measure_sid' => -485_455,
+              },
+              {
+                'code' => 'X542',
+                'overlay' => 'EXCISE - FULL, 542, KEROSENE AS OFF-ROAD MOTOR VEHICLE FUEL',
+                'hint' => '',
+                'measure_sid' => -485_456,
+              },
+              {
+                'code' => 'X551',
+                'overlay' => 'EXCISE - FULL, 551, REBATED HEAVY OIL, KEROSENE',
+                'hint' => '',
+                'measure_sid' => -485_457,
+              },
+              {
+                'code' => 'X556',
+                'overlay' => 'EXCISE - FULL, 556, REBATED HEAVY OIL, GAS OIL',
+                'hint' => '',
+                'measure_sid' => -485_458,
+              },
+              {
+                'code' => 'X561',
+                'overlay' => 'EXCISE - FULL, 561, REBATED HEAVY OIL, FUEL OIL',
+                'hint' => '',
+                'measure_sid' => -485_459,
+              },
+              {
+                'code' => 'X570',
+                'overlay' => 'EXCISE - FULL, 570, REBATED HEAVY OIL, OTHER',
+                'hint' => '',
+                'measure_sid' => -485_460,
+              },
+            ],
+          },
+        },
+      }
+    end
+
+    it 'returns the applicable additional codes' do
+      expect(helper.applicable_excise_additional_codes).to eq(expected_options)
+    end
+  end
+
   describe '#applicable_measure_units' do
     let(:expected_measure_units) do
       {

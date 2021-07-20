@@ -26,7 +26,62 @@
               "measure_sid": 20126512
             }
           ]
+        },
+        "306": {
+          "measure_type_description": "Excises",
+          "heading": null,
+          "additional_codes": [
+            {
+              "code": "X520",
+              "overlay": "EXCISE - FULL, 520, UNREBATED LIGHT OIL, OTHER",
+              "hint": "",
+              "measure_sid": -485461
+            },
+            {
+              "code": "X522",
+              "overlay": "EXCISE - FULL, 522, REBATED LIGHT OIL, UNLEADED FUEL",
+              "hint": "",
+              "measure_sid": -485453
+            },
+            {
+              "code": "X541",
+              "overlay": "EXCISE - FULL, 541, UNREBATED HEAVY OIL",
+              "hint": "",
+              "measure_sid": -485455
+            },
+            {
+              "code": "X542",
+              "overlay": "EXCISE - FULL, 542, KEROSENE AS OFF-ROAD MOTOR VEHICLE FUEL",
+              "hint": "",
+              "measure_sid": -485456
+            },
+            {
+              "code": "X551",
+              "overlay": "EXCISE - FULL, 551, REBATED HEAVY OIL, KEROSENE",
+              "hint": "",
+              "measure_sid": -485457
+            },
+            {
+              "code": "X556",
+              "overlay": "EXCISE - FULL, 556, REBATED HEAVY OIL, GAS OIL",
+              "hint": "",
+              "measure_sid": -485458
+            },
+            {
+              "code": "X561",
+              "overlay": "EXCISE - FULL, 561, REBATED HEAVY OIL, FUEL OIL",
+              "hint": "",
+              "measure_sid": -485459
+            },
+            {
+              "code": "X570",
+              "overlay": "EXCISE - FULL, 570, REBATED HEAVY OIL, OTHER",
+              "hint": "",
+              "measure_sid": -485460
+            }
+          ]
         }
+
       },
       "applicable_vat_options": {
         "VATR": "VAT reduced rate 5% (5.0)",

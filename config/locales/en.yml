@@ -165,6 +165,14 @@ en:
                 blank: Specify a valid additional code
               additional_code_xi:
                 blank: Specify a valid additional code
+        steps/excise:
+            attributes:
+              measure_type_id:
+                blank: Enter a valid measure type id
+              additional_code_uk:
+                blank: Specify a valid additional code
+              additional_code_xi:
+                blank: Specify a valid additional code
         steps/measure_amount:
           attributes:
             answers:

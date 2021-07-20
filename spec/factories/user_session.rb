@@ -84,6 +84,20 @@ FactoryBot.define do
     end
   end
 
+  trait :with_excise_additional_codes do
+    excise do
+      {
+        'uk' => {
+          '306' => 'X444',
+        },
+        'xi' => {
+          'DBC' => 'X369',
+          '306' => 'X111',
+        },
+      }
+    end
+  end
+
   trait :with_no_duty_route_eu do
     country_of_origin { 'RO' }
     import_destination { 'XI' }
