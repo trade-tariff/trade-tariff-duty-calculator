@@ -1,4 +1,4 @@
-RSpec.describe Steps::ImportDestination do
+RSpec.describe Steps::ImportDestination, :step do
   subject(:step) { build(:import_destination, user_session: user_session, import_destination: import_destination) }
 
   let(:user_session) { build(:user_session, session_attributes) }
@@ -70,8 +70,6 @@ RSpec.describe Steps::ImportDestination do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     it 'returns country_of_origin_path' do
       expect(
         step.next_step_path,
@@ -82,8 +80,6 @@ RSpec.describe Steps::ImportDestination do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     let(:session_attributes) do
       {
         'commodity_code' => '100000000',

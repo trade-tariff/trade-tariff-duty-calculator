@@ -1,4 +1,4 @@
-RSpec.describe Steps::MeasureAmount do
+RSpec.describe Steps::MeasureAmount, :step do
   subject(:step) do
     build(
       :measure_amount,
@@ -105,8 +105,6 @@ RSpec.describe Steps::MeasureAmount do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     it 'returns customs_value_path' do
       expect(
         step.previous_step_path,
@@ -117,8 +115,6 @@ RSpec.describe Steps::MeasureAmount do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     let(:applicable_additional_codes) { {} }
     let(:applicable_vat_options) { {} }
     let(:first_measure_type_id) { '105' }

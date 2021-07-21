@@ -1,4 +1,4 @@
-RSpec.describe Steps::FinalUse do
+RSpec.describe Steps::FinalUse, :step do
   subject(:step) { build(:final_use, user_session: user_session, final_use: final_use) }
 
   let(:session_attributes) { {} }
@@ -122,8 +122,6 @@ RSpec.describe Steps::FinalUse do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     context 'when on GB to NI route and final use answer is yes' do
       let(:session_attributes) do
         {
@@ -181,8 +179,6 @@ RSpec.describe Steps::FinalUse do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     context 'when on GB to NI route' do
       let(:session_attributes) do
         {

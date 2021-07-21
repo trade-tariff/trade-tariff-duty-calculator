@@ -1,4 +1,4 @@
-RSpec.describe Steps::CountryOfOrigin do
+RSpec.describe Steps::CountryOfOrigin, :step do
   subject(:step) do
     build(
       :country_of_origin,
@@ -110,8 +110,6 @@ RSpec.describe Steps::CountryOfOrigin do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     it 'returns import_destination_path' do
       expect(
         step.previous_step_path,
@@ -122,8 +120,6 @@ RSpec.describe Steps::CountryOfOrigin do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     context 'when on NI to GB route' do
       let(:session_attributes) do
         {

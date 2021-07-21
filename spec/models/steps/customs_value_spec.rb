@@ -1,4 +1,4 @@
-RSpec.describe Steps::CustomsValue do
+RSpec.describe Steps::CustomsValue, :step do
   subject(:step) do
     build(
       :customs_value,
@@ -178,8 +178,6 @@ RSpec.describe Steps::CustomsValue do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     context 'when on GB to NI route' do
       before do
         allow(user_session).to receive(:gb_to_ni_route?).and_return(true)
@@ -284,8 +282,6 @@ RSpec.describe Steps::CustomsValue do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     let(:applicable_measure_units) do
       {
         'DTN' => {

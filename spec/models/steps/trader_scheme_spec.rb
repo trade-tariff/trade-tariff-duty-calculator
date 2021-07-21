@@ -1,4 +1,4 @@
-RSpec.describe Steps::TraderScheme do
+RSpec.describe Steps::TraderScheme, :step do
   subject(:step) { build(:trader_scheme, user_session: user_session, trader_scheme: trader_scheme) }
 
   let(:user_session) { build(:user_session, session_attributes) }
@@ -54,8 +54,6 @@ RSpec.describe Steps::TraderScheme do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     let(:answer) { 'yes' }
     let(:session_attributes) do
       {
@@ -110,8 +108,6 @@ RSpec.describe Steps::TraderScheme do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     let(:session_attributes) do
       {
         'import_destination' => 'XI',

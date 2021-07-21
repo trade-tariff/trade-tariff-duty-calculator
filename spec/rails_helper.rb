@@ -6,6 +6,7 @@ Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
 if ENV['COVERAGE']
   require 'simplecov'
+
   SimpleCov.start do
     minimum_coverage 90
     maximum_coverage_drop 0.25
@@ -19,6 +20,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   config.example_status_persistence_file_path = 'rspec.txt'
   config.include FactoryBot::Syntax::Methods
+  config.include Rails.application.routes.url_helpers, :step
   config.before do
     Thread.current[:commodity_context_service] = CommodityContextService.new
   end

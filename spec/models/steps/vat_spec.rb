@@ -1,4 +1,4 @@
-RSpec.describe Steps::Vat do
+RSpec.describe Steps::Vat, :step do
   subject(:step) { build(:vat, user_session: user_session, vat: vat) }
 
   let(:vat) { nil }
@@ -73,8 +73,6 @@ RSpec.describe Steps::Vat do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     it 'returns confirm_path' do
       expect(
         step.next_step_path,
@@ -85,8 +83,6 @@ RSpec.describe Steps::Vat do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     context 'when there are additional codes on the session' do
       let(:user_session) do
         build(

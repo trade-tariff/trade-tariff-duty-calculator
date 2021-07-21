@@ -1,4 +1,4 @@
-RSpec.describe Steps::ImportDate do
+RSpec.describe Steps::ImportDate, :step do
   subject(:step) do
     build(
       :import_date,
@@ -149,8 +149,6 @@ RSpec.describe Steps::ImportDate do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     it 'returns import_destination_path' do
       expect(
         step.next_step_path,

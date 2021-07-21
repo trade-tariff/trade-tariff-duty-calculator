@@ -1,4 +1,4 @@
-RSpec.describe Steps::Interstitial do
+RSpec.describe Steps::Interstitial, :step do
   subject(:step) { described_class.new(user_session) }
 
   let(:user_session) do
@@ -31,8 +31,6 @@ RSpec.describe Steps::Interstitial do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     it 'returns customs_value_path' do
       expect(
         step.next_step_path,
@@ -43,8 +41,6 @@ RSpec.describe Steps::Interstitial do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     context 'when on GB to NI route' do
       it 'returns country_of_origin_path' do
         expect(

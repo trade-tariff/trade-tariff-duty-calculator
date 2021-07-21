@@ -1,6 +1,10 @@
-RSpec.describe Steps::CertificateOfOrigin do
+RSpec.describe Steps::CertificateOfOrigin, :step do
   subject(:step) do
-    build(:certificate_of_origin, user_session: user_session, certificate_of_origin: certificate_of_origin)
+    build(
+      :certificate_of_origin,
+      user_session: user_session,
+      certificate_of_origin: certificate_of_origin,
+    )
   end
 
   let(:session_attributes) { {} }
@@ -54,8 +58,6 @@ RSpec.describe Steps::CertificateOfOrigin do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     context 'when there is a certificate of origin available' do
       let(:session_attributes) { { 'certificate_of_origin' => 'yes' } }
 
@@ -82,8 +84,6 @@ RSpec.describe Steps::CertificateOfOrigin do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     context 'when final use answer is NO' do
       let(:session_attributes) { { 'final_use' => 'no' } }
 

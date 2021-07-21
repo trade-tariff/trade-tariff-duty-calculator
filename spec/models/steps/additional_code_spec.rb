@@ -1,4 +1,4 @@
-RSpec.describe Steps::AdditionalCode do
+RSpec.describe Steps::AdditionalCode, :step do
   subject(:step) do
     build(
       :additional_code,
@@ -244,8 +244,6 @@ RSpec.describe Steps::AdditionalCode do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     let(:applicable_measure_units) { {} }
 
     before do
@@ -341,10 +339,7 @@ RSpec.describe Steps::AdditionalCode do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
-    context 'when there is just one measure type id on the applicable_additional_codes
-    hash' do
+    context 'when there is just one measure type id on the applicable_additional_codes hash' do
       let(:additional_codes) do
         {
           '105' => {
