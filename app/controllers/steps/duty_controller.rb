@@ -2,7 +2,7 @@ module Steps
   class DutyController < BaseController
     def show
       @duty_options = duty_options
-      @gbp_to_eur_exchange_rate = Api::ExchangeRate.for('GBP').rate.round(4) unless user_session.import_into_gb?
+      @gbp_to_eur_exchange_rate = Api::MonetaryExchangeRate.for('GBP').exchange_rate.round(4) unless user_session.import_into_gb?
     end
 
     private

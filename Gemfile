@@ -16,7 +16,7 @@ gem 'newrelic_rpm'
 gem 'puma'
 gem 'railties', '~> 6'
 gem 'sentry-raven'
-gem 'uktt', git: 'https://github.com/trade-tariff/uktt.git'
+gem 'uktt', git: 'https://github.com/trade-tariff/uktt.git', ref: 'monetary_exchange_rates'
 gem 'webpacker'
 
 group :development, :test do

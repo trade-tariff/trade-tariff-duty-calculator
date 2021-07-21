@@ -1,8 +1,9 @@
 GIT
   remote: https://github.com/trade-tariff/uktt.git
-  revision: 156488b1db14c1c228842450f2ddb93dcf7a6994
+  revision: 8fcc619b1887173e9e088c6e52931e98dc0f9533
+  ref: monetary_exchange_rates
   specs:
-    uktt (2.2.2)
+    uktt (2.3.0)
       retriable
 
 GEM
