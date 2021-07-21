@@ -209,10 +209,6 @@ class UserSession
     row_to_ni_route? && planned_processing != 'commercial_purposes'
   end
 
-  def import_into_gb?
-    import_destination == 'UK'
-  end
-
   def no_duty_to_pay?
     no_duty_route? || possible_duty_route? && no_duty_applies?
   end
