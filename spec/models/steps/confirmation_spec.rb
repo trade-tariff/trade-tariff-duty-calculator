@@ -1,4 +1,4 @@
-RSpec.describe Steps::Confirmation do
+RSpec.describe Steps::Confirmation, :step do
   subject(:step) { build(:confirmation, user_session: user_session) }
 
   let(:user_session) { build(:user_session, :with_commodity_information) }
@@ -10,8 +10,6 @@ RSpec.describe Steps::Confirmation do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     it 'return duty path' do
       expect(
         step.next_step_path,
@@ -22,8 +20,6 @@ RSpec.describe Steps::Confirmation do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     context 'when there are more than one applicable vat options' do
       let(:user_session) { build(:user_session, :with_commodity_information) }
 

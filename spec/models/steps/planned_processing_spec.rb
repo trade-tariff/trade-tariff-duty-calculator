@@ -1,4 +1,4 @@
-RSpec.describe Steps::PlannedProcessing do
+RSpec.describe Steps::PlannedProcessing, :step do
   subject(:step) { build(:planned_processing, user_session: user_session, planned_processing: planned_processing) }
 
   let(:session_attributes) { {} }
@@ -42,8 +42,6 @@ RSpec.describe Steps::PlannedProcessing do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     let(:answer) { 'without_any_processing' }
     let(:session_attributes) do
       {
@@ -167,8 +165,6 @@ RSpec.describe Steps::PlannedProcessing do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     let(:session_attributes) do
       {
         'import_destination' => 'XI',
