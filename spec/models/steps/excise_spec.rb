@@ -1,4 +1,4 @@
-RSpec.describe Steps::Excise do
+RSpec.describe Steps::Excise, :step do
   subject(:step) do
     build(
       :excise,
@@ -10,7 +10,7 @@ RSpec.describe Steps::Excise do
   let(:filtered_commodity) { instance_double(Api::Commodity) }
   let(:applicable_vat_options) { {} }
 
-  let(:additional_codes) do
+  let(:applicable_additional_codes) do
     {
       '306' => {
         'measure_type_description' => 'Excises',
@@ -71,7 +71,7 @@ RSpec.describe Steps::Excise do
 
   before do
     allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
-    allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(additional_codes)
+    allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(applicable_additional_codes)
     allow(filtered_commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
   end
 
@@ -210,9 +210,161 @@ RSpec.describe Steps::Excise do
     end
   end
 
-  # xdescribe '#previous_step_path' do
-  # end
+  describe '#previous_step_path' do
+    let(:applicable_measure_units) { {} }
 
-  # xdescribe '#next_step_path' do
-  # end
+    before do
+      allow(filtered_commodity).to receive(:applicable_measure_units).and_return(applicable_measure_units)
+    end
+
+    context 'when there is just one measure type id available and measure units are available' do
+      let(:applicable_measure_units) do
+        {
+          'DTN' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => '',
+            'abbreviation' => '100 kg',
+            'unit_question' => 'What is the weight of the goods you will be importing?',
+            'unit_hint' => 'Enter the value in decitonnes (100kg)',
+            'unit' => 'x 100 kg',
+          },
+        }
+      end
+
+      let(:applicable_additional_codes) do
+        {
+          '306' => {
+            'additional_codes' => [
+              { 'code' => 'X411' },
+              { 'code' => 'X444' },
+            ],
+          },
+        }
+      end
+
+      it 'returns the measure_amounts path' do
+        expect(step.previous_step_path).to eq(measure_amount_path)
+      end
+    end
+
+    context 'when there is just one measure type id available and no measure units are available' do
+      let(:applicable_measure_units) { {} }
+
+      let(:applicable_additional_codes) do
+        {
+          '306' => {
+            'additional_codes' => [
+              { 'code' => 'X411' },
+              { 'code' => 'X444' },
+            ],
+          },
+        }
+      end
+
+      it 'returns the customs_value_path' do
+        expect(step.previous_step_path).to eq(customs_value_path)
+      end
+    end
+
+    context 'when there are non excise measure type ids on the applicable_additional_codes hash' do
+      let(:applicable_additional_codes) do
+        {
+          '306' => {
+            'additional_codes' => [
+              { 'code' => 'X411' },
+              { 'code' => 'X444' },
+            ],
+          },
+          '105' => {
+            'additional_codes' => [
+              { 'code' => '2600' },
+              { 'code' => '2601' },
+            ],
+          },
+        }
+      end
+
+      it 'returns additional_codes_path with the previous measure_type_id as argument' do
+        expect(step.previous_step_path).to eq(additional_codes_path('105'))
+      end
+    end
+  end
+
+  describe '#next_step_path' do
+    context 'when there is just one measure type id on the applicable_additional_codes hash' do
+      let(:applicable_additional_codes) do
+        {
+          '306' => {
+            'additional_codes' => [
+              { 'code' => 'X411' },
+              { 'code' => 'X444' },
+            ],
+          },
+        }
+      end
+
+      it 'returns confirm_path' do
+        expect(step.next_step_path).to eq(confirm_path)
+      end
+    end
+
+    context 'when there are multiple measure type ids on the applicable_additional_codes hash' do
+      let(:applicable_additional_codes) do
+        {
+          '306' => {
+            'additional_codes' => [
+              { 'code' => 'X411' },
+              { 'code' => 'X444' },
+            ],
+          },
+          'DAA' => {
+            'additional_codes' => [
+              { 'code' => 'X422' },
+              { 'code' => 'X488' },
+            ],
+          },
+        }
+      end
+
+      it 'returns excise_path with the next measure_type_id as argument' do
+        expect(step.next_step_path).to eq(excise_path('DAA'))
+      end
+    end
+
+    context 'when there are less than 2 applicable vat options' do
+      let(:applicable_vat_options) do
+        {
+          'VATZ' => 'flibble',
+        }
+      end
+
+      it 'returns confirm_path' do
+        expect(step.next_step_path).to eq(confirm_path)
+      end
+    end
+
+    context 'when there are more than 1 applicable vat options' do
+      let(:applicable_additional_codes) do
+        {
+          '306' => {
+            'additional_codes' => [
+              { 'code' => 'X411' },
+              { 'code' => 'X444' },
+            ],
+          },
+        }
+      end
+
+      let(:applicable_vat_options) do
+        {
+          'VATZ' => 'flibble',
+          'VATR' => 'foobar',
+        }
+      end
+
+      it 'returns vat_path' do
+        expect(step.next_step_path).to eq(vat_path)
+      end
+    end
+  end
 end

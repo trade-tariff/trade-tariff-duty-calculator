@@ -10,7 +10,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
   let(:filtered_commodity) { instance_double(Api::Commodity) }
   let(:applicable_vat_options) { {} }
 
-  let(:additional_codes) do
+  let(:applicable_additional_codes) do
     {
       '105' => {
         'measure_type_description' => 'third-country duty',
@@ -60,7 +60,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
 
   before do
     allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
-    allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(additional_codes)
+    allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(applicable_additional_codes)
     allow(filtered_commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
   end
 
@@ -264,7 +264,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
         }
       end
 
-      let(:additional_codes) do
+      let(:applicable_additional_codes) do
         {
           '105' => {
             'heading' => {
@@ -293,24 +293,12 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
     end
 
     context 'when there is just one measure type id available and no measure units are available' do
-      let(:additional_codes) do
+      let(:applicable_additional_codes) do
         {
           '105' => {
-            'heading' => {
-              'overlay' => 'Describe your goods in more detail',
-              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-            },
             'additional_codes' => [
-              {
-                'code' => '2600',
-                'overlay' => 'The product I am importing is COVID-19 critical',
-                'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
-              },
-              {
-                'code' => '2601',
-                'overlay' => 'The product I am importing is not COVID-19 critical',
-                'hint' => '',
-              },
+              { 'code' => '2600' },
+              { 'code' => '2601' },
             ],
           },
         }
@@ -340,7 +328,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
 
   describe '#next_step_path' do
     context 'when there is just one measure type id on the applicable_additional_codes hash' do
-      let(:additional_codes) do
+      let(:applicable_additional_codes) do
         {
           '105' => {
             'additional_codes' => [
@@ -357,7 +345,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
     end
 
     context 'when there are excise additional codes' do
-      let(:additional_codes) do
+      let(:applicable_additional_codes) do
         {
           '105' => {
             'additional_codes' => [
@@ -374,7 +362,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
         }
       end
 
-      it 'returns confirm_path' do
+      it 'returns excise_path' do
         expect(step.next_step_path).to eq(excise_path('306'))
       end
     end
@@ -386,25 +374,12 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
     end
 
     context 'when there are less than 2 applicable vat options' do
-      let(:additional_codes) do
+      let(:applicable_additional_codes) do
         {
           '105' => {
-            'measure_type_description' => 'third-country duty',
-            'heading' => {
-              'overlay' => 'Describe your goods in more detail',
-              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-            },
             'additional_codes' => [
-              {
-                'code' => '2600',
-                'overlay' => 'The product I am importing is COVID-19 critical',
-                'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
-              },
-              {
-                'code' => '2601',
-                'overlay' => 'The product I am importing is not COVID-19 critical',
-                'hint' => '',
-              },
+              { 'code' => '2600' },
+              { 'code' => '2601' },
             ],
           },
         }
@@ -422,25 +397,12 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
     end
 
     context 'when there are more than 1 applicable vat options' do
-      let(:additional_codes) do
+      let(:applicable_additional_codes) do
         {
           '105' => {
-            'measure_type_description' => 'third-country duty',
-            'heading' => {
-              'overlay' => 'Describe your goods in more detail',
-              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
-            },
             'additional_codes' => [
-              {
-                'code' => '2600',
-                'overlay' => 'The product I am importing is COVID-19 critical',
-                'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
-              },
-              {
-                'code' => '2601',
-                'overlay' => 'The product I am importing is not COVID-19 critical',
-                'hint' => '',
-              },
+              { 'code' => '2600' },
+              { 'code' => '2601' },
             ],
           },
         }
