@@ -1,7 +1,6 @@
 GIT
   remote: https://github.com/trade-tariff/uktt.git
-  revision: 8fcc619b1887173e9e088c6e52931e98dc0f9533
-  ref: monetary_exchange_rates
+  revision: d83c19ae1c0c0f1b83cc503f220850a1b1099059
   specs:
     uktt (2.3.0)
       retriable
