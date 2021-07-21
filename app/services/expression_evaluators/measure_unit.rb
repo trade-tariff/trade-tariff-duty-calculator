@@ -49,7 +49,7 @@ module ExpressionEvaluators
     end
 
     def eur_to_gbp_rate
-      Api::ExchangeRate.for('GBP').rate
+      Api::MonetaryExchangeRate.for('GBP').exchange_rate
     end
 
     def duty_amount_in_eur?
