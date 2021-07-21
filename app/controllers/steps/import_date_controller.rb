@@ -1,13 +1,13 @@
 module Steps
   class ImportDateController < BaseController
     def show
-      @step = Steps::ImportDate.new(user_session)
+      @step = Steps::ImportDate.new
 
       persist_commodity_data
     end
 
     def create
-      @step = Steps::ImportDate.new(user_session, permitted_params)
+      @step = Steps::ImportDate.new(permitted_params)
 
       validate(@step)
     end

@@ -96,4 +96,8 @@ class ConfirmationDecorator < SimpleDelegator
 
     user_session.additional_codes
   end
+
+  def user_session
+    UserSession.get
+  end
 end

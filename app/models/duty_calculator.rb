@@ -1,8 +1,7 @@
 class DutyCalculator
   include CommodityHelper
 
-  def initialize(user_session, commodity)
-    @user_session = user_session
+  def initialize(commodity)
     @commodity = commodity
   end
 
@@ -25,7 +24,7 @@ class DutyCalculator
 
   private
 
-  attr_reader :user_session, :commodity
+  attr_reader :commodity
 
   def additional_duty_rows
     @additional_duty_rows ||=
@@ -81,5 +80,9 @@ class DutyCalculator
 
   def no_additional_code_measures
     commodity.import_measures.reject(&:additional_code).reject(&:vat)
+  end
+
+  def user_session
+    UserSession.get
   end
 end

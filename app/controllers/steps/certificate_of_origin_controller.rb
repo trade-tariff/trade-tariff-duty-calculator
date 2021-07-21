@@ -1,11 +1,11 @@
 module Steps
   class CertificateOfOriginController < BaseController
     def show
-      @step = Steps::CertificateOfOrigin.new(user_session)
+      @step = Steps::CertificateOfOrigin.new
     end
 
     def create
-      @step = Steps::CertificateOfOrigin.new(user_session, permitted_params)
+      @step = Steps::CertificateOfOrigin.new(permitted_params)
 
       validate(@step)
     end

@@ -1,4 +1,4 @@
-RSpec.describe Steps::ImportDate, :step do
+RSpec.describe Steps::ImportDate, :step, :user_session do
   subject(:step) do
     build(
       :import_date,

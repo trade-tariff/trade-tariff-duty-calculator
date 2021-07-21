@@ -1,4 +1,4 @@
-RSpec.describe Steps::TraderScheme, :step do
+RSpec.describe Steps::TraderScheme, :step, :user_session do
   subject(:step) { build(:trader_scheme, user_session: user_session, trader_scheme: trader_scheme) }
 
   let(:user_session) { build(:user_session, session_attributes) }

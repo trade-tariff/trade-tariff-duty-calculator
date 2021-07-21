@@ -23,11 +23,13 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers, :step
   config.before do
     Thread.current[:commodity_context_service] = CommodityContextService.new
-  end
 
-  config.before do
     Rails.application.config.http_client_uk = FakeUkttHttp.new(nil, nil, nil, nil)
     Rails.application.config.http_client_xi = FakeUkttHttp.new(nil, nil, nil, nil)
     stub_const('Uktt::Http', FakeUkttHttp)
+  end
+
+  config.before :each, :user_session do
+    Thread.current[:user_session] = user_session
   end
 end

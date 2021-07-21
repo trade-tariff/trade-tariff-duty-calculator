@@ -1,9 +1,5 @@
-RSpec.describe Steps::ConfirmationController do
-  before do
-    allow(UserSession).to receive(:new).and_return(session)
-  end
-
-  let(:session) do
+RSpec.describe Steps::ConfirmationController, :user_session do
+  let(:user_session) do
     build(
       :user_session,
       :with_commodity_information,

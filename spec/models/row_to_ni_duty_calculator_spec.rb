@@ -1,5 +1,5 @@
-RSpec.describe RowToNiDutyCalculator do
-  subject(:calculator) { described_class.new(user_session, uk_options, xi_options) }
+RSpec.describe RowToNiDutyCalculator, :user_session do
+  subject(:calculator) { described_class.new(uk_options, xi_options) }
 
   let(:user_session) do
     build(

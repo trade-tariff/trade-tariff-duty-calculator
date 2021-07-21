@@ -1,10 +1,9 @@
-RSpec.describe Steps::MeasureAmountController do
+RSpec.describe Steps::MeasureAmountController, :user_session do
   before do
-    allow(UserSession).to receive(:new).and_return(session)
     allow(Steps::MeasureAmount).to receive(:new).and_call_original
   end
 
-  let(:session) { build(:user_session, :with_commodity_information) }
+  let(:user_session) { build(:user_session, :with_commodity_information) }
 
   let(:expected_applicable_measure_units) do
     {
@@ -52,20 +51,16 @@ RSpec.describe Steps::MeasureAmountController do
     it 'passes the correct params to the Steps::MeasureAmount step' do
       response
 
-      expect(Steps::MeasureAmount).to have_received(:new).with(
-        session, expected_applicable_measure_units
-      )
+      expect(Steps::MeasureAmount).to have_received(:new).with(expected_applicable_measure_units)
     end
 
     context 'when deltas_applicable' do
-      let(:session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
+      let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
 
       it 'passes the correct params to the Steps::MeasureAmount step' do
         response
 
-        expect(Steps::MeasureAmount).to have_received(:new).with(
-          session, expected_applicable_measure_units
-        )
+        expect(Steps::MeasureAmount).to have_received(:new).with(expected_applicable_measure_units)
       end
     end
   end
@@ -92,7 +87,7 @@ RSpec.describe Steps::MeasureAmountController do
       end
 
       it { expect(response).to redirect_to(additional_codes_path('105')) }
-      it { expect { response }.to change(session, :measure_amount).from({}).to('dtn' => '100') }
+      it { expect { response }.to change(user_session, :measure_amount).from({}).to('dtn' => '100') }
     end
 
     context 'when the step answers are invalid' do
@@ -105,7 +100,7 @@ RSpec.describe Steps::MeasureAmountController do
 
       it { expect(response).to have_http_status(:ok) }
       it { expect(response).to render_template('measure_amount/show') }
-      it { expect { response }.not_to change(session, :measure_amount).from({}) }
+      it { expect { response }.not_to change(user_session, :measure_amount).from({}) }
     end
   end
 end

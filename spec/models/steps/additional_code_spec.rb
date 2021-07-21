@@ -1,4 +1,4 @@
-RSpec.describe Steps::AdditionalCode, :step do
+RSpec.describe Steps::AdditionalCode, :step, :user_session do
   subject(:step) do
     build(
       :additional_code,

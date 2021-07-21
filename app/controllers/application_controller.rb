@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :user_session
   after_action :no_store_cache
 
   def no_store_cache
@@ -8,6 +9,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def user_session
-    @user_session ||= UserSession.new(session)
+    @user_session ||= UserSession.build(session)
   end
 end

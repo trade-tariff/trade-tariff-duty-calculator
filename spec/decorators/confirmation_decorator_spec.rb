@@ -1,7 +1,7 @@
-RSpec.describe ConfirmationDecorator do
+RSpec.describe ConfirmationDecorator, :user_session do
   subject(:confirmation_decorator) { described_class.new(confirmation_step, commodity) }
 
-  let(:confirmation_step) { Steps::Confirmation.new(user_session) }
+  let(:confirmation_step) { Steps::Confirmation.new }
 
   let(:commodity) do
     Api::Commodity.build(

@@ -1,11 +1,11 @@
 module Steps
   class MeasureAmountController < BaseController
     def show
-      @step = Steps::MeasureAmount.new(user_session, measure_amount_params)
+      @step = Steps::MeasureAmount.new(measure_amount_params)
     end
 
     def create
-      @step = Steps::MeasureAmount.new(user_session, measure_amount_params)
+      @step = Steps::MeasureAmount.new(measure_amount_params)
 
       validate(@step)
     end

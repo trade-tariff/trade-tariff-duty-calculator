@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :step, class: 'Steps::Base' do
-    user_session { build(:user_session) }
+    transient do
+      user_session { build(:user_session) }
+    end
 
     initialize_with do
       attributes = possible_attributes.each_with_object({}) do |(method_name, attribute_name), acc|
@@ -9,7 +11,9 @@ FactoryBot.define do
 
       parameters = ActionController::Parameters.new(attributes).permit!
 
-      new(user_session, parameters)
+      Thread.current[:user_session] ||= user_session
+
+      new(parameters)
     end
   end
 end

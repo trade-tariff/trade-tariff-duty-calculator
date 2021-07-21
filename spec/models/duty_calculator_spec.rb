@@ -1,5 +1,5 @@
-RSpec.describe DutyCalculator do
-  subject(:calculator) { described_class.new(user_session, commodity) }
+RSpec.describe DutyCalculator, :user_session do
+  subject(:calculator) { described_class.new(commodity) }
 
   let(:user_session) { build(:user_session, session_attributes) }
   let(:commodity_source) { :uk }

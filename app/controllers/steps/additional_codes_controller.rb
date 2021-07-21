@@ -1,11 +1,11 @@
 module Steps
   class AdditionalCodesController < BaseController
     def show
-      @step = Steps::AdditionalCode.new(user_session, measure_type_id)
+      @step = Steps::AdditionalCode.new(measure_type_id)
     end
 
     def create
-      @step = Steps::AdditionalCode.new(user_session, permitted_params)
+      @step = Steps::AdditionalCode.new(permitted_params)
 
       validate(@step)
     end

@@ -4,11 +4,7 @@ module Steps
     include ActiveModel::Attributes
     include Rails.application.routes.url_helpers
 
-    attr_reader :user_session
-
-    def initialize(user_session, attributes = {})
-      @user_session = user_session
-
+    def initialize(attributes = {})
       clean_user_session if attributes.empty?
 
       super(attributes)
@@ -28,10 +24,14 @@ module Steps
       raise NotImplementedError
     end
 
+    def user_session
+      UserSession.get
+    end
+
     private
 
     def clean_user_session
-      @user_session.remove_step_ids(self.class::STEPS_TO_REMOVE_FROM_SESSION)
+      user_session.remove_step_ids(self.class::STEPS_TO_REMOVE_FROM_SESSION)
     end
   end
 end

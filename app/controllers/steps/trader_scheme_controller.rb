@@ -1,11 +1,11 @@
 module Steps
   class TraderSchemeController < BaseController
     def show
-      @step = Steps::TraderScheme.new(user_session)
+      @step = Steps::TraderScheme.new
     end
 
     def create
-      @step = Steps::TraderScheme.new(user_session, permitted_params)
+      @step = Steps::TraderScheme.new(permitted_params)
 
       validate(@step)
     end

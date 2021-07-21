@@ -1,9 +1,5 @@
-RSpec.describe Steps::PlannedProcessingController do
-  before do
-    allow(UserSession).to receive(:new).and_return(session)
-  end
-
-  let(:session) { build(:user_session, :with_commodity_information) }
+RSpec.describe Steps::PlannedProcessingController, :user_session do
+  let(:user_session) { build(:user_session, :with_commodity_information) }
 
   describe 'GET #show' do
     subject(:response) { get :show }
@@ -35,7 +31,7 @@ RSpec.describe Steps::PlannedProcessingController do
       end
 
       it { expect(response).to redirect_to(interstitial_path) }
-      it { expect { response }.to change(session, :planned_processing).from(nil).to('commercial_purposes') }
+      it { expect { response }.to change(user_session, :planned_processing).from(nil).to('commercial_purposes') }
     end
 
     context 'when the step answers are invalid' do
@@ -48,7 +44,7 @@ RSpec.describe Steps::PlannedProcessingController do
 
       it { expect(response).to have_http_status(:ok) }
       it { expect(response).to render_template('planned_processing/show') }
-      it { expect { response }.not_to change(session, :planned_processing).from(nil) }
+      it { expect { response }.not_to change(user_session, :planned_processing).from(nil) }
     end
   end
 end

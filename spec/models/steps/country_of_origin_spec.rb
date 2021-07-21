@@ -1,4 +1,4 @@
-RSpec.describe Steps::CountryOfOrigin, :step do
+RSpec.describe Steps::CountryOfOrigin, :step, :user_session do
   subject(:step) do
     build(
       :country_of_origin,
@@ -32,9 +32,7 @@ RSpec.describe Steps::CountryOfOrigin, :step do
 
   describe '#validations' do
     context 'when country_of_origin is blank' do
-      it 'is not a valid object' do
-        expect(step).not_to be_valid
-      end
+      it { expect(step).not_to be_valid }
 
       it 'adds the correct validation error message' do
         step.valid?
@@ -46,9 +44,7 @@ RSpec.describe Steps::CountryOfOrigin, :step do
     context 'when country_of_origin is present, but not OTHER' do
       let(:country_of_origin) { 'GB' }
 
-      it 'is a valid object' do
-        expect(step).to be_valid
-      end
+      it { expect(step).to be_valid }
 
       it 'has no validation errors' do
         step.valid?
