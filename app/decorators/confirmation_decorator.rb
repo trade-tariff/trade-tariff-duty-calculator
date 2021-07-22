@@ -103,7 +103,11 @@ class ConfirmationDecorator < SimpleDelegator
   def excise_for(value)
     return nil unless value.values.any?
 
-    user_session.excise_additional_codes
+    excise_additional_codes
+  end
+
+  def excise_additional_codes
+    user_session.excise_additional_code.values.join(', ')
   end
 
   def user_session

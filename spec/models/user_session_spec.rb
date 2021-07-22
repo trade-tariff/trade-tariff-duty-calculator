@@ -659,22 +659,6 @@ RSpec.describe UserSession do
     end
   end
 
-  describe '#excise_additional_codes' do
-    context 'when excise additional code answers have been stored' do
-      subject(:user_session) do
-        build(:user_session, :with_excise_additional_codes, :with_commodity_information)
-      end
-
-      it { expect(user_session.excise_additional_codes).to eq('X444, X369') }
-    end
-
-    context 'when excise additional code answers have not been stored' do
-      subject(:user_session) { build(:user_session, :with_commodity_information) }
-
-      it { expect(user_session.additional_codes).to eq('') }
-    end
-  end
-
   describe '#deltas_applicable?' do
     context 'when on RoW to NI route and planned_processing is commercial_purposes' do
       subject(:user_session) do
