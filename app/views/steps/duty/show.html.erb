@@ -14,3 +14,7 @@
   <%= render 'steps/duty/calculations/trade_details' %>
   <%= render 'steps/duty/calculations/options' %>
 <% end %>
+
+<% if @gbp_to_eur_exchange_rate.present? %>
+  <p class="govuk-body-s">Please note - the current page uses an exchange rate of <strong><%= @gbp_to_eur_exchange_rate %> GBP to EUR</strong>.</p>
+<% end %>
