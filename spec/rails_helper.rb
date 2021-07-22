@@ -30,6 +30,6 @@ RSpec.configure do |config|
   end
 
   config.before :each, :user_session do
-    Thread.current[:user_session] = user_session
+    UserSession.build(user_session)
   end
 end
