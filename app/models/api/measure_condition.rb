@@ -1,6 +1,7 @@
 module Api
   class MeasureCondition < Api::Base
     attributes :action,
+               :action_code,
                :condition,
                :condition_code,
                :condition_duty_amount,
@@ -8,6 +9,7 @@ module Api
                :condition_measurement_unit_qualifier_code,
                :condition_monetary_unit_code,
                :document_code,
+               :certificate_description,
                :duty_expression,
                :measure_condition_components,
                :monetary_unit_abbreviation,

@@ -113,7 +113,16 @@ RSpec.describe Steps::MeasureAmount, :step, :user_session do
   describe '#next_step_path' do
     let(:applicable_additional_codes) { {} }
     let(:applicable_vat_options) { {} }
-    let(:filtered_commodity) { instance_double(Api::Commodity) }
+
+    let(:commodity_source) { :uk }
+    let(:commodity_code) { '7202118000' }
+
+    let(:filtered_commodity) do
+      Api::Commodity.build(
+        commodity_source,
+        commodity_code,
+      )
+    end
 
     before do
       allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)

@@ -7,7 +7,16 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
   end
 
   let(:user_session) { build(:user_session, :with_commodity_information) }
-  let(:filtered_commodity) { instance_double(Api::Commodity) }
+  let(:commodity_source) { :uk }
+  let(:commodity_code) { '7202118000' }
+
+  let(:filtered_commodity) do
+    Api::Commodity.build(
+      commodity_source,
+      commodity_code,
+    )
+  end
+
   let(:applicable_vat_options) { {} }
 
   let(:applicable_additional_codes) do
@@ -58,10 +67,18 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
     }
   end
 
+  let(:document_codes) do
+    {
+      '103' => ['N851', ''],
+      '105' => ['C644', 'Y929', ''],
+    }
+  end
+
   before do
     allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
     allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(applicable_additional_codes)
     allow(filtered_commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
+    allow(Rails.configuration).to receive(:document_codes_enabled).and_return('true')
   end
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
@@ -417,6 +434,39 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
 
       it 'returns vat_path' do
         expect(step.next_step_path).to eq(vat_path)
+      end
+    end
+
+    context 'when there are available document codes' do
+      let(:commodity_code) { '7202999000' }
+      let(:measure_type_id) { 105 }
+
+      let(:applicable_additional_codes) do
+        {
+          '105' => {
+            'measure_type_description' => 'third-country duty',
+            'heading' => {
+              'overlay' => 'Describe your goods in more detail',
+              'hint' => 'To trade this commodity, you need to specify an additional 4 digits, known as an additional code',
+            },
+            'additional_codes' => [
+              {
+                'code' => '2600',
+                'overlay' => 'The product I am importing is COVID-19 critical',
+                'hint' => "Read more about the <a target='_blank' href='https://www.gov.uk/government/news/hmg-suspends-import-tariffs-on-covid-19-products-to-fight-virus'>suspension of tariffs on COVID-19 critical goods [opens in a new browser window]</a>",
+              },
+              {
+                'code' => '2601',
+                'overlay' => 'The product I am importing is not COVID-19 critical',
+                'hint' => '',
+              },
+            ],
+          },
+        }
+      end
+
+      it 'returns document_codes_path' do
+        expect(step.next_step_path).to eq(document_codes_path(measure_type_id))
       end
     end
   end

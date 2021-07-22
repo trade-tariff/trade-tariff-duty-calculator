@@ -367,6 +367,42 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#document_code_uk' do
+    subject(:user_session) do
+      build(
+        :user_session,
+        :with_commodity_information,
+        :with_document_codes,
+      )
+    end
+
+    let(:expected_value) do
+      { '103' => ['N851', ''], '105' => ['C644', 'Y929', ''] }
+    end
+
+    it 'returns the correct value from the session for the uk source' do
+      expect(user_session.document_code_uk).to eq(expected_value)
+    end
+  end
+
+  describe '#document_code_xi' do
+    subject(:user_session) do
+      build(
+        :user_session,
+        :with_commodity_information,
+        :with_document_codes,
+      )
+    end
+
+    let(:expected_value) do
+      { '142' => ['N851', ''], '353' => ['C644', 'Y929', ''] }
+    end
+
+    it 'returns the correct value from the session for the uk source' do
+      expect(user_session.document_code_xi).to eq(expected_value)
+    end
+  end
+
   describe '#additional_code_uk=' do
     let(:value) { { '105' => '2300' } }
     let(:expected_value) do
@@ -396,6 +432,72 @@ RSpec.describe UserSession do
       user_session.additional_code_uk = new_value
 
       expect(session['answers'][Steps::AdditionalCode.id]).to eq(merged_session)
+    end
+  end
+
+  describe '#document_code_uk=' do
+    let(:value) { { '103' => ['N851', ''] } }
+
+    let(:expected_value) do
+      { 'uk' => { '103' => ['N851', ''] }, 'xi' => {} }
+    end
+    let(:new_value) { { '105' => ['C644', 'Y929', ''] } }
+
+    let(:merged_session) do
+      {
+        'uk' => {
+          '103' => ['N851', ''],
+          '105' => ['C644', 'Y929', ''],
+        },
+        'xi' => {},
+      }
+    end
+
+    before do
+      user_session.document_code_uk = value
+    end
+
+    it 'stores the hash on the session' do
+      expect(session['answers'][Steps::DocumentCode.id]).to eq(expected_value)
+    end
+
+    it 'merges new additional codes to the existing ones' do
+      user_session.document_code_uk = new_value
+
+      expect(session['answers'][Steps::DocumentCode.id]).to eq(merged_session)
+    end
+  end
+
+  describe '#document_code_xi=' do
+    let(:value) { { '142' => ['N851', ''] } }
+
+    let(:expected_value) do
+      { 'xi' => { '142' => ['N851', ''] }, 'uk' => {} }
+    end
+    let(:new_value) { { '353' => ['C644', 'Y929', ''] } }
+
+    let(:merged_session) do
+      {
+        'xi' => {
+          '142' => ['N851', ''],
+          '353' => ['C644', 'Y929', ''],
+        },
+        'uk' => {},
+      }
+    end
+
+    before do
+      user_session.document_code_xi = value
+    end
+
+    it 'stores the hash on the session' do
+      expect(session['answers'][Steps::DocumentCode.id]).to eq(expected_value)
+    end
+
+    it 'merges new additional codes to the existing ones' do
+      user_session.document_code_xi = new_value
+
+      expect(session['answers'][Steps::DocumentCode.id]).to eq(merged_session)
     end
   end
 
@@ -431,7 +533,7 @@ RSpec.describe UserSession do
     end
   end
 
-  describe '#measure_type_ids' do
+  describe '#additional_code_measure_type_ids' do
     subject(:user_session) do
       build(
         :user_session,
@@ -441,7 +543,21 @@ RSpec.describe UserSession do
     end
 
     it 'returns the measure type ids from the session' do
-      expect(user_session.measure_type_ids).to eq(%w[105 103])
+      expect(user_session.additional_code_measure_type_ids).to eq(%w[105 103])
+    end
+  end
+
+  describe '#document_code_measure_type_ids' do
+    subject(:user_session) do
+      build(
+        :user_session,
+        :with_document_codes,
+        :with_commodity_information,
+      )
+    end
+
+    it 'returns the measure type ids from the session' do
+      expect(user_session.document_code_measure_type_ids).to eq(%w[103 105])
     end
   end
 
@@ -640,22 +756,6 @@ RSpec.describe UserSession do
 
     it 'returns false otherwise' do
       expect(user_session.row_to_ni_route?).to be false
-    end
-  end
-
-  describe '#additional_codes' do
-    context 'when additional code answers have been stored' do
-      subject(:user_session) do
-        build(:user_session, :with_additional_codes, :with_commodity_information)
-      end
-
-      it { expect(user_session.additional_codes).to eq('2340, 2600, 2340, 2600') }
-    end
-
-    context 'when additional code answers have not been stored' do
-      subject(:user_session) { build(:user_session, :with_commodity_information) }
-
-      it { expect(user_session.additional_codes).to eq('') }
     end
   end
 

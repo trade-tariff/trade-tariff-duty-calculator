@@ -39,6 +39,22 @@ module CommodityHelper
     )
   end
 
+  def applicable_document_codes
+    @applicable_document_codes ||=
+      {}.tap do |applicable_document_codes|
+        if user_session.deltas_applicable?
+          applicable_document_codes['uk'] = surface_document_codes(commodity: filtered_commodity(source: 'uk'))
+          applicable_document_codes['xi'] = surface_document_codes(commodity: filtered_commodity(source: 'xi'))
+        else
+          applicable_document_codes[user_session.commodity_source] = surface_document_codes
+        end
+      end
+  end
+
+  def applicable_document_codes?
+    applicable_document_codes.values.any?(&:present?)
+  end
+
   def applicable_additional_codes?
     applicable_additional_codes.values.any?(&:present?)
   end
@@ -48,7 +64,11 @@ module CommodityHelper
   end
 
   def applicable_measure_type_ids
-    @applicable_measure_type_ids ||= applicable_additional_codes.flat_map { |_service, additional_codes| additional_codes.keys }.uniq
+    applicable_additional_codes.flat_map { |_service, additional_codes| additional_codes.keys }.uniq
+  end
+
+  def document_codes_applicable_measure_type_ids
+    applicable_document_codes.flat_map { |_service, applicable_document_codes| applicable_document_codes.keys }.uniq
   end
 
   def applicable_excise_measure_type_ids
@@ -95,5 +115,16 @@ module CommodityHelper
 
   def xi_measure_units
     filtered_commodity(source: 'xi').applicable_measure_units
+  end
+
+  def surface_document_codes(commodity: filtered_commodity)
+    commodity.import_measures.each_with_object({}) { |measure, acc|
+      next if measure.document_codes.blank?
+
+      acc[measure.measure_type.id] ||= []
+      acc[measure.measure_type.id].concat(measure.document_codes)
+    }.slice(
+      *Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS,
+    )
   end
 end

@@ -2786,7 +2786,7 @@
         "description": "Phytosanitary Certificate (import)",
         "national": null,
         "measure_type_series_id": "B",
-        "id": "360"
+        "id": "103"
       },
       "legal_acts": [
         {
@@ -4144,7 +4144,7 @@
         "description": "Import control of organic products",
         "national": null,
         "measure_type_series_id": "B",
-        "id": "750"
+        "id": "105"
       },
       "legal_acts": [
         {
