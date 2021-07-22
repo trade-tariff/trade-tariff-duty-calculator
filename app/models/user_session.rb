@@ -5,6 +5,7 @@ class UserSession
     @session = session
     @session['answers'] ||= {}
     @session['answers'][Steps::AdditionalCode.id] ||= { 'xi' => {}, 'uk' => {} }
+    @session['answers'][Steps::Excise.id] ||= {}
   end
 
   def remove_step_ids(ids)
@@ -121,8 +122,20 @@ class UserSession
     session['answers'][Steps::AdditionalCode.id]['xi']
   end
 
+  def excise_additional_code=(value)
+    session['answers'][Steps::Excise.id].merge!(value)
+  end
+
+  def excise_additional_code
+    session['answers'][Steps::Excise.id]
+  end
+
   def measure_type_ids
     session['answers'][Steps::AdditionalCode.id][commodity_source].keys
+  end
+
+  def excise_measure_type_ids
+    session['answers'][Steps::Excise.id].keys
   end
 
   def commodity_source=(value)

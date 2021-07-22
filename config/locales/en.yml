@@ -114,6 +114,7 @@ en:
     measure_amount: Import quantity
     additional_code: Additional code(s)
     vat: Applicable VAT rate
+    excise: Excise additional code
   activemodel:
     errors:
       models:
@@ -165,6 +166,12 @@ en:
                 blank: Specify a valid additional code
               additional_code_xi:
                 blank: Specify a valid additional code
+        steps/excise:
+            attributes:
+              measure_type_id:
+                blank: Enter a valid measure type id
+              additional_code:
+                blank: Select an excise class
         steps/measure_amount:
           attributes:
             answers:

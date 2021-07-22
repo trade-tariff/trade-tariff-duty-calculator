@@ -445,6 +445,61 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#excise_additional_code' do
+    subject(:user_session) do
+      build(
+        :user_session,
+        :with_commodity_information,
+        :with_excise_additional_codes,
+      )
+    end
+
+    it 'returns the correct value from the session' do
+      expect(user_session.excise_additional_code).to eq('306' => 'X444', 'DBC' => 'X369')
+    end
+  end
+
+  describe '#excise_additional_code=' do
+    let(:value) { { '306' => 'X411' } }
+    let(:expected_value) { { '306' => 'X411' } }
+    let(:new_value) { { 'DAC' => 'X111' } }
+
+    let(:merged_session) do
+      {
+        '306' => 'X411',
+        'DAC' => 'X111',
+      }
+    end
+
+    before do
+      user_session.excise_additional_code = value
+    end
+
+    it 'stores the hash on the session' do
+      expect(session['answers']['excise']).to eq(expected_value)
+    end
+
+    it 'merges new additional codes to the existing ones' do
+      user_session.excise_additional_code = new_value
+
+      expect(session['answers']['excise']).to eq(merged_session)
+    end
+  end
+
+  describe '#excise_measure_type_ids' do
+    subject(:user_session) do
+      build(
+        :user_session,
+        :with_excise_additional_codes,
+        :with_commodity_information,
+      )
+    end
+
+    it 'returns the measure type ids from the session' do
+      expect(user_session.excise_measure_type_ids).to eq(%w[306 DBC])
+    end
+  end
+
   describe '#commodity_code' do
     it 'returns nil if the key is not on the session' do
       expect(user_session.commodity_code).to be nil

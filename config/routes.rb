@@ -45,6 +45,9 @@ Rails.application.routes.draw do
 
     get 'additional-codes/:measure_type_id', to: 'steps/additional_codes#show', as: 'additional_codes'
     post 'additional-codes/:measure_type_id', to: 'steps/additional_codes#create'
+
+    get 'excise/:measure_type_id', to: 'steps/excise#show', as: 'excise'
+    post 'excise/:measure_type_id', to: 'steps/excise#create'
   end
 
   get '404', to: 'errors#not_found', via: :all

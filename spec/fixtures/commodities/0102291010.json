@@ -19,6 +19,7 @@
       "applicable_vat_options": {
         "VATR": "VAT reduced rate 5% (5.0)"
       },
+      "applicable_additional_codes": { },
       "meursing_code": false
     }
   },

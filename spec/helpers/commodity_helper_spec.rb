@@ -191,6 +191,71 @@ RSpec.describe CommodityHelper do
     end
   end
 
+  describe '#applicable_excise_additional_codes' do
+    let(:expected_options) do
+      {
+        '306' => {
+          'measure_type_description' => 'Excises',
+          'heading' => nil,
+          'additional_codes' => [
+            {
+              'code' => 'X520',
+              'overlay' => '520 - Light oil: unrebated (unmarked) – other unrebated light oil',
+              'hint' => '',
+              'measure_sid' => -485_461,
+            },
+            {
+              'code' => 'X522',
+              'overlay' => '522 - Light oil: rebated – unleaded petrol',
+              'hint' => '',
+              'measure_sid' => -485_453,
+            },
+            {
+              'code' => 'X541',
+              'overlay' => '541 - Heavy oil: unrebated (unmarked, including Diesel Engine Road Vehicle (DERV) or road fuel extender and unmarked kerosene or unmarked gas oil for which no marking waiver has been granted)',
+              'hint' => '',
+              'measure_sid' => -485_455,
+            },
+            {
+              'code' => 'X542',
+              'overlay' => '542 - Heavy oil: kerosene to be used as motor fuel off road or in an excepted vehicle',
+              'hint' => '',
+              'measure_sid' => -485_456,
+            },
+            {
+              'code' => 'X551',
+              'overlay' => '551 - Heavy oil: kerosene (marked or unmarked under marking waiver, including heavy oil aviation turbine fuel) to be used other than as motor fuel off-road or in an excepted vehicle',
+              'hint' => '',
+              'measure_sid' => -485_457,
+            },
+            {
+              'code' => 'X556',
+              'overlay' => '556 - Heavy oil: gas oil (marked or unmarked under marking waiver)',
+              'hint' => '',
+              'measure_sid' => -485_458,
+            },
+            {
+              'code' => 'X561',
+              'overlay' => '561 - Heavy oil: fuel oil (unmarked)',
+              'hint' => '',
+              'measure_sid' => -485_459,
+            },
+            {
+              'code' => 'X570',
+              'overlay' => '570 - Heavy oil: other (unmarked)',
+              'hint' => '',
+              'measure_sid' => -485_460,
+            },
+          ],
+        },
+      }
+    end
+
+    it 'returns the applicable additional codes' do
+      expect(helper.applicable_excise_additional_codes).to eq(expected_options)
+    end
+  end
+
   describe '#applicable_measure_units' do
     let(:expected_measure_units) do
       {
@@ -252,6 +317,42 @@ RSpec.describe CommodityHelper do
 
     it 'returns the keys of the applicable_measure_units' do
       expect(helper.applicable_measure_unit_keys).to eq(%w[dtn])
+    end
+  end
+
+  describe '#applicable_measure_type_ids' do
+    it { expect(helper.applicable_measure_type_ids).to eq(%w[105]) }
+  end
+
+  describe '#applicable_excise_measure_type_ids' do
+    it { expect(helper.applicable_excise_measure_type_ids).to eq(%w[306]) }
+  end
+
+  describe '#applicable_additional_codes?' do
+    context 'when the commodity has no additional codes' do
+      let(:commodity_code) { '0102291010' }
+
+      it { expect(helper).not_to be_applicable_additional_codes }
+    end
+
+    context 'when the commodity has additional codes' do
+      let(:commodity_code) { '0809400500' }
+
+      it { expect(helper).to be_applicable_additional_codes }
+    end
+  end
+
+  describe '#applicable_excise_additional_codes?' do
+    context 'when the commodity has no additional codes' do
+      let(:commodity_code) { '0102291010' }
+
+      it { expect(helper).not_to be_applicable_excise_additional_codes }
+    end
+
+    context 'when the commodity has additional codes' do
+      let(:commodity_code) { '0809400500' }
+
+      it { expect(helper).to be_applicable_excise_additional_codes }
     end
   end
 end

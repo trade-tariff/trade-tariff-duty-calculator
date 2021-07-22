@@ -7,7 +7,7 @@ RSpec.describe Steps::Vat, :step, :user_session do
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
-      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to be_empty
+      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(%w[])
     end
   end
 
@@ -96,6 +96,20 @@ RSpec.describe Steps::Vat, :step, :user_session do
         ).to eq(
           additional_codes_path('103'),
         )
+      end
+    end
+
+    context 'when there are excise additional codes' do
+      let(:user_session) do
+        build(
+          :user_session,
+          :with_commodity_information,
+          :with_excise_additional_codes,
+        )
+      end
+
+      it 'returns excise_path' do
+        expect(step.previous_step_path).to eq(excise_path('DBC'))
       end
     end
 
