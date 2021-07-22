@@ -30,6 +30,7 @@ RSpec.configure do |config|
   end
 
   config.before :each, :user_session do
-    UserSession.build(user_session)
+    allow(UserSession).to receive(:build).and_return(user_session)
+    allow(UserSession).to receive(:get).and_return(user_session)
   end
 end
