@@ -235,10 +235,6 @@ class UserSession
     customs_value.values.map(&:to_f).reduce(:+)
   end
 
-  def additional_codes
-    (additional_code_uk.values + additional_code_xi.values).compact.join(', ')
-  end
-
   def deltas_applicable?
     row_to_ni_route? && planned_processing != 'commercial_purposes'
   end

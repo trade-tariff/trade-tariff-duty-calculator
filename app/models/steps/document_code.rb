@@ -23,8 +23,12 @@ module Steps
       user_session.document_code_xi = { measure_type_id => JSON.parse(document_code_xi) } if document_code_xi.present?
     end
 
-    def options_for_select_for(source:)
-      available_document_codes_for(source: source).map { |doc| build_option(doc[:code], doc[:description]) if doc[:code].present? }.compact
+    def options_for_checkboxes_for(source:)
+      available_document_codes_for(source: source).uniq.map { |doc| build_option(doc[:code], doc[:description]) if doc[:code].present? }.compact
+    end
+
+    def xi_options_for_checkboxes_without_uk
+      options_for_checkboxes_for(source: 'xi') - options_for_checkboxes_for(source: 'uk')
     end
 
     def next_step_path

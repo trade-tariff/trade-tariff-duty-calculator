@@ -10,11 +10,11 @@
   </span>
 
   <% if @step.applicable_document_codes.dig('uk', @step.measure_type_id).present? %>
-    <%= f.govuk_collection_check_boxes :document_code_uk, @step.options_for_select_for(source: 'uk'), :id, :name, legend: { text: '' } %>
+    <%= f.govuk_collection_check_boxes :document_code_uk, @step.options_for_checkboxes_for(source: 'uk'), :id, :name, legend: { text: '' } %>
   <% end %>
 
   <% if @step.applicable_document_codes.dig('xi', @step.measure_type_id).present? %>
-    <%= f.govuk_collection_check_boxes :document_code_xi, @step.options_for_select_for(source: 'xi') - @step.options_for_select_for(source: 'uk'), :id, :name, legend: { text: '' } %>
+    <%= f.govuk_collection_check_boxes :document_code_xi, @step.xi_options_for_checkboxes_without_uk, :id, :name, legend: { text: '' } %>
   <% end %>
 
   <%= f.govuk_submit %>

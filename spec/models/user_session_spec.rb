@@ -461,7 +461,7 @@ RSpec.describe UserSession do
       expect(session['answers'][Steps::DocumentCode.id]).to eq(expected_value)
     end
 
-    it 'merges new additional codes to the existing ones' do
+    it 'merges new document codes to the existing ones' do
       user_session.document_code_uk = new_value
 
       expect(session['answers'][Steps::DocumentCode.id]).to eq(merged_session)
@@ -494,7 +494,7 @@ RSpec.describe UserSession do
       expect(session['answers'][Steps::DocumentCode.id]).to eq(expected_value)
     end
 
-    it 'merges new additional codes to the existing ones' do
+    it 'merges new document codes to the existing ones' do
       user_session.document_code_xi = new_value
 
       expect(session['answers'][Steps::DocumentCode.id]).to eq(merged_session)

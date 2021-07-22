@@ -16,22 +16,8 @@ RSpec.describe Steps::DocumentCode, :user_session do
   let(:applicable_vat_options) { {} }
   let(:additional_codes) { {} }
 
-  let(:document_codes) do
-    {
-      'uk' => {
-        '103' => ['N851', ''],
-        '105' => ['C644', 'Y929', ''],
-      },
-      'xi' => {
-        '142' => ['N851', ''],
-        '353' => ['C644', 'Y929', ''],
-      },
-    }
-  end
-
   before do
     allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
-    allow(filtered_commodity).to receive(:applicable_document_codes).and_return(document_codes)
     allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(additional_codes)
     allow(filtered_commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
   end
@@ -65,12 +51,27 @@ RSpec.describe Steps::DocumentCode, :user_session do
     end
 
     it 'returns the correct document code options for the given measure' do
-      expect(step.options_for_select_for(source: 'uk')).to eq(expected_options)
+      expect(step.options_for_checkboxes_for(source: 'uk')).to eq(expected_options)
+    end
+  end
+
+  describe '#xi_options_for_checkboxes_without_uk' do
+    let(:expected_options) do
+      [
+        OpenStruct.new(
+          id: 'C990',
+          name: 'C990 - ',
+        ),
+      ]
+    end
+
+    it 'returns the correct document code options for the given measure' do
+      expect(step.xi_options_for_checkboxes_without_uk).to be_empty
     end
   end
 
   describe '#document_code_uk' do
-    context 'when there are attributes being passed in' do
+    context 'when there are attributdef applicable_document_codeses being passed in' do
       it 'returns the additional code attribute value on the active model' do
         expect(step.document_code_uk).to eq('["C644", "Y929", ""]')
       end
