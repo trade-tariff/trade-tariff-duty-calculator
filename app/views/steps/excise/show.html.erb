@@ -15,10 +15,12 @@
       :name,
       legend: { text: '' },
       hint: {
-        text: sanitize("<p>There are multiple excise duties that could be applied to trade in this commodity code. Select which class of excise duty applies to your trade</p><p>For more information on excise duty classes, please see #{excise_link}</p>") 
+        text: sanitize("<p>There are multiple excise duties that could be applied to trade in this commodity code. Select which class of excise duty applies to your trade</p><p>For more information on excise duty classes, please see #{excise_link}</p>", attributes: %w[href target class]) 
       }
     )
   %>
 
   <%= f.govuk_submit %>
 <% end %>
+
+<%= render 'shared/commodity_details' %>
