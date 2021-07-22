@@ -13,7 +13,7 @@ class DutyCalculator
 
       option = {}
       option[:key] = option_klass.id
-      option[:evaluation] = option_klass.new(measure, user_session, additional_duty_rows, vat_measure).option
+      option[:evaluation] = option_klass.new(measure, additional_duty_rows, vat_measure).option
       option[:priority] = option_klass::PRIORITY
 
       acc << option
@@ -34,7 +34,7 @@ class DutyCalculator
         next if option_klass.nil?
         next if measure.all_duties_zero?
 
-        acc << option_klass.new(measure, user_session, [], nil).option
+        acc << option_klass.new(measure, [], nil).option
       end
   end
 
@@ -47,7 +47,7 @@ class DutyCalculator
   def waiver_option
     {}.tap do |option|
       option[:key] = DutyOptions::Waiver.id
-      option[:evaluation] = DutyOptions::Waiver.new(nil, user_session, [], nil).option
+      option[:evaluation] = DutyOptions::Waiver.new(nil, [], nil).option
       option[:priority] = DutyOptions::Waiver::PRIORITY
     end
   end

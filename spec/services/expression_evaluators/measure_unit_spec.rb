@@ -1,6 +1,6 @@
-RSpec.describe ExpressionEvaluators::MeasureUnit do
+RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
   subject(:evaluator) do
-    described_class.new(measure, component, user_session)
+    described_class.new(measure, component)
   end
 
   let(:measure) do

@@ -1,7 +1,5 @@
-RSpec.describe ExpressionEvaluators::AdValorem do
-  subject(:evaluator) do
-    described_class.new(measure, component, user_session)
-  end
+RSpec.describe ExpressionEvaluators::AdValorem, :user_session do
+  subject(:evaluator) { described_class.new(measure, component) }
 
   let(:measure) do
     Api::Measure.new(

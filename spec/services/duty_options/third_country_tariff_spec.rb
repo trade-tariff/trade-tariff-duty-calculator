@@ -1,5 +1,5 @@
-RSpec.describe DutyOptions::ThirdCountryTariff do
-  subject(:service) { described_class.new(measure, user_session, additional_duty_rows, nil) }
+RSpec.describe DutyOptions::ThirdCountryTariff, :user_session do
+  subject(:service) { described_class.new(measure, additional_duty_rows, nil) }
 
   describe '#option' do
     let(:commodity_source) { 'XI' }

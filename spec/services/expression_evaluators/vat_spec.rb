@@ -1,6 +1,6 @@
-RSpec.describe ExpressionEvaluators::Vat do
+RSpec.describe ExpressionEvaluators::Vat, :user_session do
   subject(:evaluator) do
-    described_class.new(measure, component, user_session, duty_total)
+    described_class.new(measure, component, duty_total)
   end
 
   let(:measure) do

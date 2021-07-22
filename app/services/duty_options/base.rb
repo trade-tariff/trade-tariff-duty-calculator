@@ -3,9 +3,8 @@ module DutyOptions
     include ActionView::Helpers::NumberHelper
     include ServiceHelper
 
-    def initialize(measure, user_session, additional_duty_options, vat_measure)
+    def initialize(measure, additional_duty_options, vat_measure)
       @measure = measure
-      @user_session = user_session
       @additional_duty_options = additional_duty_options
       @vat_measure = vat_measure
     end
@@ -28,7 +27,7 @@ module DutyOptions
 
     protected
 
-    attr_reader :measure, :user_session, :additional_duty_options, :vat_measure
+    attr_reader :measure, :additional_duty_options, :vat_measure
 
     def option_values
       table = [valuation_row]
@@ -110,13 +109,12 @@ module DutyOptions
       @vat_evaluation ||= ExpressionEvaluators::Vat.new(
         vat_measure,
         vat_measure.component,
-        user_session,
         duty_totals,
       ).call
     end
 
     def duty_evaluation
-      @duty_evaluation ||= measure.evaluator_for(user_session).call
+      @duty_evaluation ||= measure.evaluator.call
     end
 
     def duty_totals
@@ -165,6 +163,10 @@ module DutyOptions
 
     def uk_filtered_commodity
       filtered_commodity(source: 'uk')
+    end
+
+    def user_session
+      UserSession.get
     end
   end
 end
