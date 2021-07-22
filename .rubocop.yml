@@ -19,6 +19,8 @@ Layout/LineLength:
   Max: 120
 Layout/AccessModifierIndentation:
   Enabled: false
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
 Metrics/AbcSize:
   Max: 20
 Metrics/BlockLength:
@@ -45,3 +47,4 @@ Style/GuardClause:
   MinBodyLength: 2
 Style/StringLiterals:
   EnforcedStyle: single_quotes
+
