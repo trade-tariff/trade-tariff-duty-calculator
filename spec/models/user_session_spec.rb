@@ -676,4 +676,42 @@ RSpec.describe UserSession do
       end
     end
   end
+
+  describe '.build' do
+    before do
+      Thread.current[:user_session] = user_session
+    end
+
+    it 'builds a new session' do
+      expect(described_class.build(foo: :bar)).to be_a(described_class)
+    end
+
+    it 'sets a new session on the current Thread' do
+      expect { described_class.build(foo: :bar) }.to change { described_class.get.object_id }
+    end
+
+    context 'when an existing session has been built' do
+      before do
+        previous_session
+      end
+
+      let(:previous_session) do
+        described_class.build({ foo: :bar })
+      end
+
+      it 'sets a new session on the current Thread' do
+        expect { described_class.build(foo: :bar) }.to change { described_class.get.object_id }
+      end
+    end
+  end
+
+  describe '.get' do
+    before do
+      Thread.current[:user_session] = user_session
+    end
+
+    it 'fetches the current user session' do
+      expect(described_class.get).to eq(user_session)
+    end
+  end
 end

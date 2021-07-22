@@ -218,7 +218,7 @@ class UserSession
   end
 
   def self.build(session)
-    Thread.current[:user_session] ||= new(session)
+    Thread.current[:user_session] = new(session)
   end
 
   def self.get
