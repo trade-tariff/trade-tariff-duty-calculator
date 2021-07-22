@@ -1,11 +1,11 @@
 module Steps
   class ExciseController < BaseController
     def show
-      @step = Steps::Excise.new(user_session, measure_type_id)
+      @step = Steps::Excise.new(measure_type_id)
     end
 
     def create
-      @step = Steps::Excise.new(user_session, permitted_params)
+      @step = Steps::Excise.new(permitted_params)
 
       validate(@step)
     end

@@ -1,9 +1,5 @@
-RSpec.describe Steps::ExciseController do
-  before do
-    allow(UserSession).to receive(:new).and_return(session)
-  end
-
-  let(:session) do
+RSpec.describe Steps::ExciseController, :user_session do
+  let(:user_session) do
     build(
       :user_session,
       :with_commodity_information,
@@ -43,7 +39,7 @@ RSpec.describe Steps::ExciseController do
       end
 
       it { expect(response).to redirect_to(vat_path) }
-      it { expect { response }.to change(session, :excise_additional_code).from({}).to('306' => 'X444') }
+      it { expect { response }.to change(user_session, :excise_additional_code).from({}).to('306' => 'X444') }
     end
 
     context 'when the step answers are invalid' do
@@ -56,7 +52,7 @@ RSpec.describe Steps::ExciseController do
 
       it { expect(response).to have_http_status(:ok) }
       it { expect(response).to render_template('excise/show') }
-      it { expect { response }.not_to change(session, :excise_additional_code).from({}) }
+      it { expect { response }.not_to change(user_session, :excise_additional_code).from({}) }
     end
   end
 end

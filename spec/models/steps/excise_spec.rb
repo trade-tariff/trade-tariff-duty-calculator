@@ -1,10 +1,5 @@
-RSpec.describe Steps::Excise, :step do
-  subject(:step) do
-    build(
-      :excise,
-      user_session: user_session,
-    )
-  end
+RSpec.describe Steps::Excise, :step, :user_session do
+  subject(:step) { build(:excise) }
 
   let(:user_session) { build(:user_session, :with_commodity_information) }
   let(:filtered_commodity) { instance_double(Api::Commodity) }
