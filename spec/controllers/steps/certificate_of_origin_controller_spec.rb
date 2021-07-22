@@ -1,9 +1,5 @@
-RSpec.describe Steps::CertificateOfOriginController do
-  before do
-    allow(UserSession).to receive(:new).and_return(session)
-  end
-
-  let(:session) { build(:user_session, :with_commodity_information) }
+RSpec.describe Steps::CertificateOfOriginController, :user_session do
+  let(:user_session) { build(:user_session, :with_commodity_information) }
 
   describe 'GET #show' do
     subject(:response) { get :show }
@@ -37,7 +33,7 @@ RSpec.describe Steps::CertificateOfOriginController do
       end
 
       it { expect(response).to redirect_to(duty_path) }
-      it { expect { response }.to change(session, :certificate_of_origin).from(nil).to('yes') }
+      it { expect { response }.to change(user_session, :certificate_of_origin).from(nil).to('yes') }
     end
 
     context 'when the step answers are invalid' do
@@ -50,7 +46,7 @@ RSpec.describe Steps::CertificateOfOriginController do
 
       it { expect(response).to have_http_status(:ok) }
       it { expect(response).to render_template('certificate_of_origin/show') }
-      it { expect { response }.not_to change(session, :certificate_of_origin).from(nil) }
+      it { expect { response }.not_to change(user_session, :certificate_of_origin).from(nil) }
     end
   end
 end

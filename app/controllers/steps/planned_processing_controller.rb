@@ -1,11 +1,11 @@
 module Steps
   class PlannedProcessingController < BaseController
     def show
-      @step = Steps::PlannedProcessing.new(user_session)
+      @step = Steps::PlannedProcessing.new
     end
 
     def create
-      @step = Steps::PlannedProcessing.new(user_session, permitted_params)
+      @step = Steps::PlannedProcessing.new(permitted_params)
 
       validate(@step)
     end

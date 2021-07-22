@@ -1,9 +1,5 @@
-RSpec.describe Steps::TraderSchemeController do
-  before do
-    allow(UserSession).to receive(:new).and_return(session)
-  end
-
-  let(:session) { build(:user_session, :with_commodity_information) }
+RSpec.describe Steps::TraderSchemeController, :user_session do
+  let(:user_session) { build(:user_session, :with_commodity_information) }
 
   describe 'GET #show' do
     subject(:response) { get :show }
@@ -35,7 +31,7 @@ RSpec.describe Steps::TraderSchemeController do
       end
 
       it { expect(response).to redirect_to(interstitial_path) }
-      it { expect { response }.to change(session, :trader_scheme).from(nil).to('no') }
+      it { expect { response }.to change(user_session, :trader_scheme).from(nil).to('no') }
     end
 
     context 'when the step answers are invalid' do
@@ -48,7 +44,7 @@ RSpec.describe Steps::TraderSchemeController do
 
       it { expect(response).to have_http_status(:ok) }
       it { expect(response).to render_template('trader_scheme/show') }
-      it { expect { response }.not_to change(session, :trader_scheme).from(nil) }
+      it { expect { response }.not_to change(user_session, :trader_scheme).from(nil) }
     end
   end
 end

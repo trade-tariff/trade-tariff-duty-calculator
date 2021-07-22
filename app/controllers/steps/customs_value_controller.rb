@@ -1,11 +1,11 @@
 module Steps
   class CustomsValueController < BaseController
     def show
-      @step = Steps::CustomsValue.new(user_session)
+      @step = Steps::CustomsValue.new
     end
 
     def create
-      @step = Steps::CustomsValue.new(user_session, permitted_params)
+      @step = Steps::CustomsValue.new(permitted_params)
 
       validate(@step)
     end

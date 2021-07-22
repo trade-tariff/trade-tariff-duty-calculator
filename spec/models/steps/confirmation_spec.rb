@@ -1,4 +1,4 @@
-RSpec.describe Steps::Confirmation, :step do
+RSpec.describe Steps::Confirmation, :step, :user_session do
   subject(:step) { build(:confirmation, user_session: user_session) }
 
   let(:user_session) { build(:user_session, :with_commodity_information) }

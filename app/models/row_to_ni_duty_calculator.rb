@@ -1,8 +1,7 @@
 class RowToNiDutyCalculator
   include CommodityHelper
 
-  def initialize(user_session, uk_options, xi_options)
-    @user_session = user_session
+  def initialize(uk_options, xi_options)
     @uk_options = uk_options
     @xi_options = xi_options
   end
@@ -56,7 +55,7 @@ class RowToNiDutyCalculator
 
   private
 
-  attr_reader :user_session, :uk_options, :xi_options
+  attr_reader :uk_options, :xi_options
 
   def default_options
     options = []
@@ -101,5 +100,9 @@ class RowToNiDutyCalculator
     return I18n.t("duty_calculations.options.option_type.#{uk_option[:key]}") if category == DutyOptions::Suspension::Base::CATEGORY
 
     ''
+  end
+
+  def user_session
+    UserSession.get
   end
 end

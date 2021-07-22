@@ -1,5 +1,8 @@
 FactoryBot.define do
   factory :country_of_origin, class: 'Steps::CountryOfOrigin' do
+    transient do
+      user_session { build(:user_session) }
+    end
     country_of_origin { '' }
     zero_mfn_duty { '' }
     trade_defence { '' }
@@ -9,8 +12,9 @@ FactoryBot.define do
       opts = {}
       opts[:zero_mfn_duty] = zero_mfn_duty unless zero_mfn_duty.nil?
       opts[:trade_defence] = trade_defence unless trade_defence.nil?
+      Thread.current[:user_session] ||= user_session
 
-      new(user_session, parameters, opts)
+      new(parameters, opts)
     end
   end
 end

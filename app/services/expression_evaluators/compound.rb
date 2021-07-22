@@ -32,7 +32,7 @@ module ExpressionEvaluators
     end
 
     def value_for(component)
-      evaluator = measure.evaluator_for_compound_component(component, user_session)
+      evaluator = measure.evaluator_for_compound_component(component)
 
       evaluator.call[:value]
     end

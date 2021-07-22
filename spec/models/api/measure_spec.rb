@@ -49,7 +49,7 @@ RSpec.describe Api::Measure do
                                                     excluded_countries: [],
                                                     footnotes: []
 
-  describe '#evaluator_for' do
+  describe '#evaluator' do
     context 'when an ad_valorem measure' do
       let(:commodity_code) { '0702000007' }
 
@@ -68,9 +68,9 @@ RSpec.describe Api::Measure do
       it 'calls the correct evaluator' do
         allow(ExpressionEvaluators::AdValorem).to receive(:new)
 
-        measure.evaluator_for(user_session)
+        measure.evaluator
 
-        expect(ExpressionEvaluators::AdValorem).to have_received(:new).with(measure, measure.component, user_session)
+        expect(ExpressionEvaluators::AdValorem).to have_received(:new).with(measure, measure.component)
       end
     end
 
@@ -124,9 +124,9 @@ RSpec.describe Api::Measure do
       it 'calls the correct evaluator' do
         allow(ExpressionEvaluators::MeasureUnit).to receive(:new)
 
-        measure.evaluator_for(user_session)
+        measure.evaluator
 
-        expect(ExpressionEvaluators::MeasureUnit).to have_received(:new).with(measure, measure.component, user_session)
+        expect(ExpressionEvaluators::MeasureUnit).to have_received(:new).with(measure, measure.component)
       end
     end
 
@@ -200,9 +200,9 @@ RSpec.describe Api::Measure do
       it 'calls the correct evaluator' do
         allow(ExpressionEvaluators::Compound).to receive(:new)
 
-        measure.evaluator_for(user_session)
+        measure.evaluator
 
-        expect(ExpressionEvaluators::Compound).to have_received(:new).with(measure, nil, user_session)
+        expect(ExpressionEvaluators::Compound).to have_received(:new).with(measure, nil)
       end
     end
   end
@@ -226,9 +226,9 @@ RSpec.describe Api::Measure do
       it 'instantiates the correct evaluator' do
         allow(ExpressionEvaluators::AdValorem).to receive(:new)
 
-        measure.evaluator_for_compound_component(component, user_session)
+        measure.evaluator_for_compound_component(component)
 
-        expect(ExpressionEvaluators::AdValorem).to have_received(:new).with(measure, component, user_session)
+        expect(ExpressionEvaluators::AdValorem).to have_received(:new).with(measure, component)
       end
     end
 
@@ -238,9 +238,9 @@ RSpec.describe Api::Measure do
       it 'instantiates the correct evaluator' do
         allow(ExpressionEvaluators::MeasureUnit).to receive(:new)
 
-        measure.evaluator_for_compound_component(component, user_session)
+        measure.evaluator_for_compound_component(component)
 
-        expect(ExpressionEvaluators::MeasureUnit).to have_received(:new).with(measure, component, user_session)
+        expect(ExpressionEvaluators::MeasureUnit).to have_received(:new).with(measure, component)
       end
     end
   end

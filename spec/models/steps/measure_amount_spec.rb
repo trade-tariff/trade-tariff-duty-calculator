@@ -1,4 +1,4 @@
-RSpec.describe Steps::MeasureAmount, :step do
+RSpec.describe Steps::MeasureAmount, :step, :user_session do
   subject(:step) do
     build(
       :measure_amount,

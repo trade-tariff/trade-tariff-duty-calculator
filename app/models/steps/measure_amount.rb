@@ -25,8 +25,7 @@ module Steps
       end
     end
 
-    def initialize(user_session, attributes)
-      @user_session = user_session
+    def initialize(attributes)
       @attributes = attributes
       @answers = attributes['measure_amount']
       @applicable_measure_units = attributes['applicable_measure_units']
@@ -69,6 +68,10 @@ module Steps
 
     private
 
-    attr_reader :user_session, :answers, :attributes
+    attr_reader :answers, :attributes
+
+    def user_session
+      UserSession.get
+    end
   end
 end

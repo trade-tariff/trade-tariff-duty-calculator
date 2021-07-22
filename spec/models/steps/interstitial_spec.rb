@@ -1,5 +1,5 @@
-RSpec.describe Steps::Interstitial, :step do
-  subject(:step) { described_class.new(user_session) }
+RSpec.describe Steps::Interstitial, :step, :user_session do
+  subject(:step) { described_class.new }
 
   let(:user_session) do
     build(
@@ -31,24 +31,12 @@ RSpec.describe Steps::Interstitial, :step do
   end
 
   describe '#next_step_path' do
-    it 'returns customs_value_path' do
-      expect(
-        step.next_step_path,
-      ).to eq(
-        customs_value_path,
-      )
-    end
+    it { expect(step.next_step_path).to eq(customs_value_path) }
   end
 
   describe '#previous_step_path' do
     context 'when on GB to NI route' do
-      it 'returns country_of_origin_path' do
-        expect(
-          step.previous_step_path,
-        ).to eq(
-          country_of_origin_path,
-        )
-      end
+      it { expect(step.previous_step_path).to eq(country_of_origin_path) }
     end
 
     context 'when on RoW to NI route' do
@@ -59,61 +47,31 @@ RSpec.describe Steps::Interstitial, :step do
       context 'when there is a trade defence in place' do
         let(:trade_defence) { true }
 
-        it 'returns customs_value_path' do
-          expect(
-            step.previous_step_path,
-          ).to eq(
-            country_of_origin_path,
-          )
-        end
+        it { expect(step.previous_step_path).to eq(country_of_origin_path) }
       end
 
       context 'when goods are for commercial processing' do
         let(:planned_processing) { 'commercial_processing' }
 
-        it 'returns planned_processing_path' do
-          expect(
-            step.previous_step_path,
-          ).to eq(
-            planned_processing_path,
-          )
-        end
+        it { expect(step.previous_step_path).to eq(planned_processing_path) }
       end
 
       context 'when goods are for commercial purposes' do
         let(:planned_processing) { 'commercial_purposes' }
 
-        it 'returns no path at all for now' do
-          expect(
-            step.previous_step_path,
-          ).to eq(
-            nil,
-          )
-        end
+        it { expect(step.previous_step_path).to eq(nil) }
       end
 
       context 'when goods are not for final use' do
         let(:final_use) { 'no' }
 
-        it 'returns final_use_path' do
-          expect(
-            step.previous_step_path,
-          ).to eq(
-            final_use_path,
-          )
-        end
+        it { expect(step.previous_step_path).to eq(final_use_path) }
       end
 
       context 'when the trader is not part of the trader scheme' do
         let(:trader_scheme) { 'no' }
 
-        it 'returns trader_scheme_path' do
-          expect(
-            step.previous_step_path,
-          ).to eq(
-            trader_scheme_path,
-          )
-        end
+        it { expect(step.previous_step_path).to eq(trader_scheme_path) }
       end
     end
   end

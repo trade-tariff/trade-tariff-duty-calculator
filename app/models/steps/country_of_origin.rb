@@ -15,8 +15,8 @@ module Steps
     validates :country_of_origin, presence: true
     validate :other_country_of_origin_presence, if: :other_country_of_origin?
 
-    def initialize(user_session, attributes = {}, opts = {})
-      super(user_session, attributes)
+    def initialize(attributes = {}, opts = {})
+      super(attributes)
 
       @zero_mfn_duty = opts[:zero_mfn_duty]
       @trade_defence = opts[:trade_defence]

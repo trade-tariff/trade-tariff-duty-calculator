@@ -1,4 +1,4 @@
-RSpec.describe Steps::CustomsValue, :step do
+RSpec.describe Steps::CustomsValue, :step, :user_session do
   subject(:step) do
     build(
       :customs_value,

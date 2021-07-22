@@ -1,9 +1,5 @@
-RSpec.describe Steps::InterstitialController do
-  before do
-    allow(UserSession).to receive(:new).and_return(session)
-  end
-
-  let(:session) { build(:user_session, :with_commodity_information) }
+RSpec.describe Steps::InterstitialController, :user_session do
+  let(:user_session) { build(:user_session, :with_commodity_information) }
 
   describe 'GET #show' do
     subject(:response) { get :show }

@@ -12,8 +12,8 @@ module Steps
 
     helper_method :commodity_code,
                   :commodity_source,
-                  :user_session,
-                  :country_of_origin_description
+                  :country_of_origin_description,
+                  :user_session
 
     def country_of_origin_description
       Api::GeographicalArea.find(

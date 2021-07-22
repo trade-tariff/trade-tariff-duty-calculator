@@ -217,6 +217,14 @@ class UserSession
     no_duty_route? || possible_duty_route? && no_duty_applies?
   end
 
+  def self.build(session)
+    Thread.current[:user_session] ||= new(session)
+  end
+
+  def self.get
+    Thread.current[:user_session]
+  end
+
   private
 
   def no_duty_route?

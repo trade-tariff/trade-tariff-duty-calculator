@@ -1,11 +1,11 @@
 module Steps
   class ImportDestinationController < BaseController
     def show
-      @step = Steps::ImportDestination.new(user_session)
+      @step = Steps::ImportDestination.new
     end
 
     def create
-      @step = Steps::ImportDestination.new(user_session, permitted_params)
+      @step = Steps::ImportDestination.new(permitted_params)
 
       validate(@step)
     end

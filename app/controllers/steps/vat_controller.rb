@@ -1,11 +1,11 @@
 module Steps
   class VatController < BaseController
     def show
-      @step = Steps::Vat.new(user_session)
+      @step = Steps::Vat.new
     end
 
     def create
-      @step = Steps::Vat.new(user_session, permitted_params)
+      @step = Steps::Vat.new(permitted_params)
 
       validate(@step)
     end

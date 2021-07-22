@@ -1,4 +1,4 @@
-RSpec.describe Steps::Vat, :step do
+RSpec.describe Steps::Vat, :step, :user_session do
   subject(:step) { build(:vat, user_session: user_session, vat: vat) }
 
   let(:vat) { nil }
@@ -13,9 +13,9 @@ RSpec.describe Steps::Vat, :step do
 
   describe '#validations' do
     context 'when vat_code is blank' do
-      it 'is not a valid object' do
-        expect(step).not_to be_valid
-      end
+      let(:vat) { nil }
+
+      it { expect(step).not_to be_valid }
 
       it 'adds the correct validation error message' do
         step.valid?
@@ -27,9 +27,7 @@ RSpec.describe Steps::Vat, :step do
     context 'when vat_code is present' do
       let(:vat) { 'VATZ' }
 
-      it 'is a valid object' do
-        expect(step).to be_valid
-      end
+      it { expect(step).to be_valid }
 
       it 'has no validation errors' do
         step.valid?

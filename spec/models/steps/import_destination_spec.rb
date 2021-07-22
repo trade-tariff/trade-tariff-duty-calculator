@@ -1,4 +1,4 @@
-RSpec.describe Steps::ImportDestination, :step do
+RSpec.describe Steps::ImportDestination, :step, :user_session do
   subject(:step) { build(:import_destination, user_session: user_session, import_destination: import_destination) }
 
   let(:user_session) { build(:user_session, session_attributes) }

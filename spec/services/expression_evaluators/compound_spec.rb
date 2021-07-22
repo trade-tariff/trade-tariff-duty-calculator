@@ -1,6 +1,6 @@
-RSpec.describe ExpressionEvaluators::Compound do
+RSpec.describe ExpressionEvaluators::Compound, :user_session do
   subject(:evaluator) do
-    described_class.new(measure, nil, user_session)
+    described_class.new(measure, nil)
   end
 
   let(:measure) do

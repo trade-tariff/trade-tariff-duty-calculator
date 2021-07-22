@@ -29,22 +29,22 @@ module Api
                :reduction_indicator,
                :vat
 
-    def evaluator_for(user_session)
+    def evaluator
       if ad_valorem?
-        ExpressionEvaluators::AdValorem.new(self, component, user_session)
+        ExpressionEvaluators::AdValorem.new(self, component)
       elsif specific_duty?
-        ExpressionEvaluators::MeasureUnit.new(self, component, user_session)
+        ExpressionEvaluators::MeasureUnit.new(self, component)
       else
-        ExpressionEvaluators::Compound.new(self, nil, user_session)
+        ExpressionEvaluators::Compound.new(self, nil)
       end
     end
 
     # Compound components (where there are more than one) need to be evaluated by each individual component and have slightly different logic
-    def evaluator_for_compound_component(component, user_session)
+    def evaluator_for_compound_component(component)
       if component.ad_valorem?
-        ExpressionEvaluators::AdValorem.new(self, component, user_session)
+        ExpressionEvaluators::AdValorem.new(self, component)
       elsif component.specific_duty?
-        ExpressionEvaluators::MeasureUnit.new(self, component, user_session)
+        ExpressionEvaluators::MeasureUnit.new(self, component)
       end
     end
 

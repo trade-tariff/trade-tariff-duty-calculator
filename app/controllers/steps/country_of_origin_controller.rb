@@ -1,11 +1,11 @@
 module Steps
   class CountryOfOriginController < BaseController
     def show
-      @step = Steps::CountryOfOrigin.new(user_session)
+      @step = Steps::CountryOfOrigin.new
     end
 
     def create
-      @step = Steps::CountryOfOrigin.new(user_session, permitted_params, opts)
+      @step = Steps::CountryOfOrigin.new(permitted_params, opts)
 
       validate(@step)
     end

@@ -19,7 +19,7 @@ module Steps
 
     validate :import_date_validation
 
-    def initialize(user_session, attributes = {})
+    def initialize(attributes = {})
       check_attributes_validity(attributes)
 
       super
