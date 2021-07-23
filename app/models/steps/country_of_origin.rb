@@ -5,6 +5,7 @@ module Steps
       final_use
       certificate_of_origin
       planned_processing
+      document_code
     ].freeze
 
     attr_reader :zero_mfn_duty, :trade_defence

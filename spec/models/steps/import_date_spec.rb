@@ -25,6 +25,7 @@ RSpec.describe Steps::ImportDate, :step, :user_session do
           final_use
           certificate_of_origin
           planned_processing
+          document_code
         ],
       )
     end

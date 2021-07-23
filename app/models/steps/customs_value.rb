@@ -2,7 +2,7 @@ module Steps
   class CustomsValue < Steps::Base
     include CommodityHelper
 
-    STEPS_TO_REMOVE_FROM_SESSION = %w[additional_code].freeze
+    STEPS_TO_REMOVE_FROM_SESSION = %w[additional_code document_code].freeze
 
     attribute :monetary_value, :string
     attribute :shipping_cost, :string
@@ -39,7 +39,9 @@ module Steps
       user_session.measure_amount = {}
 
       return additional_codes_path(applicable_measure_type_ids.first) if applicable_additional_codes?
+      return document_codes_path(document_codes_applicable_measure_type_ids.first) if applicable_document_codes? && Rails.configuration.document_codes_enabled
       return excise_path(applicable_excise_measure_type_ids.first) if applicable_excise_additional_codes? && Rails.application.config.excise_step_enabled
+
       return vat_path if applicable_vat_options.keys.count > 1
 
       confirm_path

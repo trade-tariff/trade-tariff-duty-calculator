@@ -29,6 +29,15 @@ module Api
                :reduction_indicator,
                :vat
 
+    def document_codes
+      measure_conditions.map do |measure_condition|
+        {
+          code: measure_condition.document_code,
+          description: measure_condition.certificate_description,
+        }
+      end
+    end
+
     def evaluator
       if ad_valorem?
         ExpressionEvaluators::AdValorem.new(self, component)

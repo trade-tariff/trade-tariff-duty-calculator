@@ -14,7 +14,7 @@ RSpec.describe Steps::CertificateOfOrigin, :step, :user_session do
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
       expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
-        %w[],
+        %w[document_code],
       )
     end
   end

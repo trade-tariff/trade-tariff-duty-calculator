@@ -1,3 +1,4 @@
+# rubocop:disable RSpec/MultipleMemoizedHelpers
 RSpec.describe Steps::CustomsValue, :step, :user_session do
   subject(:step) do
     build(
@@ -13,11 +14,12 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
   let(:monetary_value) { '12_500' }
   let(:insurance_cost) { '1_200' }
   let(:shipping_cost) { '340' }
+  let(:applicable_document_codes) { {} }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
       expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
-        %w[additional_code],
+        %w[additional_code document_code],
       )
     end
   end
@@ -295,21 +297,24 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
       }
     end
 
-    let(:filtered_commodity) { instance_double(Api::Commodity) }
+    let(:commodity_source) { :uk }
+    let(:commodity_code) { '7202118000' }
+
+    let(:filtered_commodity) do
+      Api::Commodity.build(
+        commodity_source,
+        commodity_code,
+      )
+    end
 
     before do
       allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
       allow(filtered_commodity).to receive(:applicable_measure_units).and_return(applicable_measure_units)
+      allow(filtered_commodity).to receive(:applicable_document_codes).and_return(applicable_document_codes)
     end
 
     context 'when there are applicable measures' do
-      it 'returns measure_amount_path' do
-        expect(
-          step.next_step_path,
-        ).to eq(
-          measure_amount_path,
-        )
-      end
+      it { expect(step.next_step_path).to eq(measure_amount_path) }
     end
 
     context 'when there are no applicable measures' do
@@ -325,6 +330,7 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
 
       let(:first_measure_type_id) { '105' }
       let(:applicable_additional_codes) { {} }
+      let(:applicable_document_codes) { {} }
       let(:applicable_vat_options) { {} }
 
       before do
@@ -372,23 +378,23 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
           }
         end
 
-        it 'returns excise_path' do
-          expect(step.next_step_path).to eq(excise_path('306'))
-        end
+        it { expect(step.next_step_path).to eq(excise_path('306')) }
+      end
+
+      context 'when there are applicable document codes available' do
+        let(:commodity_code) { '7202999000' }
+
+        it { expect(step.next_step_path).to eq(document_codes_path('105')) }
       end
 
       context 'when there is just one VAT option' do
-        let(:applicable_vat_options) do
-          {
-            'VATZ' => 'flibble',
-          }
-        end
+        let(:commodity_code) { '7202999000' }
 
-        it 'returns confirmation_path' do
+        it 'redirects to the document_codes_path of the first measure type id' do
           expect(
             step.next_step_path,
           ).to eq(
-            confirm_path,
+            document_codes_path(first_measure_type_id),
           )
         end
       end
@@ -401,22 +407,10 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
           }
         end
 
-        it 'returns confirmation_path' do
-          expect(
-            step.next_step_path,
-          ).to eq(
-            vat_path,
-          )
-        end
+        it { expect(step.next_step_path).to eq(vat_path) }
       end
 
-      it 'returns confirmation_path' do
-        expect(
-          step.next_step_path,
-        ).to eq(
-          confirm_path,
-        )
-      end
+      it { expect(step.next_step_path).to eq(confirm_path) }
 
       it 'removes any leftover value for measure amounts from the session' do
         step.next_step_path
@@ -426,3 +420,4 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
     end
   end
 end
+# rubocop:enable RSpec/MultipleMemoizedHelpers
