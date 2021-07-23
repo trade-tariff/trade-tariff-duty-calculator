@@ -247,6 +247,10 @@ class UserSession
     no_duty_route? || possible_duty_route? && no_duty_applies?
   end
 
+  def additional_codes
+    (additional_code_uk.values + additional_code_xi.values).compact.join(', ')
+  end
+
   def self.build(session)
     Thread.current[:user_session] = new(session)
   end

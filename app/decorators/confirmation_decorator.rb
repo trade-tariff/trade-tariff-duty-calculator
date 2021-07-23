@@ -97,7 +97,7 @@ class ConfirmationDecorator < SimpleDelegator
   def additional_codes_for(value)
     return nil unless value.values.any? { |v| v.values.compact.present? }
 
-    additional_codes
+    user_session.additional_codes
   end
 
   def excise_for(value)
@@ -108,10 +108,6 @@ class ConfirmationDecorator < SimpleDelegator
 
   def excise_additional_codes
     user_session.excise_additional_code.values.join(', ')
-  end
-
-  def additional_codes
-    (user_session.additional_code_uk.values + user_session.additional_code_xi.values).compact.join(', ')
   end
 
   def user_session
