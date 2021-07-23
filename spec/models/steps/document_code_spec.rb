@@ -162,12 +162,16 @@ RSpec.describe Steps::DocumentCode, :user_session do
         }
       end
 
+      let(:measure_type_id) { 105 }
+
       it 'returns the measure_amounts path' do
         expect(step.previous_step_path).to eq(measure_amount_path)
       end
     end
 
     context 'when there is just one measure type id available and no measure units are available' do
+      let(:measure_type_id) { 105 }
+
       it 'returns the customs path' do
         expect(step.previous_step_path).to eq(customs_value_path)
       end
@@ -182,7 +186,7 @@ RSpec.describe Steps::DocumentCode, :user_session do
         )
       end
 
-      let(:measure_type_id) { '105' }
+      let(:measure_type_id) { 105 }
 
       let(:additional_codes) do
         {
@@ -209,6 +213,22 @@ RSpec.describe Steps::DocumentCode, :user_session do
 
       it 'returns additional_codes_path with the previous measure_type_id as argument' do
         expect(step.previous_step_path).to eq(additional_codes_path('105'))
+      end
+    end
+
+    context 'when there are multiple measure type ids on the applicable_document_codes hash' do
+      subject(:step) do
+        build(
+          :document_code,
+          user_session: user_session,
+          measure_type_id: measure_type_id,
+        )
+      end
+
+      let(:measure_type_id) { 117 }
+
+      it 'returns document_codes_path with the previous measure_type_id as argument' do
+        expect(step.previous_step_path).to eq(document_codes_path(105))
       end
     end
   end

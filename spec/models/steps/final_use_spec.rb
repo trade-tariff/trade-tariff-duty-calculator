@@ -11,6 +11,7 @@ RSpec.describe Steps::FinalUse, :step, :user_session do
         %w[
           certificate_of_origin
           planned_processing
+          document_code
         ],
       )
     end

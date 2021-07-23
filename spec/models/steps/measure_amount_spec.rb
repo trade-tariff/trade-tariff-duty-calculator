@@ -21,7 +21,7 @@ RSpec.describe Steps::MeasureAmount, :step, :user_session do
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
-      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(%w[additional_code])
+      expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(%w[additional_code document_code])
     end
   end
 

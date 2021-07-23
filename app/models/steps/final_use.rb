@@ -3,6 +3,7 @@ module Steps
     STEPS_TO_REMOVE_FROM_SESSION = %w[
       certificate_of_origin
       planned_processing
+      document_code
     ].freeze
 
     attribute :final_use, :string

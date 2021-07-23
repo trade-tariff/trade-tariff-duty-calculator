@@ -40,6 +40,7 @@ module Steps
     end
 
     def previous_step_path
+      return document_codes_path(previous_measure_type_id) if previous_measure_type_id.present?
       return additional_codes_path(last_measure_type_id_for_additional_codes) if last_measure_type_id_for_additional_codes.present?
       return measure_amount_path if filtered_commodity.applicable_measure_units.present?
 
