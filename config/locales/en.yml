@@ -113,6 +113,7 @@ en:
     customs_value: Customs value
     measure_amount: Import quantity
     additional_code: Additional code(s)
+    document_code: Document(s)
     vat: Applicable VAT rate
     excise: Excise additional code
   activemodel:

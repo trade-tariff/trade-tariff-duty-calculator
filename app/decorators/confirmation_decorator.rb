@@ -4,6 +4,7 @@ class ConfirmationDecorator < SimpleDelegator
 
   ORDERED_STEPS = %w[
     additional_code
+    document_code
     import_date
     import_destination
     country_of_origin
@@ -27,6 +28,7 @@ class ConfirmationDecorator < SimpleDelegator
     return import_date_path(referred_service: user_session.referred_service, commodity_code: user_session.commodity_code) if key == 'import_date'
 
     return additional_codes_path(applicable_measure_type_ids.first) if key == 'additional_code'
+    return document_codes_path(document_codes_applicable_measure_type_ids.first) if key == 'document_code' && Rails.application.config.document_codes_enabled
     return excise_path(applicable_excise_measure_type_ids.first) if key == 'excise' && Rails.application.config.excise_step_enabled
 
     send("#{key}_path")
@@ -56,6 +58,7 @@ class ConfirmationDecorator < SimpleDelegator
     return format_measure_amount(value) if key == 'measure_amount'
     return country_name_for(value, key) if %w[import_destination country_of_origin].include?(key)
     return additional_codes_for(value) if key == 'additional_code'
+    return selected_document_codes_from(value) if key == 'document_code'
     return excise_for(value) if key == 'excise'
     return vat_label(value) if key == 'vat'
 
@@ -108,6 +111,16 @@ class ConfirmationDecorator < SimpleDelegator
 
   def excise_additional_codes
     user_session.excise_additional_code.values.join(', ')
+  end
+
+  def selected_document_codes_from(session_answers)
+    return document_codes if session_answers.values.map(&:values).flatten.any?(&:present?)
+
+    nil
+  end
+
+  def document_codes
+    (user_session.document_code_uk.values.flatten.reject(&:empty?) + user_session.document_code_xi.values.flatten.reject(&:empty?)).uniq.join(', ')
   end
 
   def user_session
