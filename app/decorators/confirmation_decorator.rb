@@ -58,7 +58,7 @@ class ConfirmationDecorator < SimpleDelegator
     return format_measure_amount(value) if key == 'measure_amount'
     return country_name_for(value, key) if %w[import_destination country_of_origin].include?(key)
     return additional_codes_for(value) if key == 'additional_code'
-    return document_code_for(value) if key == 'document_code'
+    return selected_document_codes_from(value) if key == 'document_code'
     return excise_for(value) if key == 'excise'
     return vat_label(value) if key == 'vat'
 
@@ -113,14 +113,10 @@ class ConfirmationDecorator < SimpleDelegator
     user_session.excise_additional_code.values.join(', ')
   end
 
-  def additional_codes
-    (user_session.additional_code_uk.values + user_session.additional_code_xi.values).compact.join(', ')
-  end
+  def selected_document_codes_from(session_answers)
+    return document_codes if session_answers.values.map(&:values).flatten.any?(&:present?)
 
-  def document_code_for(value)
-    return nil unless value.values.reject(&:empty?).any?
-
-    document_codes
+    nil
   end
 
   def document_codes
