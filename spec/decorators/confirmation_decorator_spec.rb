@@ -27,6 +27,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
       :with_additional_codes,
       :with_excise_additional_codes,
       :with_vat,
+      :with_document_codes,
     )
   end
 
@@ -35,6 +36,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
       expect(described_class::ORDERED_STEPS).to eq(
         %w[
           additional_code
+          document_code
           import_date
           import_destination
           country_of_origin
@@ -55,6 +57,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
     let(:expected) do
       [
         { key: 'additional_code', label: 'Additional code(s)', value: '2340, 2600, 2340, 2600' },
+        { key: 'document_code', label: 'Document(s)', value: 'N851, C644, Y929' },
         { key: 'import_date', label: 'Date of import', value: '01 January 2025' },
         { key: 'import_destination', label: 'Destination', value: 'Northern Ireland' },
         { key: 'country_of_origin', label: 'Coming from', value: 'United Kingdom' },
