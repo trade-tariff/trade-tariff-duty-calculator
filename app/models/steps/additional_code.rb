@@ -2,7 +2,7 @@ module Steps
   class AdditionalCode < Steps::Base
     include CommodityHelper
 
-    STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
+    STEPS_TO_REMOVE_FROM_SESSION = %w[document_code excise].freeze
 
     attribute :measure_type_id, :string
     attribute :additional_code_uk, :string

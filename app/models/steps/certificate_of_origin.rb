@@ -5,7 +5,7 @@ module Steps
       OpenStruct.new(id: 'no', name: 'No, I do not have a valid Certificate of Origin'),
     ].freeze
 
-    STEPS_TO_REMOVE_FROM_SESSION = %w[document_code].freeze
+    STEPS_TO_REMOVE_FROM_SESSION = %w[document_code excise].freeze
 
     attribute :certificate_of_origin, :string
 

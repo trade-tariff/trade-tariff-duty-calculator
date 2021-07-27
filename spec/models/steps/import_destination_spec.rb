@@ -15,6 +15,7 @@ RSpec.describe Steps::ImportDestination, :step, :user_session do
           certificate_of_origin
           planned_processing
           document_code
+          excise
         ],
       )
     end

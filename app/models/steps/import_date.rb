@@ -10,6 +10,7 @@ module Steps
       certificate_of_origin
       planned_processing
       document_code
+      excise
     ].freeze
 
     attribute :import_date, :date
