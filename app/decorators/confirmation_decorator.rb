@@ -114,9 +114,10 @@ class ConfirmationDecorator < SimpleDelegator
   end
 
   def selected_document_codes_from(session_answers)
+    return nil if user_session.document_code_uk.empty? && user_session.document_code_xi.empty?
     return document_codes if session_answers.values.map(&:values).flatten.any?(&:present?)
 
-    nil
+    'n/a'
   end
 
   def document_codes
