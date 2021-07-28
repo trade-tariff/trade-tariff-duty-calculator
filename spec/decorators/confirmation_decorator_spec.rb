@@ -70,6 +70,46 @@ RSpec.describe ConfirmationDecorator, :user_session do
       ]
     end
 
+    context 'when no document code has been selected' do
+      let(:user_session) do
+        build(
+          :user_session,
+          :with_commodity_information,
+          :with_import_date,
+          :with_import_destination,
+          :with_country_of_origin,
+          :with_trader_scheme,
+          :with_certificate_of_origin,
+          :with_customs_value,
+          :with_measure_amount,
+          :with_additional_codes,
+          :with_excise_additional_codes,
+          :with_vat,
+          :with_no_document_codes_selected,
+        )
+      end
+
+      let(:expected) do
+        [
+          { key: 'additional_code', label: 'Additional code(s)', value: '2340, 2600, 2340, 2600' },
+          { key: 'document_code', label: 'Document(s)', value: 'n/a' },
+          { key: 'import_date', label: 'Date of import', value: '01 January 2025' },
+          { key: 'import_destination', label: 'Destination', value: 'Northern Ireland' },
+          { key: 'country_of_origin', label: 'Coming from', value: 'United Kingdom' },
+          { key: 'trader_scheme', label: 'Trader scheme', value: 'No' },
+          { key: 'certificate_of_origin', label: 'Certificate of origin', value: 'Yes' },
+          { key: 'customs_value', label: 'Customs value', value: '£1,200.00' },
+          { key: 'measure_amount', label: 'Import quantity', value: '100 x 100 kg' },
+          { key: 'excise', label: 'Excise additional code', value: 'X444, X369' },
+          { key: 'vat', label: 'Applicable VAT rate', value: 'VAT zero rate (0.0)' },
+        ]
+      end
+
+      it 'returns n/a for documents line' do
+        expect(confirmation_decorator.user_answers).to eq(expected)
+      end
+    end
+
     it 'returns an array with formatted user answers from the session' do
       expect(confirmation_decorator.user_answers).to eq(expected)
     end
