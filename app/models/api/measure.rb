@@ -8,6 +8,7 @@ module Api
     has_one :duty_expression, DutyExpression
     has_one :order_number, OrderNumber
     has_one :additional_code, AdditionalCode
+    has_one :suspension_legal_act, SuspensionLegalAct
 
     meta_attribute :duty_calculator, :source
 
@@ -74,7 +75,7 @@ module Api
 
     def vat_type
       return if vat.blank?
-      return 'VAT' if additional_code.attributes.values.all?(&:blank?)
+      return 'VAT' if additional_code.blank? || additional_code.attributes.values.all?(&:blank?)
 
       additional_code.code
     end
