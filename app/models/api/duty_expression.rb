@@ -1,6 +1,7 @@
 module Api
   class DutyExpression < Api::Base
-    attributes :base,
+    attributes :id,
+               :base,
                :formatted_base
   end
 end

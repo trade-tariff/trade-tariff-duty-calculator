@@ -1,6 +1,7 @@
 module Api
   class AdditionalCode < Api::Base
-    attributes :code,
+    attributes :id,
+               :code,
                :description,
                :formatted_description
 

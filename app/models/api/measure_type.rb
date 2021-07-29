@@ -101,10 +101,10 @@ module Api
 
     SUPPORTED_MEASURE_TYPE_IDS = (TYPE_OPTION_MAPPING.keys + TYPE_ADDITIONAL_OPTION_MAPPING.keys).freeze
 
-    attributes :description,
+    attributes :id,
+               :description,
                :national,
-               :measure_type_series_id,
-               :id
+               :measure_type_series_id
 
     enum :measure_type_series_id, {
       applicable_duty: %w[C],

@@ -3,7 +3,8 @@ module Api
   MATHEMATICAL_OPERATORS = %w[+ -].freeze
 
   class MeasureComponent < Api::Base
-    attributes :duty_expression_id,
+    attributes :id,
+               :duty_expression_id,
                :duty_amount,
                :duty_expression_description,
                :duty_expression_abbreviation,
