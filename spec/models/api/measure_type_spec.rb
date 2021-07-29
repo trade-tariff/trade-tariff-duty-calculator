@@ -1,8 +1,9 @@
 RSpec.describe Api::MeasureType do
-  it_behaves_like 'a resource that has attributes', description: 'Phytosanitary Certificate (import)',
-                                                    national: nil,
-                                                    measure_type_series_id: 'B',
-                                                    id: '360'
+  it_behaves_like 'a resource that has attributes',
+                  id: '360',
+                  description: 'Phytosanitary Certificate (import)',
+                  national: nil,
+                  measure_type_series_id: 'B'
 
   it_behaves_like 'a resource that has an enum', :measure_type_series_id, {
     applicable_duty: %w[C],

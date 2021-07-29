@@ -10,7 +10,8 @@ module Api
     meta_attribute :duty_calculator, :zero_mfn_duty
     meta_attribute :duty_calculator, :source
 
-    attributes :producline_suffix,
+    attributes :id,
+               :producline_suffix,
                :number_indents,
                :description,
                :goods_nomenclature_item_id,

@@ -16,10 +16,11 @@ RSpec.describe Api::GeographicalArea do
     allow(Uktt::GeographicalArea).to receive(:new).and_call_original
   end
 
-  it_behaves_like 'a resource that has attributes', id: 'RO',
-                                                    geographical_area_id: 'RO',
-                                                    description: 'Romania',
-                                                    children_geographical_areas: []
+  it_behaves_like 'a resource that has attributes',
+                  id: 'RO',
+                  geographical_area_id: 'RO',
+                  description: 'Romania',
+                  children_geographical_areas: []
 
   describe '#meta' do
     it 'returns nil' do
