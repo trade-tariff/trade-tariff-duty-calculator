@@ -33,8 +33,11 @@ module Api
     end
 
     def self.has_one(relation, klass)
+      attribute relation
+
       define_method(relation) do
-        klass.new(attributes[relation.to_s])
+        relation_attributes = attributes[relation.to_s]
+        klass.new(relation_attributes) if relation_attributes.present?
       end
     end
 
