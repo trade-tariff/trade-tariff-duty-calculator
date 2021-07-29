@@ -1,5 +1,14 @@
 module Api
   class MeasureCondition < Api::Base
+    DOCUMENT_CONDITION_CODES = [
+      'B', # Presentation of a certificate/licence/document'
+      'H', # Presentation of a certificate/licence/document'
+      'E', # The quantity or the price per unit declared, as appropriate, is equal or less than the specified maximum, or presentation of the required document'
+      'A', # Presentation of an anti-dumping/countervailing document'
+      'C', # Presentation of a certificate/licence/document'
+      'I', # The quantity or the price per unit declared, as appropriate, is equal or less than the specified maximum, or presentation of the required document'
+    ].freeze
+
     attributes :id,
                :action,
                :action_code,
@@ -18,6 +27,10 @@ module Api
 
     def expresses_unit?
       (condition_measurement_unit_code || condition_monetary_unit_code).present?
+    end
+
+    def expresses_document?
+      condition_code.in?(DOCUMENT_CONDITION_CODES)
     end
   end
 end

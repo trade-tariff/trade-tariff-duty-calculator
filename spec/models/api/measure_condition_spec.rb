@@ -45,4 +45,20 @@ RSpec.describe Api::MeasureCondition do
       end
     end
   end
+
+  describe '#expresses_document?' do
+    subject(:measure_condition) { described_class.new(condition_code: condition_code) }
+
+    context 'when the condition_code is a document condition code' do
+      let(:condition_code) { 'I' }
+
+      it { is_expected.to be_expresses_document }
+    end
+
+    context 'when the condition_code is not a document condition code' do
+      let(:condition_code) { 'V' }
+
+      it { is_expected.not_to be_expresses_document }
+    end
+  end
 end
