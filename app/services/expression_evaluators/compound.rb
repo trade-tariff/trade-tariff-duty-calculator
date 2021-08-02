@@ -11,7 +11,7 @@ module ExpressionEvaluators
     private
 
     def build_expression
-      measure.all_components.flat_map do |component|
+      measure.applicable_components.flat_map do |component|
         if component.conjunction_operator?
           [
             {

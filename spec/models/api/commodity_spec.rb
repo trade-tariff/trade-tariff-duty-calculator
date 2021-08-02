@@ -1,4 +1,4 @@
-RSpec.describe Api::Commodity, :user_session, type: :model  do
+RSpec.describe Api::Commodity, :user_session, type: :model do
   subject(:commodity) { described_class.build(service, commodity_code) }
 
   let(:commodity_code) { '0702000007' }

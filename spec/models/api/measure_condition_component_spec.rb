@@ -139,4 +139,32 @@ RSpec.describe Api::MeasureConditionComponent do
       expect(component.operator).to eq '%'
     end
   end
+
+  describe '#eql?' do
+    subject(:component) do
+      described_class.new(
+        'duty_expression_id' => '01',
+        'duty_amount' => 10.0,
+      )
+    end
+
+    let(:other_component) do
+      described_class.new(
+        'duty_expression_id' => '01',
+        'duty_amount' => other_component_duty_amount,
+      )
+    end
+
+    context 'when the components are the same' do
+      let(:other_component_duty_amount) { 10.0 }
+
+      it { expect(component).to eql(other_component) }
+    end
+
+    context 'when the components are different' do
+      let(:other_component_duty_amount) { 12.0 }
+
+      it { expect(component).not_to eql(other_component) }
+    end
+  end
 end

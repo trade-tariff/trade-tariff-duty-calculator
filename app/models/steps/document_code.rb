@@ -26,7 +26,9 @@ module Steps
     end
 
     def options_for_radio_buttons(source:)
-      available_document_codes_for(source: source).uniq.map { |doc| build_option(doc[:code], doc[:description]) }.compact
+      available_document_codes_for(source: source).uniq.map do |doc|
+        build_option(doc[:code], doc[:description])
+      end
     end
 
     def xi_options_for_radio_buttons_without_uk

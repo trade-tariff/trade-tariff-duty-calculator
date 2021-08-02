@@ -52,18 +52,19 @@ module Api
     private
 
     def no_additional_code_measures
-      import_measures_no_vat.reject(&:additional_code)
+      non_vat_import_measures.reject(&:additional_code)
     end
 
     def additional_code_measures
-      import_measures_no_vat.select do |measure|
-        additional_code = measure.additional_code
-        code_answer = user_session.additional_code_for(measure.measure_type.id, source)
-        additional_code.present? && code_answer == additional_code.code
+      non_vat_import_measures.select do |measure|
+        measure_additional_code = measure.additional_code
+        user_additional_code_answer = user_session.additional_code_for(measure.measure_type.id, source)
+
+        measure_additional_code.present? && user_additional_code_answer == measure_additional_code.code
       end
     end
 
-    def import_measures_no_vat
+    def non_vat_import_measures
       import_measures.reject(&:vat)
     end
   end

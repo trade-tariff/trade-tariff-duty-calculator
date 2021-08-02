@@ -80,11 +80,11 @@ module ExpressionEvaluators
     end
 
     def measure_condition
-      return nil if component.is_a? Api::MeasureComponent
+      return nil if component.is_a?(Api::MeasureComponent)
 
-      measure.measure_conditions.detect do |measure_condition|
+      measure.measure_conditions.find do |measure_condition|
         measure_condition.measure_condition_components.any? do |measure_condition_component|
-          measure_condition_component.as_json == component.as_json
+          measure_condition_component.eql?(component)
         end
       end
     end

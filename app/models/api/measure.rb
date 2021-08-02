@@ -59,17 +59,17 @@ module Api
     end
 
     def component
-      @component ||= all_components.first
+      @component ||= applicable_components.first
     end
 
-    def all_components
-      @all_components ||= document_components.presence || measure_components
+    def applicable_components
+      @applicable_components ||= document_components.presence || measure_components
     end
 
     def all_duties_zero?
       return false if vat.present?
 
-      all_components.all? { |component| component.duty_amount.zero? }
+      applicable_components.all? { |component| component.duty_amount.zero? }
     end
 
     def vat_type
@@ -121,7 +121,7 @@ module Api
     end
 
     def single_component?
-      all_components.length == 1
+      applicable_components.length == 1
     end
   end
 end

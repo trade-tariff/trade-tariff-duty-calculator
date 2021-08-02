@@ -27,7 +27,7 @@ RSpec.describe Steps::DocumentCodesController, :user_session do
 
     context 'when the step answers are valid' do
       let(:document_code_uk) { 'C990' }
-      let(:document_code_xi) { 'C990' }
+      let(:document_code_xi) { '' }
 
       it 'assigns the correct step' do
         response
@@ -36,7 +36,7 @@ RSpec.describe Steps::DocumentCodesController, :user_session do
 
       it { expect(response).to redirect_to(vat_path) }
       it { expect { response }.to change(user_session, :document_code_uk).from({}).to('117' => 'C990') }
-      it { expect { response }.to change(user_session, :document_code_xi).from({}).to('117' => 'C990') }
+      it { expect { response }.to change(user_session, :document_code_xi).from({}).to('117' => '') }
     end
   end
 end

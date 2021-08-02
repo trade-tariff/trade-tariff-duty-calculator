@@ -373,7 +373,7 @@ RSpec.describe Api::Measure, :user_session do
     end
   end
 
-  describe '#all_components' do
+  describe '#components' do
     subject(:measure) do
       described_class.new(
         'id' => 20_121_795,
@@ -404,7 +404,7 @@ RSpec.describe Api::Measure, :user_session do
       let(:measure_conditions) { [] }
 
       it 'returns the correct components' do
-        expect(measure.all_components.as_json).to eq(measure.measure_components.as_json)
+        expect(measure.applicable_components.as_json).to eq(measure.measure_components.as_json)
       end
     end
 
@@ -475,7 +475,7 @@ RSpec.describe Api::Measure, :user_session do
         let(:measure_condition_components) { [] }
 
         it 'returns the correct components' do
-          expect(measure.all_components.as_json).to eq(measure.measure_components.as_json)
+          expect(measure.applicable_components.as_json).to eq(measure.measure_components.as_json)
         end
       end
 
@@ -496,7 +496,7 @@ RSpec.describe Api::Measure, :user_session do
         end
 
         it 'returns the correct components' do
-          expect(measure.all_components.as_json).to eq(
+          expect(measure.applicable_components.as_json).to eq(
             [
               {
                 'attributes' => {
