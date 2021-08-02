@@ -349,7 +349,7 @@ RSpec.describe UserSession do
     end
 
     it 'returns the correct value from the session for the uk source' do
-      expect(user_session.additional_code_uk).to eq({ '103' => '2600', '105' => '2340' })
+      expect(user_session.additional_code_uk).to eq('103' => '2600', '105' => '2340')
     end
   end
 
@@ -363,7 +363,7 @@ RSpec.describe UserSession do
     end
 
     it 'returns the correct value from the session for the uk source' do
-      expect(user_session.additional_code_xi).to eq({ '103' => '2600', '105' => '2340' })
+      expect(user_session.additional_code_xi).to eq('103' => '2600', '105' => '2340')
     end
   end
 

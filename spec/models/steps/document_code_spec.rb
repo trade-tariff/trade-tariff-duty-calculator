@@ -32,11 +32,11 @@ RSpec.describe Steps::DocumentCode, :user_session do
 
   describe '#save' do
     it 'saves the document codes for uk on to the session' do
-      expect { step.save }.to change(user_session, :document_code_uk).from({}).to({ '117' => ['C644', 'Y929', ''] })
+      expect { step.save }.to change(user_session, :document_code_uk).from({}).to('117' => ['C644', 'Y929', ''])
     end
 
     it 'saves the document codes for xi on to the session' do
-      expect { step.save }.to change(user_session, :document_code_xi).from({}).to({ '117' => ['N851', ''] })
+      expect { step.save }.to change(user_session, :document_code_xi).from({}).to('117' => ['N851', ''])
     end
   end
 

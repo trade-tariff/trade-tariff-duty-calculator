@@ -163,11 +163,11 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
 
   describe '#save' do
     it 'saves the additional codes for uk on to the session' do
-      expect { step.save }.to change(user_session, :additional_code_uk).from({}).to({ '105' => '2300' })
+      expect { step.save }.to change(user_session, :additional_code_uk).from({}).to('105' => '2300')
     end
 
     it 'saves the additional codes for xi on to the session' do
-      expect { step.save }.to change(user_session, :additional_code_xi).from({}).to({ '105' => '2600' })
+      expect { step.save }.to change(user_session, :additional_code_xi).from({}).to('105' => '2600')
     end
   end
 
