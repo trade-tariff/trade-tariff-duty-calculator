@@ -363,7 +363,7 @@ RSpec.describe UserSession do
     end
 
     it 'returns the correct value from the session for the uk source' do
-      expect(user_session.additional_code_xi).to eq('103' => '2600', '105' => '2340')
+      expect(user_session.additional_code_xi).to eq('103' => '2600', '105' => '2340', '142' => '2601')
     end
   end
 
@@ -906,7 +906,7 @@ RSpec.describe UserSession do
         build(:user_session, :with_additional_codes, :with_commodity_information)
       end
 
-      it { expect(user_session.additional_codes).to eq('2340, 2600, 2340, 2600') }
+      it { expect(user_session.additional_codes).to eq('2340, 2600, 2340, 2600, 2601') }
     end
 
     context 'when additional code answers have not been stored' do
