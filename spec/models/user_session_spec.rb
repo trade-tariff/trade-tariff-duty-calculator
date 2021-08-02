@@ -885,4 +885,16 @@ RSpec.describe UserSession do
       it { expect(user_session.additional_codes).to eq('') }
     end
   end
+
+  describe '#document_code_for' do
+    subject(:user_session) { build(:user_session, :with_document_codes) }
+
+    it { expect(user_session.document_code_for('103', 'uk')).to eq('N851') }
+  end
+
+  describe '#additional_code_for' do
+    subject(:user_session) { build(:user_session, :with_additional_codes) }
+
+    it { expect(user_session.additional_code_for('103', 'uk')).to eq('2600') }
+  end
 end
