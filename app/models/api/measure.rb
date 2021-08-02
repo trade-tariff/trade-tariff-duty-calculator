@@ -59,18 +59,17 @@ module Api
     end
 
     def component
-      @component ||= all_components.first
+      @component ||= applicable_components.first
     end
 
-    def all_components
-      # TODO: This needs to include measure condition components
-      @all_components ||= measure_components
+    def applicable_components
+      @applicable_components ||= document_components.presence || measure_components
     end
 
     def all_duties_zero?
       return false if vat.present?
 
-      all_components.all? { |component| component.duty_amount.zero? }
+      applicable_components.all? { |component| component.duty_amount.zero? }
     end
 
     def vat_type
@@ -80,7 +79,30 @@ module Api
       additional_code.code
     end
 
+    # Measures are always applicable unless they have a condition which makes them conditionally applicable
+    def applicable?
+      return true if applicable_document_condition.blank?
+
+      applicable_document_condition.applicable?
+    end
+
     private
+
+    def document_components
+      applicable_document_condition&.measure_condition_components
+    end
+
+    def applicable_document_condition
+      @applicable_document_condition ||= begin
+        document_code = user_session.document_code_for(measure_type.id, source)
+
+        return if document_code.nil?
+
+        measure_conditions.find do |measure_condition|
+          measure_condition.document_code == document_code
+        end
+      end
+    end
 
     def ad_valorem?
       single_component? &&
@@ -99,7 +121,7 @@ module Api
     end
 
     def single_component?
-      all_components.length == 1
+      applicable_components.length == 1
     end
   end
 end

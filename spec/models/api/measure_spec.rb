@@ -1,7 +1,12 @@
-RSpec.describe Api::Measure do
+RSpec.describe Api::Measure, :user_session do
   subject(:measure) do
     described_class.new(
       'id' => 2_046_828,
+      'meta' => {
+        'duty_calculator' => {
+          'source' => 'uk',
+        },
+      },
       'duty_expression' => {
         'base' => '35.10 EUR / 100 kg',
         'formatted_base' => "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
@@ -28,9 +33,7 @@ RSpec.describe Api::Measure do
     )
   end
 
-  let(:user_session) do
-    build(:user_session, session_attributes)
-  end
+  let(:user_session) { build(:user_session, :with_document_codes) }
 
   let(:commodity_source) { 'XI' }
 
@@ -53,18 +56,6 @@ RSpec.describe Api::Measure do
     context 'when an ad_valorem measure' do
       let(:commodity_code) { '0702000007' }
 
-      let(:session_attributes) do
-        {
-          'customs_value' => {
-            'monetary_value' => '1000',
-            'shipping_cost' => '40',
-            'insurance_cost' => '10',
-          },
-          'commodity_source' => commodity_source,
-          'commodity_code' => commodity_code,
-        }
-      end
-
       it 'calls the correct evaluator' do
         allow(ExpressionEvaluators::AdValorem).to receive(:new)
 
@@ -78,6 +69,11 @@ RSpec.describe Api::Measure do
       subject(:measure) do
         described_class.new(
           'id' => 2_046_828,
+          'meta' => {
+            'duty_calculator' => {
+              'source' => 'uk',
+            },
+          },
           'duty_expression' => {
             'base' => '35.10 EUR / 100 kg',
             'formatted_base' => "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
@@ -106,21 +102,6 @@ RSpec.describe Api::Measure do
 
       let(:commodity_code) { '0103921100' }
 
-      let(:session_attributes) do
-        {
-          'customs_value' => {
-            'monetary_value' => '1000',
-            'shipping_cost' => '40',
-            'insurance_cost' => '10',
-          },
-          'measure_amount' => {
-            'dtn' => '120',
-          },
-          'commodity_source' => commodity_source,
-          'commodity_code' => commodity_code,
-        }
-      end
-
       it 'calls the correct evaluator' do
         allow(ExpressionEvaluators::MeasureUnit).to receive(:new)
 
@@ -134,6 +115,11 @@ RSpec.describe Api::Measure do
       subject(:measure) do
         described_class.new(
           'id' => 2_046_828,
+          'meta' => {
+            'duty_calculator' => {
+              'source' => 'uk',
+            },
+          },
           'duty_expression' => {
             'base' => '35.10 EUR / 100 kg',
             'formatted_base' => "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
@@ -182,21 +168,6 @@ RSpec.describe Api::Measure do
 
       let(:commodity_code) { '0103921100' }
 
-      let(:session_attributes) do
-        {
-          'customs_value' => {
-            'monetary_value' => '1000',
-            'shipping_cost' => '40',
-            'insurance_cost' => '10',
-          },
-          'measure_amount' => {
-            'dtn' => '120',
-          },
-          'commodity_source' => commodity_source,
-          'commodity_code' => commodity_code,
-        }
-      end
-
       it 'calls the correct evaluator' do
         allow(ExpressionEvaluators::Compound).to receive(:new)
 
@@ -213,7 +184,6 @@ RSpec.describe Api::Measure do
     let(:component) { instance_double('Api::MeasureComponent') }
     let(:ad_valorem) { false }
     let(:specific_duty) { false }
-    let(:session_attributes) { {} }
 
     before do
       allow(component).to receive(:ad_valorem?).and_return(ad_valorem)
@@ -249,6 +219,11 @@ RSpec.describe Api::Measure do
     subject(:measure) do
       described_class.new(
         'id' => 2_046_828,
+        'meta' => {
+          'duty_calculator' => {
+            'source' => 'uk',
+          },
+        },
         'duty_expression' => {
           'base' => '35.10 EUR / 100 kg',
           'formatted_base' => "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
@@ -294,6 +269,11 @@ RSpec.describe Api::Measure do
     subject(:measure) do
       described_class.new(
         'id' => 2_046_828,
+        'meta' => {
+          'duty_calculator' => {
+            'source' => 'uk',
+          },
+        },
         'duty_expression' => {
           'base' => '35.10 EUR / 100 kg',
           'formatted_base' => "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
@@ -390,6 +370,232 @@ RSpec.describe Api::Measure do
       it 'returns foo' do
         expect(measure.vat_type).to eq('foo')
       end
+    end
+  end
+
+  describe '#components' do
+    subject(:measure) do
+      described_class.new(
+        'id' => 20_121_795,
+        'meta' => { 'duty_calculator' => { 'source' => 'uk' } },
+        'measure_type' => { 'id' => '117' },
+        'measure_conditions' => measure_conditions,
+        'measure_components' => measure_components,
+      )
+    end
+
+    context 'when there are only measure components' do
+      let(:measure_components) do
+        [
+          {
+            'duty_expression_id' => '01',
+            'duty_amount' => 0.0,
+            'monetary_unit_code' => nil,
+            'monetary_unit_abbreviation' => nil,
+            'measurement_unit_code' => nil,
+            'duty_expression_description' => '% or amount',
+            'duty_expression_abbreviation' => '%',
+            'measurement_unit_qualifier_code' => nil,
+            'meta' => nil,
+          },
+        ]
+      end
+
+      let(:measure_conditions) { [] }
+
+      it 'returns the correct components' do
+        expect(measure.applicable_components.as_json).to eq(measure.measure_components.as_json)
+      end
+    end
+
+    context 'when there are measure conditions with a matching document answer' do
+      let(:user_session) do
+        build(:user_session, document_code: { 'uk' => { '117' => 'C990' } })
+      end
+
+      let(:matching_condition) do
+        {
+          'action' => 'Apply the mentioned duty',
+          'action_code' => '27',
+          'certificate_description' => 'End use authorisation ships and platforms (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)',
+          'condition' => 'B: Presentation of a certificate/licence/document',
+          'condition_code' => 'B',
+          'condition_duty_amount' => nil,
+          'condition_measurement_unit_code' => nil,
+          'condition_measurement_unit_qualifier_code' => nil,
+          'condition_monetary_unit_code' => nil,
+          'document_code' => 'C990',
+          'duty_expression' => '',
+          'monetary_unit_abbreviation' => nil,
+          'requirement' => 'Other certificates: End use authorisation ships and platforms (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)',
+          'measure_condition_components' => measure_condition_components,
+          'meta' => nil,
+        }
+      end
+
+      let(:unmatching_condition) do
+        {
+          'action' => 'Measure not applicable',
+          'action_code' => '07',
+          'certificate_description' => nil,
+          'condition' => 'B: Presentation of a certificate/licence/document',
+          'condition_code' => 'B',
+          'condition_duty_amount' => nil,
+          'condition_measurement_unit_code' => nil,
+          'condition_measurement_unit_qualifier_code' => nil,
+          'condition_monetary_unit_code' => nil,
+          'document_code' => '',
+          'duty_expression' => '',
+          'monetary_unit_abbreviation' => nil,
+          'requirement' => nil,
+          'measure_condition_components' => [],
+          'meta' => nil,
+        }
+      end
+
+      let(:measure_components) do
+        [
+          {
+            'duty_expression_id' => '01',
+            'duty_amount' => 0.0,
+            'monetary_unit_code' => nil,
+            'monetary_unit_abbreviation' => nil,
+            'measurement_unit_code' => nil,
+            'duty_expression_description' => '% or amount',
+            'duty_expression_abbreviation' => '%',
+            'measurement_unit_qualifier_code' => nil,
+            'meta' => nil,
+          },
+        ]
+      end
+
+      let(:measure_conditions) { [unmatching_condition, matching_condition] }
+
+      context 'when the component we apply is in the measure components' do
+        let(:measure_condition_components) { [] }
+
+        it 'returns the correct components' do
+          expect(measure.applicable_components.as_json).to eq(measure.measure_components.as_json)
+        end
+      end
+
+      context 'when the component we apply is in the measure condition components' do
+        let(:measure_condition_components) do
+          [
+            {
+              'id' => '20121795-01',
+              'duty_expression_id' => '01',
+              'duty_amount' => 10.0,
+              'monetary_unit_code' => nil,
+              'monetary_unit_abbreviation' => nil,
+              'measurement_unit_code' => nil,
+              'measurement_unit_qualifier_code' => nil,
+              'meta' => nil,
+            },
+          ]
+        end
+
+        it 'returns the correct components' do
+          expect(measure.applicable_components.as_json).to eq(
+            [
+              {
+                'attributes' => {
+                  'duty_amount' => 10.0,
+                  'duty_expression_abbreviation' => nil,
+                  'duty_expression_description' => nil,
+                  'duty_expression_id' => '01',
+                  'id' => '20121795-01',
+                  'measurement_unit_code' => nil,
+                  'measurement_unit_qualifier_code' => nil,
+                  'meta' => nil,
+                  'monetary_unit_abbreviation' => nil,
+                  'monetary_unit_code' => nil,
+                },
+              },
+            ],
+          )
+        end
+      end
+    end
+  end
+
+  describe '#applicable?' do
+    subject(:measure) do
+      described_class.new(
+        'id' => 20_121_795,
+        'meta' => { 'duty_calculator' => { 'source' => 'uk' } },
+        'measure_type' => { 'id' => '117' },
+        'measure_conditions' => [matching_condition],
+        'measure_components' => [],
+      )
+    end
+
+    context 'when the matching condition is applicable' do
+      let(:user_session) do
+        build(
+          :user_session,
+          document_code: { 'uk' => { '117' => 'C990' } },
+        )
+      end
+
+      let(:matching_condition) do
+        {
+          'action' => 'Apply the mentioned duty',
+          'action_code' => '27',
+          'certificate_description' => 'End use authorisation ships and platforms (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)',
+          'condition' => 'B: Presentation of a certificate/licence/document',
+          'condition_code' => 'B',
+          'condition_duty_amount' => nil,
+          'condition_measurement_unit_code' => nil,
+          'condition_measurement_unit_qualifier_code' => nil,
+          'condition_monetary_unit_code' => nil,
+          'document_code' => 'C990',
+          'duty_expression' => '',
+          'monetary_unit_abbreviation' => nil,
+          'requirement' => 'Other certificates: End use authorisation ships and platforms (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)',
+          'measure_condition_components' => [],
+          'meta' => nil,
+        }
+      end
+
+      it { is_expected.to be_applicable }
+    end
+
+    context 'when the matching condition is not applicable' do
+      let(:user_session) do
+        build(
+          :user_session,
+          document_code: { 'uk' => { '117' => '' } },
+        )
+      end
+
+      let(:matching_condition) do
+        {
+          'action' => 'Measure not applicable',
+          'action_code' => '07',
+          'certificate_description' => nil,
+          'condition' => 'B: Presentation of a certificate/licence/document',
+          'condition_code' => 'B',
+          'condition_duty_amount' => nil,
+          'condition_measurement_unit_code' => nil,
+          'condition_measurement_unit_qualifier_code' => nil,
+          'condition_monetary_unit_code' => nil,
+          'document_code' => '',
+          'duty_expression' => '',
+          'monetary_unit_abbreviation' => nil,
+          'requirement' => nil,
+          'measure_condition_components' => [],
+          'meta' => nil,
+        }
+      end
+
+      it { is_expected.not_to be_applicable }
+    end
+
+    context 'when there is no matching condition' do
+      let(:matching_condition) { nil }
+
+      it { is_expected.to be_applicable }
     end
   end
 end

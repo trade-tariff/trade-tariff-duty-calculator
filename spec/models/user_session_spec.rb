@@ -363,7 +363,7 @@ RSpec.describe UserSession do
     end
 
     it 'returns the correct value from the session for the uk source' do
-      expect(user_session.additional_code_xi).to eq('103' => '2600', '105' => '2340')
+      expect(user_session.additional_code_xi).to eq('103' => '2600', '105' => '2340', '142' => '2601')
     end
   end
 
@@ -377,7 +377,7 @@ RSpec.describe UserSession do
     end
 
     let(:expected_value) do
-      { '103' => ['N851', ''], '105' => ['C644', 'Y929', ''] }
+      { '103' => 'N851', '105' => 'C644' }
     end
 
     it 'returns the correct value from the session for the uk source' do
@@ -395,7 +395,7 @@ RSpec.describe UserSession do
     end
 
     let(:expected_value) do
-      { '142' => ['N851', ''], '353' => ['C644', 'Y929', ''] }
+      { '142' => 'N851', '353' => 'Y929' }
     end
 
     it 'returns the correct value from the session for the uk source' do
@@ -545,6 +545,21 @@ RSpec.describe UserSession do
     it 'returns the measure type ids from the session' do
       expect(user_session.additional_code_measure_type_ids).to eq(%w[105 103])
     end
+
+    context 'when on the deltas applicable route' do
+      subject(:user_session) do
+        build(
+          :user_session,
+          :with_additional_codes,
+          :with_commodity_information,
+          :deltas_applicable,
+        )
+      end
+
+      it 'accumulates measure type ids from both sources' do
+        expect(user_session.additional_code_measure_type_ids).to eq(%w[105 103 142])
+      end
+    end
   end
 
   describe '#document_code_measure_type_ids' do
@@ -558,6 +573,21 @@ RSpec.describe UserSession do
 
     it 'returns the measure type ids from the session' do
       expect(user_session.document_code_measure_type_ids).to eq(%w[103 105])
+    end
+
+    context 'when on the deltas applicable route' do
+      subject(:user_session) do
+        build(
+          :user_session,
+          :with_document_codes,
+          :with_commodity_information,
+          :deltas_applicable,
+        )
+      end
+
+      it 'accumulates measure type ids from both sources' do
+        expect(user_session.document_code_measure_type_ids).to eq(%w[103 105 142 353])
+      end
     end
   end
 
@@ -876,7 +906,7 @@ RSpec.describe UserSession do
         build(:user_session, :with_additional_codes, :with_commodity_information)
       end
 
-      it { expect(user_session.additional_codes).to eq('2340, 2600, 2340, 2600') }
+      it { expect(user_session.additional_codes).to eq('2340, 2600, 2340, 2600, 2601') }
     end
 
     context 'when additional code answers have not been stored' do
@@ -884,5 +914,17 @@ RSpec.describe UserSession do
 
       it { expect(user_session.additional_codes).to eq('') }
     end
+  end
+
+  describe '#document_code_for' do
+    subject(:user_session) { build(:user_session, :with_document_codes) }
+
+    it { expect(user_session.document_code_for('103', 'uk')).to eq('N851') }
+  end
+
+  describe '#additional_code_for' do
+    subject(:user_session) { build(:user_session, :with_additional_codes) }
+
+    it { expect(user_session.additional_code_for('103', 'uk')).to eq('2600') }
   end
 end

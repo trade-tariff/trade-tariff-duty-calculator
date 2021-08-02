@@ -1,10 +1,11 @@
-RSpec.describe CommodityHelper do
+RSpec.describe CommodityHelper, :user_session do
   before do
     allow(helper).to receive(:user_session).and_return(user_session)
     allow(Api::Commodity).to receive(:build).and_call_original
-    allow(Thread.current[:commodity_context_service]).to receive(:call).and_call_original
+    allow(commodity_context_service).to receive(:call).and_call_original
   end
 
+  let(:commodity_context_service) { Thread.current[:commodity_context_service] }
   let(:commodity_source) { 'xi' }
   let(:commodity_code) { '0809400500' }
   let(:import_destination) { 'XI' }
@@ -97,6 +98,20 @@ RSpec.describe CommodityHelper do
           expected_filter,
         )
       end
+    end
+  end
+
+  describe '#uk_filtered_commodity' do
+    it 'calls the commodity service with the uk as an argument' do
+      helper.uk_filtered_commodity
+      expect(commodity_context_service).to have_received(:call).with('uk', anything, anything)
+    end
+  end
+
+  describe '#xi_filtered_commodity' do
+    it 'calls the commodity service with the uk as an argument' do
+      helper.xi_filtered_commodity
+      expect(commodity_context_service).to have_received(:call).with('xi', anything, anything)
     end
   end
 

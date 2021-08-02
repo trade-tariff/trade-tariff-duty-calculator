@@ -19,16 +19,20 @@ module Steps
     end
 
     def save
-      user_session.document_code_uk = { measure_type_id => JSON.parse(document_code_uk) } if document_code_uk.present?
-      user_session.document_code_xi = { measure_type_id => JSON.parse(document_code_xi) } if document_code_xi.present?
+      user_session.document_code_uk = { measure_type_id => document_code_uk } unless document_code_uk.nil?
+      user_session.document_code_xi = { measure_type_id => document_code_xi } unless document_code_xi.nil?
+
+      user_session.document_code_xi = user_session.document_code_xi.merge(measure_type_id => document_code_uk) if !document_code_uk.nil? && user_session.deltas_applicable?
     end
 
-    def options_for_checkboxes_for(source:)
-      available_document_codes_for(source: source).uniq.map { |doc| build_option(doc[:code], doc[:description]) if doc[:code].present? }.compact
+    def options_for_radio_buttons(source:)
+      available_document_codes_for(source: source).uniq.map do |doc|
+        build_option(doc[:code], doc[:description])
+      end
     end
 
-    def xi_options_for_checkboxes_without_uk
-      options_for_checkboxes_for(source: 'xi') - options_for_checkboxes_for(source: 'uk')
+    def xi_options_for_radio_buttons_without_uk
+      options_for_radio_buttons(source: 'xi') - options_for_radio_buttons(source: 'uk')
     end
 
     def next_step_path
@@ -57,8 +61,8 @@ module Steps
 
     def build_option(code, description)
       OpenStruct.new(
-        id: code,
-        name: "#{code} - #{description}",
+        id: code.empty? ? 'None' : code,
+        name: code.present? ? "#{code} - #{description}" : 'None of the above',
       )
     end
 

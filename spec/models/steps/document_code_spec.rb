@@ -32,11 +32,11 @@ RSpec.describe Steps::DocumentCode, :user_session do
 
   describe '#save' do
     it 'saves the document codes for uk on to the session' do
-      expect { step.save }.to change(user_session, :document_code_uk).from({}).to('117' => ['C644', 'Y929', ''])
+      expect { step.save }.to change(user_session, :document_code_uk).from({}).to('117' => 'C644')
     end
 
     it 'saves the document codes for xi on to the session' do
-      expect { step.save }.to change(user_session, :document_code_xi).from({}).to('117' => ['N851', ''])
+      expect { step.save }.to change(user_session, :document_code_xi).from({}).to('117' => 'N851')
     end
   end
 
@@ -47,15 +47,19 @@ RSpec.describe Steps::DocumentCode, :user_session do
           id: 'C990',
           name: 'C990 - ',
         ),
+        OpenStruct.new(
+          id: 'None',
+          name: 'None of the above',
+        ),
       ]
     end
 
     it 'returns the correct document code options for the given measure' do
-      expect(step.options_for_checkboxes_for(source: 'uk')).to eq(expected_options)
+      expect(step.options_for_radio_buttons(source: 'uk')).to eq(expected_options)
     end
   end
 
-  describe '#xi_options_for_checkboxes_without_uk' do
+  describe '#xi_options_for_radio_buttons_without_uk' do
     let(:expected_options) do
       [
         OpenStruct.new(
@@ -66,14 +70,14 @@ RSpec.describe Steps::DocumentCode, :user_session do
     end
 
     it 'returns the correct document code options for the given measure' do
-      expect(step.xi_options_for_checkboxes_without_uk).to be_empty
+      expect(step.xi_options_for_radio_buttons_without_uk).to be_empty
     end
   end
 
   describe '#document_code_uk' do
     context 'when there are attributdef applicable_document_codeses being passed in' do
       it 'returns the additional code attribute value on the active model' do
-        expect(step.document_code_uk).to eq('["C644", "Y929", ""]')
+        expect(step.document_code_uk).to eq('C644')
       end
     end
 
@@ -99,7 +103,7 @@ RSpec.describe Steps::DocumentCode, :user_session do
       it { is_expected.to be_valid }
 
       it 'returns the value from the session that corresponds to measure type 105' do
-        expect(step.document_code_uk).to eq(['C644', 'Y929', ''])
+        expect(step.document_code_uk).to eq('C644')
       end
     end
   end
@@ -107,7 +111,7 @@ RSpec.describe Steps::DocumentCode, :user_session do
   describe '#document_code_xi' do
     context 'when there are attributes being passed in' do
       it 'returns the additional code attribute value on the active model' do
-        expect(step.document_code_xi).to eq('["N851", ""]')
+        expect(step.document_code_xi).to eq('N851')
       end
     end
 
@@ -134,7 +138,7 @@ RSpec.describe Steps::DocumentCode, :user_session do
       it { is_expected.to be_valid }
 
       it 'returns the value from the session that corresponds to measure type 142' do
-        expect(step.document_code_xi).to eq(['N851', ''])
+        expect(step.document_code_xi).to eq('N851')
       end
     end
   end

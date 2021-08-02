@@ -4,8 +4,9 @@ module ExpressionEvaluators
 
     def call
       quantity_string = NumberWithHighPrecisionFormatter.new(total_quantity)
+
       {
-        calculation: "#{measure.duty_expression.base} * #{quantity_string.call}",
+        calculation: "#{base_duty_expression} * #{quantity_string.call}",
         value: value,
         formatted_value: number_to_currency(value),
         unit: measure_unit_answers.first[:unit],
@@ -14,6 +15,12 @@ module ExpressionEvaluators
     end
 
     private
+
+    def base_duty_expression
+      return measure.duty_expression.base if measure_condition.nil?
+
+      strip_tags(measure_condition.duty_expression)
+    end
 
     def value
       @value ||= begin
@@ -70,6 +77,16 @@ module ExpressionEvaluators
 
     def xi_measure_amounts
       @xi_measure_amounts ||= filtered_commodity(source: 'xi').applicable_measure_units
+    end
+
+    def measure_condition
+      return nil if component.is_a?(Api::MeasureComponent)
+
+      measure.measure_conditions.find do |measure_condition|
+        measure_condition.measure_condition_components.any? do |measure_condition_component|
+          measure_condition_component.eql?(component)
+        end
+      end
     end
   end
 end

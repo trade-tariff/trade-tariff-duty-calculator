@@ -79,6 +79,7 @@ FactoryBot.define do
         'xi' => {
           '105' => '2340',
           '103' => '2600',
+          '142' => '2601',
         },
       }
     end
@@ -97,27 +98,27 @@ FactoryBot.define do
     document_code do
       {
         'uk' => {
-          '103' => ['N851', ''],
-          '105' => ['C644', 'Y929', ''],
+          '103' => 'N851',
+          '105' => 'C644',
         },
         'xi' => {
-          '142' => ['N851', ''],
-          '353' => ['C644', 'Y929', ''],
+          '142' => 'N851',
+          '353' => 'Y929',
         },
       }
     end
   end
 
-  trait :with_no_document_codes_selected do
+  trait :with_no_document_code_selected do
     document_code do
       {
         'uk' => {
-          '103' => [''],
-          '105' => [''],
+          '103' => '',
+          '105' => '',
         },
         'xi' => {
-          '142' => [''],
-          '353' => [''],
+          '142' => '',
+          '353' => '',
         },
       }
     end

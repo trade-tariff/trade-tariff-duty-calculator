@@ -107,12 +107,20 @@ class UserSession
     }
   end
 
+  def additional_code_for(measure_type_id, source)
+    public_send("additional_code_#{source}")[measure_type_id]
+  end
+
   def additional_code_uk=(value)
     session['answers'][Steps::AdditionalCode.id]['uk'].merge!(value)
   end
 
   def additional_code_xi=(value)
     session['answers'][Steps::AdditionalCode.id]['xi'].merge!(value)
+  end
+
+  def document_code_for(measure_type_id, source)
+    public_send("document_code_#{source}")[measure_type_id]
   end
 
   def document_code_uk=(value)
@@ -152,10 +160,14 @@ class UserSession
   end
 
   def additional_code_measure_type_ids
+    return additional_code_uk.merge(additional_code_xi).keys if deltas_applicable?
+
     session['answers'][Steps::AdditionalCode.id][commodity_source].keys
   end
 
   def document_code_measure_type_ids
+    return document_code_uk.merge(document_code_xi).keys if deltas_applicable?
+
     session['answers'][Steps::DocumentCode.id][commodity_source].keys
   end
 

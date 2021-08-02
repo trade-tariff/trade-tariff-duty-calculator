@@ -1,8 +1,9 @@
-RSpec.describe Api::Commodity, type: :model do
+RSpec.describe Api::Commodity, :user_session, type: :model do
   subject(:commodity) { described_class.build(service, commodity_code) }
 
   let(:commodity_code) { '0702000007' }
   let(:service) { :uk }
+  let(:user_session) { build(:user_session) }
 
   before do
     allow(Uktt::Commodity).to receive(:new).and_call_original
@@ -125,6 +126,60 @@ RSpec.describe Api::Commodity, type: :model do
     context 'when no additional_code is passed' do
       it 'returns a formatted comm code' do
         expect(commodity.formatted_commodity_code).to eq('0702 00 00 07')
+      end
+    end
+  end
+
+  describe '#applicable_measures' do
+    let(:commodity_code) { '1516209821' }
+
+    it 'filters out VAT measures' do
+      expect(commodity.applicable_measures.select(&:vat)).to be_empty
+    end
+
+    it 'filters out additional code measures' do
+      expect(commodity.applicable_measures.select(&:additional_code)).to be_empty
+    end
+
+    context 'when there are additional code answers on the session' do
+      let(:user_session) { build(:user_session, additional_code: { 'uk' => { '552' => 'C114' } }) }
+      let(:targeted_measure_sid) {  20_041_415 } # Definitive anti-dumping
+
+      it 'filters in measures which match the additional_code' do
+        has_measure = commodity.applicable_measures.any? { |measure| measure.id == targeted_measure_sid }
+
+        expect(has_measure).to be(true)
+      end
+    end
+
+    context 'when there are document code answers on the session' do
+      let(:user_session) do
+        build(
+          :user_session,
+          document_code: { 'uk' => { '117' => document_code_answer } },
+        )
+      end
+
+      let(:targeted_measure_sid) { 20_121_795 } # Suspension
+
+      context 'when the document answer triggers an applicable measure condition' do
+        let(:document_code_answer) { 'C990' }
+
+        it 'filters in measures which match the condition' do
+          has_measure = commodity.applicable_measures.any? { |measure| measure.id == targeted_measure_sid }
+
+          expect(has_measure).to be(true)
+        end
+      end
+
+      context 'when the document answer triggers an non-applicable measure condition' do
+        let(:document_code_answer) { '' }
+
+        it 'filters out measures which match the condition' do
+          has_measure = commodity.applicable_measures.any? { |measure| measure.id == targeted_measure_sid }
+
+          expect(has_measure).to be(false)
+        end
       end
     end
   end

@@ -61,4 +61,30 @@ RSpec.describe Api::MeasureCondition do
       it { is_expected.not_to be_expresses_document }
     end
   end
+
+  describe '#applicable?' do
+    shared_examples 'an applicable measure condition' do |action_code|
+      subject(:measure_condition) { described_class.new(action_code: action_code) }
+
+      context 'when the measure condition has an action code which requires we apply the duty amount' do
+        it { is_expected.to be_applicable }
+      end
+    end
+
+    it_behaves_like 'an applicable measure condition', '01'
+    it_behaves_like 'an applicable measure condition', '24'
+    it_behaves_like 'an applicable measure condition', '25'
+    it_behaves_like 'an applicable measure condition', '26'
+    it_behaves_like 'an applicable measure condition', '27'
+    it_behaves_like 'an applicable measure condition', '28'
+    it_behaves_like 'an applicable measure condition', '29'
+    it_behaves_like 'an applicable measure condition', '34'
+    it_behaves_like 'an applicable measure condition', '36'
+
+    context 'when the measure condition has an action which does not require we apply the duty amount' do
+      subject(:measure_condition) { described_class.new(action_code: 'foo') }
+
+      it { is_expected.not_to be_applicable }
+    end
+  end
 end
