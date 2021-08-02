@@ -21,9 +21,10 @@ module Api
                :document_code,
                :certificate_description,
                :duty_expression,
-               :measure_condition_components,
                :monetary_unit_abbreviation,
                :requirement
+
+    has_many :measure_condition_components, MeasureConditionComponent
 
     def expresses_unit?
       (condition_measurement_unit_code || condition_monetary_unit_code).present?

@@ -377,7 +377,7 @@ RSpec.describe UserSession do
     end
 
     let(:expected_value) do
-      { '103' => ['N851', ''], '105' => ['C644', 'Y929', ''] }
+      { '103' => 'N851', '105' => 'C644' }
     end
 
     it 'returns the correct value from the session for the uk source' do
@@ -395,7 +395,7 @@ RSpec.describe UserSession do
     end
 
     let(:expected_value) do
-      { '142' => ['N851', ''], '353' => ['C644', 'Y929', ''] }
+      { '142' => 'N851', '353' => 'Y929' }
     end
 
     it 'returns the correct value from the session for the uk source' do

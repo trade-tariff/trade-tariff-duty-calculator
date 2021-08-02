@@ -26,8 +26,8 @@ RSpec.describe Steps::DocumentCodesController, :user_session do
     end
 
     context 'when the step answers are valid' do
-      let(:document_code_uk) { ['C644', 'Y929', ''] }
-      let(:document_code_xi) { ['N851', ''] }
+      let(:document_code_uk) { 'C644' }
+      let(:document_code_xi) { 'N851' }
 
       it 'assigns the correct step' do
         response
@@ -35,7 +35,7 @@ RSpec.describe Steps::DocumentCodesController, :user_session do
       end
 
       it { expect(response).to redirect_to(document_codes_path('117')) }
-      it { expect { response }.to change(user_session, :document_code_uk).from({}).to('105' => ['C644', 'Y929', '']) }
+      it { expect { response }.to change(user_session, :document_code_uk).from({}).to('105' => 'C644') }
     end
   end
 end

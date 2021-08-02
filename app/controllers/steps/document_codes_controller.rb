@@ -14,8 +14,8 @@ module Steps
 
     def permitted_params
       params.require(:steps_document_code).permit(
-        document_code_uk: [],
-        document_code_xi: [],
+        :document_code_uk,
+        :document_code_xi,
       ).merge(measure_type_id)
     end
 
