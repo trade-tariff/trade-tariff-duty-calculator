@@ -131,31 +131,55 @@ RSpec.describe Api::Commodity, :user_session, type: :model  do
   end
 
   describe '#applicable_measures' do
-    let(:commodity_code) { '7202118000' }
+    let(:commodity_code) { '1516209821' }
 
-    let(:additional_code_measures) { commodity.applicable_measures.select(&:additional_code) }
-    let(:vat_measures) { commodity.applicable_measures.select(&:vat) }
+    it 'filters out VAT measures' do
+      expect(commodity.applicable_measures.select(&:vat)).to be_empty
+    end
 
-    it { expect(vat_measures.size).to be_zero }
-    it { expect(additional_code_measures.size).to be_zero }
+    it 'filters out additional code measures' do
+      expect(commodity.applicable_measures.select(&:additional_code)).to be_empty
+    end
 
     context 'when there are additional code answers on the session' do
-      let(:user_session) { build(:user_session, additional_code: { 'uk' => { '552' => 'C490' } }) }
+      let(:user_session) { build(:user_session, additional_code: { 'uk' => { '552' => 'C114' } }) }
+      let(:targeted_measure_sid) {  20_041_415 } # Definitive anti-dumping
 
-      it 'returns measures with the correct additional codes' do
-        actual_additional_codes = additional_code_measures.map do |measure|
-          measure.additional_code.as_json
+      it 'filters in measures which match the additional_code' do
+        has_measure = commodity.applicable_measures.any? { |measure| measure.id == targeted_measure_sid }
+
+        expect(has_measure).to be(true)
+      end
+    end
+
+    context 'when there are document code answers on the session' do
+      let(:user_session) do
+        build(
+          :user_session,
+          document_code: { 'uk' => { '117' => document_code_answer } },
+        )
+      end
+
+      let(:targeted_measure_sid) { 20_121_795 } # Suspension
+
+      context 'when the document answer triggers an applicable measure condition' do
+        let(:document_code_answer) { 'C990' }
+
+        it 'filters in measures which match the condition' do
+          has_measure = commodity.applicable_measures.any? { |measure| measure.id == targeted_measure_sid }
+
+          expect(has_measure).to be(true)
         end
+      end
 
-        expected_additional_codes = [
-          { 'attributes' =>
-          { 'code' => 'C490',
-            'description' => 'COFCO International Argentina S.A.',
-            'formatted_description' => 'COFCO International Argentina S.A.',
-            'id' => nil,
-            'meta' => nil } },
-        ]
-        expect(actual_additional_codes).to eq(expected_additional_codes)
+      context 'when the document answer triggers an non-applicable measure condition' do
+        let(:document_code_answer) { '' }
+
+        it 'filters out measures which match the condition' do
+          has_measure = commodity.applicable_measures.any? { |measure| measure.id == targeted_measure_sid }
+
+          expect(has_measure).to be(false)
+        end
       end
     end
   end

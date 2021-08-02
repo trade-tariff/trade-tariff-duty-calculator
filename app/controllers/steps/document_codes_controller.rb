@@ -1,7 +1,7 @@
 module Steps
   class DocumentCodesController < BaseController
     def show
-      @step = Steps::DocumentCode.new(measure_type_id)
+      @step = Steps::DocumentCode.new(permitted_params)
     end
 
     def create
@@ -13,14 +13,14 @@ module Steps
     private
 
     def permitted_params
+      return params.permit(:measure_type_id) if params[:steps_document_code].blank?
+
       params.require(:steps_document_code).permit(
         :document_code_uk,
         :document_code_xi,
-      ).merge(measure_type_id)
-    end
-
-    def measure_type_id
-      params.permit(:measure_type_id)
+      ).merge(
+        params.permit(:measure_type_id),
+      )
     end
   end
 end

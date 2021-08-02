@@ -79,6 +79,13 @@ module Api
       additional_code.code
     end
 
+    # Measures are always applicable unless they have a condition which makes them conditionally applicable
+    def applicable?
+      return true if applicable_document_condition.blank?
+
+      applicable_document_condition.applicable?
+    end
+
     private
 
     def document_components
@@ -86,12 +93,14 @@ module Api
     end
 
     def applicable_document_condition
-      document_code = user_session.document_code_for(measure_type.id, source)
+      @applicable_document_condition ||= begin
+        document_code = user_session.document_code_for(measure_type.id, source)
 
-      return if document_code.nil?
+        return if document_code.nil?
 
-      measure_conditions.find do |measure_condition|
-        measure_condition.document_code == document_code
+        measure_conditions.find do |measure_condition|
+          measure_condition.document_code == document_code
+        end
       end
     end
 

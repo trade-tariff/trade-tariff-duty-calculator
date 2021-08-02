@@ -518,4 +518,84 @@ RSpec.describe Api::Measure, :user_session do
       end
     end
   end
+
+  describe '#applicable?' do
+    subject(:measure) do
+      described_class.new(
+        'id' => 20_121_795,
+        'meta' => { 'duty_calculator' => { 'source' => 'uk' } },
+        'measure_type' => { 'id' => '117' },
+        'measure_conditions' => [matching_condition],
+        'measure_components' => [],
+      )
+    end
+
+    context 'when the matching condition is applicable' do
+      let(:user_session) do
+        build(
+          :user_session,
+          document_code: { 'uk' => { '117' => 'C990' } },
+        )
+      end
+
+      let(:matching_condition) do
+        {
+          'action' => 'Apply the mentioned duty',
+          'action_code' => '27',
+          'certificate_description' => 'End use authorisation ships and platforms (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)',
+          'condition' => 'B: Presentation of a certificate/licence/document',
+          'condition_code' => 'B',
+          'condition_duty_amount' => nil,
+          'condition_measurement_unit_code' => nil,
+          'condition_measurement_unit_qualifier_code' => nil,
+          'condition_monetary_unit_code' => nil,
+          'document_code' => 'C990',
+          'duty_expression' => '',
+          'monetary_unit_abbreviation' => nil,
+          'requirement' => 'Other certificates: End use authorisation ships and platforms (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)',
+          'measure_condition_components' => [],
+          'meta' => nil,
+        }
+      end
+
+      it { is_expected.to be_applicable }
+    end
+
+    context 'when the matching condition is not applicable' do
+      let(:user_session) do
+        build(
+          :user_session,
+          document_code: { 'uk' => { '117' => '' } },
+        )
+      end
+
+      let(:matching_condition) do
+        {
+          'action' => 'Measure not applicable',
+          'action_code' => '07',
+          'certificate_description' => nil,
+          'condition' => 'B: Presentation of a certificate/licence/document',
+          'condition_code' => 'B',
+          'condition_duty_amount' => nil,
+          'condition_measurement_unit_code' => nil,
+          'condition_measurement_unit_qualifier_code' => nil,
+          'condition_monetary_unit_code' => nil,
+          'document_code' => '',
+          'duty_expression' => '',
+          'monetary_unit_abbreviation' => nil,
+          'requirement' => nil,
+          'measure_condition_components' => [],
+          'meta' => nil,
+        }
+      end
+
+      it { is_expected.not_to be_applicable }
+    end
+
+    context 'when there is no matching condition' do
+      let(:matching_condition) { nil }
+
+      it { is_expected.to be_applicable }
+    end
+  end
 end
