@@ -83,5 +83,9 @@ module Api
 
       Rails.application.config.http_client_xi
     end
+
+    def user_session
+      UserSession.get
+    end
   end
 end
