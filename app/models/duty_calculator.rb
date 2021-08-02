@@ -6,7 +6,7 @@ class DutyCalculator
   end
 
   def options
-    options = applicable_measures.each_with_object(default_options) do |measure, acc|
+    options = commodity.applicable_measures.each_with_object(default_options) do |measure, acc|
       option_klass = measure.measure_type.option
 
       next if option_klass.nil?
@@ -28,7 +28,7 @@ class DutyCalculator
 
   def additional_duty_rows
     @additional_duty_rows ||=
-      applicable_measures.each_with_object([]) do |measure, acc|
+      commodity.applicable_measures.each_with_object([]) do |measure, acc|
         option_klass = measure.measure_type.additional_duty_option
 
         next if option_klass.nil?
@@ -52,18 +52,6 @@ class DutyCalculator
     end
   end
 
-  def applicable_measures
-    @applicable_measures ||= no_additional_code_measures + additional_code_measures
-  end
-
-  def additional_code_measures
-    commodity.import_measures.reject(&:vat).select do |measure|
-      additional_code = measure.additional_code
-      code_answer = user_session.public_send("additional_code_#{commodity.source}")[measure.measure_type.id]
-      additional_code.present? && code_answer == additional_code.code
-    end
-  end
-
   def vat_measure
     @vat_measure ||= begin
       vat_measures = uk_filtered_commodity.import_measures.select(&:vat)
@@ -72,14 +60,6 @@ class DutyCalculator
 
       vat_measures.find { |measure| measure.vat_type == user_session.vat }
     end
-  end
-
-  def uk_filtered_commodity
-    filtered_commodity(source: 'uk')
-  end
-
-  def no_additional_code_measures
-    commodity.import_measures.reject(&:additional_code).reject(&:vat)
   end
 
   def user_session

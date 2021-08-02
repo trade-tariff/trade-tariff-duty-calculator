@@ -43,5 +43,27 @@ module Api
 
       "#{formatted_code} (#{additional_code})".html_safe
     end
+
+    def applicable_measures
+      no_additional_code_measures + additional_code_measures
+    end
+
+    private
+
+    def no_additional_code_measures
+      import_measures_no_vat.reject(&:additional_code)
+    end
+
+    def additional_code_measures
+      import_measures_no_vat.select do |measure|
+        additional_code = measure.additional_code
+        code_answer = user_session.additional_code_for(measure.measure_type.id, source)
+        additional_code.present? && code_answer == additional_code.code
+      end
+    end
+
+    def import_measures_no_vat
+      import_measures.reject(&:vat)
+    end
   end
 end

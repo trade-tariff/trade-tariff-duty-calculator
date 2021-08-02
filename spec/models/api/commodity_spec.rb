@@ -1,8 +1,9 @@
-RSpec.describe Api::Commodity, type: :model do
+RSpec.describe Api::Commodity, :user_session, type: :model  do
   subject(:commodity) { described_class.build(service, commodity_code) }
 
   let(:commodity_code) { '0702000007' }
   let(:service) { :uk }
+  let(:user_session) { build(:user_session) }
 
   before do
     allow(Uktt::Commodity).to receive(:new).and_call_original
@@ -125,6 +126,36 @@ RSpec.describe Api::Commodity, type: :model do
     context 'when no additional_code is passed' do
       it 'returns a formatted comm code' do
         expect(commodity.formatted_commodity_code).to eq('0702 00 00 07')
+      end
+    end
+  end
+
+  describe '#applicable_measures' do
+    let(:commodity_code) { '7202118000' }
+
+    let(:additional_code_measures) { commodity.applicable_measures.select(&:additional_code) }
+    let(:vat_measures) { commodity.applicable_measures.select(&:vat) }
+
+    it { expect(vat_measures.size).to be_zero }
+    it { expect(additional_code_measures.size).to be_zero }
+
+    context 'when there are additional code answers on the session' do
+      let(:user_session) { build(:user_session, additional_code: { 'uk' => { '552' => 'C490' } }) }
+
+      it 'returns measures with the correct additional codes' do
+        actual_additional_codes = additional_code_measures.map do |measure|
+          measure.additional_code.as_json
+        end
+
+        expected_additional_codes = [
+          { 'attributes' =>
+          { 'code' => 'C490',
+            'description' => 'COFCO International Argentina S.A.',
+            'formatted_description' => 'COFCO International Argentina S.A.',
+            'id' => nil,
+            'meta' => nil } },
+        ]
+        expect(actual_additional_codes).to eq(expected_additional_codes)
       end
     end
   end
