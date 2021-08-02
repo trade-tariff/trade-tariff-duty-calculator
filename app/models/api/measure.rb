@@ -63,8 +63,7 @@ module Api
     end
 
     def all_components
-      # TODO: This needs to include measure condition components
-      @all_components ||= measure_components
+      @all_components ||= document_components.presence || measure_components
     end
 
     def all_duties_zero?
@@ -81,6 +80,20 @@ module Api
     end
 
     private
+
+    def document_components
+      applicable_document_condition&.measure_condition_components
+    end
+
+    def applicable_document_condition
+      document_code = user_session.document_code_for(measure_type.id, source)
+
+      return if document_code.nil?
+
+      measure_conditions.find do |measure_condition|
+        measure_condition.document_code == document_code
+      end
+    end
 
     def ad_valorem?
       single_component? &&

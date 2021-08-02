@@ -5,7 +5,7 @@ module Steps
     include Rails.application.routes.url_helpers
 
     def initialize(attributes = {})
-      clean_user_session if attributes.empty?
+      clean_user_session if attributes.except(:measure_type_id).empty?
 
       super(attributes)
     end

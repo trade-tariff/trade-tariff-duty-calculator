@@ -6,9 +6,20 @@ RSpec.describe ExpressionEvaluators::Compound, :user_session do
   let(:measure) do
     Api::Measure.new(
       'id' => 3_211_138,
+      'meta' => {
+        'duty_calculator' => {
+          'source' => 'uk',
+        },
+      },
       'duty_expression' => {
         'base' => 'foo',
         'formatted_base' => 'foo',
+      },
+      'measure_type' => {
+        'description' => 'Third country duty',
+        'national' => nil,
+        'measure_type_series_id' => 'C',
+        'id' => '103',
       },
       'measure_components' => [
         {
