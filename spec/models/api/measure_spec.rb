@@ -373,7 +373,7 @@ RSpec.describe Api::Measure, :user_session do
     end
   end
 
-  describe '#components' do
+  describe '#applicable_components' do
     subject(:measure) do
       described_class.new(
         'id' => 20_121_795,
