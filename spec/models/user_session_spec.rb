@@ -545,6 +545,21 @@ RSpec.describe UserSession do
     it 'returns the measure type ids from the session' do
       expect(user_session.additional_code_measure_type_ids).to eq(%w[105 103])
     end
+
+    context 'when on the deltas applicable route' do
+      subject(:user_session) do
+        build(
+          :user_session,
+          :with_additional_codes,
+          :with_commodity_information,
+          :deltas_applicable,
+        )
+      end
+
+      it 'accumulates measure type ids from both sources' do
+        expect(user_session.additional_code_measure_type_ids).to eq(%w[105 103 142])
+      end
+    end
   end
 
   describe '#document_code_measure_type_ids' do
@@ -558,6 +573,21 @@ RSpec.describe UserSession do
 
     it 'returns the measure type ids from the session' do
       expect(user_session.document_code_measure_type_ids).to eq(%w[103 105])
+    end
+
+    context 'when on the deltas applicable route' do
+      subject(:user_session) do
+        build(
+          :user_session,
+          :with_document_codes,
+          :with_commodity_information,
+          :deltas_applicable,
+        )
+      end
+
+      it 'accumulates measure type ids from both sources' do
+        expect(user_session.document_code_measure_type_ids).to eq(%w[103 105 142 353])
+      end
     end
   end
 
