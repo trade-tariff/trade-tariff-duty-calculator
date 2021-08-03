@@ -13,4 +13,6 @@
     <%= f.govuk_collection_select :additional_code_xi, @step.options_for_select_for(source: 'xi'), :id, :name, options: { prompt: true }, label: { text: '' }, hint: { text: "To trade this commodity in Northern Ireland, you need to specify an additional 4 digits, known as an additional code. This affects the #{@step.measure_type_description_for(source: 'xi')}." } %>
   <% end %>
   <%= f.govuk_submit %>
+
+  <%= render 'shared/commodity_details' %>
 <% end %>

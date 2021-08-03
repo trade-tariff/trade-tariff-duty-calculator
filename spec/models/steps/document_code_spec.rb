@@ -143,6 +143,56 @@ RSpec.describe Steps::DocumentCode, :user_session do
     end
   end
 
+  describe 'validations' do
+    context 'when the document_code_uk is not present' do
+      subject(:step) do
+        build(
+          :document_code,
+          user_session: user_session,
+          document_code_uk: nil,
+        )
+      end
+
+      let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
+
+      it 'is not a valid object' do
+        expect(step).not_to be_valid
+      end
+
+      it 'adds the correct validation error messages' do
+        step.valid?
+
+        expect(step.errors.messages[:document_code_uk].to_a).to eq(
+          ['Specify a valid document code'],
+        )
+      end
+    end
+
+    context 'when the document_code_xi is not present' do
+      subject(:step) do
+        build(
+          :document_code,
+          user_session: user_session,
+          document_code_xi: nil,
+        )
+      end
+
+      let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
+
+      it 'is not a valid object' do
+        expect(step).not_to be_valid
+      end
+
+      it 'adds the correct validation error messages' do
+        step.valid?
+
+        expect(step.errors.messages[:document_code_xi].to_a).to eq(
+          ['Specify a valid document code'],
+        )
+      end
+    end
+  end
+
   describe '#previous_step_path' do
     include Rails.application.routes.url_helpers
 
