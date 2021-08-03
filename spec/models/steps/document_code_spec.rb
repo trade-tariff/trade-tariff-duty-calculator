@@ -163,7 +163,7 @@ RSpec.describe Steps::DocumentCode, :user_session do
         step.valid?
 
         expect(step.errors.messages[:document_code_uk].to_a).to eq(
-          ['Specify a valid document code'],
+          ['Specify a valid option'],
         )
       end
     end
@@ -187,7 +187,7 @@ RSpec.describe Steps::DocumentCode, :user_session do
         step.valid?
 
         expect(step.errors.messages[:document_code_xi].to_a).to eq(
-          ['Specify a valid document code'],
+          ['Specify a valid option'],
         )
       end
     end

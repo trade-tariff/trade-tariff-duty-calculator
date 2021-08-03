@@ -188,6 +188,6 @@ en:
               measure_type_id:
                 blank: Enter a valid measure type id
               document_code_uk:
-                blank: Specify a valid document code
+                blank: Specify a valid option
               document_code_xi:
-                blank: Specify a valid document code
+                blank: Specify a valid option
