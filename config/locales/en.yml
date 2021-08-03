@@ -183,3 +183,11 @@ en:
           attributes:
             vat:
               blank: Select one of the available options
+        steps/document_code:
+            attributes:
+              measure_type_id:
+                blank: Enter a valid measure type id
+              document_code_uk:
+                blank: Specify a valid document code
+              document_code_xi:
+                blank: Specify a valid document code

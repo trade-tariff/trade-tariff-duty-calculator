@@ -8,6 +8,8 @@ module Steps
     attribute :document_code_uk, :string
     attribute :document_code_xi, :string
 
+    validates :document_code_uk, presence: true, if: -> { validation_applicable_for?('uk') }
+    validates :document_code_xi, presence: true, if: -> { validation_applicable_for?('xi') }
     validates :measure_type_id, presence: true
 
     def document_code_uk
@@ -88,6 +90,12 @@ module Steps
 
     def previous_measure_type_index
       @previous_measure_type_index ||= document_codes_applicable_measure_type_ids.find_index(measure_type_id) - 1
+    end
+
+    def validation_applicable_for?(source)
+      return applicable_document_codes[source][measure_type_id].present? if user_session.deltas_applicable?
+
+      user_session.commodity_source == source
     end
   end
 end
