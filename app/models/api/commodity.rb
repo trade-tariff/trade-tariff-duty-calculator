@@ -45,8 +45,7 @@ module Api
     end
 
     def applicable_measures
-      measures = no_additional_code_measures + additional_code_measures
-      measures.select(&:applicable?)
+      no_additional_code_measures + additional_code_measures
     end
 
     private

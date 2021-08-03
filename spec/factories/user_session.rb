@@ -113,12 +113,12 @@ FactoryBot.define do
     document_code do
       {
         'uk' => {
-          '103' => '',
-          '105' => '',
+          '103' => 'None',
+          '105' => 'None',
         },
         'xi' => {
-          '142' => '',
-          '353' => '',
+          '142' => 'None',
+          '353' => 'None',
         },
       }
     end

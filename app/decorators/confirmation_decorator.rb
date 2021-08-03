@@ -58,7 +58,7 @@ class ConfirmationDecorator < SimpleDelegator
     return format_measure_amount(value) if key == 'measure_amount'
     return country_name_for(value, key) if %w[import_destination country_of_origin].include?(key)
     return additional_codes_for(value) if key == 'additional_code'
-    return selected_document_codes_from(value) if key == 'document_code'
+    return document_codes_for(value) if key == 'document_code'
     return excise_for(value) if key == 'excise'
     return vat_label(value) if key == 'vat'
 
@@ -113,15 +113,22 @@ class ConfirmationDecorator < SimpleDelegator
     user_session.excise_additional_code.values.join(', ')
   end
 
-  def selected_document_codes_from(session_answers)
+  def document_codes_for(_answer)
     return nil if user_session.document_code_uk.empty? && user_session.document_code_xi.empty?
-    return document_codes if session_answers.values.map(&:values).flatten.any?(&:present?)
+    return document_codes.uniq.sort.join(', ') if document_codes.present?
 
     'n/a'
   end
 
   def document_codes
-    (user_session.document_code_uk.values.flatten.reject(&:empty?) + user_session.document_code_xi.values.flatten.reject(&:empty?)).uniq.join(', ')
+    uk_document_codes = fetch_document_codes_for('uk')
+    xi_document_codes = fetch_document_codes_for('xi')
+
+    uk_document_codes.concat(xi_document_codes)
+  end
+
+  def fetch_document_codes_for(source)
+    user_session.public_send("document_code_#{source}").values.flatten.reject { |code| code == 'None' }
   end
 
   def user_session
