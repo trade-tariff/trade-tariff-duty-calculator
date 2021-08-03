@@ -127,6 +127,7 @@ module CommodityHelper
 
   def surface_document_codes(commodity: filtered_commodity)
     commodity.applicable_measures.each_with_object({}) { |measure, acc|
+      next unless measure.expresses_document?
       next if measure.document_codes.blank?
 
       acc[measure.measure_type.id] ||= []

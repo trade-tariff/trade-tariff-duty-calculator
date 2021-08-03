@@ -519,6 +519,44 @@ RSpec.describe Api::Measure, :user_session do
     end
   end
 
+  describe '#expresses_document?' do
+    subject(:measure) { described_class.new('measure_conditions' => measure_conditions) }
+
+    context 'when a measure condition requires a document' do
+      let(:measure_conditions) do
+        [
+          {
+            'condition' => 'B: Presentation of a certificate/licence/document',
+            'condition_code' => 'B',
+          },
+        ]
+      end
+
+      it { is_expected.to be_expresses_document }
+    end
+
+    context 'when there are no measure conditions that require a document' do
+      let(:measure_conditions) do
+        [
+          {
+            'condition' => 'Import price must be equal to or greater than the entry price (see components)',
+            'condition_code' => 'V',
+          },
+        ]
+      end
+
+      it { is_expected.not_to be_expresses_document }
+    end
+
+    context 'when there are no measure conditions' do
+      let(:measure_conditions) do
+        []
+      end
+
+      it { is_expected.not_to be_expresses_document }
+    end
+  end
+
   describe '#applicable?' do
     subject(:measure) do
       described_class.new(
