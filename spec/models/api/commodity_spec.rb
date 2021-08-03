@@ -64,15 +64,11 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
   end
 
   describe '#zero_mfn_duty' do
-    it 'returns false' do
-      expect(commodity.zero_mfn_duty).to be(false)
-    end
+    it { expect(commodity.zero_mfn_duty).to be(false) }
   end
 
   describe '#trade_defence' do
-    it 'returns true' do
-      expect(commodity.trade_defence).to be(true)
-    end
+    it { expect(commodity.trade_defence).to be(true) }
   end
 
   describe '#applicable_measure_units' do
@@ -101,32 +97,24 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
       }
     end
 
-    it 'returns the expected units' do
-      expect(commodity.applicable_measure_units).to eq(expected_units)
-    end
+    it { expect(commodity.applicable_measure_units).to eq(expected_units) }
   end
 
   describe '#formatted_commodity_code' do
     context 'when an additional_code is passed' do
       let(:additional_code) { 'B787' }
 
-      it 'returns a formatted comm code' do
-        expect(commodity.formatted_commodity_code(additional_code)).to eq('0702 00 00 07 (B787)')
-      end
+      it { expect(commodity.formatted_commodity_code(additional_code)).to eq('0702 00 00 07 (B787)') }
     end
 
     context 'when a nil additional_code is passed' do
       let(:additional_code) { nil }
 
-      it 'returns a formatted comm code' do
-        expect(commodity.formatted_commodity_code(additional_code)).to eq('0702 00 00 07')
-      end
+      it { expect(commodity.formatted_commodity_code(additional_code)).to eq('0702 00 00 07') }
     end
 
     context 'when no additional_code is passed' do
-      it 'returns a formatted comm code' do
-        expect(commodity.formatted_commodity_code).to eq('0702 00 00 07')
-      end
+      it { expect(commodity.formatted_commodity_code).to eq('0702 00 00 07') }
     end
   end
 
@@ -149,37 +137,6 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
         has_measure = commodity.applicable_measures.any? { |measure| measure.id == targeted_measure_sid }
 
         expect(has_measure).to be(true)
-      end
-    end
-
-    context 'when there are document code answers on the session' do
-      let(:user_session) do
-        build(
-          :user_session,
-          document_code: { 'uk' => { '117' => document_code_answer } },
-        )
-      end
-
-      let(:targeted_measure_sid) { 20_121_795 } # Suspension
-
-      context 'when the document answer triggers an applicable measure condition' do
-        let(:document_code_answer) { 'C990' }
-
-        it 'filters in measures which match the condition' do
-          has_measure = commodity.applicable_measures.any? { |measure| measure.id == targeted_measure_sid }
-
-          expect(has_measure).to be(true)
-        end
-      end
-
-      context 'when the document answer triggers an non-applicable measure condition' do
-        let(:document_code_answer) { '' }
-
-        it 'filters out measures which match the condition' do
-          has_measure = commodity.applicable_measures.any? { |measure| measure.id == targeted_measure_sid }
-
-          expect(has_measure).to be(false)
-        end
       end
     end
   end

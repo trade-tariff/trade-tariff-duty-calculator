@@ -57,7 +57,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
     let(:expected) do
       [
         { key: 'additional_code', label: 'Additional code(s)', value: '2340, 2600, 2340, 2600, 2601' },
-        { key: 'document_code', label: 'Document(s)', value: 'N851, C644, Y929' },
+        { key: 'document_code', label: 'Document(s)', value: 'C644, N851, Y929' },
         { key: 'import_date', label: 'Date of import', value: '01 January 2025' },
         { key: 'import_destination', label: 'Destination', value: 'Northern Ireland' },
         { key: 'country_of_origin', label: 'Coming from', value: 'United Kingdom' },

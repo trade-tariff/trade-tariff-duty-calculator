@@ -6,7 +6,7 @@ class DutyCalculator
   end
 
   def options
-    options = commodity.applicable_measures.each_with_object(default_options) do |measure, acc|
+    options = commodity.applicable_measures.select(&:applicable?).each_with_object(default_options) do |measure, acc|
       option_klass = measure.measure_type.option
 
       next if option_klass.nil?
@@ -28,7 +28,7 @@ class DutyCalculator
 
   def additional_duty_rows
     @additional_duty_rows ||=
-      commodity.applicable_measures.each_with_object([]) do |measure, acc|
+      commodity.applicable_measures.select(&:applicable?).each_with_object([]) do |measure, acc|
         option_klass = measure.measure_type.additional_duty_option
 
         next if option_klass.nil?

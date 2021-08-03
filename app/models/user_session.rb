@@ -5,8 +5,8 @@ class UserSession
     @session = session
     @session['answers'] ||= {}
     @session['answers'][Steps::AdditionalCode.id] ||= { 'xi' => {}, 'uk' => {} }
-    @session['answers'][Steps::Excise.id] ||= {}
     @session['answers'][Steps::DocumentCode.id] ||= { 'xi' => {}, 'uk' => {} }
+    @session['answers'][Steps::Excise.id] ||= {}
   end
 
   def remove_step_ids(ids)
@@ -120,7 +120,11 @@ class UserSession
   end
 
   def document_code_for(measure_type_id, source)
-    public_send("document_code_#{source}")[measure_type_id]
+    code = public_send("document_code_#{source}")[measure_type_id]
+
+    return '' if code == 'None'
+
+    code
   end
 
   def document_code_uk=(value)
@@ -261,6 +265,20 @@ class UserSession
 
   def additional_codes
     (additional_code_uk.values + additional_code_xi.values).compact.join(', ')
+  end
+
+  def has_answer?(step_id)
+    answer = answers[step_id]
+
+    if answer.present? && answer&.key?('xi') || answer&.key?('uk')
+      answer['xi'].present? || answer['uk'].present?
+    else
+      answer.present?
+    end
+  end
+
+  def answers
+    session['answers']
   end
 
   def self.build(session)
