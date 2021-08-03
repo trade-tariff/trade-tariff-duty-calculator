@@ -143,28 +143,51 @@ RSpec.describe Steps::DocumentCode, :user_session do
     end
   end
 
-  describe 'validations' do
-    context 'when the document_code_uk is not present' do
+  describe '#valid?' do
+    it { is_expected.to be_valid }
+
+    context 'when both document_code_uk and document_code_xi are not present' do
       subject(:step) do
         build(
           :document_code,
-          user_session: user_session,
           document_code_uk: nil,
+          document_code_xi: nil,
         )
       end
 
       let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
 
-      it 'is not a valid object' do
-        expect(step).not_to be_valid
+      it { is_expected.not_to be_valid }
+
+      it 'adds the correct validation error messages for the uk attribute' do
+        step.valid?
+
+        expect(step.errors.messages[:document_code_uk].to_a).to eq(['Specify a valid option'])
       end
+
+      it 'adds the correct validation error messages for the xi attribute' do
+        step.valid?
+
+        expect(step.errors.messages[:document_code_xi].to_a).to eq([])
+      end
+    end
+
+    context 'when the document_code_uk is not present' do
+      subject(:step) do
+        build(
+          :document_code,
+          document_code_uk: nil,
+        )
+      end
+
+      let(:user_session) { build(:user_session, :with_commodity_information, commodity_source: 'uk') }
+
+      it { is_expected.not_to be_valid }
 
       it 'adds the correct validation error messages' do
         step.valid?
 
-        expect(step.errors.messages[:document_code_uk].to_a).to eq(
-          ['Specify a valid option'],
-        )
+        expect(step.errors.messages[:document_code_uk].to_a).to eq(['Specify a valid option'])
       end
     end
 
@@ -172,23 +195,18 @@ RSpec.describe Steps::DocumentCode, :user_session do
       subject(:step) do
         build(
           :document_code,
-          user_session: user_session,
           document_code_xi: nil,
         )
       end
 
       let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
 
-      it 'is not a valid object' do
-        expect(step).not_to be_valid
-      end
+      it { is_expected.not_to be_valid }
 
       it 'adds the correct validation error messages' do
         step.valid?
 
-        expect(step.errors.messages[:document_code_xi].to_a).to eq(
-          ['Specify a valid option'],
-        )
+        expect(step.errors.messages[:document_code_xi].to_a).to eq(['Specify a valid option'])
       end
     end
   end

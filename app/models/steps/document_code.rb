@@ -53,6 +53,12 @@ module Steps
       customs_value_path
     end
 
+    def valid?
+      super.tap do
+        errors.messages.delete(:document_code_xi) if errors.messages[:document_code_uk].present? && errors.messages[:document_code_xi].present? && user_session.deltas_applicable?
+      end
+    end
+
     private
 
     def available_document_codes_for(source:)
