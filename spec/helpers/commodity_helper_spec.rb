@@ -275,8 +275,8 @@ RSpec.describe CommodityHelper, :user_session do
     let(:expected_options) do
       {
         'xi' => {
-          '103' => [{ code: 'N851', description: nil }, { code: '', description: nil }],
-          '105' => [{ code: 'C644', description: nil }, { code: 'Y929', description: nil }, { code: '', description: nil }],
+          '103' => [{ code: 'N851', description: 'N851 - ' }, { code: 'None', description: 'None of the above' }],
+          '105' => [{ code: 'C644', description: 'C644 - ' }, { code: 'Y929', description: 'Y929 - ' }, { code: 'None', description: 'None of the above' }],
         },
       }
     end

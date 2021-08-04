@@ -40,46 +40,37 @@ RSpec.describe Steps::DocumentCode, :user_session do
     end
   end
 
-  describe '#options_for_select' do
-    let(:expected_options) do
-      [
-        OpenStruct.new(
-          id: 'C990',
-          name: 'C990 - ',
-        ),
-        OpenStruct.new(
-          id: 'None',
-          name: 'None of the above',
-        ),
-      ]
+  describe '#options_for' do
+    subject(:options) { step.options_for(source) }
+
+    context 'when loading from the `uk` source' do
+      let(:source) { 'uk' }
+      let(:expected_options) do
+        [
+          OpenStruct.new(
+            id: 'C990',
+            name: 'C990 - ',
+          ),
+          OpenStruct.new(
+            id: 'None',
+            name: 'None of the above',
+          ),
+        ]
+      end
+
+      it { expect(options).to eq(expected_options) }
     end
 
-    it 'returns the correct document code options for the given measure' do
-      expect(step.options_for_radio_buttons(source: 'uk')).to eq(expected_options)
-    end
-  end
+    context 'when loading from the `xi` source' do
+      let(:source) { 'xi' }
+      let(:expected_options) { [] }
 
-  describe '#xi_options_for_radio_buttons_without_uk' do
-    let(:expected_options) do
-      [
-        OpenStruct.new(
-          id: 'C990',
-          name: 'C990 - ',
-        ),
-      ]
-    end
-
-    it 'returns the correct document code options for the given measure' do
-      expect(step.xi_options_for_radio_buttons_without_uk).to be_empty
+      it { expect(options).to eq(expected_options) }
     end
   end
 
   describe '#document_code_uk' do
-    context 'when there are attributdef applicable_document_codeses being passed in' do
-      it 'returns the additional code attribute value on the active model' do
-        expect(step.document_code_uk).to eq('C644')
-      end
-    end
+    it { expect(step.document_code_uk).to eq('C644') }
 
     context 'when there is no document code being passed in, but the value is on the session' do
       subject(:step) do
@@ -109,11 +100,8 @@ RSpec.describe Steps::DocumentCode, :user_session do
   end
 
   describe '#document_code_xi' do
-    context 'when there are attributes being passed in' do
-      it 'returns the additional code attribute value on the active model' do
-        expect(step.document_code_xi).to eq('N851')
-      end
-    end
+    it { is_expected.to be_valid }
+    it { expect(step.document_code_xi).to eq('N851') }
 
     context 'when there is no document code being passed in, but the value is on the session' do
       subject(:step) do
@@ -136,39 +124,133 @@ RSpec.describe Steps::DocumentCode, :user_session do
       end
 
       it { is_expected.to be_valid }
-
-      it 'returns the value from the session that corresponds to measure type 142' do
-        expect(step.document_code_xi).to eq('N851')
-      end
+      it { expect(step.document_code_xi).to eq('N851') }
     end
   end
 
   describe '#valid?' do
+    before do
+      # rubocop:disable RSpec/SubjectStub
+      allow(step).to receive(:applicable_document_codes).and_return(applicable_document_codes)
+      # rubocop:enable RSpec/SubjectStub
+    end
+
+    let(:applicable_document_codes) { {} }
+
     it { is_expected.to be_valid }
 
     context 'when both document_code_uk and document_code_xi are not present' do
-      subject(:step) do
-        build(
-          :document_code,
-          document_code_uk: nil,
-          document_code_xi: nil,
-        )
-      end
-
       let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
 
-      it { is_expected.not_to be_valid }
+      context 'when the uk and xi service return the same document codes' do
+        subject(:step) do
+          build(
+            :document_code,
+            document_code_uk: nil,
+            document_code_xi: nil,
+          )
+        end
 
-      it 'adds the correct validation error messages for the uk attribute' do
-        step.valid?
+        let(:applicable_document_codes) do
+          {
+            'uk' => {
+              '117' => [
+                { code: 'C990', description: 'End use authorisation ships and platforms (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)' },
+                { code: '', description: nil },
+              ],
+            },
+            'xi' => {
+              '117' => [
+                { code: 'C990', description: 'End use authorisation ships and platforms (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)' },
+                { code: '', description: nil },
+              ],
+            },
+          }
+        end
 
-        expect(step.errors.messages[:document_code_uk].to_a).to eq(['Specify a valid option'])
+        it { is_expected.not_to be_valid }
+
+        it 'adds the correct validation error messages for the uk attribute' do
+          step.valid?
+
+          expect(step.errors.messages[:document_code_uk].to_a).to eq(['Specify a valid option'])
+        end
+
+        it 'adds the correct validation error messages for the xi attribute' do
+          step.valid?
+
+          expect(step.errors.messages[:document_code_xi].to_a).to eq([])
+        end
       end
 
-      it 'adds the correct validation error messages for the xi attribute' do
-        step.valid?
+      context 'when the uk service returns the document codes the xi service does not' do
+        subject(:step) do
+          build(
+            :document_code,
+            document_code_uk: nil,
+            document_code_xi: nil,
+          )
+        end
 
-        expect(step.errors.messages[:document_code_xi].to_a).to eq([])
+        let(:applicable_document_codes) do
+          {
+            'uk' => {
+              '117' => [
+                { code: 'C990', description: 'End use authorisation ships and platforms (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)' },
+                { code: '', description: nil },
+              ],
+            },
+          }
+        end
+
+        it { is_expected.not_to be_valid }
+
+        it 'adds the correct validation error messages for the uk attribute' do
+          step.valid?
+
+          expect(step.errors.messages[:document_code_uk].to_a).to eq(['Specify a valid option'])
+        end
+
+        it 'adds the correct validation error messages for the xi attribute' do
+          step.valid?
+
+          expect(step.errors.messages[:document_code_xi].to_a).to eq([])
+        end
+      end
+
+      context 'when the xi service returns document codes the uk service does not have' do
+        subject(:step) do
+          build(
+            :document_code,
+            document_code_uk: nil,
+            document_code_xi: nil,
+          )
+        end
+
+        let(:applicable_document_codes) do
+          {
+            'xi' => {
+              '117' => [
+                { code: 'C990', description: 'End use authorisation ships and platforms (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)' },
+                { code: '', description: nil },
+              ],
+            },
+          }
+        end
+
+        it { is_expected.not_to be_valid }
+
+        it 'adds the correct validation error messages for the uk attribute' do
+          step.valid?
+
+          expect(step.errors.messages[:document_code_uk].to_a).to eq([])
+        end
+
+        it 'adds the correct validation error messages for the xi attribute' do
+          step.valid?
+
+          expect(step.errors.messages[:document_code_xi].to_a).to eq(['Specify a valid option'])
+        end
       end
     end
 
@@ -199,7 +281,7 @@ RSpec.describe Steps::DocumentCode, :user_session do
         )
       end
 
-      let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
+      let(:user_session) { build(:user_session, :with_commodity_information, commodity_source: 'xi') }
 
       it { is_expected.not_to be_valid }
 

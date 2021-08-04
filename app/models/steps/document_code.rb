@@ -20,21 +20,17 @@ module Steps
       super || user_session.document_code_xi[measure_type_id]
     end
 
+    def options_for(source)
+      send("#{source}_available_documents").map do |doc|
+        OpenStruct.new(id: doc[:code], name: doc[:description])
+      end
+    end
+
     def save
       user_session.document_code_uk = { measure_type_id => document_code_uk } unless document_code_uk.nil?
       user_session.document_code_xi = { measure_type_id => document_code_xi } unless document_code_xi.nil?
 
       user_session.document_code_xi = user_session.document_code_xi.merge(measure_type_id => document_code_uk) if !document_code_uk.nil? && user_session.deltas_applicable?
-    end
-
-    def options_for_radio_buttons(source:)
-      available_document_codes_for(source: source).uniq.map do |doc|
-        build_option(doc[:code], doc[:description])
-      end
-    end
-
-    def xi_options_for_radio_buttons_without_uk
-      options_for_radio_buttons(source: 'xi') - options_for_radio_buttons(source: 'uk')
     end
 
     def next_step_path
@@ -61,17 +57,18 @@ module Steps
 
     private
 
-    def available_document_codes_for(source:)
-      return {} if applicable_document_codes.blank? || applicable_document_codes[source].blank? || applicable_document_codes[source][measure_type_id].blank?
-
-      applicable_document_codes[source][measure_type_id]
+    def uk_available_documents
+      available_document_codes_for('uk')
     end
 
-    def build_option(code, description)
-      OpenStruct.new(
-        id: code.empty? ? 'None' : code,
-        name: code.present? ? "#{code} - #{description}" : 'None of the above',
-      )
+    def xi_available_documents
+      available_document_codes_for('xi') - available_document_codes_for('uk')
+    end
+
+    def available_document_codes_for(source)
+      return [] if applicable_document_codes.blank? || applicable_document_codes.dig(source, measure_type_id).blank?
+
+      applicable_document_codes.dig(source, measure_type_id)
     end
 
     def last_measure_type_id_for_additional_codes
@@ -99,7 +96,8 @@ module Steps
     end
 
     def validation_applicable_for?(source)
-      return applicable_document_codes[source][measure_type_id].present? if user_session.deltas_applicable?
+      return false if source == 'xi' && xi_available_documents.empty? && user_session.deltas_applicable?
+      return applicable_document_codes.dig(source, measure_type_id).present? if user_session.deltas_applicable?
 
       user_session.commodity_source == source
     end
