@@ -603,7 +603,7 @@ RSpec.describe Api::Measure, :user_session do
       let(:user_session) do
         build(
           :user_session,
-          document_code: { 'uk' => { '117' => '' } },
+          document_code: { 'uk' => { '117' => 'None' } },
         )
       end
 

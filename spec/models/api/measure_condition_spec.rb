@@ -13,7 +13,6 @@ RSpec.describe Api::MeasureCondition do
                   id: 'flibble',
                   condition_code: 'B',
                   condition: 'B: Presentation of a certificate/licence/document',
-                  document_code: '',
                   requirement: nil,
                   action: 'The entry into free circulation is not allowed',
                   duty_expression: '',
@@ -85,6 +84,38 @@ RSpec.describe Api::MeasureCondition do
       subject(:measure_condition) { described_class.new(action_code: 'foo') }
 
       it { is_expected.not_to be_applicable }
+    end
+  end
+
+  describe '#document_code' do
+    subject(:measure_condition) { described_class.new('document_code' => document_code) }
+
+    context 'when the measure condition has a document code' do
+      let(:document_code) { 'C990' }
+
+      it { expect(measure_condition.document_code).to eq('C990') }
+    end
+
+    context 'when the measure condition does not have a document code' do
+      let(:document_code) { '' }
+
+      it { expect(measure_condition.document_code).to eq('None') }
+    end
+  end
+
+  describe '#certificate_description' do
+    subject(:measure_condition) { described_class.new('document_code' => document_code, certificate_description: '') }
+
+    context 'when the measure condition has a document code' do
+      let(:document_code) { 'C990' }
+
+      it { expect(measure_condition.document_code).to eq('C990') }
+    end
+
+    context 'when the measure condition does not have a document code' do
+      let(:document_code) { '' }
+
+      it { expect(measure_condition.document_code).to eq('None') }
     end
   end
 end

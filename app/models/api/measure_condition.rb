@@ -61,6 +61,18 @@ module Api
 
     has_many :measure_condition_components, MeasureConditionComponent
 
+    def document_code
+      return super if super.present?
+
+      'None'
+    end
+
+    def certificate_description
+      return "#{document_code} - #{super}" unless document_code == 'None'
+
+      'None of the above'
+    end
+
     def expresses_unit?
       (condition_measurement_unit_code || condition_monetary_unit_code).present?
     end

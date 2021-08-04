@@ -120,11 +120,7 @@ class UserSession
   end
 
   def document_code_for(measure_type_id, source)
-    code = public_send("document_code_#{source}")[measure_type_id]
-
-    return '' if code == 'None'
-
-    code
+    public_send("document_code_#{source}")[measure_type_id]
   end
 
   def document_code_uk=(value)

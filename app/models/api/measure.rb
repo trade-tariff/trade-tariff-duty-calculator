@@ -99,7 +99,6 @@ module Api
     def applicable_document_condition
       @applicable_document_condition ||= begin
         document_code = user_session.document_code_for(measure_type.id, source)
-        document_code = '' if document_code == 'None'
 
         return if document_code.nil?
 
