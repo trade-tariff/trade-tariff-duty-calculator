@@ -130,11 +130,12 @@ RSpec.describe Steps::DocumentCode, :user_session do
 
   describe '#valid?' do
     before do
+      # rubocop:disable RSpec/SubjectStub
       allow(step).to receive(:applicable_document_codes).and_return(applicable_document_codes)
+      # rubocop:enable RSpec/SubjectStub
     end
 
-    let(:applicable_document_codes) do
-    end
+    let(:applicable_document_codes) { {} }
 
     it { is_expected.to be_valid }
 
