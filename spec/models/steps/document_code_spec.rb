@@ -40,7 +40,7 @@ RSpec.describe Steps::DocumentCode, :user_session do
     end
   end
 
-  describe '#options_for_select' do
+  describe '#options_for' do
     subject(:options) { step.options_for(source) }
 
     context 'when loading from the `uk` source' do
