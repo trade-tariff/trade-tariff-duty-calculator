@@ -104,18 +104,18 @@ RSpec.describe Api::MeasureCondition do
   end
 
   describe '#certificate_description' do
-    subject(:measure_condition) { described_class.new('document_code' => document_code, certificate_description: '') }
+    subject(:measure_condition) { described_class.new('document_code' => document_code, certificate_description: 'Flibble') }
 
     context 'when the measure condition has a document code' do
       let(:document_code) { 'C990' }
 
-      it { expect(measure_condition.document_code).to eq('C990') }
+      it { expect(measure_condition.certificate_description).to eq('C990 - Flibble') }
     end
 
     context 'when the measure condition does not have a document code' do
       let(:document_code) { '' }
 
-      it { expect(measure_condition.document_code).to eq('None') }
+      it { expect(measure_condition.certificate_description).to eq('None of the above') }
     end
   end
 end
