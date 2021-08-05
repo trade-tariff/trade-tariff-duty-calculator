@@ -1,6 +1,7 @@
 module Steps
   class Excise < Steps::Base
     STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
+    DISABLED_ADDITIONAL_CODES = %w[440 441].freeze
 
     include CommodityHelper
 
@@ -18,17 +19,20 @@ module Steps
       user_session.excise_additional_code = { measure_type_id => additional_code }
     end
 
-    def options_for_radio_buttons
+    def options
       available_additional_codes.map do |additional_code|
+        code = additional_code['code'].sub('X', '')
+
         OpenStruct.new(
-          id: additional_code['code'].sub('X', ''),
+          id: code,
           name: additional_code['overlay'],
+          disabled: code.in?(DISABLED_ADDITIONAL_CODES),
         )
       end
     end
 
     def measure_type_description
-      applicable_excise_additional_codes[measure_type_id]['measure_type_description'].downcase
+      applicable_excise_additional_codes.dig(measure_type_id, 'measure_type_description').downcase
     end
 
     def next_step_path

@@ -59,6 +59,12 @@ RSpec.describe Steps::Excise, :step, :user_session do
             'hint' => '',
             'measure_sid' => -485_460,
           },
+          {
+            'code' => 'X441',
+            'overlay' => '441 - Heavy oil: fuel oil (unmarked)',
+            'hint' => '',
+            'measure_sid' => -485_461,
+          },
         ],
       },
     }
@@ -130,47 +136,58 @@ RSpec.describe Steps::Excise, :step, :user_session do
     it { expect(step.measure_type_description).to eq('excises') }
   end
 
-  describe '#options_for_radio_buttons' do
+  describe '#options' do
     let(:expected_options) do
       [
         OpenStruct.new(
           id: '520',
           name: '520 - Light oil: unrebated (unmarked) – other unrebated light oil',
+          disabled: false,
         ),
         OpenStruct.new(
           id: '522',
           name: '522 - Light oil: rebated – unleaded petrol',
+          disabled: false,
         ),
         OpenStruct.new(
           id: '541',
           name: '541 - Heavy oil: unrebated (unmarked, including Diesel Engine Road Vehicle (DERV) or road fuel extender and unmarked kerosene or unmarked gas oil for which no marking waiver has been granted)',
+          disabled: false,
         ),
         OpenStruct.new(
           id: '542',
           name: '542 - Heavy oil: kerosene to be used as motor fuel off road or in an excepted vehicle',
+          disabled: false,
         ),
         OpenStruct.new(
           id: '551',
           name: '551 - Heavy oil: kerosene (marked or unmarked under marking waiver, including heavy oil aviation turbine fuel) to be used other than as motor fuel off-road or in an excepted vehicle',
+          disabled: false,
         ),
         OpenStruct.new(
           id: '556',
           name: '556 - Heavy oil: gas oil (marked or unmarked under marking waiver)',
+          disabled: false,
         ),
         OpenStruct.new(
           id: '561',
           name: '561 - Heavy oil: fuel oil (unmarked)',
+          disabled: false,
         ),
         OpenStruct.new(
           id: '570',
           name: '570 - Heavy oil: other (unmarked)',
+          disabled: false,
+        ),
+        OpenStruct.new(
+          id: '441',
+          name: '441 - Heavy oil: fuel oil (unmarked)',
+          disabled: true,
         ),
       ]
     end
 
-    it 'returns the correct additonal code options for the given measure' do
-      expect(step.options_for_radio_buttons).to eq(expected_options)
-    end
+    it { expect(step.options).to eq(expected_options) }
   end
 
   describe '#additional_code' do
