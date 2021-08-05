@@ -30,7 +30,7 @@ module Steps
         )
       end
     end
-    
+
     def small_brewers_relief?
       options.any?(&:disabled)
     end
