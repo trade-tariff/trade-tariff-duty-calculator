@@ -379,4 +379,24 @@ RSpec.describe Steps::Excise, :step, :user_session do
       end
     end
   end
+
+  describe '#small_brewers_relief?' do
+    let(:applicable_additional_codes) do
+      {
+        '306' => { 'additional_codes' => [{ 'code' => additional_code }] },
+      }
+    end
+
+    context 'when at least one additional code is a small brewers relief code' do
+      let(:additional_code) { 'X441' }
+
+      it { is_expected.to be_small_brewers_relief }
+    end
+
+    context 'when no additional code is a small brewers relief code' do
+      let(:additional_code) { 'X500' }
+
+      it { is_expected.not_to be_small_brewers_relief }
+    end
+  end
 end

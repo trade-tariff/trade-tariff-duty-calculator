@@ -30,6 +30,10 @@ module Steps
         )
       end
     end
+    
+    def small_brewers_relief?
+      options.any?(&:disabled)
+    end
 
     def measure_type_description
       applicable_excise_additional_codes.dig(measure_type_id, 'measure_type_description').downcase
