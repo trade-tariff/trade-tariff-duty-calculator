@@ -83,6 +83,8 @@ class UserSession
     session['trade_defence']
   end
 
+  alias_method :trade_defence?, :trade_defence
+
   def trade_defence=(value)
     session['trade_defence'] = value
   end
@@ -248,7 +250,7 @@ class UserSession
   end
 
   def deltas_applicable?
-    row_to_ni_route? && planned_processing != 'commercial_purposes'
+    row_to_ni_route? && planned_processing != 'commercial_purposes' && !trade_defence?
   end
 
   def import_into_gb?
