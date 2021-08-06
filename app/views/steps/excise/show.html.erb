@@ -5,20 +5,18 @@
   <span class="govuk-caption-xl">Calculate import duties</span>
   <h1 class="govuk-heading-xl">Which class of excise is applicable to your trade?</h1>
 
-  <% excise_link = link_to('UK Trade: excise, duties, reliefs, drawbacks and allowances (opens in new browser window)', 'https://www.gov.uk/government/publications/uk-trade-tariff-excise-duties-reliefs-drawbacks-and-allowances/uk-trade-tariff-excise-duties-reliefs-drawbacks-and-allowances', class: 'govuk-link', target: '_blank') %>
-
   <%=
-    f.govuk_collection_radio_buttons(
+    f.govuk_radio_buttons_fieldset(
       :additional_code,
-      @step.options_for_radio_buttons,
-      :id,
-      :name,
       legend: { text: '' },
       hint: {
-        text: sanitize("<p>There are multiple excise duties that could be applied to trade in this commodity code. Select which class of excise duty applies to your trade</p><p>For more information on excise duty classes, please see #{excise_link}</p>", attributes: %w[href target class]) 
-      }
-    )
-  %>
+        text: excise_hint(small_brewers_relief: @step.small_brewers_relief?),
+      },
+    ) do %>
+    <%- @step.options.each do |option| %>
+      <%= f.govuk_radio_button :additional_code, option.id, label: { text: option.name }, link_errors: true, disabled: option.disabled %>
+    <% end %>
+  <% end %>
 
   <%= f.govuk_submit %>
 <% end %>
