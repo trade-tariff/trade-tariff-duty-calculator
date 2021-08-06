@@ -59,6 +59,7 @@ FactoryBot.define do
   end
 
   trait :deltas_applicable do
+    trade_defence { false }
     import_destination { 'XI' }
     country_of_origin { 'OTHER' }
     other_country_of_origin { 'AR' }

@@ -790,21 +790,16 @@ RSpec.describe UserSession do
   end
 
   describe '#deltas_applicable?' do
-    context 'when on RoW to NI route and planned_processing is commercial_purposes' do
-      subject(:user_session) do
-        build(
-          :user_session,
-          :deltas_applicable,
-        )
-      end
+    context 'when on a deltas applicable route' do
+      subject(:user_session) { build(:user_session, :deltas_applicable) }
 
-      it 'returns true' do
-        expect(user_session.deltas_applicable?).to be true
-      end
+      it { is_expected.to be_deltas_applicable }
     end
 
-    it 'returns false' do
-      expect(user_session.deltas_applicable?).to be false
+    context 'when not on a deltas applicable route' do
+      subject(:user_session) { build(:user_session) }
+
+      it { is_expected.not_to be_deltas_applicable }
     end
   end
 
