@@ -74,6 +74,10 @@ module Api
       additional_code.code
     end
 
+    def additional_code_answer
+      user_session.additional_code_for(measure_type, source) if measure_type.excise?
+    end
+
     # Measures are always applicable unless they have a condition which makes them conditionally applicable.
     def applicable?
       return true if applicable_document_condition.blank?

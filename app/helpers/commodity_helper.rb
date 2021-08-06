@@ -27,15 +27,15 @@ module CommodityHelper
       {}.tap do |additional_codes|
         if user_session.deltas_applicable?
           additional_codes['uk'] = uk_filtered_commodity.applicable_additional_codes.slice(
-            *Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS,
+            *Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS - %w[306],
           )
 
           additional_codes['xi'] = xi_filtered_commodity.applicable_additional_codes.slice(
-            *Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS,
+            *Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS - %w[306],
           )
         else
           additional_codes[user_session.commodity_source] = filtered_commodity.applicable_additional_codes.slice(
-            *Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS,
+            *Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS - %w[306],
           )
         end
       end

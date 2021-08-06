@@ -37,6 +37,7 @@ en:
       customs_value: Value of goods + freight + insurance costs
       duty_total_html: <strong>Duty Total</strong>
       import_duty_html: Import duty%{additional_code}<br><span class="govuk-green govuk-body-xs"> %{option_type} (%{commodity_source})</span>
+      excise_duty_html: Excise<br><span class="govuk-green govuk-body-xs">%{additional_code_description} </span>
       vat_duty_html: VAT <br><span class="govuk-green govuk-body-xs"> %{option_type}</span>
       import_quantity: Import quantity
       vat_html: Import duty<br><span class="govuk-green govuk-body-xs"> VAT (UK)</span>
@@ -57,7 +58,11 @@ en:
         provisional_countervailing: Provisional countervailing duty
         additional_duties: Additional Duties
         additional_duties_safeguard:  Additional duties (safeguard)
+<<<<<<< HEAD
         base: Please implement a concrete option class
+=======
+        excise: Excise
+>>>>>>> e346a09 (WIP)
         vat_type:
           vate: VAT exempt
           vatz: Zero rate
