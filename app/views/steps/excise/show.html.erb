@@ -10,7 +10,7 @@
       :additional_code,
       legend: { text: '' },
       hint: {
-        text: excise_hint(small_brewers_relief: step.small_brewers_relief?),
+        text: excise_hint(small_brewers_relief: @step.small_brewers_relief?),
       },
     ) do %>
     <%- @step.options.each do |option| %>
