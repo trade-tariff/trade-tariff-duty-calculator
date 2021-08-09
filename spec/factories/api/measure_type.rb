@@ -53,7 +53,6 @@ FactoryBot.define do
       measure_type_series_id { 'C' }
     end
 
-
     trait :preferential do
       id { '143' }
       description { 'Preferential tariff quota' }
