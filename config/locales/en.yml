@@ -58,11 +58,8 @@ en:
         provisional_countervailing: Provisional countervailing duty
         additional_duties: Additional Duties
         additional_duties_safeguard:  Additional duties (safeguard)
-<<<<<<< HEAD
         base: Please implement a concrete option class
-=======
         excise: Excise
->>>>>>> e346a09 (WIP)
         vat_type:
           vate: VAT exempt
           vatz: Zero rate
