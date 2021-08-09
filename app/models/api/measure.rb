@@ -13,19 +13,14 @@ module Api
     meta_attribute :duty_calculator, :source
 
     attributes :id,
-               :additional_code,
-               :duty_expression,
                :effective_end_date,
                :effective_start_date,
                :excise,
                :excluded_countries,
                :footnotes,
-               :geographical_area,
                :import,
                :legal_acts,
-               :measure_type,
                :national_measurement_units,
-               :order_number,
                :origin,
                :reduction_indicator,
                :vat

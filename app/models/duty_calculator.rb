@@ -34,7 +34,10 @@ class DutyCalculator
         next if option_klass.nil?
         next if measure.all_duties_zero?
 
-        acc << option_klass.new(measure, [], nil).option
+        option = {}
+        option[:key] = option_klass.id
+        option[:evaluation] = option_klass.new(measure, [], nil).option
+        acc << option
       end
   end
 

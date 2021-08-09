@@ -1,7 +1,5 @@
 FactoryBot.define do
   factory :duty_option_result, class: 'Hash' do
-    sequence(:measure_sid)
-
     transient do
       measure_type_id { '103' }
     end
@@ -10,7 +8,7 @@ FactoryBot.define do
     category { DutyOptions::ThirdCountryTariff::CATEGORY }
     footnote { I18n.t("measure_type_footnotes.#{measure_type_id}") }
     warning_text {}
-    values {}
+    values { [] }
     value { 100 }
     source { 'uk' }
 
@@ -57,6 +55,24 @@ FactoryBot.define do
     category { DutyOptions::Quota::Base::CATEGORY }
     measure_type_id { '122' }
     priority { DutyOptions::Quota::Base::PRIORITY }
+    source { 'uk' }
+  end
+
+  trait :additional_duty do
+    key { DutyOptions::AdditionalDuty::Excise.id }
+    category { DutyOptions::AdditionalDuty::Excise::CATEGORY }
+    measure_type_id { '306' }
+    priority { DutyOptions::AdditionalDuty::Excise::PRIORITY }
+
+    value { 300.0 }
+    values do
+      row_description = I18n.t(
+        'duty_calculations.options.excise_duty_html',
+        additional_code_description: '990 - Climate Change Levy (Tax code 990): solid fuels (coal and lignite, coke and semi-coke of coal or lignite, and petroleum coke)',
+      )
+
+      [row_description, '25.00% * £1,200.00', '£300.00']
+    end
     source { 'uk' }
   end
 

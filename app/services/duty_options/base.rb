@@ -1,5 +1,8 @@
 module DutyOptions
   class Base
+    CATEGORY = :default
+    PRIORITY = 5
+
     include ActionView::Helpers::NumberHelper
     include ServiceHelper
 
@@ -108,7 +111,7 @@ module DutyOptions
     def vat_evaluation
       @vat_evaluation ||= ExpressionEvaluators::Vat.new(
         vat_measure,
-        vat_measure.component,
+        vat_measure.measure_components.first,
         duty_totals,
       ).call
     end
@@ -138,11 +141,11 @@ module DutyOptions
     end
 
     def additional_duty_rows
-      additional_duty_options.map { |option| option[:values].flatten }
+      additional_duty_options.map { |option| option[:evaluation][:values].flatten }
     end
 
     def additional_duty_values
-      additional_duty_options.map { |additional_duty| additional_duty[:value] }
+      additional_duty_options.map { |additional_duty| additional_duty[:evaluation][:value] }
     end
 
     def localised_footnote
