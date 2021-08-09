@@ -9,6 +9,7 @@ module DutyOptions
         warning_text: nil,
         values: nil,
         category: CATEGORY,
+        priority: PRIORITY,
       }
     end
   end

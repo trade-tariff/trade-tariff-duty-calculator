@@ -601,7 +601,7 @@ RSpec.describe UserSession do
     end
 
     it 'returns the correct value from the session' do
-      expect(user_session.excise_additional_code).to eq('306' => 'X444', 'DBC' => 'X369')
+      expect(user_session.excise_additional_code).to eq('306' => '444', 'DBC' => '369')
     end
   end
 

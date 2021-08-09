@@ -65,7 +65,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
         { key: 'certificate_of_origin', label: 'Certificate of origin', value: 'Yes' },
         { key: 'customs_value', label: 'Customs value', value: '£1,200.00' },
         { key: 'measure_amount', label: 'Import quantity', value: '100 x 100 kg' },
-        { key: 'excise', label: 'Excise additional code', value: 'X444, X369' },
+        { key: 'excise', label: 'Excise additional code', value: '444, 369' },
         { key: 'vat', label: 'Applicable VAT rate', value: 'VAT zero rate (0.0)' },
       ]
     end

@@ -50,7 +50,7 @@ class RowToNiDutyCalculator
 
     options = handle_duplicate_mfn_option(options)
 
-    options.sort_by { |h| h[:priority] }
+    options.sort_by { |h| h[:evaluation][:priority] }
   end
 
   private

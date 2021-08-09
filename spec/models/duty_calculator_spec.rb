@@ -33,8 +33,8 @@ RSpec.describe DutyCalculator, :user_session do
             measure_sid: 1_881_982,
             source: 'uk',
             category: :third_country_tariff,
+            priority: 1,
           },
-          priority: 1,
         },
         {
           key: 'tariff_preference',
@@ -55,8 +55,8 @@ RSpec.describe DutyCalculator, :user_session do
             measure_sid: 3_822_192,
             source: 'uk',
             category: :tariff_preference,
+            priority: 2,
           },
-          priority: 2,
         },
         {
           key: 'non_preferential',
@@ -77,8 +77,8 @@ RSpec.describe DutyCalculator, :user_session do
             measure_sid: 20_124_406,
             source: 'uk',
             category: :quota,
+            priority: 3,
           },
-          priority: 3,
         },
         {
           key: 'certain_category_goods',
@@ -98,8 +98,8 @@ RSpec.describe DutyCalculator, :user_session do
             measure_sid: 20_121_925,
             source: 'uk',
             category: :suspension,
+            priority: 3,
           },
-          priority: 3,
         },
         {
           key: 'waiver',
@@ -108,8 +108,8 @@ RSpec.describe DutyCalculator, :user_session do
             warning_text: nil,
             values: nil,
             category: :waiver,
+            priority: 10,
           },
-          priority: 10,
         },
       ]
     end
