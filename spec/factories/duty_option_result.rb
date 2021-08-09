@@ -7,6 +7,7 @@ FactoryBot.define do
     key { DutyOptions::ThirdCountryTariff.id }
     category { DutyOptions::ThirdCountryTariff::CATEGORY }
     footnote { I18n.t("measure_type_footnotes.#{measure_type_id}") }
+    measure_sid { generate(:measure_sid) }
     warning_text {}
     values { [] }
     value { 100 }
@@ -22,9 +23,9 @@ FactoryBot.define do
           :values,
           :warning_text,
           :category,
+          :priority,
         ),
         key: attributes[:key],
-        priority: attributes[:priority],
       }
     end
   end
@@ -58,23 +59,23 @@ FactoryBot.define do
     source { 'uk' }
   end
 
-  trait :additional_duty do
-    key { DutyOptions::AdditionalDuty::Excise.id }
-    category { DutyOptions::AdditionalDuty::Excise::CATEGORY }
-    measure_type_id { '306' }
-    priority { DutyOptions::AdditionalDuty::Excise::PRIORITY }
+  #   trait :additional_duty do
+  #     key { DutyOptions::AdditionalDuty::Excise.id }
+  #     category { DutyOptions::AdditionalDuty::Excise::CATEGORY }
+  #     measure_type_id { '306' }
+  #     priority { DutyOptions::AdditionalDuty::Excise::PRIORITY }
 
-    value { 300.0 }
-    values do
-      row_description = I18n.t(
-        'duty_calculations.options.excise_duty_html',
-        additional_code_description: '990 - Climate Change Levy (Tax code 990): solid fuels (coal and lignite, coke and semi-coke of coal or lignite, and petroleum coke)',
-      )
+  #     value { 300.0 }
+  #     values do
+  #       row_description = I18n.t(
+  #         'duty_calculations.options.excise_duty_html',
+  #         additional_code_description: '990 - Climate Change Levy (Tax code 990): solid fuels (coal and lignite, coke and semi-coke of coal or lignite, and petroleum coke)',
+  #       )
 
-      [row_description, '25.00% * £1,200.00', '£300.00']
-    end
-    source { 'uk' }
-  end
+  #       [row_description, '25.00% * £1,200.00', '£300.00']
+  #     end
+  #     source { 'uk' }
+  #   end
 
   trait :unhandled do
     key { :unhandled }

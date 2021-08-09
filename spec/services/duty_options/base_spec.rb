@@ -1,7 +1,7 @@
 RSpec.describe DutyOptions::Base, :user_session do
   subject(:duty_option) { described_class.new(measure, additional_duty_options, vat_measure) }
 
-  let(:measure) { build(:measure, :third_country) }
+  let(:measure) { build(:measure, :third_country_tariff) }
   let(:evaluator) { instance_double('ExpressionEvaluators::AdValorem', call: duty_evaluation) }
   let(:duty_evaluation) do
     {
@@ -11,7 +11,8 @@ RSpec.describe DutyOptions::Base, :user_session do
     }
   end
 
-  let(:additional_duty_options) { [build(:duty_option_result, :additional_duty)] }
+  let(:additional_duty_options) { [] }
+  # let(:additional_duty_options) { [build(:duty_option_result, :additional_duty)] }
 
   let(:vat_measure) { build(:measure, :vat) }
   let(:vat_evaluator) do
@@ -63,9 +64,9 @@ RSpec.describe DutyOptions::Base, :user_session do
           values: [
             ['Valuation for import', 'Value of goods + freight + insurance costs', '£1,200.00'],
             ['Import duty<br><span class="govuk-green govuk-body-xs"> Please implement a concrete option class (UK)</span>', '8.00% * £1200.00', '£96.00'],
-            ['Excise<br><span class="govuk-green govuk-body-xs">990 - Climate Change Levy (Tax code 990): solid fuels (coal and lignite, coke and semi-coke of coal or lignite, and petroleum coke) </span>', '25.00% * £1,200.00', '£300.00'],
+            # ['Excise<br><span class="govuk-green govuk-body-xs">990 - Climate Change Levy (Tax code 990): solid fuels (coal and lignite, coke and semi-coke of coal or lignite, and petroleum coke) </span>', '25.00% * £1,200.00', '£300.00'],
             ['VAT <br><span class="govuk-green govuk-body-xs"> Standard rate</span>', '20.00% * £1200.00', '£240'],
-            ['<strong>Duty Total</strong>', nil, '<strong>£636.00</strong>'],
+            ['<strong>Duty Total</strong>', nil, '<strong>£336.00</strong>'],
           ],
           value: 96,
         )
@@ -93,9 +94,9 @@ RSpec.describe DutyOptions::Base, :user_session do
             ['Valuation for import', 'Value of goods + freight + insurance costs', '£1,200.00'],
             ['Import quantity', nil, '120.00 x 100 kg'],
             ['Import duty<br><span class="govuk-green govuk-body-xs"> Please implement a concrete option class (UK)</span>', '35.10 EUR / 100 kg * 120.00', '£3,610.11'],
-            ['Excise<br><span class="govuk-green govuk-body-xs">990 - Climate Change Levy (Tax code 990): solid fuels (coal and lignite, coke and semi-coke of coal or lignite, and petroleum coke) </span>', '25.00% * £1,200.00', '£300.00'],
+            # ['Excise<br><span class="govuk-green govuk-body-xs">990 - Climate Change Levy (Tax code 990): solid fuels (coal and lignite, coke and semi-coke of coal or lignite, and petroleum coke) </span>', '25.00% * £1,200.00', '£300.00'],
             ['VAT <br><span class="govuk-green govuk-body-xs"> Standard rate</span>', '20.00% * £1200.00', '£240'],
-            ['<strong>Duty Total</strong>', nil, '<strong>£4,150.11</strong>'],
+            ['<strong>Duty Total</strong>', nil, '<strong>£3,850.11</strong>'],
           ],
           value: 3610.1052,
         )
@@ -120,9 +121,9 @@ RSpec.describe DutyOptions::Base, :user_session do
           values: [
             ['Valuation for import', 'Value of goods + freight + insurance costs', '£1,200.00'],
             ['Import duty<br><span class="govuk-green govuk-body-xs"> Please implement a concrete option class (UK)</span>', '6.00 % + 25.00 GBP / 100 kg MAX 6.00 %', '£97.00'],
-            ['Excise<br><span class="govuk-green govuk-body-xs">990 - Climate Change Levy (Tax code 990): solid fuels (coal and lignite, coke and semi-coke of coal or lignite, and petroleum coke) </span>', '25.00% * £1,200.00', '£300.00'],
+            # ['Excise<br><span class="govuk-green govuk-body-xs">990 - Climate Change Levy (Tax code 990): solid fuels (coal and lignite, coke and semi-coke of coal or lignite, and petroleum coke) </span>', '25.00% * £1,200.00', '£300.00'],
             ['VAT <br><span class="govuk-green govuk-body-xs"> Standard rate</span>', '20.00% * £1200.00', '£240'],
-            ['<strong>Duty Total</strong>', nil, '<strong>£637.00</strong>'],
+            ['<strong>Duty Total</strong>', nil, '<strong>£337.00</strong>'],
           ],
           value: 97.0,
         )
@@ -139,8 +140,8 @@ RSpec.describe DutyOptions::Base, :user_session do
           values: [
             ['Valuation for import', 'Value of goods + freight + insurance costs', '£1,200.00'],
             ['Import duty<br><span class="govuk-green govuk-body-xs"> Please implement a concrete option class (UK)</span>', '8.00% * £1200.00', '£96.00'],
-            ['Excise<br><span class="govuk-green govuk-body-xs">990 - Climate Change Levy (Tax code 990): solid fuels (coal and lignite, coke and semi-coke of coal or lignite, and petroleum coke) </span>', '25.00% * £1,200.00', '£300.00'],
-            ['<strong>Duty Total</strong>', nil, '<strong>£396.00</strong>'],
+            # ['Excise<br><span class="govuk-green govuk-body-xs">990 - Climate Change Levy (Tax code 990): solid fuels (coal and lignite, coke and semi-coke of coal or lignite, and petroleum coke) </span>', '25.00% * £1,200.00', '£300.00'],
+            ['<strong>Duty Total</strong>', nil, '<strong>£96.00</strong>'],
           ],
           value: 96,
         )

@@ -20,6 +20,7 @@ module DutyOptions
         value: value,
         measure_sid: measure.id,
         source: measure.source,
+        priority: self.class::PRIORITY,
         category: self.class::CATEGORY,
       }
     end

@@ -35,7 +35,7 @@ RSpec.describe Steps::AdditionalCodesController, :user_session do
       end
 
       it { expect { response }.to change(user_session, :additional_code_uk).from({}).to('105' => '2300') }
-      it { expect(response).to redirect_to(vat_path) }
+      it { expect(response).to redirect_to(excise_path('306')) }
     end
 
     context 'when the step answers are invalid' do

@@ -1,4 +1,4 @@
-RSpec.shared_context 'with a standard duty option setup', :user_session do |option_type|
+RSpec.shared_context 'with a standard duty option setup' do |option_type|
   subject(:duty_option) { described_class.new(measure, [], nil) }
 
   let(:measure) { build(:measure, option_type) }
@@ -10,7 +10,6 @@ RSpec.shared_context 'with a standard duty option setup', :user_session do |opti
       value: 96,
     }
   end
-
 
   let(:user_session) do
     build(

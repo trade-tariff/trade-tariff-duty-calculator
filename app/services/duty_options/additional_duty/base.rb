@@ -1,6 +1,7 @@
 module DutyOptions
   module AdditionalDuty
     class Base < DutyOptions::Base
+      PRIORITY = 5
       CATEGORY = :additional_duty
 
       def option_values

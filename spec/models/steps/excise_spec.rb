@@ -128,7 +128,7 @@ RSpec.describe Steps::Excise, :step, :user_session do
 
   describe '#save' do
     it 'saves the additional codes on to the session' do
-      expect { step.save }.to change(user_session, :excise_additional_code).from({}).to('306' => 'X444')
+      expect { step.save }.to change(user_session, :excise_additional_code).from({}).to('306' => '444')
     end
   end
 
@@ -193,7 +193,7 @@ RSpec.describe Steps::Excise, :step, :user_session do
   describe '#additional_code' do
     context 'when there are attributes being passed in' do
       it 'returns the additional code attribute value on the active model' do
-        expect(step.additional_code).to eq('X444')
+        expect(step.additional_code).to eq('444')
       end
     end
 
@@ -217,7 +217,7 @@ RSpec.describe Steps::Excise, :step, :user_session do
       it { is_expected.to be_valid }
 
       it 'returns the value from the session that corresponds to measure type 306' do
-        expect(step.additional_code).to eq('X444')
+        expect(step.additional_code).to eq('444')
       end
     end
   end
