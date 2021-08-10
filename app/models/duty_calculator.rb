@@ -39,7 +39,7 @@ class DutyCalculator
         acc << option
       end
 
-      rows.sort_by { |option| option[:priority] }
+      rows.sort_by { |option| option[:evaluation][:priority] }
     end
   end
 
