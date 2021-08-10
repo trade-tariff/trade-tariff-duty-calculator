@@ -545,6 +545,20 @@ RSpec.describe Api::Measure, :user_session do
     end
   end
 
+  describe '#additional_code_answer' do
+    context 'when the measure type is excise' do
+      subject(:measure) { build(:measure, :excise) }
+
+      it { expect(measure.additional_code_answer).to eq('444') }
+    end
+
+    context 'when the measure type is not excise' do
+      subject(:measure) { build(:measure) }
+
+      it { expect(measure.additional_code_answer).to be_nil }
+    end
+  end
+
   describe '#applicable?' do
     subject(:measure) do
       described_class.new(
