@@ -13,7 +13,7 @@ RSpec.describe DutyOptions::TariffPreference, :user_session do
         ],
         value: 96,
         measure_sid: measure.id,
-        source: nil,
+        source: 'uk',
         category: :tariff_preference,
         priority: 2,
         geographical_area_description: 'United Kingdom',

@@ -918,8 +918,46 @@ RSpec.describe UserSession do
   end
 
   describe '#additional_code_for' do
-    subject(:user_session) { build(:user_session, :with_additional_codes) }
+    subject(:user_session) do
+      build(
+        :user_session,
+        :with_additional_codes,
+        :with_excise_additional_codes,
+      )
+    end
 
-    it { expect(user_session.additional_code_for('103', 'uk')).to eq('2600') }
+    let(:measure_type) { Api::MeasureType.new(id: id, measure_type_series_id: measure_type_series_id) }
+
+    context 'when the measure type is an excise measure type' do
+      let(:measure_type_series_id) { 'Q' }
+
+      context 'with a corresponding answer on the session' do
+        let(:id) { '306' }
+
+        it { expect(user_session.additional_code_for(measure_type, 'uk')).to eq('444') }
+      end
+
+      context 'with no corresponding answer on the session' do
+        let(:id) { 'LGJ' }
+
+        it { expect(user_session.additional_code_for(measure_type, 'uk')).to be_nil }
+      end
+    end
+
+    context 'when the measure type is not an excise measure type' do
+      let(:measure_type_series_id) { 'C' }
+
+      context 'with a corresponding answer on the session' do
+        let(:id) { '103' }
+
+        it { expect(user_session.additional_code_for(measure_type, 'uk')).to eq('2600') }
+      end
+
+      context 'with no corresponding answer on the session' do
+        let(:id) { '117' }
+
+        it { expect(user_session.additional_code_for(measure_type, 'uk')).to be_nil }
+      end
+    end
   end
 end

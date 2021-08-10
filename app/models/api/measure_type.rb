@@ -17,6 +17,7 @@ module Api
     }.freeze
 
     TYPE_ADDITIONAL_OPTION_MAPPING = {
+      '306' => ::DutyOptions::AdditionalDuty::Excise,
       '551' => ::DutyOptions::AdditionalDuty::ProvisionalAntiDumping,
       '552' => ::DutyOptions::AdditionalDuty::DefinitiveAntiDumping,
       '553' => ::DutyOptions::AdditionalDuty::ProvisionalCountervailing,
@@ -100,6 +101,7 @@ module Api
     ].freeze
 
     SUPPORTED_MEASURE_TYPE_IDS = (TYPE_OPTION_MAPPING.keys + TYPE_ADDITIONAL_OPTION_MAPPING.keys).freeze
+    ADDITIONAL_CODE_MEASURE_TYPE_IDS = SUPPORTED_MEASURE_TYPE_IDS - EXCISE_MEASURE_TYPE_IDS
 
     attributes :id,
                :description,
@@ -112,6 +114,7 @@ module Api
       additional_duty: %w[F],
       countervailing_charge_duty: %w[J],
       unit_price_duty: %w[M],
+      excise: %w[Q],
     }
 
     def option

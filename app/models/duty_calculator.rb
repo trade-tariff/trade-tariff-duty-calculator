@@ -26,8 +26,8 @@ class DutyCalculator
   attr_reader :commodity
 
   def additional_duty_rows
-    @additional_duty_rows ||=
-      commodity.applicable_measures.select(&:applicable?).each_with_object([]) do |measure, acc|
+    @additional_duty_rows ||= begin
+      rows = commodity.applicable_measures.select(&:applicable?).each_with_object([]) do |measure, acc|
         option_klass = measure.measure_type.additional_duty_option
 
         next if option_klass.nil?
@@ -38,6 +38,9 @@ class DutyCalculator
         option[:evaluation] = option_klass.new(measure, [], nil).option
         acc << option
       end
+
+      rows.sort_by { |option| option[:evaluation][:priority] }
+    end
   end
 
   def default_options

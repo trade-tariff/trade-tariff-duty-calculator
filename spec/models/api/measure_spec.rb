@@ -1,41 +1,29 @@
 RSpec.describe Api::Measure, :user_session do
-  subject(:measure) do
-    described_class.new(
-      'id' => 2_046_828,
-      'meta' => {
-        'duty_calculator' => {
-          'source' => 'uk',
-        },
+  subject(:measure) { build(:measure, :third_country_tariff, source: 'xi', measure_components: measure_components) }
+
+  let(:measure_components) do
+    [
+      {
+        'duty_expression_id' => '01',
+        'duty_amount' => 10.0,
+        'monetary_unit_code' => nil,
+        'monetary_unit_abbreviation' => nil,
+        'measurement_unit_code' => nil,
+        'duty_expression_description' => '% or amount',
+        'duty_expression_abbreviation' => '%',
+        'measurement_unit_qualifier_code' => nil,
       },
-      'duty_expression' => {
-        'base' => '35.10 EUR / 100 kg',
-        'formatted_base' => "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
-      },
-      'measure_type' => {
-        'description' => 'Third country duty',
-        'national' => nil,
-        'measure_type_series_id' => 'C',
-        'id' => '103',
-      },
-      'measure_conditions' => [],
-      'measure_components' => [
-        {
-          'duty_expression_id' => '01',
-          'duty_amount' => 10.0,
-          'monetary_unit_code' => nil,
-          'monetary_unit_abbreviation' => nil,
-          'measurement_unit_code' => nil,
-          'duty_expression_description' => '% or amount',
-          'duty_expression_abbreviation' => '%',
-          'measurement_unit_qualifier_code' => nil,
-        },
-      ],
-    )
+    ]
   end
 
-  let(:user_session) { build(:user_session, :with_document_codes) }
-
-  let(:commodity_source) { 'XI' }
+  let(:user_session) do
+    build(
+      :user_session,
+      :with_commodity_information,
+      :with_document_codes,
+      :with_excise_additional_codes,
+    )
+  end
 
   it_behaves_like 'a resource that has attributes', measure_conditions: [],
                                                     measure_components: [],
@@ -554,6 +542,20 @@ RSpec.describe Api::Measure, :user_session do
       end
 
       it { is_expected.not_to be_expresses_document }
+    end
+  end
+
+  describe '#additional_code_answer' do
+    context 'when the measure type is excise' do
+      subject(:measure) { build(:measure, :excise) }
+
+      it { expect(measure.additional_code_answer).to eq('444') }
+    end
+
+    context 'when the measure type is not excise' do
+      subject(:measure) { build(:measure) }
+
+      it { expect(measure.additional_code_answer).to be_nil }
     end
   end
 

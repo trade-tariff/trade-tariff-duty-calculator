@@ -11,6 +11,7 @@ RSpec.describe Api::MeasureType do
     additional_duty: %w[F],
     countervailing_charge_duty: %w[J],
     unit_price_duty: %w[M],
+    excise: %w[Q],
   }
 
   describe '#option' do

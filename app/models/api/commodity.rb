@@ -45,7 +45,7 @@ module Api
     end
 
     def applicable_measures
-      no_additional_code_measures + additional_code_measures
+      @applicable_measures ||= no_additional_code_measures + additional_code_measures
     end
 
     private
@@ -56,10 +56,12 @@ module Api
 
     def additional_code_measures
       non_vat_import_measures.select do |measure|
-        measure_additional_code = measure.additional_code
-        user_additional_code_answer = user_session.additional_code_for(measure.measure_type.id, source)
+        measure_additional_code = measure.additional_code&.formatted_code
+        user_additional_code_answer = user_session.additional_code_for(measure.measure_type, source)
 
-        measure_additional_code.present? && user_additional_code_answer == measure_additional_code.code
+        next if measure_additional_code.nil?
+
+        user_additional_code_answer == measure_additional_code
       end
     end
 
