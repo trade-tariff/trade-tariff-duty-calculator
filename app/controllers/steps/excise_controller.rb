@@ -1,7 +1,7 @@
 module Steps
   class ExciseController < BaseController
     def show
-      @step = Steps::Excise.new(measure_type_id)
+      @step = Steps::Excise.new(permitted_params)
     end
 
     def create
@@ -13,13 +13,11 @@ module Steps
     private
 
     def permitted_params
+      return params.permit(:measure_type_id) if params[:steps_excise].blank?
+
       params.require(:steps_excise).permit(
         :additional_code,
       ).merge(measure_type_id)
-    end
-
-    def measure_type_id
-      params.permit(:measure_type_id)
     end
   end
 end
