@@ -13,7 +13,7 @@ RSpec.describe DutyOptions::Suspension::CertainCategoryGoods, :user_session do
         ],
         value: 96,
         measure_sid: measure.id,
-        source: nil,
+        source: 'uk',
         category: :suspension,
         priority: 3,
       }

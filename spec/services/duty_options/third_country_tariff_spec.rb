@@ -13,7 +13,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff, :user_session do
         ],
         value: 96,
         measure_sid: measure.id,
-        source: nil,
+        source: 'uk',
         category: :third_country_tariff,
         priority: 1,
       }

@@ -30,7 +30,7 @@ FactoryBot.define do
     measure_conditions { [] }
 
     initialize_with do
-      meta = { meta: { duty_calculator: { source: source } } }
+      meta = { 'meta' => { 'duty_calculator' => { 'source' => source } } }
       attributes = attribute_lists.first(&:non_ignored).each_with_object({}) do |dynamic_attribute, acc|
         acc[dynamic_attribute.name] = public_send(dynamic_attribute.name)
       end

@@ -14,7 +14,7 @@ RSpec.describe DutyOptions::Quota::PreferentialEndUse, :user_session do
         value: 96,
         order_number: '058048',
         measure_sid: measure.id,
-        source: nil,
+        source: 'uk',
         category: :quota,
         priority: 3,
       }

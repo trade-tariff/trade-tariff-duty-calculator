@@ -41,7 +41,7 @@ RSpec.describe DutyOptions::Base, :user_session do
         footnote: "<p class=\"govuk-body\">\n  A ‘Third country’ duty is the tariff charged where there isn’t a trade agreement or a customs union available. It can also be referred to as the Most Favoured Nation (<abbr title=\"Most Favoured Nation\">MFN</abbr>) rate.\n</p>",
         warning_text: nil,
         measure_sid: measure.id,
-        source: nil,
+        source: 'uk',
         category: :default,
         priority: 5,
       }

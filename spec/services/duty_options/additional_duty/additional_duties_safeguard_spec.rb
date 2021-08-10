@@ -11,7 +11,7 @@ RSpec.describe DutyOptions::AdditionalDuty::AdditionalDutiesSafeguard, :user_ses
         ],
         value: 96,
         measure_sid: measure.id,
-        source: nil,
+        source: 'uk',
         category: :additional_duty,
         priority: 5,
       }
