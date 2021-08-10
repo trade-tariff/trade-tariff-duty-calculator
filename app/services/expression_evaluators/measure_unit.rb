@@ -3,10 +3,8 @@ module ExpressionEvaluators
     include CommodityHelper
 
     def call
-      quantity_string = NumberWithHighPrecisionFormatter.new(total_quantity)
-
       {
-        calculation: "#{base_duty_expression} * #{quantity_string.call}",
+        calculation: calculation_duty_expression,
         value: value,
         formatted_value: number_to_currency(value),
         unit: measure_unit_answers.first[:unit],
@@ -16,10 +14,21 @@ module ExpressionEvaluators
 
     private
 
-    def base_duty_expression
-      return measure.duty_expression.base if measure_condition.nil?
+    def calculation_duty_expression
+      expression =
+        if measure_condition.present?
+          measure_condition.duty_expression
+        else
+          measure.duty_expression.formatted_base
+        end
 
-      strip_tags(measure_condition.duty_expression)
+      expression = "#{expression} * #{quantity_string.call}"
+
+      sanitize(expression, tags: %w[span abbr], attributes: %w[title])
+    end
+
+    def quantity_string
+      NumberWithHighPrecisionFormatter.new(total_quantity)
     end
 
     def value
@@ -44,13 +53,14 @@ module ExpressionEvaluators
     end
 
     def measure_applicable_units
-      unless user_session.deltas_applicable?
-        return filtered_commodity.applicable_measure_units.select do |_unit, values|
-          values['measure_sids'].include?(measure.id)
+      units =
+        if user_session.deltas_applicable?
+          MeasureUnitMerger.new.call
+        else
+          filtered_commodity.applicable_measure_units
         end
-      end
 
-      convoluted_hashes.select do |_unit, values|
+      units.select do |_unit, values|
         values['measure_sids'].include?(measure.id)
       end
     end
@@ -61,22 +71,6 @@ module ExpressionEvaluators
 
     def duty_amount_in_eur?
       component.monetary_unit_code == 'EUR'
-    end
-
-    def convoluted_hashes
-      @convoluted_hashes ||=
-        uk_measure_amounts.merge(xi_measure_amounts) do |_key, uk_amounts, xi_amounts|
-          uk_amounts['measure_sids'] += xi_amounts['measure_sids']
-          uk_amounts
-        end
-    end
-
-    def uk_measure_amounts
-      @uk_measure_amounts ||= filtered_commodity(source: 'uk').applicable_measure_units
-    end
-
-    def xi_measure_amounts
-      @xi_measure_amounts ||= filtered_commodity(source: 'xi').applicable_measure_units
     end
 
     def measure_condition

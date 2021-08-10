@@ -4,6 +4,23 @@ RSpec.describe DutyCalculator, :user_session do
   let(:user_session) { build(:user_session, session_attributes) }
   let(:commodity_source) { :uk }
   let(:commodity_code) { '7202118000' }
+  let(:session_attributes) do
+    {
+      'import_date' => '2021-01-01',
+      'import_destination' => 'XI',
+      'country_of_origin' => 'GB',
+      'planned_processing' => 'commercial_purposes',
+      'customs_value' => {
+        'monetary_value' => '1000',
+        'shipping_cost' => '250.89',
+        'insurance_cost' => '10',
+      },
+      'measure_amount' => { 'tnei' => '2' },
+      'additional_code' => { 'uk' => { '552' => 'C490' }, 'xi' => {} },
+      'commodity_source' => 'uk',
+      'commodity_code' => commodity_code,
+    }
+  end
 
   let(:commodity) do
     Api::Commodity.build(
@@ -24,7 +41,7 @@ RSpec.describe DutyCalculator, :user_session do
               ['Import duty<br><span class="govuk-green govuk-body-xs"> Third-country duty (UK)</span>', '2.70% * £1,260.89', '£34.04'],
               ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional duties (safeguard) (UK)</span>', '25.00% * £1,260.89', '£315.22'],
               ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional Duties (UK)</span>', '25.00% * £1,260.89', '£315.22'],
-              ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '144.10 GBP / 1000 kg/biodiesel * 2.00', '£288.20'],
+              ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '<span>144.10</span> GBP / <abbr title="Tonne">1000 kg/biodiesel</abbr> * 2.00', '£288.20'],
               ['VAT <br><span class="govuk-green govuk-body-xs"> Standard rate</span>', '20.00% * £2,213.58', '£442.72'],
               ['<strong>Duty Total</strong>', nil, '<strong>£1,395.40</strong>'],
             ],
@@ -45,7 +62,7 @@ RSpec.describe DutyCalculator, :user_session do
               ['Import duty<br><span class="govuk-green govuk-body-xs"> Tariff preference (UK)</span>', '0.00% * £1,260.89', '£0.00'],
               ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional duties (safeguard) (UK)</span>', '25.00% * £1,260.89', '£315.22'],
               ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional Duties (UK)</span>', '25.00% * £1,260.89', '£315.22'],
-              ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '144.10 GBP / 1000 kg/biodiesel * 2.00', '£288.20'],
+              ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '<span>144.10</span> GBP / <abbr title="Tonne">1000 kg/biodiesel</abbr> * 2.00', '£288.20'],
               ['VAT <br><span class="govuk-green govuk-body-xs"> Standard rate</span>', '20.00% * £2,179.54', '£435.91'],
               ['<strong>Duty Total</strong>', nil, '<strong>£1,354.55</strong>'],
             ],
@@ -67,7 +84,7 @@ RSpec.describe DutyCalculator, :user_session do
               ['Import duty<br><span class="govuk-green govuk-body-xs"> Non Preferential Quota (UK)</span>', '20.00% * £1,260.89', '£252.18'],
               ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional duties (safeguard) (UK)</span>', '25.00% * £1,260.89', '£315.22'],
               ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional Duties (UK)</span>', '25.00% * £1,260.89', '£315.22'],
-              ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '144.10 GBP / 1000 kg/biodiesel * 2.00', '£288.20'],
+              ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '<span>144.10</span> GBP / <abbr title="Tonne">1000 kg/biodiesel</abbr> * 2.00', '£288.20'],
               ['VAT <br><span class="govuk-green govuk-body-xs"> Standard rate</span>', '20.00% * £2,431.71', '£486.34'],
               ['<strong>Duty Total</strong>', nil, '<strong>£1,657.17</strong>'],
             ],
@@ -89,7 +106,7 @@ RSpec.describe DutyCalculator, :user_session do
               ['Import duty<br><span class="govuk-green govuk-body-xs"> Suspension - goods for certain categories of ships, boats and other vessels and for drilling or production platforms (UK)</span>', '0.00% * £1,260.89', '£0.00'],
               ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional duties (safeguard) (UK)</span>', '25.00% * £1,260.89', '£315.22'],
               ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional Duties (UK)</span>', '25.00% * £1,260.89', '£315.22'],
-              ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '144.10 GBP / 1000 kg/biodiesel * 2.00', '£288.20'],
+              ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '<span>144.10</span> GBP / <abbr title="Tonne">1000 kg/biodiesel</abbr> * 2.00', '£288.20'],
               ['VAT <br><span class="govuk-green govuk-body-xs"> Standard rate</span>', '20.00% * £2,179.54', '£435.91'],
               ['<strong>Duty Total</strong>', nil, '<strong>£1,354.55</strong>'],
             ],
@@ -112,23 +129,6 @@ RSpec.describe DutyCalculator, :user_session do
           },
         },
       ]
-    end
-    let(:session_attributes) do
-      {
-        'import_date' => '2021-01-01',
-        'import_destination' => 'XI',
-        'country_of_origin' => 'GB',
-        'planned_processing' => 'commercial_purposes',
-        'customs_value' => {
-          'monetary_value' => '1000',
-          'shipping_cost' => '250.89',
-          'insurance_cost' => '10',
-        },
-        'measure_amount' => { 'tnei' => '2' },
-        'additional_code' => { 'uk' => { '552' => 'C490' }, 'xi' => {} },
-        'commodity_source' => 'uk',
-        'commodity_code' => commodity_code,
-      }
     end
 
     it 'returns the correct duty options' do

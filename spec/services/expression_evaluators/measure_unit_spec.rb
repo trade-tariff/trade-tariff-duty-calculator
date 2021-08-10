@@ -1,74 +1,69 @@
 RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
   subject(:evaluator) do
-    described_class.new(measure, component)
+    described_class.new(measure, measure.measure_components.first)
   end
 
   let(:measure) do
-    Api::Measure.new(
-      'id' => 2_046_828,
-      'duty_expression' => {
-        'base' => '35.10 EUR / 100 kg',
-        'formatted_base' => "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
-      },
-      'measure_type' => {
-        'description' => 'Third country duty',
-        'national' => nil,
-        'measure_type_series_id' => 'C',
-        'id' => '103',
+    build(
+      :measure,
+      :third_country_tariff,
+      id: 2_046_828,
+      measure_components: [measure_component],
+      duty_expression: {
+        base: '35.10 EUR / 100 kg',
+        formatted_base: "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
       },
     )
   end
 
-  let(:component) do
-    Api::MeasureComponent.new(
-      'duty_expression_id' => '01',
-      'duty_amount' => 35.1,
-      'monetary_unit_code' => 'EUR',
-      'monetary_unit_abbreviation' => nil,
-      'measurement_unit_code' => 'DTN',
-      'duty_expression_description' => '% or amount',
-      'duty_expression_abbreviation' => '%',
-      'measurement_unit_qualifier_code' => nil,
-    )
+  let(:measure_component) do
+    attributes_for(:measure_component, :with_measure_units)
   end
 
   let(:expected_evaluation) do
     {
-      calculation: '35.10 EUR / 100 kg * 120.00',
-      value: 3610.1052,
-      formatted_value: '£3,610.11',
-      total_quantity: 120.0,
+      calculation: '<span>35.10</span> EUR / <abbr title="Hectokilogram">100 kg</abbr> * 100.00',
+      value: 3510.0,
+      formatted_value: '£3,510.00',
       unit: 'x 100 kg',
+      total_quantity: 100.0,
     }
   end
 
-  let(:session_attributes) do
-    {
-      'import_date' => '2022-01-01',
-      'customs_value' => {
-        'insurance_cost' => '10',
-        'monetary_value' => '10',
-        'shipping_cost' => '10',
-      },
-      'measure_amount' => {
-        'dtn' => '120',
-      },
-      'commodity_source' => 'xi',
-      'commodity_code' => '0103921100',
-    }
+  let(:user_session) do
+    build(
+      :user_session,
+      :with_commodity_information,
+      :with_customs_value,
+      :with_measure_amount,
+      commodity_code: '0103921100',
+    )
   end
 
-  let(:user_session) { build(:user_session, session_attributes) }
+  it { expect(evaluator.call).to eq(expected_evaluation) }
 
-  it 'returns a properly calculated evaluation' do
-    expect(evaluator.call).to eq(expected_evaluation)
-  end
+  context 'when on a route where deltas apply' do
+    before do
+      allow(MeasureUnitMerger).to receive(:new).and_call_original
+    end
 
-  context 'when on a route with applicable deltas' do
-    let(:user_session) { build(:user_session, :deltas_applicable, session_attributes) }
+    let(:measure_unit_merger) { instance_double('MeasureUnitMerger') }
 
-    it 'returns a properly calculated evaluation' do
-      expect(evaluator.call).to eq(expected_evaluation)
+    let(:user_session) do
+      build(
+        :user_session,
+        :with_commodity_information,
+        :with_customs_value,
+        :with_measure_amount,
+        :deltas_applicable,
+        commodity_code: '0103921100',
+      )
+    end
+
+    it 'calls the MeasureUnitMerger service to merge units' do
+      evaluator.call
+
+      expect(MeasureUnitMerger).to have_received(:new)
     end
   end
 end

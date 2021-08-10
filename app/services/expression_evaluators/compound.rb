@@ -2,13 +2,17 @@ module ExpressionEvaluators
   class Compound < ExpressionEvaluators::Base
     def call
       {
-        calculation: measure.duty_expression.base,
+        calculation: calculation_duty_expression,
         value: evaluation_result,
         formatted_value: number_to_currency(evaluation_result),
       }
     end
 
     private
+
+    def calculation_duty_expression
+      sanitize(measure.duty_expression&.formatted_base, tags: %w[span abbr], attributes: %w[title])
+    end
 
     def build_expression
       measure.applicable_components.flat_map do |component|
