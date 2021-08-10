@@ -17,7 +17,7 @@ module Steps
 
       params.require(:steps_excise).permit(
         :additional_code,
-      ).merge(measure_type_id)
+      ).merge(params.permit(:measure_type_id))
     end
   end
 end
