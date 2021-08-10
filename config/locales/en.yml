@@ -120,7 +120,7 @@ en:
     vat: Applicable VAT rate
     excise: Excise additional code
   excise_page:
-    hint_html: "<p>There are multiple excise duties that could be applied to trade in this commodity code. Select which class of excise duty applies to your trade</p>%{small_brewers_relief_hint_text}<p>For more information on excise duty classes, please see %{excise_link}</p>"
+    hint_html: "<p>Excise duty applies to trade in this commodity code. Select which class of excise duty applies to your trade</p>%{small_brewers_relief_hint_text}<p>For more information on excise duty classes, please see %{excise_link}</p>"
     link_text: "UK Trade: excise, duties, reliefs, drawbacks and allowances (opens in new browser window)"
     small_brewers_relief_link_text: "Small Breweries' Relief (SBR)"
     small_brewers_relief_hint_text_html: "<p>Please note that the work to calculate the %{small_brewers_relief_link} is in development and will be available shortly.</p>"
