@@ -101,6 +101,7 @@ module Api
     ].freeze
 
     SUPPORTED_MEASURE_TYPE_IDS = (TYPE_OPTION_MAPPING.keys + TYPE_ADDITIONAL_OPTION_MAPPING.keys).freeze
+    ADDITIONAL_CODE_MEASURE_TYPE_IDS = SUPPORTED_MEASURE_TYPE_IDS - EXCISE_MEASURE_TYPE_IDS
 
     attributes :id,
                :description,
