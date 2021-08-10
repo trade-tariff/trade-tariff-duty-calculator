@@ -65,7 +65,7 @@ module ExpressionEvaluators
 
     def last_conjunction_operator(expression)
       expression.each.with_index.each_with_object({}) do |(e, index), hash|
-        if Api::CONJUNCTION_OPERATORS.include?(e[:operator])
+        if Api::BaseComponent::CONJUNCTION_OPERATORS.include?(e[:operator])
           hash[:index] = index
           hash[:operator] = e[:operator]
         end
