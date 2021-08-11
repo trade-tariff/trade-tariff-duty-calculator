@@ -1,9 +1,12 @@
 GIT
   remote: https://github.com/trade-tariff/uktt.git
-  revision: 58b98e7a84b749c0288786c88f498e04a91b25da
+  revision: 063a14b75bb21636e9622e54303397fbeb1e4d61
   specs:
-    uktt (2.4.0)
-      retriable
+    uktt (2.5.0)
+      faraday
+      faraday-net_http_persistent
+      faraday_middleware
+      net-http-persistent
 
 GEM
   remote: https://rubygems.org/
@@ -41,6 +44,7 @@ GEM
     byebug (11.1.3)
     coderay (1.1.3)
     concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
     crass (1.0.6)
     deep_merge (1.2.1)
     diff-lcs (1.4.4)
@@ -72,6 +76,8 @@ GEM
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.1.0)
     faraday-patron (1.0.0)
+    faraday_middleware (1.1.0)
+      faraday (~> 1.0)
     ffi (1.15.3)
     foreman (0.87.2)
     govuk_design_system_formbuilder (2.4.0)
@@ -98,6 +104,8 @@ GEM
     minitest (5.14.4)
     msgpack (1.4.2)
     multipart-post (2.1.1)
+    net-http-persistent (4.0.1)
+      connection_pool (~> 2.2)
     newrelic_rpm (7.2.0)
     nio4r (2.5.7)
     nokogiri (1.11.7)
@@ -145,7 +153,6 @@ GEM
     regexp_parser (2.1.1)
     request_store (1.5.0)
       rack (>= 1.4)
-    retriable (3.1.2)
     rexml (3.2.5)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
