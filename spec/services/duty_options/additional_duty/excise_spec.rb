@@ -7,7 +7,7 @@ RSpec.describe DutyOptions::AdditionalDuty::Excise, :user_session do
         footnote: nil,
         warning_text: nil,
         values: [
-          ['Excise<br><span class="govuk-green govuk-body-xs">570 - Heavy oil: other (unmarked) </span>', '8.00% * £1200.00', '£96.00'],
+          ['Excise<br><span class="govuk-green govuk-body-xs">570 - Heavy oil: other (unmarked)</span>', '8.00% * £1200.00', '£96.00'],
         ],
         value: 96,
         measure_sid: measure.id,
