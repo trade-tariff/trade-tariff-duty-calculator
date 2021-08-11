@@ -10,7 +10,7 @@ module DutyOptions
         presented_row << I18n.t(
           'duty_calculations.options.excise_duty_html',
           additional_code_description: excise_description,
-        )
+        ).html_safe
 
         presented_row.concat(evaluation)
       end
