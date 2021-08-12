@@ -22,13 +22,13 @@ module ExpressionEvaluators
           measure.duty_expression.formatted_base
         end
 
-      expression = "#{expression} * #{quantity_string.call}"
+      expression = "#{expression} * #{quantity_string}"
 
       sanitize(expression, tags: %w[span abbr], attributes: %w[title])
     end
 
     def quantity_string
-      NumberWithHighPrecisionFormatter.new(total_quantity)
+      NumberWithHighPrecisionFormatter.new(total_quantity).call
     end
 
     def value
