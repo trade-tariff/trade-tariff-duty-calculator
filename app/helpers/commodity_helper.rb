@@ -88,9 +88,7 @@ module CommodityHelper
   end
 
   def applicable_measure_units
-    return filtered_commodity.applicable_measure_units unless user_session.deltas_applicable?
-
-    uk_measure_units.merge(xi_measure_units)
+    ApplicableMeasureUnitMerger.new.call
   end
 
   def applicable_measure_unit_keys
@@ -115,14 +113,6 @@ module CommodityHelper
     return user_session.other_country_of_origin if user_session.country_of_origin == 'OTHER'
 
     user_session.country_of_origin
-  end
-
-  def uk_measure_units
-    uk_filtered_commodity.applicable_measure_units
-  end
-
-  def xi_measure_units
-    xi_filtered_commodity.applicable_measure_units
   end
 
   def surface_document_codes(commodity: filtered_commodity)

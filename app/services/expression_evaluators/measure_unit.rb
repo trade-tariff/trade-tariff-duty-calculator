@@ -53,12 +53,7 @@ module ExpressionEvaluators
     end
 
     def measure_applicable_units
-      units =
-        if user_session.deltas_applicable?
-          MeasureUnitMerger.new.call
-        else
-          filtered_commodity.applicable_measure_units
-        end
+      units = ApplicableMeasureUnitMerger.new.call
 
       units.select do |_unit, values|
         values['measure_sids'].include?(measure.id)

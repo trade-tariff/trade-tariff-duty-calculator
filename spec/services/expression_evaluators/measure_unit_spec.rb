@@ -3,6 +3,10 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
     described_class.new(measure, measure.measure_components.first)
   end
 
+  before do
+    allow(ApplicableMeasureUnitMerger).to receive(:new).and_call_original
+  end
+
   let(:measure) do
     build(
       :measure,
@@ -42,28 +46,9 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
 
   it { expect(evaluator.call).to eq(expected_evaluation) }
 
-  context 'when on a route where deltas apply' do
-    before do
-      allow(MeasureUnitMerger).to receive(:new).and_call_original
-    end
+  it 'calls the ApplicableMeasureUnitMerger service to merge units' do
+    evaluator.call
 
-    let(:measure_unit_merger) { instance_double('MeasureUnitMerger') }
-
-    let(:user_session) do
-      build(
-        :user_session,
-        :with_commodity_information,
-        :with_customs_value,
-        :with_measure_amount,
-        :deltas_applicable,
-        commodity_code: '0103921100',
-      )
-    end
-
-    it 'calls the MeasureUnitMerger service to merge units' do
-      evaluator.call
-
-      expect(MeasureUnitMerger).to have_received(:new)
-    end
+    expect(ApplicableMeasureUnitMerger).to have_received(:new)
   end
 end
