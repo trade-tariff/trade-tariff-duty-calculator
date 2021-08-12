@@ -54,7 +54,8 @@ module Api
 
         next if measure_sids.blank?
 
-        value.deep_dup['measure_sids'] = measure_sids
+        value = value.deep_dup
+        value['measure_sids'] = measure_sids
 
         acc[unit] = value
       end
