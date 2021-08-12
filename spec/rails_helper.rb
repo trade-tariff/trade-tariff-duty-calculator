@@ -24,8 +24,8 @@ RSpec.configure do |config|
   config.before do
     Thread.current[:commodity_context_service] = CommodityContextService.new
 
-    Rails.application.config.http_client_uk = FakeUkttHttp.new(nil, nil, nil, nil)
-    Rails.application.config.http_client_xi = FakeUkttHttp.new(nil, nil, nil, nil)
+    Rails.application.config.http_client_uk = FakeUkttHttp.new(nil, 'uk', nil, nil)
+    Rails.application.config.http_client_xi = FakeUkttHttp.new(nil, 'xi', nil, nil)
     stub_const('Uktt::Http', FakeUkttHttp)
   end
 

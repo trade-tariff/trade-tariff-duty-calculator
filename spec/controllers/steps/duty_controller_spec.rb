@@ -4,7 +4,7 @@ RSpec.describe Steps::DutyController, :user_session do
     allow(Api::MonetaryExchangeRate).to receive(:for).with('GBP').and_call_original
   end
 
-  let(:user_session) { build(:user_session, :with_commodity_information) }
+  let(:user_session) { build(:user_session, :with_commodity_information, commodity_code: '0103921100') }
   let(:duty_calculator) { instance_double('DutyCalculator', options: []) }
 
   describe 'GET #show' do
@@ -34,7 +34,7 @@ RSpec.describe Steps::DutyController, :user_session do
     end
 
     context 'when on ROW to NI' do
-      let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
+      let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable, commodity_code: '0103921100') }
       let(:row_to_ni_duty_calculator) { instance_double('RowToNiDutyCalculator', options: []) }
 
       it 'calls the RowToNiDutyCalculator' do

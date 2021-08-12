@@ -1,8 +1,7 @@
 RSpec.describe Steps::ImportDestination, :step, :user_session do
-  subject(:step) { build(:import_destination, user_session: user_session, import_destination: import_destination) }
+  subject(:step) { build(:import_destination, import_destination: import_destination) }
 
-  let(:user_session) { build(:user_session, session_attributes) }
-  let(:session_attributes) { {} }
+  let(:user_session) { build(:user_session, commodity_source: nil) }
   let(:import_destination) { '' }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
@@ -82,11 +81,13 @@ RSpec.describe Steps::ImportDestination, :step, :user_session do
   end
 
   describe '#previous_step_path' do
-    let(:session_attributes) do
-      {
-        'commodity_code' => '100000000',
-        'referred_service' => 'uk',
-      }
+    let(:user_session) do
+      build(
+        :user_session,
+        commodity_code: '100000000',
+        commodity_source: nil,
+        referred_service: 'uk',
+      )
     end
 
     it 'returns import_date_path' do

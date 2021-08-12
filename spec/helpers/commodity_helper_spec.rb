@@ -1,14 +1,15 @@
 RSpec.describe CommodityHelper, :user_session do
   before do
+    allow(UserSession).to receive(:get).and_return(user_session)
     allow(helper).to receive(:user_session).and_return(user_session)
     allow(Api::Commodity).to receive(:build).and_call_original
     allow(commodity_context_service).to receive(:call).and_call_original
   end
 
   let(:commodity_context_service) { Thread.current[:commodity_context_service] }
-  let(:commodity_source) { 'xi' }
-  let(:commodity_code) { '0809400500' }
-  let(:import_destination) { 'XI' }
+  let(:commodity_source) { 'uk' }
+  let(:commodity_code) { '0103921100' }
+  let(:import_destination) { 'GB' }
   let(:as_of) { Time.zone.today.iso8601 }
 
   let(:user_session) do
@@ -41,29 +42,6 @@ RSpec.describe CommodityHelper, :user_session do
 
         expect(Api::Commodity).to have_received(:build).with(
           'uk',
-          commodity_code,
-          expected_filter,
-        )
-      end
-    end
-
-    context 'when not on RoW to NI route' do
-      let(:user_session) do
-        build(
-          :user_session,
-          import_destination: import_destination,
-          country_of_origin: 'GB',
-          commodity_source: commodity_source,
-          commodity_code: commodity_code,
-          other_country_of_origin: '',
-        )
-      end
-
-      it 'returns a correctly filtered commodity' do
-        helper.filtered_commodity
-
-        expect(Api::Commodity).to have_received(:build).with(
-          commodity_source,
           commodity_code,
           expected_filter,
         )
@@ -175,7 +153,7 @@ RSpec.describe CommodityHelper, :user_session do
   describe '#applicable_additional_codes' do
     let(:expected_options) do
       {
-        'xi' => {
+        'uk' => {
           '105' => {
             'additional_codes' => [
               {
@@ -261,6 +239,12 @@ RSpec.describe CommodityHelper, :user_session do
               'hint' => '',
               'measure_sid' => -485_460,
             },
+            {
+              'code' => 'X611',
+              'overlay' => '611 - Cigarettes',
+              'hint' => '',
+              'measure_sid' => -1_010_806_389,
+            },
           ],
         },
       }
@@ -274,7 +258,7 @@ RSpec.describe CommodityHelper, :user_session do
   describe '#applicable_document_codes' do
     let(:expected_options) do
       {
-        'xi' => {
+        'uk' => {
           '103' => [{ code: 'N851', description: 'N851 - ' }, { code: 'None', description: 'None of the above' }],
           '105' => [{ code: 'C644', description: 'C644 - ' }, { code: 'Y929', description: 'Y929 - ' }, { code: 'None', description: 'None of the above' }],
         },
@@ -287,58 +271,14 @@ RSpec.describe CommodityHelper, :user_session do
   end
 
   describe '#applicable_measure_units' do
-    let(:expected_measure_units) do
-      {
-        'DTN' => {
-          'abbreviation' => '100 kg',
-          'measure_sids' => [20_005_920, 20_056_507, 20_073_335, 20_076_779, 20_090_066, 20_105_690, 20_078_066, 20_102_998, 20_108_866, 20_085_014],
-          'measurement_unit_code' => 'DTN',
-          'measurement_unit_qualifier_code' => '',
-          'unit' => 'x 100 kg',
-          'unit_hint' => 'Enter the value in decitonnes (100kg)',
-          'unit_question' => 'What is the weight of the goods you will be importing?',
-        },
-      }
+    before do
+      allow(ApplicableMeasureUnitMerger).to receive(:new).and_call_original
     end
 
-    context 'when deltas are applicable' do
-      let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
+    it 'calls the ApplicableMeasureUnitMerger service' do
+      helper.applicable_measure_units
 
-      it 'fetches the uk commodity' do
-        helper.applicable_measure_units
-
-        expect(Api::Commodity).to have_received(:build).with('uk', anything, anything)
-      end
-
-      it 'fetches the xi commodity' do
-        helper.applicable_measure_units
-
-        expect(Api::Commodity).to have_received(:build).with('xi', anything, anything)
-      end
-
-      it 'fetches the measure units' do
-        expect(helper.applicable_measure_units).to eq(expected_measure_units)
-      end
-    end
-
-    context 'when deltas are not applicable' do
-      let(:user_session) { build(:user_session, :with_commodity_information) }
-
-      it 'fetches the uk commodity' do
-        helper.applicable_measure_units
-
-        expect(Api::Commodity).to have_received(:build).with('uk', anything, anything)
-      end
-
-      it 'does not fetch the xi commodity' do
-        helper.applicable_measure_units
-
-        expect(Api::Commodity).not_to have_received(:build).with('xi', anything, anything)
-      end
-
-      it 'fetches the measure units' do
-        expect(helper.applicable_measure_units).to eq(expected_measure_units)
-      end
+      expect(ApplicableMeasureUnitMerger).to have_received(:new)
     end
   end
 

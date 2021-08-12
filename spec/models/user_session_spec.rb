@@ -1,5 +1,5 @@
 RSpec.describe UserSession do
-  subject(:user_session) { build(:user_session) }
+  subject(:user_session) { build(:user_session, commodity_source: nil) }
 
   let(:session) { user_session.session }
 
@@ -647,24 +647,16 @@ RSpec.describe UserSession do
   end
 
   describe '#commodity_code' do
-    it 'returns nil if the key is not on the session' do
-      expect(user_session.commodity_code).to be nil
-    end
+    subject(:user_session) { build(:user_session, commodity_code: '1111111111') }
 
-    context 'when the key is present on the session' do
-      subject(:user_session) { build(:user_session, commodity_code: '1111111111') }
-
-      it 'returns the value from the session' do
-        expect(user_session.commodity_code).to eq('1111111111')
-      end
+    it 'returns the value from the session' do
+      expect(user_session.commodity_code).to eq('1111111111')
     end
   end
 
   describe '#commodity_code=' do
     it 'sets the key on the session' do
-      user_session.commodity_code = '1111111111'
-
-      expect(session['commodity_code']).to eq('1111111111')
+      expect { user_session.commodity_code = '1111111111' }.to change { session['commodity_code'] }.from(nil).to('1111111111')
     end
   end
 

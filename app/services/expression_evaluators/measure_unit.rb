@@ -22,13 +22,13 @@ module ExpressionEvaluators
           measure.duty_expression.formatted_base
         end
 
-      expression = "#{expression} * #{quantity_string.call}"
+      expression = "#{expression} * #{quantity_string}"
 
       sanitize(expression, tags: %w[span abbr], attributes: %w[title])
     end
 
     def quantity_string
-      NumberWithHighPrecisionFormatter.new(total_quantity)
+      NumberWithHighPrecisionFormatter.new(total_quantity).call
     end
 
     def value
@@ -53,12 +53,7 @@ module ExpressionEvaluators
     end
 
     def measure_applicable_units
-      units =
-        if user_session.deltas_applicable?
-          MeasureUnitMerger.new.call
-        else
-          filtered_commodity.applicable_measure_units
-        end
+      units = ApplicableMeasureUnitMerger.new.call
 
       units.select do |_unit, values|
         values['measure_sids'].include?(measure.id)

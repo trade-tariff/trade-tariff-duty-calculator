@@ -87,5 +87,9 @@ module Api
     def user_session
       UserSession.get
     end
+
+    def eql?(other)
+      as_json == other.as_json
+    end
   end
 end
