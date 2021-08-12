@@ -140,4 +140,49 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
       end
     end
   end
+
+  describe '#excise_measures' do
+    it { expect(commodity.excise_measures.all?(:excise)).to eq(true) }
+  end
+
+  describe '#applicable_excise_measure_units' do
+    let(:commodity_code) { '0103921100' }
+
+    context 'when there are excise units' do
+      let(:service) { 'uk' }
+
+      let(:expected_units) do
+        {
+          'RET' => {
+            'measurement_unit_code' => 'RET',
+            'measurement_unit_qualifier_code' => '',
+            'abbreviation' => 'GBP',
+            'unit_question' => 'What is the retail price of the goods you will be importing?',
+            'unit_hint' => 'Enter the value in pounds',
+            'unit' => '£',
+            'measure_sids' => [-1_010_806_389],
+          },
+          'MIL' => {
+            'measurement_unit_code' => 'MIL',
+            'measurement_unit_qualifier_code' => '',
+            'abbreviation' => '1,000 p/st',
+            'unit_question' => 'How many items will you be importing?',
+            'unit_hint' => 'Enter the value in thousands of items',
+            'unit' => 'x 1,000 items',
+            'measure_sids' => [-1_010_806_389],
+          },
+        }
+      end
+
+      it { expect(commodity.applicable_excise_measure_units).to eq(expected_units) }
+    end
+
+    context 'when there are no excise units' do
+      let(:service) { 'xi' } # XI doesn't have uk  excise measures
+
+      let(:expected_units) { {} }
+
+      it { expect(commodity.applicable_excise_measure_units).to eq(expected_units) }
+    end
+  end
 end

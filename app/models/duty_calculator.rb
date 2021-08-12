@@ -27,7 +27,7 @@ class DutyCalculator
 
   def additional_duty_rows
     @additional_duty_rows ||= begin
-      rows = commodity.applicable_measures.select(&:applicable?).each_with_object([]) do |measure, acc|
+      rows = AdditionalDutyApplicableMeasuresMerger.new.call.each_with_object([]) do |measure, acc|
         option_klass = measure.measure_type.additional_duty_option
 
         next if option_klass.nil?
