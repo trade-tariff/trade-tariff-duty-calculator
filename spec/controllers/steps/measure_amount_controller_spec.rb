@@ -53,16 +53,6 @@ RSpec.describe Steps::MeasureAmountController, :user_session do
 
       expect(Steps::MeasureAmount).to have_received(:new).with(expected_applicable_measure_units)
     end
-
-    context 'when deltas_applicable' do
-      let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable) }
-
-      it 'passes the correct params to the Steps::MeasureAmount step' do
-        response
-
-        expect(Steps::MeasureAmount).to have_received(:new).with(expected_applicable_measure_units)
-      end
-    end
   end
 
   describe 'POST #create' do

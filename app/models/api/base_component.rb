@@ -32,9 +32,5 @@ module Api
     def operator
       duty_expression_abbreviation
     end
-
-    def eql?(other)
-      as_json == other.as_json
-    end
   end
 end

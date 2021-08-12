@@ -1,5 +1,7 @@
 class FakeUkttHttp
-  def initialize(connection, service, version, format); end
+  def initialize(_connection, service, _version, _format)
+    @service = service
+  end
 
   def self.build(host, version, format); end
 
@@ -16,7 +18,7 @@ class FakeUkttHttp
   private
 
   def read(fixture)
-    fixture_path = "#{::Rails.root}/spec/fixtures"
+    fixture_path = "#{::Rails.root}/spec/fixtures/#{@service}"
     path = File.join(fixture_path, fixture)
 
     File.read(path)

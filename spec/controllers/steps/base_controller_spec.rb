@@ -11,7 +11,7 @@ RSpec.describe Steps::BaseController, :user_session do
     end
   end
 
-  let(:user_session) { build(:user_session, commodity_code: '0702000007', commodity_source: 'uk', referred_service: 'uk', session_id: 'foo') }
+  let(:user_session) { build(:user_session, :with_commodity_information, session_id: 'foo') }
   let(:trade_tariff_host) { 'https://dev.trade-tariff.service.gov.uk' }
 
   let(:expected_tracked_attributes) do

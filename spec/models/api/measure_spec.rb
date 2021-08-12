@@ -42,8 +42,6 @@ RSpec.describe Api::Measure, :user_session do
 
   describe '#evaluator' do
     context 'when an ad_valorem measure' do
-      let(:commodity_code) { '0702000007' }
-
       it 'calls the correct evaluator' do
         allow(ExpressionEvaluators::AdValorem).to receive(:new)
 
@@ -87,8 +85,6 @@ RSpec.describe Api::Measure, :user_session do
           ],
         )
       end
-
-      let(:commodity_code) { '0103921100' }
 
       it 'calls the correct evaluator' do
         allow(ExpressionEvaluators::MeasureUnit).to receive(:new)
@@ -153,8 +149,6 @@ RSpec.describe Api::Measure, :user_session do
           ],
         )
       end
-
-      let(:commodity_code) { '0103921100' }
 
       it 'calls the correct evaluator' do
         allow(ExpressionEvaluators::Compound).to receive(:new)

@@ -5,7 +5,7 @@ POSSIBLE_ANSWERS = Steps.constants.map { |step| "Steps::#{step}".constantize.id 
 FactoryBot.define do
   factory :user_session do
     commodity_code   { nil }
-    commodity_source { nil }
+    commodity_source { 'uk' }
     referred_service { nil }
     trade_defence    { nil }
     zero_mfn_duty    { nil }
