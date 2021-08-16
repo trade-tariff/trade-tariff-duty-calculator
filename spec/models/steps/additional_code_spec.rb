@@ -78,7 +78,6 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
     allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
     allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(applicable_additional_codes)
     allow(filtered_commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
-    allow(Rails.configuration).to receive(:document_codes_enabled).and_return('true')
   end
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do

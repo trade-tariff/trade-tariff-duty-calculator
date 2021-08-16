@@ -28,7 +28,7 @@ class ConfirmationDecorator < SimpleDelegator
     return import_date_path(referred_service: user_session.referred_service, commodity_code: user_session.commodity_code) if key == 'import_date'
 
     return additional_codes_path(applicable_measure_type_ids.first) if key == 'additional_code'
-    return document_codes_path(document_codes_applicable_measure_type_ids.first) if key == 'document_code' && Rails.application.config.document_codes_enabled
+    return document_codes_path(document_codes_applicable_measure_type_ids.first) if key == 'document_code'
     return excise_path(applicable_excise_measure_type_ids.first) if key == 'excise' && Rails.application.config.excise_step_enabled
 
     send("#{key}_path")
