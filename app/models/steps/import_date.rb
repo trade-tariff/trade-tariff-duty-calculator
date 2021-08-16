@@ -11,6 +11,7 @@ module Steps
       planned_processing
       document_code
       excise
+      vat
     ].freeze
 
     attribute :import_date, :date
