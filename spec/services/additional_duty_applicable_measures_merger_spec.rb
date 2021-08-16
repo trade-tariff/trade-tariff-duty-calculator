@@ -15,7 +15,7 @@ RSpec.describe AdditionalDutyApplicableMeasuresMerger, :user_session do
       let(:uk_excise_measures) {}
 
       let(:expected_measures) do
-        xi_filtered_commodity.applicable_measures.select(&:applicable?) + uk_filtered_commodity.excise_measures
+        xi_filtered_commodity.applicable_measures.select(&:applicable?) + uk_filtered_commodity.applicable_excise_measures
       end
 
       it 'fetches the xi commodity' do

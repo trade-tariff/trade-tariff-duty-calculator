@@ -26,21 +26,19 @@ class DutyCalculator
   attr_reader :commodity
 
   def additional_duty_rows
-    @additional_duty_rows ||= begin
-      rows = AdditionalDutyApplicableMeasuresMerger.new.call.each_with_object([]) do |measure, acc|
-        option_klass = measure.measure_type.additional_duty_option
+    rows = AdditionalDutyApplicableMeasuresMerger.new.call.each_with_object([]) do |measure, acc|
+      option_klass = measure.measure_type.additional_duty_option
 
-        next if option_klass.nil?
-        next if measure.all_duties_zero?
+      next if option_klass.nil?
+      next if measure.all_duties_zero?
 
-        option = {}
-        option[:key] = option_klass.id
-        option[:evaluation] = option_klass.new(measure, [], nil).option
-        acc << option
-      end
-
-      rows.sort_by { |option| option[:evaluation][:priority] }
+      option = {}
+      option[:key] = option_klass.id
+      option[:evaluation] = option_klass.new(measure, [], nil).option
+      acc << option
     end
+
+    rows.sort_by { |option| option[:evaluation][:priority] }
   end
 
   def default_options

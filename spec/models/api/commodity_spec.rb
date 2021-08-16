@@ -141,8 +141,8 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
     end
   end
 
-  describe '#excise_measures' do
-    it { expect(commodity.excise_measures.all?(:excise)).to eq(true) }
+  describe '#applicable_excise_measures' do
+    it { expect(commodity.applicable_excise_measures.all?(:excise)).to eq(true) }
   end
 
   describe '#applicable_excise_measure_units' do

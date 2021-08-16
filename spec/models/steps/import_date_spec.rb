@@ -27,6 +27,7 @@ RSpec.describe Steps::ImportDate, :step, :user_session do
           planned_processing
           document_code
           excise
+          vat
         ],
       )
     end
