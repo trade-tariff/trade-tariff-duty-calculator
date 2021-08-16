@@ -61,11 +61,15 @@ module Api
       end
     end
 
-    def excise_measures
-      @excise_measures ||= import_measures.select(&:excise)
+    def applicable_excise_measures
+      @applicable_excise_measures ||= applicable_measures.select(&:excise)
     end
 
     private
+
+    def excise_measures
+      @excise_measures ||= import_measures.select(&:excise)
+    end
 
     def excise_measures_sids
       excise_measures.map(&:id)
