@@ -166,10 +166,12 @@ RSpec.describe Api::Measure, :user_session do
     let(:component) { instance_double('Api::MeasureComponent') }
     let(:ad_valorem) { false }
     let(:specific_duty) { false }
+    let(:retail_price) { false }
 
     before do
       allow(component).to receive(:ad_valorem?).and_return(ad_valorem)
       allow(component).to receive(:specific_duty?).and_return(specific_duty)
+      allow(component).to receive(:retail_price?).and_return(retail_price)
     end
 
     context 'when an ad_valorem component' do
@@ -193,6 +195,19 @@ RSpec.describe Api::Measure, :user_session do
         measure.evaluator_for_compound_component(component)
 
         expect(ExpressionEvaluators::MeasureUnit).to have_received(:new).with(measure, component)
+      end
+    end
+
+    context 'when a retail price component' do
+      let(:specific_duty) { true }
+      let(:retail_price) { true }
+
+      it 'instantiates the correct evaluator' do
+        allow(ExpressionEvaluators::RetailPrice).to receive(:new)
+
+        measure.evaluator_for_compound_component(component)
+
+        expect(ExpressionEvaluators::RetailPrice).to have_received(:new).with(measure, component)
       end
     end
   end
