@@ -15,24 +15,18 @@ module ExpressionEvaluators
     end
 
     def total_amount
-      measure_unit_answers.first[:answer].to_f
+      presented_unit[:answer].to_f
     end
 
-    def measure_unit_answers
-      @measure_unit_answers ||= measure_applicable_units.map do |unit, values|
-        {
-          answer: user_session.measure_amount[unit.downcase.to_s],
-          unit: values['unit'],
-        }
-      end
+    def presented_unit
+      @presented_unit ||= {
+        answer: user_session.measure_amount[component.unit.downcase.to_s],
+        unit: applicable_unit['unit'],
+      }
     end
 
-    def measure_applicable_units
-      units = ApplicableMeasureUnitMerger.new.call
-
-      units.select do |_unit, values|
-        values['measure_sids'].include?(measure.id)
-      end
+    def applicable_unit
+      ApplicableMeasureUnitMerger.new.call[component.unit]
     end
 
     def measure_condition

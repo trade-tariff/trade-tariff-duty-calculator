@@ -32,8 +32,9 @@ module Api
     def no_specific_duty?
       !specific_duty?
     end
-    
-    def amount_or_percentage?
+
+    def unit
+      "#{measurement_unit_code}#{measurement_unit_qualifier_code}"
     end
 
     def conjunction_operator?
