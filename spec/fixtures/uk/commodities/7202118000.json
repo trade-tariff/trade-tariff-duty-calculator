@@ -11,9 +11,10 @@
           "unit_question": "What is the weight of biodiesel in the goods you will be importing?",
           "unit_hint": "Enter the value in tonnes (1,000 kg)",
           "unit": "tonnes",
-          "measure_sids": [
-            20041036,
-            20041059
+          "component_ids": [
+            "20041036-01"
+          ],
+          "condition_component_ids": [
           ]
         }
       },
@@ -193,6 +194,7 @@
       ],
       "measure_components": [
         {
+          "id": "20041036-01",
           "duty_expression_id": "01",
           "duty_amount": 144.1,
           "monetary_unit_code": "GBP",

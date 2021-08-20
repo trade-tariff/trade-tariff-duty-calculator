@@ -37,7 +37,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
   context "when passing a measure's component" do
     let(:component) { measure.measure_components.first }
 
-    let(:measure_component) { attributes_for(:measure_component, :with_measure_units) }
+    let(:measure_component) { attributes_for(:measure_component, :with_measure_units, id: '2046828-01') }
 
     let(:expected_evaluation) do
       {
@@ -72,7 +72,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
     end
 
     let(:measure_condition_component) do
-      attributes_for(:measure_condition_component, :with_measure_units)
+      attributes_for(:measure_condition_component, :with_measure_units, id: '2046828-01')
     end
 
     let(:expected_evaluation) do

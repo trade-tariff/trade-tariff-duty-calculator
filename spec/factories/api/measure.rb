@@ -121,5 +121,13 @@ FactoryBot.define do
     trait :provisional_anti_dumping do
       measure_type { attributes_for :measure_type, :provisional_anti_dumping }
     end
+
+    trait :with_measure_components do
+      measure_components { [attributes_for(:measure_component)] }
+    end
+
+    trait :with_measure_conditions_with_components do
+      measure_conditions { [attributes_for(:measure_condition, :with_condition_components)] }
+    end
   end
 end

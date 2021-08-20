@@ -12,7 +12,8 @@ RSpec.describe Steps::MeasureAmountController, :user_session do
         'DTN' =>
           {
             'abbreviation' => '100 kg',
-            'measure_sids' =>
+            'component_ids' => [],
+            'condition_component_ids' =>
               [
                 20_005_920,
                 20_056_507,

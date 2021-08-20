@@ -632,4 +632,32 @@ RSpec.describe Api::Measure, :user_session do
       it { is_expected.to be_applicable }
     end
   end
+
+  describe '#component_ids' do
+    context 'when the measure has components' do
+      subject(:measure) { build(:measure, :with_measure_components) }
+
+      it { expect(measure.component_ids).to include(match(/\d-01/)) }
+    end
+
+    context 'when the measure has no components' do
+      subject(:measure) { build(:measure) }
+
+      it { expect(measure.component_ids).to eq([]) }
+    end
+  end
+
+  describe '#condition_component_ids' do
+    context 'when the measure has condition components' do
+      subject(:measure) { build(:measure, :with_measure_conditions_with_components) }
+
+      it { expect(measure.condition_component_ids).to include(match(/\d-04/)) }
+    end
+
+    context 'when the measure has no condition components' do
+      subject(:measure) { build(:measure) }
+
+      it { expect(measure.condition_component_ids).to eq([]) }
+    end
+  end
 end

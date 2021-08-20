@@ -13,6 +13,7 @@ RSpec.describe ExpressionEvaluators::Compound, :user_session do
   let(:measure_components) do
     [
       {
+        'id' => '3211138-01',
         'duty_expression_id' => '01',
         'duty_amount' => 13.8,
         'monetary_unit_code' => nil,
@@ -23,6 +24,7 @@ RSpec.describe ExpressionEvaluators::Compound, :user_session do
         'measurement_unit_qualifier_code' => nil,
       },
       {
+        'id' => '3211138-15',
         'duty_expression_id' => '15',
         'duty_amount' => 13.0,
         'monetary_unit_code' => 'GBP',
@@ -33,6 +35,7 @@ RSpec.describe ExpressionEvaluators::Compound, :user_session do
         'measurement_unit_qualifier_code' => nil,
       },
       {
+        'id' => '3211138-17',
         'duty_expression_id' => '17',
         'duty_amount' => 15.0,
         'monetary_unit_code' => 'GBP',
@@ -43,6 +46,7 @@ RSpec.describe ExpressionEvaluators::Compound, :user_session do
         'measurement_unit_qualifier_code' => nil,
       },
       {
+        'id' => '3211138-36',
         'duty_expression_id' => '36',
         'duty_amount' => 7.0,
         'monetary_unit_code' => 'GBP',

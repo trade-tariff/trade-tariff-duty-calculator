@@ -306,7 +306,7 @@ RSpec.describe CommodityHelper, :user_session do
     end
 
     context 'when the commodity has additional codes' do
-      let(:commodity_code) { '0809400500' }
+      let(:commodity_code) { '0702000007' }
 
       it { expect(helper).to be_applicable_additional_codes }
     end
@@ -320,7 +320,7 @@ RSpec.describe CommodityHelper, :user_session do
     end
 
     context 'when the commodity has additional codes' do
-      let(:commodity_code) { '0809400500' }
+      let(:commodity_code) { '0702000007' }
 
       it { expect(helper).to be_applicable_excise_additional_codes }
     end

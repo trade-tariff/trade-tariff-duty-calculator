@@ -7,7 +7,7 @@ module ExpressionEvaluators
         calculation: calculation_duty_expression,
         value: value,
         formatted_value: number_to_currency(value),
-        unit: measure_unit_answers.first[:unit],
+        unit: measure_unit_answer[:unit],
         total_quantity: total_quantity,
       }
     end
@@ -40,23 +40,28 @@ module ExpressionEvaluators
     end
 
     def total_quantity
-      measure_unit_answers.first[:answer].to_f
+      measure_unit_answer[:answer].to_f
     end
 
-    def measure_unit_answers
-      @measure_unit_answers ||= measure_applicable_units.map do |unit, values|
+    def measure_unit_answer
+      @measure_unit_answer ||= begin
+        applicable_unit = component_applicable_unit
+        unit_key = applicable_unit[0]
+        unit_overlays = applicable_unit[1]
+
         {
-          answer: user_session.measure_amount[unit.downcase.to_s],
-          unit: values['unit'],
+          answer: user_session.measure_amount[unit_key.downcase.to_s],
+          unit: unit_overlays['unit'],
         }
       end
     end
 
-    def measure_applicable_units
+    def component_applicable_unit
       units = ApplicableMeasureUnitMerger.new.call
 
-      units.select do |_unit, values|
-        values['measure_sids'].include?(measure.id)
+      units.find do |_unit, values|
+        values['component_ids'].include?(component.id) ||
+          values['condition_component_ids'].include?(component.id)
       end
     end
 

@@ -46,7 +46,7 @@ RSpec.describe Steps::Vat, :step, :user_session do
   end
 
   describe '#vat_options' do
-    let(:user_session) { build(:user_session, commodity_code: '0809400500', commodity_source: 'uk') }
+    let(:user_session) { build(:user_session, commodity_code: '0702000007', commodity_source: 'uk') }
 
     let(:expected_options) do
       [

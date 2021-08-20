@@ -89,6 +89,14 @@ module Api
       measure_conditions.any?(&:expresses_document?)
     end
 
+    def component_ids
+      measure_components.map(&:id)
+    end
+
+    def condition_component_ids
+      measure_conditions.flat_map { |condition| condition.measure_condition_components.map(&:id) }
+    end
+
     private
 
     def document_components

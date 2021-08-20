@@ -11,7 +11,10 @@ class ApplicableMeasureUnitMerger
 
   def delta_measure_units
     uk_filtered_commodity.applicable_measure_units.merge(xi_filtered_commodity.applicable_measure_units) do |_key, uk_units, xi_units|
-      uk_units['measure_sids'] += xi_units['measure_sids']
+      uk_units['component_ids'] += xi_units['component_ids']
+      uk_units['condition_component_ids'] += xi_units['condition_component_ids']
+      uk_units['component_ids'].uniq!
+      uk_units['condition_component_ids'].uniq!
 
       uk_units
     end

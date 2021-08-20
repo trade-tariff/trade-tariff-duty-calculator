@@ -3,7 +3,7 @@ RSpec.describe Steps::ExciseController, :user_session do
     build(
       :user_session,
       :with_commodity_information,
-      commodity_code: '0809400500',
+      commodity_code: '0702000007',
     )
   end
 

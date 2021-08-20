@@ -11,7 +11,8 @@
           "unit_question": "What is the weight of the goods you will be importing?",
           "unit_hint": "Enter the value in decitonnes (100kg)",
           "unit": "x 100 kg",
-          "measure_sids": [
+          "component_ids": [],
+          "condition_component_ids": [
             20005920,
             20056507,
             20073335,

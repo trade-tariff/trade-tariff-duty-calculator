@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence(:measure_condition_component_sid)
+  sequence(:measure_condition_component_sid) { |n| "#{n}-04" }
 
   factory :measure_condition_component, class: 'Api::MeasureConditionComponent' do
     id { generate(:measure_condition_component_sid) }

@@ -27,7 +27,8 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'What is the weight of the goods you will be importing?',
             'unit_hint' => 'Enter the value in decitonnes (100kg)',
             'unit' => 'x 100 kg',
-            'measure_sids' => [2_046_828, 2_046_828],
+            'component_ids' => %w[2046828-01],
+            'condition_component_ids' => %w[2046828-01],
           },
           'RET' => {
             'measurement_unit_code' => 'RET',
@@ -36,7 +37,8 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'What is the retail price of the goods you will be importing?',
             'unit_hint' => 'Enter the value in pounds',
             'unit' => '£',
-            'measure_sids' => [-1_010_806_389],
+            'component_ids' => ['-1010806389-01'],
+            'condition_component_ids' => [],
           },
           'MIL' => {
             'measurement_unit_code' => 'MIL',
@@ -45,7 +47,11 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'How many items will you be importing?',
             'unit_hint' => 'Enter the value in thousands of items',
             'unit' => 'x 1,000 items',
-            'measure_sids' => [-1_010_806_389],
+            'component_ids' => [
+              '-1010806389-04',
+              '-1010806389-15',
+            ],
+            'condition_component_ids' => [],
           },
         }
       end
@@ -94,7 +100,8 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'What is the weight of the goods you will be importing?',
             'unit_hint' => 'Enter the value in decitonnes (100kg)',
             'unit' => 'x 100 kg',
-            'measure_sids' => [2_046_828],
+            'component_ids' => %w[2046828-01],
+            'condition_component_ids' => %w[2046828-01],
           },
           'RET' => {
             'measurement_unit_code' => 'RET',
@@ -103,7 +110,8 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'What is the retail price of the goods you will be importing?',
             'unit_hint' => 'Enter the value in pounds',
             'unit' => '£',
-            'measure_sids' => [-1_010_806_389],
+            'component_ids' => ['-1010806389-01'],
+            'condition_component_ids' => [],
           },
           'MIL' => {
             'measurement_unit_code' => 'MIL',
@@ -112,7 +120,11 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'How many items will you be importing?',
             'unit_hint' => 'Enter the value in thousands of items',
             'unit' => 'x 1,000 items',
-            'measure_sids' => [-1_010_806_389],
+            'component_ids' => [
+              '-1010806389-04',
+              '-1010806389-15',
+            ],
+            'condition_component_ids' => [],
           },
         }
       end
@@ -161,7 +173,8 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'What is the weight of the goods you will be importing?',
             'unit_hint' => 'Enter the value in decitonnes (100kg)',
             'unit' => 'x 100 kg',
-            'measure_sids' => [2_046_828],
+            'component_ids' => %w[2046828-01],
+            'condition_component_ids' => [],
           },
           'RET' => {
             'measurement_unit_code' => 'RET',
@@ -170,7 +183,8 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'What is the retail price of the goods you will be importing?',
             'unit_hint' => 'Enter the value in pounds',
             'unit' => '£',
-            'measure_sids' => [-1_010_806_389],
+            'component_ids' => ['-1010806389-01'],
+            'condition_component_ids' => [],
           },
           'MIL' => {
             'measurement_unit_code' => 'MIL',
@@ -179,7 +193,11 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'How many items will you be importing?',
             'unit_hint' => 'Enter the value in thousands of items',
             'unit' => 'x 1,000 items',
-            'measure_sids' => [-1_010_806_389],
+            'component_ids' => [
+              '-1010806389-04',
+              '-1010806389-15',
+            ],
+            'condition_component_ids' => [],
           },
         }
       end

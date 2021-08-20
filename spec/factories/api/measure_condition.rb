@@ -23,5 +23,9 @@ FactoryBot.define do
       condition_measurement_unit_code { 'DTN' }
       duty_expression { "<span>35.10</span> GBP / <abbr title='Hectokilogram'>100 kg</abbr>" }
     end
+
+    trait :with_condition_components do
+      measure_condition_components { [attributes_for(:measure_condition_component)] }
+    end
   end
 end
