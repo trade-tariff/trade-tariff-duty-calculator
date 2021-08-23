@@ -114,8 +114,20 @@ RSpec.describe Api::BaseComponent do
   end
 
   describe '#operator' do
-    it 'returns %' do
-      expect(component.operator).to eq '%'
+    it { expect(component.operator).to eq('%') }
+  end
+
+  describe 'unit' do
+    context 'when the component has unit attributes' do
+      subject(:component) { described_class.new(attributes_for(:measure_component, :with_measure_units)) }
+
+      it { expect(component.unit).to eq('DTN') }
+    end
+
+    context 'when the component has no unit attributes' do
+      subject(:component) { described_class.new(attributes_for(:measure_component)) }
+
+      it { expect(component.unit).to eq('') }
     end
   end
 end

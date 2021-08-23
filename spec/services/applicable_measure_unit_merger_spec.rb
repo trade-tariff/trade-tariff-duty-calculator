@@ -27,7 +27,7 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'What is the weight of the goods you will be importing?',
             'unit_hint' => 'Enter the value in decitonnes (100kg)',
             'unit' => 'x 100 kg',
-            'measure_sids' => [2_046_828, 2_046_828],
+            'measure_sids' => [2_046_828],
           },
           'RET' => {
             'measurement_unit_code' => 'RET',

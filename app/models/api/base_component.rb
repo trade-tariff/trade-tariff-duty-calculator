@@ -32,5 +32,9 @@ module Api
     def operator
       duty_expression_abbreviation
     end
+
+    def unit
+      "#{measurement_unit_code}#{measurement_unit_qualifier_code}"
+    end
   end
 end
