@@ -24,10 +24,10 @@ en:
         strip_insignificant_zeros: false
 
   title:
-    uk: UK Global Online Tariff
+    uk: UK Integrated Online Tariff
     xi: Northern Ireland Online Tariff 
   header:
-    uk: UK Global Online Tariff
+    uk: UK Integrated Online Tariff
     xi: Northern Ireland Online Tariff 
   duty_calculations:
     options:

@@ -25,7 +25,7 @@ RSpec.describe ServiceHelper do
     context 'when referred_service is uk' do
       let(:service) { 'uk' }
 
-      it { expect(helper.title).to eq('UK Global Online Tariff') }
+      it { expect(helper.title).to eq('UK Integrated Online Tariff') }
     end
   end
 
@@ -39,13 +39,13 @@ RSpec.describe ServiceHelper do
     context 'when referred_service is uk' do
       let(:service) { 'uk' }
 
-      it { expect(helper.header).to eq('UK Global Online Tariff') }
+      it { expect(helper.header).to eq('UK Integrated Online Tariff') }
     end
 
     context 'when referred_service is not set at all' do
       let(:service) { nil }
 
-      it { expect(helper.header).to eq('UK Global Online Tariff') }
+      it { expect(helper.header).to eq('UK Integrated Online Tariff') }
     end
   end
 
