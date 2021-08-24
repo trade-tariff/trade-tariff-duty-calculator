@@ -94,7 +94,15 @@ module Api
       measure_conditions.any?(&:expresses_document?)
     end
 
+    def all_units
+      all_components.map(&:unit).compact
+    end
+
     private
+
+    def all_components
+      measure_conditions.flat_map(&:measure_condition_components) + measure_components
+    end
 
     def document_components
       applicable_document_condition&.measure_condition_components
