@@ -37,6 +37,8 @@ module Api
     def evaluator
       if ad_valorem?
         ExpressionEvaluators::AdValorem.new(self, component)
+      elsif retail_price?
+        ExpressionEvaluators::RetailPrice.new(self, component)
       elsif specific_duty?
         ExpressionEvaluators::MeasureUnit.new(self, component)
       else
@@ -48,8 +50,11 @@ module Api
     def evaluator_for_compound_component(component)
       if component.ad_valorem?
         ExpressionEvaluators::AdValorem.new(self, component)
+      elsif component.retail_price?
+        ExpressionEvaluators::RetailPrice.new(self, component)
       elsif component.specific_duty?
         ExpressionEvaluators::MeasureUnit.new(self, component)
+
       end
     end
 
@@ -119,8 +124,14 @@ module Api
         component.specific_duty?
     end
 
+    def retail_price?
+      single_component? &&
+        amount_or_percentage? &&
+        component.retail_price?
+    end
+
     def amount_or_percentage?
-      component.duty_expression_id == '01'
+      component.amount_or_percentage?
     end
 
     def single_component?

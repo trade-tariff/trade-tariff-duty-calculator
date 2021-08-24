@@ -13,6 +13,14 @@ module Api
                :measurement_unit_code,
                :measurement_unit_qualifier_code
 
+    enum :measurement_unit_code, {
+      retail_price: %w[RET],
+    }
+
+    enum :duty_expression_id, {
+      amount_or_percentage: %w[01 04 19 20],
+    }
+
     def ad_valorem?
       no_specific_duty?
     end
@@ -25,16 +33,16 @@ module Api
       !specific_duty?
     end
 
+    def unit
+      "#{measurement_unit_code}#{measurement_unit_qualifier_code}"
+    end
+
     def conjunction_operator?
       duty_expression_abbreviation.in?(CONJUNCTION_OPERATORS)
     end
 
     def operator
       duty_expression_abbreviation
-    end
-
-    def unit
-      "#{measurement_unit_code}#{measurement_unit_qualifier_code}"
     end
   end
 end

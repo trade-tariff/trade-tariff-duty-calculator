@@ -94,4 +94,8 @@ RSpec.describe OptionCollection do
   describe '#cheapest_quota_option' do
     it { expect(collection.cheapest_quota_option).to eq(cheapest_quota_option) }
   end
+
+  describe '#size' do
+    it { expect(collection.size).to eq(options.size) }
+  end
 end

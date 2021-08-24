@@ -1,6 +1,7 @@
 module ExpressionEvaluators
   class MeasureUnit < ExpressionEvaluators::Base
     include CommodityHelper
+    include MeasureUnitPresentable
 
     def call
       {
@@ -41,13 +42,6 @@ module ExpressionEvaluators
 
     def total_quantity
       presented_unit[:answer].to_f
-    end
-
-    def presented_unit
-      @presented_unit ||= {
-        answer: user_session.measure_amount[component.unit.downcase.to_s],
-        unit: applicable_unit['unit'],
-      }
     end
 
     def applicable_unit
