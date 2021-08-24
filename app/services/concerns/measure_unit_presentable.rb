@@ -1,4 +1,6 @@
-module MeasureUnitHelper
+module MeasureUnitPresentable
+  extend ActiveSupport::Concern
+
   def presented_unit
     @presented_unit ||= {
       answer: user_session.measure_amount[component.unit.downcase.to_s],

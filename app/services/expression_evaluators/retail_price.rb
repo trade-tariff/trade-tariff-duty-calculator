@@ -1,6 +1,6 @@
 module ExpressionEvaluators
   class RetailPrice < ExpressionEvaluators::Base
-    include MeasureUnitHelper
+    include MeasureUnitPresentable
 
     def call
       {

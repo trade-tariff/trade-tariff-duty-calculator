@@ -1,7 +1,7 @@
 module ExpressionEvaluators
   class MeasureUnit < ExpressionEvaluators::Base
     include CommodityHelper
-    include MeasureUnitHelper
+    include MeasureUnitPresentable
 
     def call
       {
