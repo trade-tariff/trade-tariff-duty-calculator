@@ -49,15 +49,8 @@ module Api
     end
 
     def applicable_excise_measure_units
-      applicable_measure_units.each_with_object({}) do |(unit, value), acc|
-        measure_sids = value['measure_sids'].select { |measure_sid| measure_sid.in?(excise_measures_sids) }
-
-        next if measure_sids.blank?
-
-        value = value.deep_dup
-        value['measure_sids'] = measure_sids
-
-        acc[unit] = value
+      applicable_measure_units.select do |unit, _value|
+        unit.in?(excise_measure_units)
       end
     end
 
@@ -67,12 +60,12 @@ module Api
 
     private
 
-    def excise_measures
-      @excise_measures ||= import_measures.select(&:excise)
+    def excise_measure_units
+      @excise_measure_units ||= excise_measures.flat_map(&:all_units).uniq
     end
 
-    def excise_measures_sids
-      excise_measures.map(&:id)
+    def excise_measures
+      @excise_measures ||= import_measures.select(&:excise)
     end
 
     def no_additional_code_measures

@@ -135,7 +135,7 @@ RSpec.describe Api::BaseComponent do
     context 'when the component has no unit attributes' do
       subject(:component) { described_class.new(attributes_for(:measure_component)) }
 
-      it { expect(component.unit).to eq('') }
+      it { expect(component.unit).to be_nil }
     end
   end
 end

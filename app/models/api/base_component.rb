@@ -34,6 +34,8 @@ module Api
     end
 
     def unit
+      return nil if measurement_unit_code.blank?
+
       "#{measurement_unit_code}#{measurement_unit_qualifier_code}"
     end
 
