@@ -12,9 +12,24 @@ FactoryBot.define do
     measurement_unit_code {}
     measurement_unit_qualifier_code {}
 
+    trait :ad_valorem do
+      duty_amount { 35.1 }
+      duty_expression_abbreviation { '% or amount' }
+      duty_expression_description { '%' }
+      duty_expression_id { '01' }
+    end
+
     trait :with_measure_units do
       duty_amount { 35.1 }
       measurement_unit_code { 'DTN' }
+      duty_expression_abbreviation { '% or amount' }
+      duty_expression_description { '%' }
+      duty_expression_id { '01' }
+    end
+
+    trait :with_retail_price_measure_units do
+      duty_amount { 16.5 }
+      measurement_unit_code { 'RET' }
       duty_expression_abbreviation { '% or amount' }
       duty_expression_description { '%' }
       duty_expression_id { '01' }

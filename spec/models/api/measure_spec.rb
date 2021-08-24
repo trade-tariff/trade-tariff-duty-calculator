@@ -42,6 +42,8 @@ RSpec.describe Api::Measure, :user_session do
 
   describe '#evaluator' do
     context 'when an ad_valorem measure' do
+      let(:measure_components) { [attributes_for(:measure_component, :ad_valorem)] }
+
       it 'calls the correct evaluator' do
         allow(ExpressionEvaluators::AdValorem).to receive(:new)
 
@@ -52,39 +54,7 @@ RSpec.describe Api::Measure, :user_session do
     end
 
     context 'when a specific duty' do
-      subject(:measure) do
-        described_class.new(
-          'id' => 2_046_828,
-          'meta' => {
-            'duty_calculator' => {
-              'source' => 'uk',
-            },
-          },
-          'duty_expression' => {
-            'base' => '35.10 EUR / 100 kg',
-            'formatted_base' => "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
-          },
-          'measure_type' => {
-            'description' => 'Third country duty',
-            'national' => nil,
-            'measure_type_series_id' => 'C',
-            'id' => '103',
-          },
-          'measure_conditions' => [],
-          'measure_components' => [
-            {
-              'duty_expression_id' => '01',
-              'duty_amount' => 35.1,
-              'monetary_unit_code' => 'EUR',
-              'monetary_unit_abbreviation' => nil,
-              'measurement_unit_code' => 'DTN',
-              'duty_expression_description' => '% or amount',
-              'duty_expression_abbreviation' => '%',
-              'measurement_unit_qualifier_code' => nil,
-            },
-          ],
-        )
-      end
+      let(:measure_components) { [attributes_for(:measure_component, :with_measure_units)] }
 
       it 'calls the correct evaluator' do
         allow(ExpressionEvaluators::MeasureUnit).to receive(:new)
@@ -96,58 +66,11 @@ RSpec.describe Api::Measure, :user_session do
     end
 
     context 'when a compound duty' do
-      subject(:measure) do
-        described_class.new(
-          'id' => 2_046_828,
-          'meta' => {
-            'duty_calculator' => {
-              'source' => 'uk',
-            },
-          },
-          'duty_expression' => {
-            'base' => '35.10 EUR / 100 kg',
-            'formatted_base' => "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
-          },
-          'measure_type' => {
-            'description' => 'Third country duty',
-            'national' => nil,
-            'measure_type_series_id' => 'C',
-            'id' => '103',
-          },
-          'measure_conditions' => [],
-          'measure_components' => [
-            {
-              'duty_expression_id' => '01',
-              'duty_amount' => 13.8,
-              'monetary_unit_code' => nil,
-              'monetary_unit_abbreviation' => nil,
-              'measurement_unit_code' => nil,
-              'duty_expression_description' => '% or amount',
-              'duty_expression_abbreviation' => '%',
-              'measurement_unit_qualifier_code' => nil,
-            },
-            {
-              'duty_expression_id' => '15',
-              'duty_amount' => 13.0,
-              'monetary_unit_code' => 'GBP',
-              'monetary_unit_abbreviation' => nil,
-              'measurement_unit_code' => 'DTN',
-              'duty_expression_description' => 'Minimum',
-              'duty_expression_abbreviation' => 'MIN',
-              'measurement_unit_qualifier_code' => nil,
-            },
-            {
-              'duty_expression_id' => '17',
-              'duty_amount' => 15.0,
-              'monetary_unit_code' => 'GBP',
-              'monetary_unit_abbreviation' => nil,
-              'measurement_unit_code' => 'DTN',
-              'duty_expression_description' => 'Maximum',
-              'duty_expression_abbreviation' => 'MAX',
-              'measurement_unit_qualifier_code' => nil,
-            },
-          ],
-        )
+      let(:measure_components) do
+        [
+          attributes_for(:measure_component, :with_measure_units),
+          attributes_for(:measure_component, :ad_valorem),
+        ]
       end
 
       it 'calls the correct evaluator' do
@@ -156,6 +79,18 @@ RSpec.describe Api::Measure, :user_session do
         measure.evaluator
 
         expect(ExpressionEvaluators::Compound).to have_received(:new).with(measure, nil)
+      end
+    end
+
+    context 'when a measure with retail price components' do
+      let(:measure_components) { [attributes_for(:measure_component, :with_retail_price_measure_units)] }
+
+      it 'calls the correct evaluator' do
+        allow(ExpressionEvaluators::RetailPrice).to receive(:new)
+
+        measure.evaluator
+
+        expect(ExpressionEvaluators::RetailPrice).to have_received(:new).with(measure, measure.component)
       end
     end
   end

@@ -165,10 +165,6 @@ module DutyOptions
       measure.source == 'xi' ? 'EU' : 'UK'
     end
 
-    def uk_filtered_commodity
-      filtered_commodity(source: 'uk')
-    end
-
     def user_session
       UserSession.get
     end

@@ -53,8 +53,8 @@ module Api
       elsif component.retail_price?
         ExpressionEvaluators::RetailPrice.new(self, component)
       elsif component.specific_duty?
-        result = ExpressionEvaluators::MeasureUnit.new(self, component)
-        result
+        ExpressionEvaluators::MeasureUnit.new(self, component)
+
       end
     end
 

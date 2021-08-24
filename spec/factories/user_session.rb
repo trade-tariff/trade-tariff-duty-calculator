@@ -51,11 +51,15 @@ FactoryBot.define do
   end
 
   trait :with_customs_value do
-    customs_value { {  'monetary_value' => '1200' } }
+    customs_value { { 'monetary_value' => '1200' } }
   end
 
   trait :with_measure_amount do
     measure_amount { { 'dtn' => '100' } }
+  end
+
+  trait :with_retail_price_measure_amount do
+    measure_amount { { 'ret' => '1000' } }
   end
 
   trait :deltas_applicable do
