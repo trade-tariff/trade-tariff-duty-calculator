@@ -18,7 +18,7 @@ module Api
     }
 
     enum :duty_expression_id, {
-      amount_or_percentage: %w[01],
+      amount_or_percentage: %w[01 04 19 20],
     }
 
     def ad_valorem?

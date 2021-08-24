@@ -23,6 +23,14 @@ RSpec.describe Api::BaseComponent do
                   duty_expression_abbreviation: '%',
                   measurement_unit_qualifier_code: nil
 
+  it_behaves_like 'a resource that has an enum', :measurement_unit_code, {
+    retail_price: %w[RET],
+  }
+
+  it_behaves_like 'a resource that has an enum', :duty_expression_id, {
+    amount_or_percentage: %w[01 04 19 20],
+  }
+
   describe '#ad_valorem?' do
     context 'when it is ad_valorem' do
       it 'returns true' do
