@@ -36,6 +36,14 @@
           "measure_sids": [
             -1010806389
           ]
+        },
+        "FC1X": {
+          "measurement_unit_code": "FC1",
+          "measurement_unit_qualifier_code": "X",
+          "abbreviation": "Factor",
+          "unit_question": "Please enter unit: Factor",
+          "unit_hint": "Please correctly enter unit: Factor",
+          "unit": null
         }
       },
       "applicable_additional_codes": {
