@@ -1,7 +1,10 @@
 class ApplicableMeasureUnitMerger
   include CommodityHelper
 
-  UNHANDLED_MEASURE_UNITS = %w[FC1X].freeze
+  UNHANDLED_MEASURE_UNITS = %w[
+    ASV
+    FC1X
+  ].freeze
 
   def call
     return delta_measure_units if user_session.deltas_applicable?
