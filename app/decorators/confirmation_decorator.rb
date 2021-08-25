@@ -29,7 +29,7 @@ class ConfirmationDecorator < SimpleDelegator
 
     return additional_codes_path(applicable_measure_type_ids.first) if key == 'additional_code'
     return document_codes_path(document_codes_applicable_measure_type_ids.first) if key == 'document_code'
-    return excise_path(applicable_excise_measure_type_ids.first) if key == 'excise' && Rails.application.config.excise_step_enabled
+    return excise_path(applicable_excise_measure_type_ids.first) if key == 'excise'
 
     send("#{key}_path")
   end

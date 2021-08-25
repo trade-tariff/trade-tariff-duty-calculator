@@ -40,14 +40,14 @@ module Steps
     end
 
     def next_step_path
-      return excise_path(next_measure_type_id) if next_measure_type_id.present? && Rails.application.config.excise_step_enabled
+      return excise_path(next_measure_type_id) if next_measure_type_id.present?
       return vat_path if applicable_vat_options.keys.count > 1
 
       confirm_path
     end
 
     def previous_step_path
-      return excise_path(previous_measure_type_id) if previous_measure_type_id.present? && Rails.application.config.excise_step_enabled
+      return excise_path(previous_measure_type_id) if previous_measure_type_id.present?
       return document_codes_path(user_session.document_code_measure_type_ids.last) if user_session.document_code_uk.present? || user_session.document_code_xi.present?
       return additional_codes_path(applicable_measure_type_ids.first) if applicable_additional_codes?
 

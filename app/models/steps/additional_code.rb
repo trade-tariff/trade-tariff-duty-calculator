@@ -36,7 +36,7 @@ module Steps
     def next_step_path
       return additional_codes_path(next_measure_type_id) if next_measure_type_id.present?
       return document_codes_path(first_measure_type_id_for_document_codes) if first_measure_type_id_for_document_codes.present?
-      return excise_path(applicable_excise_measure_type_ids.first) if applicable_excise_additional_codes? && Rails.application.config.excise_step_enabled
+      return excise_path(applicable_excise_measure_type_ids.first) if applicable_excise_additional_codes?
       return vat_path if applicable_vat_options.keys.count > 1
 
       confirm_path
