@@ -1,59 +1,26 @@
 RSpec.describe DutyOptions::Chooser do
-  subject(:service) { described_class.new(uk_option_evaluation, xi_option_evaluation, customs_value) }
+  subject(:service) { described_class.new(uk_option, xi_option, 100) }
 
-  let(:customs_value) { 520 }
+  describe '#call' do
+    context 'when the delta is less than 3 percent of the  customs_value' do
+      let(:uk_option) { build(:duty_option_result, value: 3.0) }
+      let(:xi_option) { build(:duty_option_result, value: 4.0) } # 1 % delta
 
-  let(:uk_option_evaluation) do
-    {
-      evaluation: {
-        value: 45.56,
-      },
-    }
-  end
-
-  let(:xi_option_evaluation) do
-    {
-      evaluation: {
-        value: 35.56,
-      },
-    }
-  end
-
-  let(:expected_option) do
-    {
-      evaluation: {
-        value: 45.56,
-      },
-    }
-  end
-
-  describe '#option' do
-    context 'when the delta is less or equal than 3%*customs_value' do
-      it 'returns the uk option' do
-        expect(service.option).to eq(expected_option)
-      end
+      it { expect(service.call).to eq(uk_option) }
     end
 
-    context 'when the delta is higher than 3%*customs_value' do
-      let(:uk_option_evaluation) do
-        {
-          evaluation: {
-            value: 55.56,
-          },
-        }
-      end
+    context 'when the delta is equal to 3 percent of the  customs_value' do
+      let(:uk_option) { build(:duty_option_result, value: 3.0) }
+      let(:xi_option) { build(:duty_option_result, value: 6.0) } # 3 % delta
 
-      let(:expected_option) do
-        {
-          evaluation: {
-            value: 35.56,
-          },
-        }
-      end
+      it { expect(service.call).to eq(uk_option) }
+    end
 
-      it 'returns the xi option' do
-        expect(service.option).to eq(expected_option)
-      end
+    context 'when the delta is more than 3 percent of the customs_value' do
+      let(:uk_option) { build(:duty_option_result, value: 3.0) }
+      let(:xi_option) { build(:duty_option_result, value: 7.0) } # 4 % delta
+
+      it { expect(service.call).to eq(xi_option) }
     end
   end
 end

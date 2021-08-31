@@ -1,7 +1,7 @@
 RSpec.describe DutyOptions::AdditionalDuty::DefinitiveAntiDumping, :user_session do
   include_context 'with a standard duty option setup', :definitive_anti_dumping
 
-  describe '#option' do
+  describe '#call' do
     let(:expected_table) do
       {
         footnote: nil,
@@ -12,11 +12,14 @@ RSpec.describe DutyOptions::AdditionalDuty::DefinitiveAntiDumping, :user_session
         value: 96,
         measure_sid: measure.id,
         source: 'uk',
+        type: 'definitive_anti_dumping',
         category: :additional_duty,
         priority: 5,
+        order_number: nil,
+        geographical_area_description: nil,
       }
     end
 
-    it { expect(duty_option.option).to eq(expected_table) }
+    it { expect(service.call.attributes.deep_symbolize_keys).to eq(expected_table) }
   end
 end

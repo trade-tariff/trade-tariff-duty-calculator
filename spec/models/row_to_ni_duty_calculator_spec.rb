@@ -24,7 +24,7 @@ RSpec.describe RowToNiDutyCalculator, :user_session do
   it_behaves_like 'a duty calculator', category: :suspension
   it_behaves_like 'a duty calculator', category: :quota
 
-  describe '#option' do
+  describe '#call' do
     let(:unhandled_option) do
       build(
         :duty_option_result,

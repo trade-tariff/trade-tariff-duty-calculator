@@ -1,10 +1,10 @@
 FactoryBot.define do
-  factory :duty_option_result, class: 'Hash' do
+  factory :duty_option_result do
     transient do
       measure_type_id { '103' }
     end
 
-    key { DutyOptions::ThirdCountryTariff.id }
+    type { DutyOptions::ThirdCountryTariff.id }
     category { DutyOptions::ThirdCountryTariff::CATEGORY }
     footnote { I18n.t("measure_type_footnotes.#{measure_type_id}") }
     measure_sid { generate(:measure_sid) }
@@ -14,8 +14,9 @@ FactoryBot.define do
     source { 'uk' }
 
     initialize_with do
-      {
-        evaluation: attributes.slice(
+      DutyOptionResult.new(
+        attributes.slice(
+          :type,
           :footnote,
           :measure_sid,
           :source,
@@ -25,34 +26,33 @@ FactoryBot.define do
           :category,
           :priority,
         ),
-        key: attributes[:key],
-      }
+      )
     end
   end
 
   trait :third_country_tariff do
-    key { DutyOptions::ThirdCountryTariff.id }
+    type { DutyOptions::ThirdCountryTariff.id }
     category { DutyOptions::ThirdCountryTariff::CATEGORY }
     priority { DutyOptions::ThirdCountryTariff::PRIORITY }
     measure_type_id { '103' }
   end
 
   trait :tariff_preference do
-    key { DutyOptions::TariffPreference.id }
+    type { DutyOptions::TariffPreference.id }
     category { DutyOptions::TariffPreference::CATEGORY }
     measure_type_id { '142' }
     priority { DutyOptions::TariffPreference::PRIORITY }
   end
 
   trait :suspension do
-    key { DutyOptions::Suspension::Autonomous.id }
+    type { DutyOptions::Suspension::Autonomous.id }
     category { DutyOptions::Suspension::Base::CATEGORY }
     measure_type_id { '112' }
     priority { DutyOptions::Suspension::Base::PRIORITY }
   end
 
   trait :quota do
-    key { DutyOptions::Quota::NonPreferential.id }
+    type { DutyOptions::Quota::NonPreferential.id }
     category { DutyOptions::Quota::Base::CATEGORY }
     measure_type_id { '122' }
     priority { DutyOptions::Quota::Base::PRIORITY }
@@ -60,7 +60,7 @@ FactoryBot.define do
   end
 
   trait :additional_duty do
-    key { DutyOptions::AdditionalDuty::Excise.id }
+    type { DutyOptions::AdditionalDuty::Excise.id }
     category { DutyOptions::AdditionalDuty::Excise::CATEGORY }
     measure_type_id { '306' }
     priority { DutyOptions::AdditionalDuty::Excise::PRIORITY }
@@ -78,7 +78,7 @@ FactoryBot.define do
   end
 
   trait :unhandled do
-    key { :unhandled }
+    type { :unhandled }
     category { :unhandled }
     measure_type_id { 'flibble' }
     priority { -500 }
