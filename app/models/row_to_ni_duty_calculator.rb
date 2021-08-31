@@ -40,7 +40,7 @@ class RowToNiDutyCalculator
 
       footnote_suffix ||= I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{option.category}.#{option.source}").html_safe
 
-      option.footnote = option.footnote.concat(footnote_suffix).html_safe
+      option.footnote_suffix = footnote_suffix
 
       acc << option
     end
@@ -67,7 +67,7 @@ class RowToNiDutyCalculator
     footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{category}.xi_only.xi").html_safe
 
     xi_options.public_send("#{category}_options").each do |option|
-      option.footnote = option.footnote.concat(footnote_suffix).html_safe
+      option.footnote_suffix = footnote_suffix
     end
   end
 
