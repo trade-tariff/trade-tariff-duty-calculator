@@ -31,16 +31,16 @@ class RowToNiDutyCalculator
 
                  uk_only = cheapest_xi_option.nil?
 
-                 footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{category}.uk_only.#{option.source}", uk_only_text: uk_only_text_for(category, option, uk_option)).html_safe if uk_only
+                 footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{category}.uk_only.#{option.source}_html", uk_only_text: uk_only_text_for(category, option, uk_option)) if uk_only
 
                  option
                end
 
       next if option.blank?
 
-      footnote_suffix ||= I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{option.category}.#{option.source}").html_safe
+      footnote_suffix ||= I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{option.category}.#{option.source}_html")
 
-      option.footnote_suffix = footnote_suffix
+      option.footnote_suffix = footnote_suffix.html_safe
 
       acc << option
     end
@@ -64,10 +64,10 @@ class RowToNiDutyCalculator
   end
 
   def default_options_for(category)
-    footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{category}.xi_only.xi").html_safe
+    footnote_suffix = I18n.t("row_to_ni_measure_type_footnotes_suffixes.#{category}.xi_only.xi_html")
 
     xi_options.public_send("#{category}_options").each do |option|
-      option.footnote_suffix = footnote_suffix
+      option.footnote_suffix = footnote_suffix.html_safe
     end
   end
 

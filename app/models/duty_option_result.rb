@@ -15,11 +15,11 @@ class DutyOptionResult
   attribute :geographical_area_description
 
   def footnote
-    (super + footnote_suffix).html_safe
+    super + footnote_suffix
   end
 
   def footnote_suffix
-    @footnote_suffix.presence || ''
+    @footnote_suffix.presence || ''.html_safe
   end
 
   def footnote_suffix=(suffix)
