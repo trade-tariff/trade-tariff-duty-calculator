@@ -12,17 +12,20 @@ module DutyOptions
       @vat_measure = vat_measure
     end
 
-    def option
-      {
-        footnote: localised_footnote,
-        warning_text: nil,
-        values: option_values,
-        value: value,
-        measure_sid: measure.id,
-        source: measure.source,
-        priority: self.class::PRIORITY,
-        category: self.class::CATEGORY,
-      }
+    def call
+      DutyOptionResult.new(
+        {
+          type: self.class.id,
+          footnote: localised_footnote,
+          warning_text: nil,
+          values: option_values,
+          value: value,
+          measure_sid: measure.id,
+          source: measure.source,
+          priority: self.class::PRIORITY,
+          category: self.class::CATEGORY,
+        },
+      )
     end
 
     def self.id
@@ -142,11 +145,11 @@ module DutyOptions
     end
 
     def additional_duty_rows
-      additional_duty_options.map { |option| option[:evaluation][:values].flatten }
+      additional_duty_options.map { |option| option.values.flatten }
     end
 
     def additional_duty_values
-      additional_duty_options.map { |additional_duty| additional_duty[:evaluation][:value] }
+      additional_duty_options.map { |additional_duty| additional_duty.value }
     end
 
     def localised_footnote

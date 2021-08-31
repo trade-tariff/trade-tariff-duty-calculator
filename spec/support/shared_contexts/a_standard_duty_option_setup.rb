@@ -1,5 +1,5 @@
 RSpec.shared_context 'with a standard duty option setup' do |option_type|
-  subject(:duty_option) { described_class.new(measure, [], nil) }
+  subject(:service) { described_class.new(measure, [], nil) }
 
   let(:measure) { build(:measure, option_type) }
   let(:evaluator) { instance_double('ExpressionEvaluators::AdValorem', call: duty_evaluation) }

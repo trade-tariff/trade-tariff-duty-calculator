@@ -3,10 +3,10 @@ module DutyOptions
     PRIORITY = 2
     CATEGORY = :tariff_preference
 
-    def option
-      super().merge(
-        geographical_area_description: measure.geographical_area.description,
-      )
+    def call
+      result = super
+      result.geographical_area_description = measure.geographical_area.description
+      result
     end
   end
 end

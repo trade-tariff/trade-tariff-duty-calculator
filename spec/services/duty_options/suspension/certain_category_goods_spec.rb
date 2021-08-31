@@ -1,7 +1,7 @@
 RSpec.describe DutyOptions::Suspension::CertainCategoryGoods, :user_session do
   include_context 'with a standard duty option setup', :certain_category_goods
 
-  describe '#option' do
+  describe '#call' do
     let(:expected_table) do
       {
         footnote: I18n.t('measure_type_footnotes.117'),
@@ -14,11 +14,14 @@ RSpec.describe DutyOptions::Suspension::CertainCategoryGoods, :user_session do
         value: 96,
         measure_sid: measure.id,
         source: 'uk',
+        type: 'certain_category_goods',
         category: :suspension,
         priority: 3,
+        order_number: nil,
+        geographical_area_description: nil,
       }
     end
 
-    it { expect(duty_option.option).to eq(expected_table) }
+    it { expect(service.call.attributes.deep_symbolize_keys).to eq(expected_table) }
   end
 end

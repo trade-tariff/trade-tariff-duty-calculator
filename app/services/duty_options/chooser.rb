@@ -8,7 +8,7 @@ module DutyOptions
       @customs_value = customs_value
     end
 
-    def option
+    def call
       return uk_duty_option if delta <= three_pct_val
 
       xi_duty_option
@@ -21,7 +21,7 @@ module DutyOptions
     end
 
     def delta
-      @delta ||= (xi_duty_option[:evaluation][:value] - uk_duty_option[:evaluation][:value]).abs
+      @delta ||= (xi_duty_option.value - uk_duty_option.value).abs
     end
   end
 end

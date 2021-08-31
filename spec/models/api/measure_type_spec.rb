@@ -14,7 +14,7 @@ RSpec.describe Api::MeasureType do
     excise: %w[Q],
   }
 
-  describe '#option' do
+  describe '#call' do
     subject(:measure_type) { described_class.new(id: id) }
 
     context 'when there is a corresponding option for the id' do

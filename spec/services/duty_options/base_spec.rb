@@ -1,5 +1,5 @@
 RSpec.describe DutyOptions::Base, :user_session do
-  subject(:duty_option) { described_class.new(measure, additional_duty_options, vat_measure) }
+  subject(:service) { described_class.new(measure, additional_duty_options, vat_measure) }
 
   let(:measure) { build(:measure, :third_country_tariff) }
   let(:evaluator) { instance_double('ExpressionEvaluators::AdValorem', call: duty_evaluation) }
@@ -35,15 +35,18 @@ RSpec.describe DutyOptions::Base, :user_session do
     allow(ExpressionEvaluators::Vat).to receive(:new).and_return(vat_evaluator)
   end
 
-  describe '#option' do
+  describe '#call' do
     let(:default_expected_option) do
       {
+        type: 'base',
         footnote: "<p class=\"govuk-body\">\n  A ‘Third country’ duty is the tariff charged where there isn’t a trade agreement or a customs union available. It can also be referred to as the Most Favoured Nation (<abbr title=\"Most Favoured Nation\">MFN</abbr>) rate.\n</p>",
         warning_text: nil,
         measure_sid: measure.id,
         source: 'uk',
         category: :default,
         priority: 5,
+        order_number: nil,
+        geographical_area_description: nil,
       }
     end
 
@@ -71,7 +74,7 @@ RSpec.describe DutyOptions::Base, :user_session do
         )
       end
 
-      it { expect(duty_option.option).to eq(expected_option) }
+      it { expect(service.call.attributes.deep_symbolize_keys).to eq(expected_option) }
     end
 
     context 'when the measure is a simple measure unit measure' do
@@ -101,7 +104,7 @@ RSpec.describe DutyOptions::Base, :user_session do
         )
       end
 
-      it { expect(duty_option.option).to eq(expected_option) }
+      it { expect(service.call.attributes.deep_symbolize_keys).to eq(expected_option) }
     end
 
     context 'when the measure is a compound measure' do
@@ -128,7 +131,7 @@ RSpec.describe DutyOptions::Base, :user_session do
         )
       end
 
-      it { expect(duty_option.option).to eq(expected_option) }
+      it { expect(service.call.attributes.deep_symbolize_keys).to eq(expected_option) }
     end
 
     context 'when no vat measure is passed' do
@@ -146,7 +149,7 @@ RSpec.describe DutyOptions::Base, :user_session do
         )
       end
 
-      it { expect(duty_option.option).to eq(expected_option) }
+      it { expect(service.call.attributes.deep_symbolize_keys).to eq(expected_option) }
     end
 
     context 'when no additional duty options are passsed' do
@@ -164,7 +167,7 @@ RSpec.describe DutyOptions::Base, :user_session do
         )
       end
 
-      it { expect(duty_option.option).to eq(expected_option) }
+      it { expect(service.call.attributes.deep_symbolize_keys).to eq(expected_option) }
     end
   end
 end
