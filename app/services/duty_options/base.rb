@@ -149,7 +149,7 @@ module DutyOptions
     end
 
     def additional_duty_values
-      additional_duty_options.map { |additional_duty| additional_duty.value }
+      additional_duty_options.map(&:value)
     end
 
     def localised_footnote
