@@ -25,9 +25,7 @@ module Steps
     end
 
     def title
-      t('page_titles.duty_calculation') if @duty_options.present?
-
-      t('page_titles.no_duty')
+      @duty_options.present? ? t('page_titles.duty_calculation') : t('page_titles.no_duty')
     end
   end
 end

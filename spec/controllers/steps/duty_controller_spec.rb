@@ -46,4 +46,22 @@ RSpec.describe Steps::DutyController, :user_session do
       end
     end
   end
+
+  describe '#title' do
+    before do
+      controller.instance_variable_set('@duty_options', duty_options)
+    end
+
+    context 'when there are duty options available' do
+      let(:duty_options) { build_list(:duty_option_result, 1) }
+
+      it { expect(controller.helpers.title).to eq('Import duty calculation - Online Tariff Duty calculator') }
+    end
+
+    context 'when there are no duty options available' do
+      let(:duty_options) { nil }
+
+      it { expect(controller.helpers.title).to eq('There is no import duty to pay - Online Tariff Duty calculator') }
+    end
+  end
 end
