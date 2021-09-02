@@ -12,4 +12,18 @@ RSpec.describe Steps::InterstitialController, :user_session do
     it { expect(response).to have_http_status(:ok) }
     it { expect(response).to render_template('interstitial/show') }
   end
+
+  describe '#title' do
+    context 'when the route is GB to NI' do
+      let(:user_session) { build(:user_session, :with_commodity_information, :with_possible_duty_route_into_ni) }
+
+      it { expect(controller.helpers.title).to eq('Duties apply to this import - Online Tariff Duty calculator') }
+    end
+
+    context 'when the route is not GB to NI' do
+      let(:user_session) { build(:user_session, :with_commodity_information) }
+
+      it { expect(controller.helpers.title).to eq('EU duties apply to this import - Online Tariff Duty calculator') }
+    end
+  end
 end

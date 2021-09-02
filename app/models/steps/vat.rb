@@ -2,8 +2,6 @@ module Steps
   class Vat < Steps::Base
     include CommodityHelper
 
-    STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
-
     attribute :vat, :string
 
     validates :vat, presence: true

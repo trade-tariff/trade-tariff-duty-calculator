@@ -4,6 +4,8 @@ module Steps
     include ActiveModel::Attributes
     include Rails.application.routes.url_helpers
 
+    STEPS_TO_REMOVE_FROM_SESSION = [].freeze
+
     def initialize(attributes = {})
       clean_user_session if attributes.except(:measure_type_id).empty?
 

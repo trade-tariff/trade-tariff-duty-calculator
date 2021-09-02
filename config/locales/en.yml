@@ -29,6 +29,27 @@ en:
   header:
     uk: UK Integrated Online Tariff
     xi: Northern Ireland Online Tariff 
+  page_titles:
+    vat: Which VAT rate is applicable to your trade - Online Tariff Duty Calculator
+    excise: Which class of excise is applicable to your trade - Online Tariff Duty Calculator
+    final_use: Are your goods for final use in the UK - Online Tariff Duty calculator
+    import_date: When will the good be imported - Online Tariff Duty calculator
+    confirmation: Check your answers - Online Tariff Duty calculator
+    customs_value: What is the customs value of this import - Online Tariff Duty calculator
+    document_code: Do you have any of the following documents - Online Tariff Duty Calculator
+    trader_scheme: Are you authorised under the UK Trader Scheme - Online Tariff Duty calculator
+    measure_amount: Enter import quantity - Online Tariff Duty calculator
+    additional_code: Describe your goods in more detail - Online Tariff Duty Calculator
+    country_of_origin: Which country are the goods dispatched from - Online Tariff Duty calculator
+    import_destination: Which part of the UK are you importing into - Online Tariff Duty calculator
+    planned_processing: How will your goods be processed - Online Tariff Duty calculator
+    certificate_of_origin: Do you have a valid proof of origin - Online Tariff Duty calculator
+    interstitial:
+      gb_to_ni: Duties apply to this import - Online Tariff Duty calculator
+      default: EU duties apply to this import - Online Tariff Duty calculator
+    duty_calculation: Import duty calculation - Online Tariff Duty calculator
+    no_duty: There is no import duty to pay - Online Tariff Duty calculator
+
   duty_calculations:
     options:
       mfn:

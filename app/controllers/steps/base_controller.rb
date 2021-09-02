@@ -13,6 +13,7 @@ module Steps
     helper_method :commodity_code,
                   :commodity_source,
                   :country_of_origin_description,
+                  :title,
                   :user_session
 
     def country_of_origin_description
@@ -64,6 +65,10 @@ module Steps
 
     def initialize_commodity_context_service
       Thread.current[:commodity_context_service] = CommodityContextService.new
+    end
+
+    def title
+      t("page_titles.#{@step.class.try(:id)}", default: super)
     end
   end
 end

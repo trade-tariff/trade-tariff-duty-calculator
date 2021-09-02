@@ -2,8 +2,6 @@ module Steps
   class DocumentCode < Steps::Base
     include CommodityHelper
 
-    STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
-
     attribute :measure_type_id, :string
     attribute :document_code_uk, :string
     attribute :document_code_xi, :string
