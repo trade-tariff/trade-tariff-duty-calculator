@@ -1,5 +1,7 @@
 module Steps
   class DutyController < BaseController
+    helper_method :title
+
     def show
       @duty_options = duty_options
       @gbp_to_eur_exchange_rate = Api::MonetaryExchangeRate.for('GBP').exchange_rate.round(4) unless user_session.import_into_gb?
@@ -20,6 +22,12 @@ module Steps
 
     def xi_options
       @xi_options ||= DutyCalculator.new(filtered_commodity(source: 'xi')).options
+    end
+
+    def title
+      t('page_titles.duty_calculation') if @duty_options.present?
+
+      t('page_titles.no_duty')
     end
   end
 end
