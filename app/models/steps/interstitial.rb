@@ -1,7 +1,5 @@
 module Steps
   class Interstitial < Steps::Base
-    STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
-
     def next_step_path
       customs_value_path
     end

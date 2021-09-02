@@ -2,8 +2,6 @@ module Steps
   class Confirmation < Steps::Base
     include CommodityHelper
 
-    STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
-
     def next_step_path
       duty_path
     end

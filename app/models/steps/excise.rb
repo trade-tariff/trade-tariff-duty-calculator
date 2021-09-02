@@ -1,6 +1,5 @@
 module Steps
   class Excise < Steps::Base
-    STEPS_TO_REMOVE_FROM_SESSION = %w[].freeze
     DISABLED_ADDITIONAL_CODES = %w[440 441].freeze
 
     include CommodityHelper

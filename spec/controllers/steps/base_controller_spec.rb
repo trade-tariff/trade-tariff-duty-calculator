@@ -70,4 +70,22 @@ RSpec.describe Steps::BaseController, :user_session do
       expect(NewRelic::Agent).to have_received(:add_custom_attributes).with(expected_tracked_attributes)
     end
   end
+
+  describe '#title' do
+    before do
+      controller.instance_variable_set('@step', step)
+    end
+
+    context 'when the step does not have a translation' do
+      let(:step) { Steps::Base.new }
+
+      it { expect(controller.helpers.title).to eq('UK Integrated Online Tariff') }
+    end
+
+    context 'when the service is xi' do
+      let(:step) { Steps::Vat.new }
+
+      it { expect(controller.helpers.title).to eq('Which VAT rate is applicable to your trade - Online Tariff Duty Calculator') }
+    end
+  end
 end
