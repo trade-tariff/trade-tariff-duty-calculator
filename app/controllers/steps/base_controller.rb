@@ -68,7 +68,10 @@ module Steps
     end
 
     def title
-      t("page_titles.#{@step.class.id}")
+      t(
+        "page_titles.#{@step.class.id}",
+        default: t("title.#{referred_service}"),
+      )
     end
   end
 end
