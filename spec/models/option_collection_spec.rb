@@ -98,4 +98,15 @@ RSpec.describe OptionCollection do
   describe '#size' do
     it { expect(collection.size).to eq(options.size) }
   end
+
+  shared_examples_for 'a wrapped option collection method' do |method|
+    subject(:collection) { described_class.new([]) }
+
+    it { expect(collection.public_send(method, &:foo)).to be_a(described_class) }
+  end
+
+  it_behaves_like 'a wrapped option collection method', :reject
+  it_behaves_like 'a wrapped option collection method', :select
+  it_behaves_like 'a wrapped option collection method', :sort_by
+  it_behaves_like 'a wrapped option collection method', :uniq
 end
