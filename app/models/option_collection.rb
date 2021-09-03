@@ -1,28 +1,21 @@
-class OptionCollection
-  include Enumerable
+class OptionCollection < SimpleDelegator
+  WRAPPED_METHODS = %i[
+    reject
+    select
+    sort_by
+    uniq
+  ].freeze
 
   def initialize(options)
+    super
+
     @options = options
   end
 
-  def each(&block)
-    @options.each(&block)
-  end
-
-  def <<(option)
-    @options << option
-  end
-
-  def uniq(&block)
-    self.class.new(super(&block))
-  end
-
-  def size
-    @options.size
-  end
-
-  def sort_by(&block)
-    self.class.new(super(&block))
+  WRAPPED_METHODS.each do |method|
+    define_method(method) do |&block|
+      self.class.new(super(&block))
+    end
   end
 
   def tariff_preference_options

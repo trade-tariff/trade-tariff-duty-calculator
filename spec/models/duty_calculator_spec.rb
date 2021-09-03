@@ -132,6 +132,8 @@ RSpec.describe DutyCalculator, :user_session do
       ]
     end
 
+    it { expect(calculator.options).to be_a(OptionCollection) }
+
     it 'returns the correct duty options' do
       result = calculator.options.to_a.map do |option_result|
         option_result.attributes.deep_symbolize_keys

@@ -62,6 +62,8 @@ RSpec.shared_examples 'a duty calculator' do |config|
         )
       end
 
+      it { expect(calculator.options).to be_a(OptionCollection) }
+
       it 'passes the uk preference option and the xi preference option' do
         calculator.options
 
@@ -85,6 +87,8 @@ RSpec.shared_examples 'a duty calculator' do |config|
           ],
         )
       end
+
+      it { expect(calculator.options).to be_a(OptionCollection) }
 
       it 'passes the uk preference option and the xi mfn option' do
         calculator.options
@@ -118,6 +122,8 @@ RSpec.shared_examples 'a duty calculator' do |config|
         )
       end
 
+      it { expect(calculator.options).to be_a(OptionCollection) }
+
       it 'returns the correct options' do
         expect(calculator.options.to_a).to eq([uk_third_country_tariff_option, public_send("xi_#{config[:category]}_option")])
       end
@@ -142,6 +148,8 @@ RSpec.shared_examples 'a duty calculator' do |config|
           ],
         )
       end
+
+      it { expect(calculator.options).to be_a(OptionCollection) }
 
       it 'returns the correct options' do
         expect(calculator.options.to_a).to eq([uk_third_country_tariff_option, public_send("xi_cheapest_#{config[:category]}_option")])
@@ -175,6 +183,8 @@ RSpec.shared_examples 'a duty calculator' do |config|
           ],
         )
       end
+
+      it { expect(calculator.options).to be_a(OptionCollection) }
 
       it 'returns the correct options' do
         expect(calculator.options.to_a).to eq(
