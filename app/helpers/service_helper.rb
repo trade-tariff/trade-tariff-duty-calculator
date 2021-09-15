@@ -20,7 +20,11 @@ module ServiceHelper
   end
 
   def previous_service_url(commodity_code)
-    user_session&.redirect_to.presence || service_url_for("/commodities/#{commodity_code}")
+    user_session&.redirect_to.presence || commodity_url(commodity_code)
+  end
+
+  def commodity_url(commodity_code)
+    service_url_for("/commodities/#{commodity_code}")
   end
 
   def feedback_url
