@@ -102,7 +102,4 @@ RSpec.describe Steps::Prefill, :step, :user_session do
       end
     end
   end
-
-  # describe '#previous_step_path' do
-  # end
 end

@@ -12,10 +12,6 @@ module Steps
       next_step_for_row_to_ni
     end
 
-    def previous_step_path
-      # Handle going back to chieg either by referrer or by provided callback
-    end
-
     private
 
     def next_step_for_gb_to_ni
