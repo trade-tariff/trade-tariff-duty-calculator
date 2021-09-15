@@ -52,7 +52,7 @@ Rails.application.routes.draw do
     get 'document-codes/:measure_type_id', to: 'steps/document_codes#show', as: 'document_codes'
     post 'document-codes/:measure_type_id', to: 'steps/document_codes#create'
 
-    get 'prefill', to: 'steps/prefill#show'
+    get 'prefill', to: 'steps/prefill_user_session#show'
   end
 
   get '404', to: 'errors#not_found', via: :all

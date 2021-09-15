@@ -1,4 +1,4 @@
-RSpec.describe Steps::PrefillController, :user_session do
+RSpec.describe Steps::PrefillUserSessionController, :user_session do
   let(:user_session) { build(:user_session) }
 
   describe 'GET #show' do

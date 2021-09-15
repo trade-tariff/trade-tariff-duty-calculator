@@ -1,5 +1,5 @@
 module Steps
-  class PrefillController < BaseController
+  class PrefillUserSessionController < BaseController
     after_action :update_user_session
 
     def show
