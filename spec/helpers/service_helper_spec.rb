@@ -1,4 +1,4 @@
-RSpec.describe ServiceHelper do
+RSpec.describe ServiceHelper, :user_session do
   before do
     allow(Rails.configuration).to receive(:trade_tariff_frontend_url).and_return(frontend_url)
 
@@ -14,6 +14,8 @@ RSpec.describe ServiceHelper do
   let(:service) { 'uk' }
 
   let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
+
+  let(:user_session) { build(:user_session) }
 
   describe '#title' do
     context 'when referred_service is xi' do
@@ -131,12 +133,18 @@ RSpec.describe ServiceHelper do
     end
   end
 
-  describe '#commodity_url' do
+  describe '#previous_service_url' do
     let(:commodity_code) { '0702000007' }
+
+    context 'when redirect_to is set' do
+      let(:user_session) { build(:user_session, redirect_to: 'https://example.com/chieg') }
+
+      it { expect(helper.previous_service_url(commodity_code)).to eq('https://example.com/chieg') }
+    end
 
     context 'when TRADE_TARIFF_FRONTEND_URL is set' do
       it 'returns the dev trade tariff tools url' do
-        expect(helper.commodity_url(commodity_code)).to eq(
+        expect(helper.previous_service_url(commodity_code)).to eq(
           "https://dev.trade-tariff.service.gov.uk/commodities/#{commodity_code}",
         )
       end
@@ -146,7 +154,7 @@ RSpec.describe ServiceHelper do
       let(:frontend_url) { nil }
 
       it 'returns the dev trade tariff tools url' do
-        expect(helper.commodity_url(commodity_code)).to eq('#')
+        expect(helper.previous_service_url(commodity_code)).to eq('#')
       end
     end
   end

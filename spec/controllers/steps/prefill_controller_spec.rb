@@ -10,6 +10,7 @@ RSpec.describe Steps::PrefillController, :user_session do
         country_of_origin: 'FI',
         import_date: '2021-02-17',
         import_destination: 'UK',
+        redirect_to: 'http://localhost/flibble',
       }
     end
 

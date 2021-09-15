@@ -20,6 +20,7 @@ module Steps
         :country_of_origin,
         :import_date,
         :import_destination,
+        :redirect_to,
       )
     end
 

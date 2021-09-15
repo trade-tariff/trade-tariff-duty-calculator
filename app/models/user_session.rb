@@ -1,6 +1,8 @@
 class UserSession
   attr_reader :session
 
+  delegate :delete, to: :session
+
   def initialize(session)
     @session = session
     @session['answers'] ||= {}
@@ -29,6 +31,7 @@ class UserSession
     user_session.import_destination = params[:import_destination]
     user_session.country_of_origin = country_of_origin
     user_session.other_country_of_origin = other_country_of_origin
+    user_session.redirect_to = params[:redirect_to]
 
     Thread.current[:user_session] = user_session
   end
@@ -39,6 +42,14 @@ class UserSession
 
   def self.get
     Thread.current[:user_session]
+  end
+
+  def redirect_to=(url)
+    session['redirect_to'] = url
+  end
+
+  def redirect_to
+    session['redirect_to']
   end
 
   def remove_step_ids(ids)
