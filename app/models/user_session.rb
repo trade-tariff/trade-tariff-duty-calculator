@@ -9,6 +9,38 @@ class UserSession
     @session['answers'][Steps::Excise.id] ||= {}
   end
 
+  def self.build_from_params(session, params)
+    import_destination = params[:import_destination]
+    country_of_origin = params[:country_of_origin]
+    service = (import_destination == 'XI' ? 'xi' : 'uk')
+    other_country_of_origin = ''
+
+    # This reflects an idiosyncrasy in the xi_option form for country_of_origin and how we store the value on the session slightly differently. We'd need to refactor the way we access that if we want to remove this and just use country_of_origin as per the gb and non-row ni routes.
+    if import_destination == 'XI' && !Api::GeographicalArea.eu_member?(country_of_origin)
+      other_country_of_origin = country_of_origin
+      country_of_origin = 'OTHER'
+    end
+
+    user_session = new(session)
+    user_session.commodity_source = service
+    user_session.referred_service = service
+    user_session.commodity_code = params[:commodity_code]
+    user_session.import_date = params[:import_date]
+    user_session.import_destination = params[:import_destination]
+    user_session.country_of_origin = country_of_origin
+    user_session.other_country_of_origin = other_country_of_origin
+
+    Thread.current[:user_session] = user_session
+  end
+
+  def self.build(session)
+    Thread.current[:user_session] = new(session)
+  end
+
+  def self.get
+    Thread.current[:user_session]
+  end
+
   def remove_step_ids(ids)
     ids.map { |id| session['answers'].delete(id) } unless ids.empty?
   end
@@ -279,14 +311,6 @@ class UserSession
 
   def answers
     session['answers']
-  end
-
-  def self.build(session)
-    Thread.current[:user_session] = new(session)
-  end
-
-  def self.get
-    Thread.current[:user_session]
   end
 
   private
