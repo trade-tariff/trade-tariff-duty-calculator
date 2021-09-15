@@ -153,6 +153,12 @@ jobs:
           command: |
             echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push $IMAGE_NAME:<<# parameters.dev-build >>dev-<</ parameters.dev-build >>${CIRCLE_SHA1}
+      - run:
+          name: "Push image to ECR"
+          command: |
+            aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 777015734912.dkr.ecr.eu-west-2.amazonaws.com
+            docker tag $IMAGE_NAME:<<# parameters.dev-build >>dev-<</ parameters.dev-build >>${CIRCLE_SHA1} 777015734912.dkr.ecr.eu-west-2.amazonaws.com/tariff-dutycalculator:latest
+            docker push 777015734912.dkr.ecr.eu-west-2.amazonaws.com/tariff-dutycalculator:<<# parameters.dev-build >>dev-<</ parameters.dev-build >>${CIRCLE_SHA1}
 
   test:
     docker:
