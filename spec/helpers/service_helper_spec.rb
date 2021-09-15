@@ -53,6 +53,8 @@ RSpec.describe ServiceHelper, :user_session do
 
   describe '#trade_tariff_url' do
     context 'when TRADE_TARIFF_FRONTEND_URL is set' do
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
+
       it 'returns the dev trade tariff url' do
         expect(helper.trade_tariff_url).to eq(
           'https://dev.trade-tariff.service.gov.uk/sections',
@@ -81,6 +83,8 @@ RSpec.describe ServiceHelper, :user_session do
 
   describe '#a_to_z_url' do
     context 'when TRADE_TARIFF_FRONTEND_URL is set' do
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
+
       it 'returns the dev trade tariff a to z url' do
         expect(helper.a_to_z_url).to eq(
           'https://dev.trade-tariff.service.gov.uk/a-z-index/a',
