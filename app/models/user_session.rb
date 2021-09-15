@@ -1,7 +1,28 @@
 class UserSession
   attr_reader :session
 
-  delegate :delete, to: :session
+  attribute :import_date
+  attribute :import_destination
+  attribute :country_of_origin
+  attribute :other_country_of_origin
+  attribute :trader_scheme
+  attribute :final_use
+  attribute :certificate_of_origin
+  attribute :planned_processing
+  attribute :customs_value
+  attribute :measure_amount
+  attribute :vat
+
+  attribute :commodity_code,   answer: false
+  attribute :commodity_source, answer: false
+  attribute :referred_service, answer: false
+  attribute :trade_defence,    answer: false
+  attribute :zero_mfn_duty,    answer: false
+
+  dual_route_attribute :additional_code
+  dual_route_attribute :document_code
+
+  alias_method :trade_defence?, :trade_defence
 
   def initialize(session)
     @session = session
@@ -44,14 +65,6 @@ class UserSession
     Thread.current[:user_session]
   end
 
-  def redirect_to=(url)
-    session['redirect_to'] = url
-  end
-
-  def redirect_to
-    session['redirect_to']
-  end
-
   def remove_step_ids(ids)
     ids.map { |id| session['answers'].delete(id) } unless ids.empty?
   end
@@ -60,88 +73,6 @@ class UserSession
     return if session['answers'][Steps::ImportDate.id].blank?
 
     Date.parse(session['answers'][Steps::ImportDate.id])
-  end
-
-  def import_date=(value)
-    session['answers'][Steps::ImportDate.id] = value
-  end
-
-  def import_destination
-    session['answers'][Steps::ImportDestination.id]
-  end
-
-  def import_destination=(value)
-    session['answers'][Steps::ImportDestination.id] = value
-  end
-
-  def country_of_origin
-    session['answers'][Steps::CountryOfOrigin.id]
-  end
-
-  def country_of_origin=(value)
-    session['answers'][Steps::CountryOfOrigin.id] = value
-  end
-
-  def other_country_of_origin
-    session['answers']['other_country_of_origin']
-  end
-
-  def other_country_of_origin=(value)
-    session['answers']['other_country_of_origin'] = value
-  end
-
-  def trader_scheme
-    session['answers'][Steps::TraderScheme.id]
-  end
-
-  def trader_scheme=(value)
-    session['answers'][Steps::TraderScheme.id] = value
-  end
-
-  def final_use
-    session['answers'][Steps::FinalUse.id]
-  end
-
-  def final_use=(value)
-    session['answers'][Steps::FinalUse.id] = value
-  end
-
-  def certificate_of_origin
-    session['answers'][Steps::CertificateOfOrigin.id]
-  end
-
-  def certificate_of_origin=(value)
-    session['answers'][Steps::CertificateOfOrigin.id] = value
-  end
-
-  def planned_processing
-    session['answers'][Steps::PlannedProcessing.id]
-  end
-
-  def planned_processing=(value)
-    session['answers'][Steps::PlannedProcessing.id] = value
-  end
-
-  def trade_defence
-    session['trade_defence']
-  end
-
-  alias_method :trade_defence?, :trade_defence
-
-  def trade_defence=(value)
-    session['trade_defence'] = value
-  end
-
-  def zero_mfn_duty
-    session['zero_mfn_duty']
-  end
-
-  def zero_mfn_duty=(value)
-    session['zero_mfn_duty'] = value
-  end
-
-  def customs_value
-    session['answers'][Steps::CustomsValue.id]
   end
 
   def customs_value=(values)
@@ -158,32 +89,8 @@ class UserSession
     public_send("additional_code_#{source}")[measure_type.id]
   end
 
-  def additional_code_uk=(value)
-    session['answers'][Steps::AdditionalCode.id]['uk'].merge!(value)
-  end
-
-  def additional_code_xi=(value)
-    session['answers'][Steps::AdditionalCode.id]['xi'].merge!(value)
-  end
-
   def document_code_for(measure_type_id, source)
     public_send("document_code_#{source}")[measure_type_id]
-  end
-
-  def document_code_uk=(value)
-    session['answers'][Steps::DocumentCode.id]['uk'].merge!(value)
-  end
-
-  def document_code_xi=(value)
-    session['answers'][Steps::DocumentCode.id]['xi'].merge!(value)
-  end
-
-  def additional_code_uk
-    session['answers'][Steps::AdditionalCode.id]['uk']
-  end
-
-  def additional_code_xi
-    session['answers'][Steps::AdditionalCode.id]['xi']
   end
 
   def excise_additional_code=(value)
@@ -198,14 +105,6 @@ class UserSession
     session['answers'][Steps::Excise.id].keys
   end
 
-  def document_code_uk
-    session['answers'][Steps::DocumentCode.id]['uk']
-  end
-
-  def document_code_xi
-    session['answers'][Steps::DocumentCode.id]['xi']
-  end
-
   def additional_code_measure_type_ids
     return additional_code_uk.merge(additional_code_xi).keys if deltas_applicable?
 
@@ -218,44 +117,8 @@ class UserSession
     session['answers'][Steps::DocumentCode.id][commodity_source].keys
   end
 
-  def commodity_source=(value)
-    session['commodity_source'] = value
-  end
-
-  def commodity_source
-    session['commodity_source']
-  end
-
-  def referred_service=(value)
-    session['referred_service'] = value
-  end
-
-  def referred_service
-    session['referred_service']
-  end
-
-  def commodity_code=(value)
-    session['commodity_code'] = value
-  end
-
-  def commodity_code
-    session['commodity_code']
-  end
-
-  def measure_amount=(values)
-    session['answers'][Steps::MeasureAmount.id] = values
-  end
-
   def measure_amount
     session['answers'][Steps::MeasureAmount.id] || {}
-  end
-
-  def vat=(values)
-    session['answers'][Steps::Vat.id] = values
-  end
-
-  def vat
-    session['answers'][Steps::Vat.id]
   end
 
   def monetary_value
