@@ -11,7 +11,7 @@ RSpec.shared_examples_for 'a user session attribute' do |attribute, expected_val
 
       it { expect(user_session.public_send(attribute)).to eq(expected_value) }
     end
-    end
+  end
 
   describe "##{attribute}=" do
     subject(:user_session) { build(:user_session, attribute => nil) }

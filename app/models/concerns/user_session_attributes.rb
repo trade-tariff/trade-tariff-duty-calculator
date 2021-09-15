@@ -35,7 +35,7 @@ module UserSessionAttributes
     end
 
     def answer_attributes(*attributes)
-      attributes.each { |attr| attribute attr }
+      attributes.each { |attr| attribute attr, answer: true }
     end
 
     def non_answer_attributes(*attributes)
