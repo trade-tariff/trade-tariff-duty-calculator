@@ -38,5 +38,6 @@ group :test do
   gem 'factory_bot_rails'
   gem 'rspec_junit_formatter'
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'simplecov', require: false
 end

@@ -877,6 +877,52 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '.build_from_params' do
+    subject(:user_session) { described_class.build_from_params(session, params) }
+
+    before do
+      Thread.current[:user_session] = nil
+    end
+
+    let(:params) do
+      ActionController::Parameters.new(
+        commodity_code: '0702000007',
+        country_of_origin: country_of_origin,
+        import_date: '2021-01-01',
+        import_destination: import_destination,
+      )
+    end
+
+    let(:country_of_origin) { 'FI' }
+    let(:import_destination) { 'UK' }
+
+    let(:session) { {} }
+
+    it { expect(user_session.import_destination).to eq('UK') }
+    it { expect(user_session.commodity_source).to eq('uk') }
+    it { expect(user_session.referred_service).to eq('uk') }
+    it { expect(user_session.commodity_code).to eq('0702000007') }
+    it { expect(user_session.import_date).to eq(Date.parse('2021-01-01')) }
+    it { expect(user_session.country_of_origin).to eq('FI') }
+    it { expect(user_session.other_country_of_origin).to eq('') }
+    it { expect { user_session }.to change(described_class, :get).from(nil).to(an_instance_of(described_class)) }
+
+    context 'when the import_destination is XI' do
+      let(:import_destination) { 'XI' }
+
+      it { expect(user_session.import_destination).to eq('XI') }
+      it { expect(user_session.commodity_source).to eq('xi') }
+      it { expect(user_session.referred_service).to eq('xi') }
+
+      context 'when the country of origin is not an eu member' do
+        let(:country_of_origin) { 'AR' }
+
+        it { expect(user_session.country_of_origin).to eq('OTHER') }
+        it { expect(user_session.other_country_of_origin).to eq('AR') }
+      end
+    end
+  end
+
   describe '.get' do
     before do
       Thread.current[:user_session] = user_session
@@ -951,5 +997,21 @@ RSpec.describe UserSession do
         it { expect(user_session.additional_code_for(measure_type, 'uk')).to be_nil }
       end
     end
+  end
+
+  describe '#redirect_to=' do
+    it { expect { user_session.redirect_to = 'http://localhost/flibble' }.to change(user_session, :redirect_to).from(nil).to('http://localhost/flibble') }
+  end
+
+  describe '#redirect_to' do
+    subject(:user_session) { build(:user_session, redirect_to: 'http://localhost/flibble') }
+
+    it { expect(user_session.redirect_to).to eq('http://localhost/flibble') }
+  end
+
+  describe '#delete' do
+    subject(:user_session) { build(:user_session, redirect_to: 'http://localhost/flibble') }
+
+    it { is_expected.to delegate_method(:delete).to(:session) }
   end
 end

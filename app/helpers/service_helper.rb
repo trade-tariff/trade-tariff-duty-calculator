@@ -19,6 +19,10 @@ module ServiceHelper
     service_url_for('/tools')
   end
 
+  def previous_service_url(commodity_code)
+    user_session&.redirect_to.presence || commodity_url(commodity_code)
+  end
+
   def commodity_url(commodity_code)
     service_url_for("/commodities/#{commodity_code}")
   end
@@ -49,5 +53,9 @@ module ServiceHelper
 
   def referred_service
     params[:referred_service] || session['referred_service'] || 'uk'
+  end
+
+  def user_session
+    UserSession.get
   end
 end
