@@ -135,6 +135,7 @@ RSpec.describe ServiceHelper, :user_session do
 
   describe '#previous_service_url' do
     let(:commodity_code) { '0702000007' }
+    let(:user_session) { build(:user_session) }
 
     context 'when redirect_to is set' do
       let(:user_session) { build(:user_session, redirect_to: 'https://example.com/chieg') }
