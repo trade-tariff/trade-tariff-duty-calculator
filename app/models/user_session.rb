@@ -1,26 +1,28 @@
 class UserSession
+  include UserSessionAttributes
+
   attr_reader :session
 
-  attribute :import_date
-  attribute :import_destination
-  attribute :country_of_origin
-  attribute :other_country_of_origin
-  attribute :trader_scheme
-  attribute :final_use
-  attribute :certificate_of_origin
-  attribute :planned_processing
-  attribute :customs_value
-  attribute :measure_amount
-  attribute :vat
+  answer_attributes :import_date,
+                    :import_destination,
+                    :country_of_origin,
+                    :other_country_of_origin,
+                    :trader_scheme,
+                    :final_use,
+                    :certificate_of_origin,
+                    :planned_processing,
+                    :customs_value,
+                    :measure_amount,
+                    :vat
 
-  attribute :commodity_code,   answer: false
-  attribute :commodity_source, answer: false
-  attribute :referred_service, answer: false
-  attribute :trade_defence,    answer: false
-  attribute :zero_mfn_duty,    answer: false
+  non_answer_attributes :commodity_code,
+                        :commodity_source,
+                        :referred_service,
+                        :trade_defence,
+                        :zero_mfn_duty,
+                        :redirect_to
 
-  dual_route_attribute :additional_code
-  dual_route_attribute :document_code
+  dual_route_attributes :additional_code, :document_code
 
   alias_method :trade_defence?, :trade_defence
 

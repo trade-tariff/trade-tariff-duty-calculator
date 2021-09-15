@@ -8,6 +8,7 @@ RSpec.describe UserSession do
   it_behaves_like 'a user session attribute', :referred_service, 'uk'
   it_behaves_like 'a user session attribute', :trade_defence, false
   it_behaves_like 'a user session attribute', :zero_mfn_duty, false
+  it_behaves_like 'a user session attribute', :redirect_to, 'http://localhost/flibble'
 
   it_behaves_like 'a user session attribute', :import_destination, 'XI'
   it_behaves_like 'a user session attribute', :country_of_origin, 'AR'
@@ -513,21 +514,5 @@ RSpec.describe UserSession do
         it { expect(user_session.additional_code_for(measure_type, 'uk')).to be_nil }
       end
     end
-  end
-
-  describe '#redirect_to=' do
-    it { expect { user_session.redirect_to = 'http://localhost/flibble' }.to change(user_session, :redirect_to).from(nil).to('http://localhost/flibble') }
-  end
-
-  describe '#redirect_to' do
-    subject(:user_session) { build(:user_session, redirect_to: 'http://localhost/flibble') }
-
-    it { expect(user_session.redirect_to).to eq('http://localhost/flibble') }
-  end
-
-  describe '#delete' do
-    subject(:user_session) { build(:user_session, redirect_to: 'http://localhost/flibble') }
-
-    it { is_expected.to delegate_method(:delete).to(:session) }
   end
 end
