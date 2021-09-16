@@ -42,7 +42,7 @@ module UserSessionAttributes
       attributes.each { |attr| attribute attr, answer: false }
     end
 
-    def dual_route_attributes(*attributes)
+    def attribute_for_uk_and_xi(*attributes)
       attributes.each { |attr| dual_route_attribute attr }
     end
   end

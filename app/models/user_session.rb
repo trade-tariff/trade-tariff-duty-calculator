@@ -22,7 +22,7 @@ class UserSession
                         :zero_mfn_duty,
                         :redirect_to
 
-  dual_route_attributes :additional_code, :document_code
+  attribute_for_uk_and_xi :additional_code, :document_code
 
   alias_method :trade_defence?, :trade_defence
 
