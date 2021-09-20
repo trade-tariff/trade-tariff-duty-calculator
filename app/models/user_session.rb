@@ -64,6 +64,10 @@ class UserSession
       Thread.current[:user_session] = new(session)
     end
 
+    def set(value)
+      Thread.current[:user_session] = value
+    end
+
     def get
       Thread.current[:user_session]
     end

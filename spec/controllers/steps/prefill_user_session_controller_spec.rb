@@ -15,6 +15,7 @@ RSpec.describe Steps::PrefillUserSessionController, :user_session do
     end
 
     before do
+      UserSession.set(nil)
       allow(UserSession).to receive(:build_from_params).and_call_original
       allow(UserSession).to receive(:get).and_call_original
     end
