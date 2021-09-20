@@ -431,6 +431,20 @@ RSpec.describe UserSession do
       it { expect(user_session.commodity_source).to eq('xi') }
       it { expect(user_session.referred_service).to eq('xi') }
 
+      context 'when the country of origin is GB' do
+        let(:country_of_origin) { 'GB' }
+
+        it { expect(user_session.country_of_origin).to eq('GB') }
+        it { expect(user_session.other_country_of_origin).to eq('') }
+      end
+
+      context 'when the country of origin is a eu member' do
+        let(:country_of_origin) { 'FI' }
+
+        it { expect(user_session.country_of_origin).to eq('FI') }
+        it { expect(user_session.other_country_of_origin).to eq('') }
+      end
+
       context 'when the country of origin is not an eu member' do
         let(:country_of_origin) { 'AR' }
 
