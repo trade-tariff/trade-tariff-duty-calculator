@@ -1,6 +1,6 @@
 module Steps
   class PrefillUserSessionController < BaseController
-    after_action :update_user_session
+    before_action :update_user_session
 
     def show
       @step = Steps::Prefill.new
