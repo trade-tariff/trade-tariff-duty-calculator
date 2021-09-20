@@ -16,6 +16,7 @@ RSpec.describe Steps::PrefillUserSessionController, :user_session do
 
     before do
       allow(UserSession).to receive(:build_from_params).and_call_original
+      allow(UserSession).to receive(:get).and_call_original
     end
 
     it 'builds the session from params' do
@@ -28,6 +29,8 @@ RSpec.describe Steps::PrefillUserSessionController, :user_session do
       expect(assigns[:step]).to be_a(Steps::Prefill)
     end
 
-    it { expect(response).to redirect_to(trader_scheme_path) }
+    it { expect(response).to redirect_to(customs_value_path) }
+    it { expect { response }.to change { UserSession.get&.trade_defence }.from(nil).to(true) }
+    it { expect { response }.to change { UserSession.get&.zero_mfn_duty }.from(nil).to(false) }
   end
 end
