@@ -67,7 +67,7 @@ class UserSession
     def get
       Thread.current[:user_session]
     end
-    
+
     private
 
     def use_other_country_of_origin?(import_destination, country_of_origin)
