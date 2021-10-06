@@ -22,7 +22,9 @@ module Api
                :legal_acts,
                :national_measurement_units,
                :origin,
+               :meursing,
                :reduction_indicator,
+               :resolved_duty_expression,
                :vat
 
     def document_codes
