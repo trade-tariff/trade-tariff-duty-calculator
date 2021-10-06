@@ -204,6 +204,7 @@ jobs:
     steps:
       - queue/until_front_of_line:
           time: '10'
+          consider-branch: false
           dont-quit: true
       - cf_deploy_docker:
           dev-release: true
