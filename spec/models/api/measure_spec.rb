@@ -38,7 +38,9 @@ RSpec.describe Api::Measure, :user_session do
                                                     reduction_indicator: 1,
                                                     national_measurement_units: [],
                                                     excluded_countries: [],
-                                                    footnotes: []
+                                                    footnotes: [],
+                                                    meursing: false,
+                                                    resolved_duty_expression: ''
 
   describe '#evaluator' do
     context 'when an ad_valorem measure' do
