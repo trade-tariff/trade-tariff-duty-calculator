@@ -204,6 +204,7 @@ jobs:
     steps:
       - queue/until_front_of_line:
           time: '10'
+          dont-quit: true
       - cf_deploy_docker:
           dev-release: true
           space: "development"
@@ -219,6 +220,7 @@ jobs:
     steps:
       - queue/until_front_of_line:
           time: '10'
+          dont-quit: true
       - cf_deploy_docker:
           space: "staging"
           environment_key: "staging"
@@ -233,6 +235,7 @@ jobs:
     steps:
       - queue/until_front_of_line:
           time: '10'
+          dont-quit: true
       - cf_deploy_docker:
           space: "production"
           environment_key: "production"
