@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/trade-tariff/uktt.git
-  revision: 5cbbd82e76b2b112ee2cf090ad65222054a4c5ea
+  revision: b7990592cf3f707e878c4e5975418f5b1c6e8cb6
   specs:
     uktt (2.5.0)
       faraday
@@ -59,7 +59,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faraday (1.7.0)
+    faraday (1.8.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
