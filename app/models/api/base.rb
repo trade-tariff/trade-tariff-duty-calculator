@@ -91,7 +91,6 @@ module Api
         UserSession.get
       end
 
-
       private
 
       def default_query

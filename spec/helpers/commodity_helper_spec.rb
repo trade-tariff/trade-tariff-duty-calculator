@@ -58,7 +58,7 @@ RSpec.describe CommodityHelper, :user_session do
         )
       end
 
-      let(:expected_query) do { 'filter[geographical_area_id]' => 'AR', } end
+      let(:expected_query) { { 'filter[geographical_area_id]' => 'AR' } }
 
       it 'returns a correctly filtered commodity' do
         helper.filtered_commodity
