@@ -1,8 +1,7 @@
 module CommodityHelper
-  def filtered_commodity(filter: default_filter, source: user_session.commodity_source)
+  def filtered_commodity(query: default_filter, source: user_session.commodity_source)
     commodity_source = source || user_session.commodity_source
     commodity_code = user_session.commodity_code
-    query = default_query.merge(filter)
 
     commodity_context_service.call(commodity_source, commodity_code, query)
   end
@@ -18,8 +17,9 @@ module CommodityHelper
   def commodity
     commodity_source = user_session.commodity_source
     commodity_code = user_session.commodity_code
+    query = {}
 
-    commodity_context_service.call(commodity_source, commodity_code, default_query)
+    commodity_context_service.call(commodity_source, commodity_code, query)
   end
 
   def applicable_additional_codes
@@ -103,10 +103,6 @@ module CommodityHelper
 
   def default_filter
     { 'filter[geographical_area_id]' => country_of_origin_code }
-  end
-
-  def default_query
-    { 'as_of' => (user_session.import_date || Time.zone.today).iso8601 }
   end
 
   def country_of_origin_code

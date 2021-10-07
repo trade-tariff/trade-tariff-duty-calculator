@@ -3,7 +3,7 @@ class CommodityContextService
     @cache = {}
   end
 
-  def call(commodity_source, commodity_code, query)
+  def call(commodity_source, commodity_code, query = {})
     digest = Digest::SHA2.hexdigest(query.to_json)
     key = "commodity-#{commodity_code}-#{commodity_source}-#{digest}"
 

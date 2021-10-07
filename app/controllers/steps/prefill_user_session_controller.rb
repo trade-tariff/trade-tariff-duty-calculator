@@ -26,7 +26,7 @@ module Steps
 
     def update_user_session
       user_session.trade_defence = commodity.trade_defence
-      user_session.zero_mfn_duty = filtered_commodity(filter: commodity_filter).zero_mfn_duty
+      user_session.zero_mfn_duty = filtered_commodity(query: commodity_filter).zero_mfn_duty
     end
 
     def commodity_filter
