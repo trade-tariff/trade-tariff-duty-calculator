@@ -1,14 +1,26 @@
-RSpec.describe Api::MonetaryExchangeRate, type: :model do
+RSpec.describe Api::MonetaryExchangeRate, :user_session, type: :model do
+  subject(:monetary_exchange_rate) { build(:monetary_exchange_rate) }
+
+  let(:user_session) { build(:user_session) }
+
   it_behaves_like 'a resource that has attributes',
                   id: 'flibble',
                   child_monetary_unit_code: 'GBP',
-                  exchange_rate: 0.7298,
-                  operation_date: nil,
-                  validity_start_date: '2016-01-01T00:00:00.000Z'
+                  operation_date: nil
+
+  describe '#validity_start_date' do
+    it { expect(monetary_exchange_rate.validity_start_date).to be_a(Date) }
+  end
+
+  describe '#exchange_rate' do
+    it { expect(monetary_exchange_rate.exchange_rate).to be_a(Float) }
+  end
 
   describe '.for' do
-    context 'when the currency we specify exists' do
-      let(:currency) { 'GBP' }
+    let(:currency) { 'GBP' }
+
+    context 'when the import date is not set on the session' do
+      let(:user_session) { build(:user_session) }
 
       it 'returns the latest exchange rate' do
         expect(described_class.for(currency).as_json).to eq(
@@ -19,6 +31,23 @@ RSpec.describe Api::MonetaryExchangeRate, type: :model do
             'exchange_rate' => '0.8571',
             'operation_date' => '2021-06-29',
             'validity_start_date' => '2021-07-01T00:00:00.000Z',
+          },
+        )
+      end
+    end
+
+    context 'when the import date is set on the session' do
+      let(:user_session) { build(:user_session, import_date: '2021-04-01') }
+
+      it 'returns the exchange rate matching the month and year of the import date' do
+        expect(described_class.for(currency).as_json).to eq(
+          'attributes' => {
+            'meta' => nil,
+            'id' => nil,
+            'child_monetary_unit_code' => 'GBP',
+            'exchange_rate' => '0.8512',
+            'operation_date' => '2021-04-29',
+            'validity_start_date' => '2021-04-01T00:00:00.000Z',
           },
         )
       end
