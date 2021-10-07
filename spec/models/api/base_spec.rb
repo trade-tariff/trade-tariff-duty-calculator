@@ -1,4 +1,6 @@
-RSpec.describe Api::Base do
+RSpec.describe Api::Base, :user_session do
+  let(:user_session) { build(:user_session) }
+
   before do
     allow(Rails.application.config.http_client_uk).to receive(:retrieve).and_call_original
     allow(Rails.application.config.http_client_xi).to receive(:retrieve).and_call_original
@@ -29,6 +31,21 @@ RSpec.describe Api::Base do
         expect(Rails.application.config.http_client_xi).to have_received(:retrieve).with(
           'commodities/0103921100.json',
           'as_of' => Time.zone.today.iso8601,
+          foo: :bar,
+        )
+      end
+    end
+
+    context 'when the session defines an import date' do
+      let(:user_session) { build(:user_session, import_date: '2021-10-08') }
+      let(:service) { 'xi' }
+
+      it 'calls the xi client with the correct params' do
+        api_resource.build(service, id, query)
+
+        expect(Rails.application.config.http_client_xi).to have_received(:retrieve).with(
+          'commodities/0103921100.json',
+          'as_of' => Date.parse('2021-10-08').iso8601,
           foo: :bar,
         )
       end
@@ -79,6 +96,21 @@ RSpec.describe Api::Base do
         expect(Rails.application.config.http_client_uk).to have_received(:retrieve).with(
           'geographical_areas/countries.json',
           'as_of' => Time.zone.today.iso8601,
+          foo: :bar,
+        )
+      end
+    end
+
+    context 'when the session defines an import date' do
+      let(:user_session) { build(:user_session, import_date: '2021-10-08') }
+      let(:service) { 'xi' }
+
+      it 'calls the xi client with the correct params' do
+        api_resource.build_collection(service, klass_override, query)
+
+        expect(Rails.application.config.http_client_xi).to have_received(:retrieve).with(
+          'geographical_areas.json',
+          'as_of' => Date.parse('2021-10-08').iso8601,
           foo: :bar,
         )
       end
