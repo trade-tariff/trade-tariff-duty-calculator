@@ -78,7 +78,7 @@ RSpec.describe Steps::FinalUse, :step, :user_session do
       end
 
       it 'returns the correct heading' do
-        expect(step.heading).to eq('Are your goods for sale to, or final use by, end-consumers located in the Northern Ireland?')
+        expect(step.heading).to eq('Are your goods for sale to, or final use by, end-consumers located in Northern Ireland?')
       end
     end
   end

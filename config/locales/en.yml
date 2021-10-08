@@ -119,9 +119,9 @@ en:
         body: As your goods are subject to commercial processing, imports of this commodity are treated as 'at risk'.
   final_use:
     row_to_ni:
-      heading: Are your goods for sale to, or final use by, end-consumers located in the Northern Ireland?
-      yes_option: Yes, I am moving these goods into Northern Ireland for its sale to, or final use by, end-consumers located in the Northern Ireland
-      no_option: No, these goods will not be for final use in the Northern Ireland
+      heading: Are your goods for sale to, or final use by, end-consumers located in Northern Ireland?
+      yes_option: Yes, I am moving these goods into Northern Ireland for its sale to, or final use by, end-consumers located in Northern Ireland
+      no_option: No, these goods will not be for final use in Northern Ireland
     gb_to_ni:
       heading: Are your goods for sale to, or final use by, end-consumers located in the United Kingdom?
       yes_option: Yes, I am moving these goods into Northern Ireland for its sale to, or final use by, end-consumers located in the United Kingdom
