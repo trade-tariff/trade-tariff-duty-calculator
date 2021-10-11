@@ -26,6 +26,7 @@ RSpec.configure do |config|
 
     Rails.application.config.http_client_uk = FakeUkttHttp.new(nil, 'uk', nil, nil)
     Rails.application.config.http_client_xi = FakeUkttHttp.new(nil, 'xi', nil, nil)
+
     stub_const('Uktt::Http', FakeUkttHttp)
   end
 

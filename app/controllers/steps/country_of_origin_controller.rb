@@ -38,7 +38,7 @@ module Steps
     def trade_defence_mfn_opts
       {
         trade_defence: commodity.trade_defence,
-        zero_mfn_duty: filtered_commodity(filter: geographical_area_id_filter).zero_mfn_duty,
+        zero_mfn_duty: filtered_commodity(query: geographical_area_id_filter).zero_mfn_duty,
       }
     end
   end

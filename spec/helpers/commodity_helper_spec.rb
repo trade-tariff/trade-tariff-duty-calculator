@@ -10,7 +10,6 @@ RSpec.describe CommodityHelper, :user_session do
   let(:commodity_source) { 'uk' }
   let(:commodity_code) { '0103921100' }
   let(:import_destination) { 'GB' }
-  let(:as_of) { Time.zone.today.iso8601 }
 
   let(:user_session) do
     build(
@@ -22,9 +21,8 @@ RSpec.describe CommodityHelper, :user_session do
     )
   end
 
-  let(:expected_filter) do
+  let(:expected_query) do
     {
-      'as_of' => Time.zone.today.iso8601,
       'filter[geographical_area_id]' => 'GB',
     }
   end
@@ -33,7 +31,7 @@ RSpec.describe CommodityHelper, :user_session do
     it 'retrieves commodities via the CommodityContextService' do
       helper.filtered_commodity
 
-      expect(Thread.current[:commodity_context_service]).to have_received(:call).with(commodity_source, commodity_code, expected_filter)
+      expect(Thread.current[:commodity_context_service]).to have_received(:call).with(commodity_source, commodity_code, expected_query)
     end
 
     context 'when the commodity source is passed' do
@@ -43,7 +41,7 @@ RSpec.describe CommodityHelper, :user_session do
         expect(Api::Commodity).to have_received(:build).with(
           'uk',
           commodity_code,
-          expected_filter,
+          expected_query,
         )
       end
     end
@@ -60,12 +58,7 @@ RSpec.describe CommodityHelper, :user_session do
         )
       end
 
-      let(:expected_filter) do
-        {
-          'as_of' => Time.zone.today.iso8601,
-          'filter[geographical_area_id]' => 'AR',
-        }
-      end
+      let(:expected_query) { { 'filter[geographical_area_id]' => 'AR' } }
 
       it 'returns a correctly filtered commodity' do
         helper.filtered_commodity
@@ -73,7 +66,7 @@ RSpec.describe CommodityHelper, :user_session do
         expect(Api::Commodity).to have_received(:build).with(
           commodity_source,
           commodity_code,
-          expected_filter,
+          expected_query,
         )
       end
     end
@@ -103,16 +96,12 @@ RSpec.describe CommodityHelper, :user_session do
       )
     end
 
-    let(:expected_filter) do
-      {
-        'as_of' => Time.zone.today.iso8601,
-      }
-    end
+    let(:expected_query) { {} }
 
     it 'retrieves commodities via the CommodityContextService' do
       helper.commodity
 
-      expect(Thread.current[:commodity_context_service]).to have_received(:call).with(commodity_source, commodity_code, expected_filter)
+      expect(Thread.current[:commodity_context_service]).to have_received(:call).with(commodity_source, commodity_code, expected_query)
     end
 
     it 'returns an unfiltered commodity' do
@@ -121,7 +110,7 @@ RSpec.describe CommodityHelper, :user_session do
       expect(Api::Commodity).to have_received(:build).with(
         commodity_source,
         commodity_code,
-        expected_filter,
+        expected_query,
       )
     end
   end
@@ -145,7 +134,7 @@ RSpec.describe CommodityHelper, :user_session do
       expect(Api::Commodity).to have_received(:build).with(
         'uk',
         commodity_code,
-        expected_filter,
+        expected_query,
       )
     end
   end
