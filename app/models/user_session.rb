@@ -25,6 +25,7 @@ class UserSession
   attribute_for_uk_and_xi :additional_code, :document_code
 
   alias_method :trade_defence?, :trade_defence
+  alias_method :zero_mfn_duty?, :zero_mfn_duty
 
   def initialize(session)
     @session = session
@@ -174,7 +175,12 @@ class UserSession
   end
 
   def deltas_applicable?
-    row_to_ni_route? && planned_processing != 'commercial_purposes' && !trade_defence?
+    row_to_ni_route? &&
+      no_trade_defence? &&
+      no_zero_mfn_duty? &&
+      trader_scheme? &&
+      final_use_in_ni? &&
+      non_commercial_purposes?
   end
 
   def import_into_gb?
@@ -205,6 +211,30 @@ class UserSession
 
   private
 
+  def trader_scheme?
+    trader_scheme == 'yes'
+  end
+
+  def final_use_in_ni?
+    final_use == 'yes'
+  end
+
+  def commercial_purposes?
+    planned_processing == 'commercial_purposes'
+  end
+
+  def non_commercial_purposes?
+    !commercial_purposes?
+  end
+
+  def no_trade_defence?
+    !trade_defence?
+  end
+
+  def no_zero_mfn_duty?
+    !zero_mfn_duty?
+  end
+
   def no_duty_route?
     ni_to_gb_route? || eu_to_ni_route?
   end
@@ -222,7 +252,7 @@ class UserSession
   end
 
   def zero_mfn_duty_no_trade_defence?
-    !trade_defence && zero_mfn_duty
+    no_trade_defence? && zero_mfn_duty?
   end
 
   def certificate_of_origin?

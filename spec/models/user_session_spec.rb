@@ -305,8 +305,38 @@ RSpec.describe UserSession do
       it { is_expected.to be_deltas_applicable }
     end
 
-    context 'when not on a deltas applicable route' do
-      subject(:user_session) { build(:user_session) }
+    context 'when non commercial purposes is false' do
+      subject(:user_session) { build(:user_session, :deltas_applicable, planned_processing: 'commercial_purposes') }
+
+      it { is_expected.not_to be_deltas_applicable }
+    end
+
+    context 'when not final use in ni' do
+      subject(:user_session) { build(:user_session, :deltas_applicable, final_use: 'no') }
+
+      it { is_expected.not_to be_deltas_applicable }
+    end
+
+    context 'when not trader scheme' do
+      subject(:user_session) { build(:user_session, :deltas_applicable, trader_scheme: 'no') }
+
+      it { is_expected.not_to be_deltas_applicable }
+    end
+
+    context 'when zero mfn duties' do
+      subject(:user_session) { build(:user_session, :deltas_applicable, zero_mfn_duty: true) }
+
+      it { is_expected.not_to be_deltas_applicable }
+    end
+
+    context 'when there are trade defences in place' do
+      subject(:user_session) { build(:user_session, :deltas_applicable, trade_defence: true) }
+
+      it { is_expected.not_to be_deltas_applicable }
+    end
+
+    context 'when not on the row to ni route' do
+      subject(:user_session) { build(:user_session, :deltas_applicable, import_destination: 'GB') }
 
       it { is_expected.not_to be_deltas_applicable }
     end
