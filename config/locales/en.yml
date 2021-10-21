@@ -145,7 +145,34 @@ en:
     link_text: "UK Trade: excise, duties, reliefs, drawbacks and allowances (opens in new browser window)"
     small_brewers_relief_link_text: "Small Breweries' Relief (SBR)"
     small_brewers_relief_hint_text_html: "<p>Please note that the work to calculate the %{small_brewers_relief_link} is in development and will be available shortly.</p>"
-    
+
+  planned_processing:
+    fieldset_hint_text_html: >
+      <p class="govuk-body">
+         If your goods are for sale to, or final use by, end consumers in the United Kingdom, you may be able to declare goods as not 'at risk', and pay no duty on those goods.
+      </p>
+      <p class="govuk-body">
+        You will not be able to declare your goods not 'at risk' if your goods are for commercial processing in Northern Ireland, unless they meet one of these exemptions.
+      </p>
+    fieldset_legend_text: >
+      How will these goods be processed after they are moved into Northern Ireland?
+    without_any_processing:
+      label_text_html: >
+        The goods <strong>will not be subject to processing in Northern Ireland<strong>
+    commercial_processing:
+      label_text_html: >
+        The goods will undergo <strong>commercial processing</strong> for one of these purposes:
+      hint_text_html: >
+        <ul>
+          <li>the sale of <strong>food</strong> to end consumers in the UK</li>
+          <li><strong>construction</strong>, where the processed goods form a permanent part of a structure that is constructed and located in NI by the importer</li>
+          <li>direct provision of <strong>health or care services</strong> by the importer in NI</li>
+          <li><strong>not for profit</strong> activities in NI, where there is no subsequent sale of the processed good by the importer</li>
+          <li>the final use of <strong>animal feed</strong> on premises located in NI by the importer.</li> 
+        </ul>
+    commercial_purposes:
+      label_text_html: >
+        The goods will be processed for <strong>commercial purposes other than those listed above</strong>
   activemodel:
     errors:
       models:

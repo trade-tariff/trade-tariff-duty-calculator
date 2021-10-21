@@ -78,9 +78,7 @@ RSpec.describe Steps::PlannedProcessing, :step, :user_session do
     end
 
     context 'when on RoW to NI route' do
-      context 'when the answer is commercial_processing' do
-        let(:answer) { 'commercial_processing' }
-
+      shared_examples_for 'a step with a next step as customs' do |answer|
         let(:session_attributes) do
           {
             'import_destination' => 'XI',
@@ -90,56 +88,11 @@ RSpec.describe Steps::PlannedProcessing, :step, :user_session do
           }
         end
 
-        it 'returns interstitial_path' do
-          expect(
-            step.next_step_path,
-          ).to eq(
-            customs_value_path,
-          )
-        end
+        it { expect(step.next_step_path).to eq(customs_value_path) }
       end
 
-      context 'when the answer is annual_turnover' do
-        let(:answer) { 'annual_turnover' }
-
-        let(:session_attributes) do
-          {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'OTHER',
-            'other_country_of_origin' => 'AR',
-            'planned_processing' => answer,
-          }
-        end
-
-        it 'returns customs_value_path' do
-          expect(
-            step.next_step_path,
-          ).to eq(
-            customs_value_path,
-          )
-        end
-      end
-
-      context 'when the answer is without_any_processing' do
-        let(:answer) { 'without_any_processing' }
-
-        let(:session_attributes) do
-          {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'OTHER',
-            'other_country_of_origin' => 'AR',
-            'planned_processing' => answer,
-          }
-        end
-
-        it 'returns customs_value_path' do
-          expect(
-            step.next_step_path,
-          ).to eq(
-            customs_value_path,
-          )
-        end
-      end
+      it_behaves_like 'a step with a next step as customs', 'commercial_processing'
+      it_behaves_like 'a step with a next step as customs', 'without_any_processing'
 
       context 'when the answer is commercial_purposes' do
         let(:answer) { 'commercial_purposes' }
@@ -153,13 +106,7 @@ RSpec.describe Steps::PlannedProcessing, :step, :user_session do
           }
         end
 
-        it 'returns no path for now' do
-          expect(
-            step.next_step_path,
-          ).to eq(
-            interstitial_path,
-          )
-        end
+        it { expect(step.next_step_path).to eq(interstitial_path) }
       end
     end
   end
@@ -173,14 +120,6 @@ RSpec.describe Steps::PlannedProcessing, :step, :user_session do
       }
     end
 
-    context 'when on GB to NI route' do
-      it 'returns country_of_origin_path' do
-        expect(
-          step.previous_step_path,
-        ).to eq(
-          final_use_path,
-        )
-      end
-    end
+    it { expect(step.previous_step_path).to eq(final_use_path) }
   end
 end

@@ -246,7 +246,7 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
       end
 
       context 'when the goods are not for commercial_purposes' do
-        let(:user_session) { build(:user_session, planned_processing: 'annual_turnover') }
+        let(:user_session) { build(:user_session, planned_processing: 'commercial_processing') }
 
         it 'returns planned_processing_path' do
           expect(
