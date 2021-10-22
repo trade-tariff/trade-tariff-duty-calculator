@@ -380,11 +380,17 @@ RSpec.describe UserSession do
         end
 
         context 'when no duty applies' do
-          %w[without_any_processing annual_turnover commercial_processing].each do |processing|
+          %w[without_any_processing commercial_processing].each do |processing|
             subject(:user_session) { build(:user_session, route_trait, planned_processing: processing) }
 
             it { is_expected.to be_no_duty_to_pay }
           end
+        end
+
+        context 'when trader has small turnover' do
+          subject(:user_session) { build(:user_session, route_trait, annual_turnover: 'yes') }
+
+          it { is_expected.to be_no_duty_to_pay }
         end
 
         context 'when the trader has a certificate of origin' do

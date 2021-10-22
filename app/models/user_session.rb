@@ -249,7 +249,7 @@ class UserSession
   end
 
   def strict_processing?
-    planned_processing.in?(%w[without_any_processing annual_turnover commercial_processing])
+    planned_processing.in?(%w[without_any_processing commercial_processing])
   end
 
   def small_turnover?
