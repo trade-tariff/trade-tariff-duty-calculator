@@ -10,6 +10,7 @@ class UserSession
                     :trader_scheme,
                     :final_use,
                     :certificate_of_origin,
+                    :annual_turnover,
                     :planned_processing,
                     :customs_value,
                     :measure_amount,
@@ -244,11 +245,15 @@ class UserSession
   end
 
   def no_duty_applies?
-    zero_mfn_duty_no_trade_defence? || strict_processing? || certificate_of_origin?
+    zero_mfn_duty_no_trade_defence? || small_turnover? || strict_processing? || certificate_of_origin?
   end
 
   def strict_processing?
     planned_processing.in?(%w[without_any_processing annual_turnover commercial_processing])
+  end
+
+  def small_turnover?
+    annual_turnover == 'yes'
   end
 
   def zero_mfn_duty_no_trade_defence?

@@ -120,6 +120,6 @@ RSpec.describe Steps::PlannedProcessing, :step, :user_session do
       }
     end
 
-    it { expect(step.previous_step_path).to eq(final_use_path) }
+    it { expect(step.previous_step_path).to eq(annual_turnover_path) }
   end
 end

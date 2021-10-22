@@ -10,6 +10,7 @@ class ConfirmationDecorator < SimpleDelegator
     country_of_origin
     trader_scheme
     final_use
+    annual_turnover
     planned_processing
     certificate_of_origin
     customs_value
@@ -18,8 +19,8 @@ class ConfirmationDecorator < SimpleDelegator
     vat
   ].freeze
 
-  def initialize(object, commodity)
-    super(object)
+  def initialize(confirmation_step, commodity)
+    super(confirmation_step)
 
     @commodity = commodity
   end
@@ -57,6 +58,7 @@ class ConfirmationDecorator < SimpleDelegator
     return format_customs_value(value) if key == 'customs_value'
     return format_measure_amount(value) if key == 'measure_amount'
     return country_name_for(value, key) if %w[import_destination country_of_origin].include?(key)
+    return annual_turnover(value) if key == 'annual_turnover'
     return additional_codes_for(value) if key == 'additional_code'
     return document_codes_for(value) if key == 'document_code'
     return excise_for(value) if key == 'excise'
@@ -91,6 +93,12 @@ class ConfirmationDecorator < SimpleDelegator
     value = user_session.other_country_of_origin if value == 'OTHER'
 
     Api::GeographicalArea.find(value, user_session.import_destination.downcase.to_sym).description
+  end
+
+  def annual_turnover(value)
+    return 'Less than £500,000' if value == 'yes'
+
+    'Greater than or equal to £500,000'
   end
 
   def vat_label(value)

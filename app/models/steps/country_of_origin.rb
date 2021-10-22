@@ -4,6 +4,7 @@ module Steps
       trader_scheme
       final_use
       certificate_of_origin
+      annual_turnover
       planned_processing
       document_code
       excise

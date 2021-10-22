@@ -25,7 +25,7 @@ module Steps
     end
 
     def previous_step_path
-      final_use_path
+      annual_turnover_path
     end
 
     private

@@ -132,6 +132,7 @@ en:
     country_of_origin: Coming from
     trader_scheme: Trader scheme
     final_use: Final use
+    annual_turnover: Annual Turnover
     planned_processing: Processing
     certificate_of_origin: Certificate of origin
     customs_value: Customs value
@@ -146,12 +147,24 @@ en:
     small_brewers_relief_link_text: "Small Breweries' Relief (SBR)"
     small_brewers_relief_hint_text_html: "<p>Please note that the work to calculate the %{small_brewers_relief_link} is in development and will be available shortly.</p>"
 
+  annual_turnover:
+    fieldset_hint_text:
+      row_to_ni_html: >
+        <p class="govuk-hint">
+          If the turnover of your company was less than &pound;500,000 in the latest complete financial year, then your goods will not be considered to be subject to commercial processing. This influences whether or not the goods are seen to be 'at risk' of subsequently being moved into Ireland.
+        </p>
+      gb_to_ni_html: >
+        <p class="govuk-hint">
+          If the turnover of your company was less than &pound;500,000 in the latest complete financial year, then your goods will not be considered to be subject to commercial processing, and therefore not 'at risk' of subsequently being moved into Ireland.
+        </p>
+    fieldset_legend_text: >
+      What was your annual turnover in the most recent complete financial year?
   planned_processing:
     fieldset_hint_text_html: >
-      <p class="govuk-body">
-         If your goods are for sale to, or final use by, end consumers in the United Kingdom, you may be able to declare goods as not 'at risk', and pay no duty on those goods.
+      <p class="govuk-hint">
+        If your goods are for sale to, or final use by, end consumers in the United Kingdom, you may be able to declare goods as not 'at risk', and pay no duty on those goods.
       </p>
-      <p class="govuk-body">
+      <p class="govuk-hint">
         You will not be able to declare your goods not 'at risk' if your goods are for commercial processing in Northern Ireland, unless they meet one of these exemptions.
       </p>
     fieldset_legend_text: >
@@ -212,10 +225,14 @@ en:
             insurance_cost:
               greater_than_or_equal_to: Enter a insurance cost value greater than or equal to zero
               not_a_number: Enter a numeric insurance cost or leave the field blank
+        steps/annual_turnover:
+          attributes:
+            annual_turnover:
+              blank: Select one of the two options
         steps/planned_processing:
-            attributes:
-              planned_processing:
-                blank: Select one of the available options
+          attributes:
+            planned_processing:
+              blank: Select one of the available options
         steps/additional_code:
             attributes:
               measure_type_id:

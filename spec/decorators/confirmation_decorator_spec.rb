@@ -21,6 +21,8 @@ RSpec.describe ConfirmationDecorator, :user_session do
       :with_import_destination,
       :with_country_of_origin,
       :with_trader_scheme,
+      :without_annual_turnover,
+      :with_planned_processing,
       :with_certificate_of_origin,
       :with_customs_value,
       :with_measure_amount,
@@ -42,6 +44,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
           country_of_origin
           trader_scheme
           final_use
+          annual_turnover
           planned_processing
           certificate_of_origin
           customs_value
@@ -62,6 +65,8 @@ RSpec.describe ConfirmationDecorator, :user_session do
         { key: 'import_destination', label: 'Destination', value: 'Northern Ireland' },
         { key: 'country_of_origin', label: 'Coming from', value: 'United Kingdom' },
         { key: 'trader_scheme', label: 'Trader scheme', value: 'No' },
+        { key: 'annual_turnover', label: 'Annual Turnover', value: 'Greater than or equal to £500,000' },
+        { key: 'planned_processing', label: 'Processing', value: 'Commercial purposes' },
         { key: 'certificate_of_origin', label: 'Certificate of origin', value: 'Yes' },
         { key: 'customs_value', label: 'Customs value', value: '£1,200.00' },
         { key: 'measure_amount', label: 'Import quantity', value: '100 x 100 kg' },

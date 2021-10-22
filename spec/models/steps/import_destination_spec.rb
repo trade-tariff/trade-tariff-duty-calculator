@@ -12,6 +12,7 @@ RSpec.describe Steps::ImportDestination, :step, :user_session do
           trader_scheme
           final_use
           certificate_of_origin
+          annual_turnover
           planned_processing
           document_code
           excise

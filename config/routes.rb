@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     get 'certificate-of-origin', to: 'steps/certificate_of_origin#show'
     post 'certificate-of-origin', to: 'steps/certificate_of_origin#create'
 
+    get 'annual-turnover', to: 'steps/annual_turnover#show'
+    post 'annual-turnover', to: 'steps/annual_turnover#create'
+
     get 'planned-processing', to: 'steps/planned_processing#show'
     post 'planned-processing', to: 'steps/planned_processing#create'
 

@@ -7,7 +7,7 @@
     <li>You <strong>do not intend to further process</strong> the goods on arrival in Northern Ireland</li>
   </ul>
   <%= render('steps/duty/gb_to_ni/shared/note') %>
-<% elsif @user_session.planned_processing == 'annual_turnover' %>
+<% elsif @user_session.annual_turnover == 'yes' %>
   <p class="govuk-body-m govuk-!-margin-top-5">There is <strong>no import duty to pay</strong> because:</p>
   <ul class="govuk-list govuk-list--bullet">
     <%= render('steps/duty/gb_to_ni/shared/no_duty_bullet_points') %>
