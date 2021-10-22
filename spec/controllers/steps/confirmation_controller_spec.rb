@@ -48,7 +48,6 @@ RSpec.describe Steps::ConfirmationController, :user_session do
     end
 
     it 'contains the summary of all the previously given answers' do
-      File.write('example.html', response.body)
       expect(response.body).to include(expected_content)
     end
 
