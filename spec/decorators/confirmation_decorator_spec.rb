@@ -21,7 +21,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
       :with_import_destination,
       :with_country_of_origin,
       :with_trader_scheme,
-      :without_annual_turnover,
+      :with_large_turnover,
       :with_planned_processing,
       :with_certificate_of_origin,
       :with_customs_value,
