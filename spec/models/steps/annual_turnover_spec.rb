@@ -54,13 +54,13 @@ RSpec.describe Steps::AnnualTurnover, :step, :user_session do
 
   describe '#next_step_path' do
     context 'when annual_turnover is less than 500k' do
-      let(:user_session) { build(:user_session, :with_annual_turnover) }
+      let(:user_session) { build(:user_session, :with_small_turnover) }
 
       it { expect(step.next_step_path).to eq(duty_path) }
     end
 
     context 'when annual_turnover is more than 500k' do
-      let(:user_session) { build(:user_session, :without_annual_turnover) }
+      let(:user_session) { build(:user_session, :with_large_turnover) }
 
       it { expect(step.next_step_path).to eq(planned_processing_path) }
     end

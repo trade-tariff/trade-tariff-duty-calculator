@@ -50,11 +50,11 @@ FactoryBot.define do
     certificate_of_origin { 'yes' }
   end
 
-  trait :with_annual_turnover do
+  trait :with_small_turnover do
     annual_turnover { 'yes' }
   end
 
-  trait :without_annual_turnover do
+  trait :with_large_turnover do
     annual_turnover { 'no' }
   end
 
