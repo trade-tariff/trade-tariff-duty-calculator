@@ -98,7 +98,7 @@ class ConfirmationDecorator < SimpleDelegator
   def annual_turnover(value)
     return 'Less than £500,000' if value == 'yes'
 
-    'Greater than or equal to £500,000'
+    '£500,000 or more'
   end
 
   def vat_label(value)
