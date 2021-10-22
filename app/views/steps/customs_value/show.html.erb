@@ -4,14 +4,20 @@
   <%= f.govuk_error_summary %>
   <span class="govuk-caption-xl">Calculate import duties</span>
   <h1 class="govuk-heading-xl">What is the customs value of this import?</h1>
-  <span class="govuk-hint govuk-!-margin-bottom-7">
+  <p class="govuk-hint">
     The amount of duty you may have to pay will depend on the customs value of your goods.
     The rules for arriving at the customs value are based on the
     World Trade Organisation (WTO) Valuation Agreement.
-    <br><br>
-    You can read more about the methods and how to calculate the customs value of your goods here:
-    <%= link_to('Notice 252: valuation of imported goods for customs purposes, VAT and trade statistics', 'https://www.gov.uk/government/publications/notice-252-valuation-of-imported-goods-for-customs-purposes-vat-and-trade-statistics/notice-252-valuation-of-imported-goods-for-customs-purposes-vat-and-trade-statistics', class: 'govuk-link') %>.
-  </span>
+  </p>
+  <p class="govuk-hint govuk-!-margin-bottom-7">
+    <%= link_to(
+      'How to calculate the customs value of your goods.',
+      'https://www.gov.uk/government/publications/notice-252-valuation-of-imported-goods-for-customs-purposes-vat-and-trade-statistics',
+      class: 'govuk-link',
+      target: '_blank',
+      rel: 'noopener norefferer',
+    ) %>
+  </p>
   <%= f.govuk_text_field :monetary_value, width: 'one-quarter', label: { text: 'What is the value in GBP of the goods being imported?' }, prefix_text: '£' %>
   <%= f.govuk_text_field :shipping_cost, width: 'one-quarter', label: { text: 'Optionally, what is the shipping cost?' },  hint: { text: 'Only costs up to the place of introduction of the imported goods into the UK border need to be included.' }, prefix_text: '£' %>
   <%= f.govuk_text_field :insurance_cost, width: 'one-quarter', label: { text: 'Optionally, what is the cost of insuring the goods?' },  hint: { text: 'Only insurance costs up to the place of introduction of the imported goods into the UK border need to be included.' }, prefix_text: '£' %>

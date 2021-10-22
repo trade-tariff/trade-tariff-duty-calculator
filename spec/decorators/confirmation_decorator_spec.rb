@@ -65,7 +65,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
         { key: 'import_destination', label: 'Destination', value: 'Northern Ireland' },
         { key: 'country_of_origin', label: 'Coming from', value: 'United Kingdom' },
         { key: 'trader_scheme', label: 'Trader scheme', value: 'No' },
-        { key: 'annual_turnover', label: 'Annual Turnover', value: 'Greater than or equal to £500,000' },
+        { key: 'annual_turnover', label: 'Annual turnover', value: '£500,000 or more' },
         { key: 'planned_processing', label: 'Processing', value: 'Commercial purposes' },
         { key: 'certificate_of_origin', label: 'Certificate of origin', value: 'Yes' },
         { key: 'customs_value', label: 'Customs value', value: '£1,200.00' },
