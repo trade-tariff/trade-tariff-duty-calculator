@@ -50,6 +50,18 @@ FactoryBot.define do
     certificate_of_origin { 'yes' }
   end
 
+  trait :with_small_turnover do
+    annual_turnover { 'yes' }
+  end
+
+  trait :with_large_turnover do
+    annual_turnover { 'no' }
+  end
+
+  trait :with_planned_processing do
+    planned_processing { 'commercial_purposes' }
+  end
+
   trait :with_customs_value do
     customs_value { { 'monetary_value' => '1200' } }
   end
@@ -100,6 +112,11 @@ FactoryBot.define do
         'DBC' => '369',
       }
     end
+  end
+
+  trait :with_gb_to_ni_route do
+    import_destination { 'XI' }
+    country_of_origin { 'GB' }
   end
 
   trait :with_document_codes do

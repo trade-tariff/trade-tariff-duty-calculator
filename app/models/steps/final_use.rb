@@ -1,7 +1,10 @@
 module Steps
   class FinalUse < Steps::Base
+    include RoutesHelper
+
     STEPS_TO_REMOVE_FROM_SESSION = %w[
       certificate_of_origin
+      annual_turnover
       planned_processing
       document_code
       excise
@@ -20,7 +23,7 @@ module Steps
     end
 
     def next_step_path
-      return planned_processing_path if user_session.final_use == 'yes'
+      return annual_turnover_path if user_session.final_use == 'yes'
       return certificate_of_origin_path if user_session.gb_to_ni_route?
 
       interstitial_path
@@ -32,21 +35,13 @@ module Steps
 
     def options
       [
-        OpenStruct.new(id: 'yes', name: I18n.t("final_use.#{locale_key}.yes_option")),
-        OpenStruct.new(id: 'no', name: I18n.t("final_use.#{locale_key}.no_option")),
+        OpenStruct.new(id: 'yes', name: I18n.t("final_use.#{current_route}.yes_option")),
+        OpenStruct.new(id: 'no', name: I18n.t("final_use.#{current_route}.no_option")),
       ]
     end
 
     def heading
-      I18n.t("final_use.#{locale_key}.heading")
-    end
-
-    private
-
-    def locale_key
-      return 'gb_to_ni' if user_session.gb_to_ni_route?
-
-      'row_to_ni'
+      I18n.t("final_use.#{current_route}.heading")
     end
   end
 end

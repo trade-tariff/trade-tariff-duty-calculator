@@ -10,6 +10,7 @@ RSpec.describe Steps::FinalUse, :step, :user_session do
       expect(described_class::STEPS_TO_REMOVE_FROM_SESSION).to eq(
         %w[
           certificate_of_origin
+          annual_turnover
           planned_processing
           document_code
           excise
@@ -20,9 +21,7 @@ RSpec.describe Steps::FinalUse, :step, :user_session do
 
   describe '#validations' do
     context 'when final use answer is blank' do
-      it 'is not a valid object' do
-        expect(step).not_to be_valid
-      end
+      it { expect(step).not_to be_valid }
 
       it 'adds the correct validation error message' do
         step.valid?
@@ -133,13 +132,7 @@ RSpec.describe Steps::FinalUse, :step, :user_session do
         }
       end
 
-      it 'returns planned_processing_path' do
-        expect(
-          step.next_step_path,
-        ).to eq(
-          planned_processing_path,
-        )
-      end
+      it { expect(step.next_step_path).to eq(annual_turnover_path) }
     end
 
     context 'when on GB to NI route and final use answer is no' do
@@ -151,13 +144,7 @@ RSpec.describe Steps::FinalUse, :step, :user_session do
         }
       end
 
-      it 'returns certificate_of_origin_path' do
-        expect(
-          step.next_step_path,
-        ).to eq(
-          certificate_of_origin_path,
-        )
-      end
+      it { expect(step.next_step_path).to eq(certificate_of_origin_path) }
     end
 
     context 'when on RoW to NI route and final use answer is no' do
@@ -170,13 +157,7 @@ RSpec.describe Steps::FinalUse, :step, :user_session do
         }
       end
 
-      it 'returns interstitial_path' do
-        expect(
-          step.next_step_path,
-        ).to eq(
-          interstitial_path,
-        )
-      end
+      it { expect(step.next_step_path).to eq(interstitial_path) }
     end
   end
 
@@ -190,13 +171,7 @@ RSpec.describe Steps::FinalUse, :step, :user_session do
         }
       end
 
-      it 'returns trader_scheme_path' do
-        expect(
-          step.previous_step_path,
-        ).to eq(
-          trader_scheme_path,
-        )
-      end
+      it { expect(step.previous_step_path).to eq(trader_scheme_path) }
     end
 
     context 'when on RoW to NI route' do
@@ -208,13 +183,7 @@ RSpec.describe Steps::FinalUse, :step, :user_session do
         }
       end
 
-      it 'returns trader_scheme_path' do
-        expect(
-          step.previous_step_path,
-        ).to eq(
-          trader_scheme_path,
-        )
-      end
+      it { expect(step.previous_step_path).to eq(trader_scheme_path) }
     end
   end
 end

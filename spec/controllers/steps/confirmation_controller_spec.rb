@@ -7,6 +7,8 @@ RSpec.describe Steps::ConfirmationController, :user_session do
       :with_import_destination,
       :with_country_of_origin,
       :with_trader_scheme,
+      :with_small_turnover,
+      :with_planned_processing,
       :with_certificate_of_origin,
       :with_customs_value,
       :with_measure_amount,
