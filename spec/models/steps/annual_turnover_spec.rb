@@ -53,14 +53,26 @@ RSpec.describe Steps::AnnualTurnover, :step, :user_session do
   end
 
   describe '#next_step_path' do
-    context 'when annual_turnover is less than 500k' do
-      let(:user_session) { build(:user_session, :with_small_turnover) }
+    context 'when annual_turnover is less than 500k and on the gb to ni route' do
+      let(:user_session) { build(:user_session, :with_gb_to_ni_route, :with_small_turnover) }
 
       it { expect(step.next_step_path).to eq(duty_path) }
     end
 
-    context 'when annual_turnover is more than 500k' do
-      let(:user_session) { build(:user_session, :with_large_turnover) }
+    context 'when annual_turnover is more than 500k and on the gb to ni route' do
+      let(:user_session) { build(:user_session, :with_gb_to_ni_route, :with_large_turnover) }
+
+      it { expect(step.next_step_path).to eq(planned_processing_path) }
+    end
+
+    context 'when annual_turnover is less than 500k and on the row to ni route' do
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, :with_small_turnover) }
+
+      it { expect(step.next_step_path).to eq(customs_value_path) }
+    end
+
+    context 'when annual_turnover is more than 500k and on the row to ni route' do
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, :with_large_turnover) }
 
       it { expect(step.next_step_path).to eq(planned_processing_path) }
     end
