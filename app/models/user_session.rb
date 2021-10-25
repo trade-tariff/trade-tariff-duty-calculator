@@ -181,7 +181,7 @@ class UserSession
       no_zero_mfn_duty? &&
       trader_scheme? &&
       final_use_in_ni? &&
-      non_commercial_purposes?
+      small_turnover_or_non_commercial_purposes?
   end
 
   def import_into_gb?
@@ -224,8 +224,8 @@ class UserSession
     planned_processing == 'commercial_purposes'
   end
 
-  def non_commercial_purposes?
-    !commercial_purposes?
+  def small_turnover_or_non_commercial_purposes?
+    small_turnover? || !commercial_purposes?
   end
 
   def no_trade_defence?

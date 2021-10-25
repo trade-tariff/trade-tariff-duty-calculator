@@ -299,8 +299,14 @@ RSpec.describe UserSession do
   end
 
   describe '#deltas_applicable?' do
-    context 'when on a deltas applicable route' do
-      subject(:user_session) { build(:user_session, :deltas_applicable) }
+    context 'when on a deltas applicable route with unnacceptable commercial purposes and a small turnover' do
+      subject(:user_session) { build(:user_session, :deltas_applicable, :with_small_turnover, planned_processing: 'commercial_purposes') }
+
+      it { is_expected.to be_deltas_applicable }
+    end
+
+    context 'when on a deltas applicable route with acceptable commercial processing and a high turnover' do
+      subject(:user_session) { build(:user_session, :deltas_applicable, :with_large_turnover, planned_processing: 'without_any_processing') }
 
       it { is_expected.to be_deltas_applicable }
     end

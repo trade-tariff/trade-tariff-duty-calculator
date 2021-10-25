@@ -21,7 +21,19 @@ module Steps
     end
 
     def next_step_path
+      return next_step_for_gb_to_ni if user_session.gb_to_ni_route?
+
+      next_step_for_row_to_ni
+    end
+
+    def next_step_for_gb_to_ni
       return duty_path if user_session.annual_turnover == 'yes'
+
+      planned_processing_path
+    end
+
+    def next_step_for_row_to_ni
+      return customs_value_path if user_session.annual_turnover == 'yes'
 
       planned_processing_path
     end

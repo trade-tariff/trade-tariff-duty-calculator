@@ -82,7 +82,7 @@ FactoryBot.define do
     zero_mfn_duty { false }
     trader_scheme { 'yes' }
     final_use { 'yes' }
-    planned_processing { 'commercial_processing' }
+    planned_processing { 'commercial_processing' } # Either this needs to be true or annual_turnover is < 500k
   end
 
   trait :with_vat do
@@ -117,6 +117,12 @@ FactoryBot.define do
   trait :with_gb_to_ni_route do
     import_destination { 'XI' }
     country_of_origin { 'GB' }
+  end
+
+  trait :with_row_to_ni_route do
+    import_destination { 'XI' }
+    country_of_origin { 'OTHER' }
+    other_country_of_origin { 'AR' }
   end
 
   trait :with_document_codes do
