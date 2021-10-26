@@ -17,9 +17,9 @@ module Steps
                   :user_session
 
     def country_of_origin_description
-      Api::GeographicalArea.find(
-        country_of_origin_code,
+      Api::GeographicalArea.build(
         user_session.import_destination.downcase.to_sym,
+        country_of_origin_code.upcase,
       ).description
     end
 

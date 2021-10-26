@@ -37,7 +37,7 @@ module Steps
     end
 
     def self.options_for(service, include_eu_members: true)
-      return Api::GeographicalArea.non_eu_countries(service.to_sym) unless include_eu_members
+      return Api::GeographicalArea.non_eu_countries unless include_eu_members
 
       Api::GeographicalArea.list_countries(service.to_sym)
     end

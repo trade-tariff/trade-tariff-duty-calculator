@@ -92,7 +92,7 @@ class ConfirmationDecorator < SimpleDelegator
 
     value = user_session.other_country_of_origin if value == 'OTHER'
 
-    Api::GeographicalArea.find(value, user_session.import_destination.downcase.to_sym).description
+    Api::GeographicalArea.build(user_session.import_destination.downcase.to_sym, value.upcase).description
   end
 
   def annual_turnover(value)
