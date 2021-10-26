@@ -104,12 +104,4 @@ RSpec.describe Api::GeographicalArea do
       expect(members).not_to include('GB')
     end
   end
-
-  describe '.find' do
-    it 'returns the country found by id' do
-      country = described_class.find(id)
-
-      expect(country.description).to eq('Nicaragua')
-    end
-  end
 end
