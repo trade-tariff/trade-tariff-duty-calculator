@@ -16,9 +16,7 @@ module Steps
       return country_of_origin_path if user_session.trade_defence
       return trader_scheme_path if user_session.trader_scheme == 'no'
       return final_use_path if user_session.final_use == 'no'
-      return planned_processing_path unless user_session.planned_processing == 'commercial_purposes'
-
-      # TODO: We will need to add a route here for acceptable processing when that stop page is available
+      return planned_processing_path if user_session.unacceptable_processing?
     end
   end
 end

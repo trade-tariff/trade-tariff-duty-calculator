@@ -175,6 +175,10 @@ class UserSession
     customs_value.values.map(&:to_f).reduce(:+)
   end
 
+  def unacceptable_processing?
+    planned_processing == 'commercial_purposes'
+  end
+
   def deltas_applicable?
     row_to_ni_route? &&
       no_trade_defence? &&
