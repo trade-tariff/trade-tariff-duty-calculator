@@ -125,6 +125,11 @@ FactoryBot.define do
     other_country_of_origin { 'AR' }
   end
 
+  trait :with_row_to_gb_route do
+    import_destination { 'UK' }
+    country_of_origin { 'AR' }
+  end
+
   trait :with_document_codes do
     document_code do
       {

@@ -64,7 +64,9 @@ module Steps
 
     def previous_step_for_row_to_ni
       return country_of_origin_path if user_session.zero_mfn_duty
+
       return planned_processing_path if user_session.planned_processing.present?
+      return annual_turnover_path if user_session.annual_turnover.present?
       return final_use_path if user_session.final_use == 'no'
 
       trader_scheme_path
