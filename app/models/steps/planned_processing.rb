@@ -31,13 +31,13 @@ module Steps
     private
 
     def next_step_for_gb_to_ni
-      return duty_path unless user_session.planned_processing == 'commercial_purposes'
+      return duty_path if user_session.acceptable_processing?
 
       certificate_of_origin_path
     end
 
     def next_step_for_row_to_ni
-      return interstitial_path if user_session.planned_processing == 'commercial_purposes'
+      return interstitial_path if user_session.unacceptable_processing?
 
       customs_value_path
     end

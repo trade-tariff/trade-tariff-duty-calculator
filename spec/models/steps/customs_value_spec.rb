@@ -180,106 +180,52 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
   end
 
   describe '#previous_step_path' do
-    context 'when on GB to NI route' do
-      before do
-        allow(user_session).to receive(:gb_to_ni_route?).and_return(true)
-      end
+    context 'when there is a trade defence and on the GB to NI route' do
+      let(:user_session) { build(:user_session, :with_gb_to_ni_route, trade_defence: true) }
 
-      context 'when there is a trade defence' do
-        let(:user_session) { build(:user_session, trade_defence: true) }
+      it { expect(step.previous_step_path).to eq(interstitial_path) }
+    end
 
-        it 'returns interstitial_path' do
-          expect(
-            step.previous_step_path,
-          ).to eq(
-            interstitial_path,
-          )
-        end
-      end
+    context 'when there is no trade defence and on the GB to NI route' do
+      let(:user_session) { build(:user_session, :with_gb_to_ni_route, trade_defence: false) }
 
-      context 'when there is no trade defence, and the certificate of origin answer is NO' do
-        let(:session) do
-          {
-            'certificate_of_origin' => 'no',
-          }
-        end
-
-        it 'returns certificate_of_origin_path' do
-          expect(
-            step.previous_step_path,
-          ).to eq(
-            certificate_of_origin_path,
-          )
-        end
-      end
+      it { expect(step.previous_step_path).to eq(certificate_of_origin_path) }
     end
 
     context 'when on RoW to GB route' do
-      before do
-        allow(user_session).to receive(:row_to_gb_route?).and_return(true)
-      end
+      let(:user_session) { build(:user_session, :with_row_to_gb_route) }
 
-      it 'returns country_of_origin_path' do
-        expect(
-          step.previous_step_path,
-        ).to eq(
-          country_of_origin_path,
-        )
-      end
+      it { expect(step.previous_step_path).to eq(country_of_origin_path) }
     end
 
-    context 'when on RoW to NI route' do
-      before do
-        allow(user_session).to receive(:row_to_ni_route?).and_return(true)
-      end
+    context 'when there is a zero mfn duty and on the Row to NI route' do
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, zero_mfn_duty: true) }
 
-      context 'when there is a zero mfn duty' do
-        it 'returns country_of_origin_path' do
-          allow(user_session).to receive(:zero_mfn_duty).and_return(true)
+      it { expect(step.previous_step_path).to eq(country_of_origin_path) }
+    end
 
-          expect(
-            step.previous_step_path,
-          ).to eq(
-            country_of_origin_path,
-          )
-        end
-      end
+    context 'when the planned processing question has been answered and on the Row to NI route' do
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, planned_processing: 'commercial_processing') }
 
-      context 'when the goods are not for commercial_purposes' do
-        let(:user_session) { build(:user_session, planned_processing: 'commercial_processing') }
+      it { expect(step.previous_step_path).to eq(planned_processing_path) }
+    end
 
-        it 'returns planned_processing_path' do
-          expect(
-            step.previous_step_path,
-          ).to eq(
-            planned_processing_path,
-          )
-        end
-      end
+    context 'when the annual turnover question has been answered and on the Row to NI route' do
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, :with_small_turnover) }
 
-      context 'when the goods are not for final use' do
-        let(:user_session) { build(:user_session, final_use: 'no') }
+      it { expect(step.previous_step_path).to eq(annual_turnover_path) }
+    end
 
-        it 'returns final_use_path' do
-          expect(
-            step.previous_step_path,
-          ).to eq(
-            final_use_path,
-          )
-        end
-      end
+    context 'when the goods are not for final use and on the Row to NI route' do
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, final_use: 'no') }
 
-      context 'when trader is not part of a trader scheme' do
-        let(:user_session) { build(:user_session, trader_scheme: 'no') }
+      it { expect(step.previous_step_path).to eq(final_use_path) }
+    end
 
-        it 'returns trader_scheme_path' do
-          expect(
-            step.previous_step_path,
-          ).to eq(
-            trader_scheme_path,
-          )
-        end
-      end
+    context 'when on the Row to NI route' do
+      let(:user_session) { build(:user_session, :with_row_to_ni_route) }
+
+      it { expect(step.previous_step_path).to eq(trader_scheme_path) }
     end
   end
 

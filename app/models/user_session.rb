@@ -175,6 +175,15 @@ class UserSession
     customs_value.values.map(&:to_f).reduce(:+)
   end
 
+  def unacceptable_processing?
+    planned_processing == 'commercial_purposes'
+  end
+  alias_method :commercial_purposes?, :unacceptable_processing?
+
+  def acceptable_processing?
+    !unacceptable_processing?
+  end
+
   def deltas_applicable?
     row_to_ni_route? &&
       no_trade_defence? &&
@@ -218,10 +227,6 @@ class UserSession
 
   def final_use_in_ni?
     final_use == 'yes'
-  end
-
-  def commercial_purposes?
-    planned_processing == 'commercial_purposes'
   end
 
   def small_turnover_or_non_commercial_purposes?
