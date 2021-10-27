@@ -298,6 +298,20 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#acceptable_processing?' do
+    context 'when the planned_processing answer is `commercial_purposes`' do
+      subject(:user_session) { build(:user_session, planned_processing: 'commercial_purposes') }
+
+      it { is_expected.not_to be_acceptable_processing }
+    end
+
+    context 'when the planned_processing answer is not `commercial_purposes`' do
+      subject(:user_session) { build(:user_session, planned_processing: 'foo') }
+
+      it { is_expected.to be_acceptable_processing }
+    end
+  end
+
   describe '#unacceptable_processing?' do
     context 'when the planned_processing answer is `commercial_purposes`' do
       subject(:user_session) { build(:user_session, planned_processing: 'commercial_purposes') }

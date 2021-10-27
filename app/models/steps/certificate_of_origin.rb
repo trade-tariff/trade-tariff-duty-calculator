@@ -26,7 +26,7 @@ module Steps
     end
 
     def previous_step_path
-      return planned_processing_path if user_session.planned_processing == 'commercial_purposes'
+      return planned_processing_path if user_session.unacceptable_processing?
       return final_use_path if user_session.final_use == 'no'
 
       trader_scheme_path if user_session.trader_scheme == 'no'
