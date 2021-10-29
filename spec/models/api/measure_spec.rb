@@ -1,6 +1,14 @@
 RSpec.describe Api::Measure, :user_session do
-  subject(:measure) { build(:measure, :third_country_tariff, source: 'xi', measure_components: measure_components) }
+  subject(:measure) { build(:measure) }
 
+  let(:user_session) do
+    build(
+      :user_session,
+      :with_commodity_information,
+      :with_document_codes,
+      :with_excise_additional_codes,
+    )
+  end
   let(:measure_components) do
     [
       {
@@ -16,14 +24,16 @@ RSpec.describe Api::Measure, :user_session do
     ]
   end
 
-  let(:user_session) do
-    build(
-      :user_session,
-      :with_commodity_information,
-      :with_document_codes,
-      :with_excise_additional_codes,
-    )
-  end
+  it_behaves_like 'a has_many relationship', :measure_conditions
+  it_behaves_like 'a has_many relationship', :measure_components
+  it_behaves_like 'a has_many relationship', :resolved_measure_components
+
+  it_behaves_like 'a has_one relationship', :measure_type
+  it_behaves_like 'a has_one relationship', :geographical_area
+  it_behaves_like 'a has_one relationship', :duty_expression
+  it_behaves_like 'a has_one relationship', :order_number
+  it_behaves_like 'a has_one relationship', :additional_code
+  it_behaves_like 'a has_one relationship', :suspension_legal_act
 
   it_behaves_like 'a resource that has attributes', measure_conditions: [],
                                                     measure_components: [],
@@ -43,6 +53,8 @@ RSpec.describe Api::Measure, :user_session do
                                                     resolved_duty_expression: ''
 
   describe '#evaluator' do
+    subject(:measure) { build(:measure, :third_country_tariff, source: 'xi', measure_components: measure_components) }
+
     context 'when an ad_valorem measure' do
       let(:measure_components) { [attributes_for(:measure_component, :ad_valorem)] }
 

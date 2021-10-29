@@ -26,8 +26,9 @@ FactoryBot.define do
     additional_code      {}
     suspension_legal_act {}
 
-    measure_components { [] }
     measure_conditions { [] }
+    measure_components { [] }
+    resolved_measure_components { [] }
 
     initialize_with do
       meta = { 'meta' => { 'duty_calculator' => { 'source' => source } } }
