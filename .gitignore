@@ -37,3 +37,10 @@ yarn-debug.log*
 dump.rdb
 
 .nvimlog
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
