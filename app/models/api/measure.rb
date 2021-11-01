@@ -2,6 +2,7 @@ module Api
   class Measure < Api::Base
     has_many :measure_conditions, MeasureCondition
     has_many :measure_components, MeasureComponent
+    has_many :resolved_measure_components, MeasureComponent
 
     has_one :measure_type, MeasureType
     has_one :geographical_area, GeographicalArea
