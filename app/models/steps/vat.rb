@@ -1,7 +1,5 @@
 module Steps
   class Vat < Steps::Base
-    include CommodityHelper
-
     attribute :vat, :string
 
     validates :vat, presence: true

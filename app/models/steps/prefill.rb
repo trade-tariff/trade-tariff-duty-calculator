@@ -1,7 +1,5 @@
 module Steps
   class Prefill < Steps::Base
-    include CommodityHelper
-
     def next_step_path
       return duty_path if user_session.ni_to_gb_route? || user_session.eu_to_ni_route?
 

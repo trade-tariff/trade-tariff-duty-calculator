@@ -49,6 +49,9 @@ Rails.application.routes.draw do
     get 'additional-codes/:measure_type_id', to: 'steps/additional_codes#show', as: 'additional_codes'
     post 'additional-codes/:measure_type_id', to: 'steps/additional_codes#create'
 
+    get 'meursing-additional-codes', to: 'steps/meursing_additional_codes#show', as: 'meursing_additional_codes'
+    post 'meursing-additional-codes', to: 'steps/meursing_additional_codes#create'
+
     get 'excise/:measure_type_id', to: 'steps/excise#show', as: 'excise'
     post 'excise/:measure_type_id', to: 'steps/excise#create'
 

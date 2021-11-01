@@ -115,6 +115,16 @@ RSpec.describe CommodityHelper, :user_session do
     end
   end
 
+  describe '#applicable_meursing_codes?' do
+    it { expect(helper.applicable_meursing_codes?).to eq(true) }
+
+    it 'passes xi to the Commodity builder' do
+      helper.applicable_meursing_codes?
+
+      expect(Api::Commodity).to have_received(:build).with('xi', anything, anything)
+    end
+  end
+
   describe '#applicable_vat_options' do
     let(:expected_options) do
       {

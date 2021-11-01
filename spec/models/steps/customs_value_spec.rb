@@ -181,19 +181,25 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
 
   describe '#previous_step_path' do
     context 'when there is a trade defence and on the GB to NI route' do
-      let(:user_session) { build(:user_session, :with_gb_to_ni_route, trade_defence: true) }
+      let(:user_session) { build(:user_session, :with_gb_to_ni_route, :with_non_meursing_commodity, trade_defence: true) }
 
       it { expect(step.previous_step_path).to eq(interstitial_path) }
     end
 
     context 'when there is no trade defence and on the GB to NI route' do
-      let(:user_session) { build(:user_session, :with_gb_to_ni_route, trade_defence: false) }
+      let(:user_session) { build(:user_session, :with_gb_to_ni_route, :with_non_meursing_commodity, trade_defence: false) }
 
       it { expect(step.previous_step_path).to eq(certificate_of_origin_path) }
     end
 
+    context 'when there are applicable meursing codes on the GB to NI route' do
+      let(:user_session) { build(:user_session, :with_gb_to_ni_route, :with_meursing_commodity) }
+
+      it { expect(step.previous_step_path).to eq(meursing_additional_codes_path) }
+    end
+
     context 'when on RoW to GB route' do
-      let(:user_session) { build(:user_session, :with_row_to_gb_route) }
+      let(:user_session) { build(:user_session, :with_row_to_gb_route, :with_non_meursing_commodity) }
 
       it { expect(step.previous_step_path).to eq(country_of_origin_path) }
     end
@@ -205,25 +211,31 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
     end
 
     context 'when the planned processing question has been answered and on the Row to NI route' do
-      let(:user_session) { build(:user_session, :with_row_to_ni_route, planned_processing: 'commercial_processing') }
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, :with_non_meursing_commodity, planned_processing: 'commercial_processing') }
 
       it { expect(step.previous_step_path).to eq(planned_processing_path) }
     end
 
     context 'when the annual turnover question has been answered and on the Row to NI route' do
-      let(:user_session) { build(:user_session, :with_row_to_ni_route, :with_small_turnover) }
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, :with_non_meursing_commodity, :with_small_turnover) }
 
       it { expect(step.previous_step_path).to eq(annual_turnover_path) }
     end
 
     context 'when the goods are not for final use and on the Row to NI route' do
-      let(:user_session) { build(:user_session, :with_row_to_ni_route, final_use: 'no') }
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, :with_non_meursing_commodity, final_use: 'no') }
 
       it { expect(step.previous_step_path).to eq(final_use_path) }
     end
 
+    context 'when there are applicable meursing codes on the Row to NI route' do
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, :with_meursing_commodity) }
+
+      it { expect(step.previous_step_path).to eq(meursing_additional_codes_path) }
+    end
+
     context 'when on the Row to NI route' do
-      let(:user_session) { build(:user_session, :with_row_to_ni_route) }
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, :with_non_meursing_commodity) }
 
       it { expect(step.previous_step_path).to eq(trader_scheme_path) }
     end
@@ -259,7 +271,7 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
       allow(filtered_commodity).to receive(:applicable_document_codes).and_return(applicable_document_codes)
     end
 
-    context 'when there are applicable measures' do
+    context 'when there are applicable measure units' do
       it { expect(step.next_step_path).to eq(measure_amount_path) }
     end
 

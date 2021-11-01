@@ -186,6 +186,8 @@ RSpec.describe ServiceHelper, :user_session do
 
   describe '#feedback_url' do
     context 'when TRADE_TARIFF_FRONTEND_URL is set' do
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
+
       it 'returns the dev trade tariff tools url' do
         expect(helper.feedback_url).to eq(
           'https://dev.trade-tariff.service.gov.uk/feedback',
@@ -196,9 +198,25 @@ RSpec.describe ServiceHelper, :user_session do
     context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
       let(:frontend_url) { nil }
 
-      it 'returns the dev trade tariff tools url' do
-        expect(helper.feedback_url).to eq('#')
+      it { expect(helper.feedback_url).to eq('#') }
+    end
+  end
+
+  describe '#meursing_lookup_url' do
+    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
+
+      it 'returns the dev trade tariff meursing lookup url' do
+        expected_url = 'https://dev.trade-tariff.service.gov.uk/xi/meursing_lookup/steps/start'
+
+        expect(helper.meursing_lookup_url).to eq(expected_url)
       end
+    end
+
+    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
+      let(:frontend_url) { nil }
+
+      it { expect(helper.meursing_lookup_url).to eq('#') }
     end
   end
 end

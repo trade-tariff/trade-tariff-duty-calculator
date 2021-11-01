@@ -21,6 +21,7 @@ module Steps
 
     def next_step_path
       return duty_path if user_session.certificate_of_origin == 'yes'
+      return meursing_additional_codes_path if applicable_meursing_codes?
 
       customs_value_path
     end

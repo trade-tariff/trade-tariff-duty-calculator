@@ -31,6 +31,12 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
                   import_measures: [],
                   export_measures: []
 
+  describe '#meursing_code?' do
+    subject(:commodity) { described_class.new(meursing_code: false) }
+
+    it { expect(commodity.meursing_code?).to eq(false) }
+  end
+
   describe '#description' do
     it 'returns the expected description' do
       expect(commodity.description).to eq('Cherry Tomatoes')

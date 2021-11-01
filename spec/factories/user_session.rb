@@ -29,6 +29,18 @@ FactoryBot.define do
     referred_service { 'uk' }
   end
 
+  trait :with_meursing_commodity do
+    commodity_code { '0103921100' }
+    commodity_source { 'xi' }
+    referred_service { 'xi' }
+  end
+
+  trait :with_non_meursing_commodity do
+    commodity_code { '0702000007' }
+    commodity_source { 'xi' }
+    referred_service { 'xi' }
+  end
+
   trait :with_import_date do
     import_date { '2025-01-01' }
   end
@@ -114,6 +126,11 @@ FactoryBot.define do
     end
   end
 
+  trait :with_eu_to_ni_route do
+    import_destination { 'XI' }
+    country_of_origin { 'PL' }
+  end
+
   trait :with_gb_to_ni_route do
     import_destination { 'XI' }
     country_of_origin { 'GB' }
@@ -128,6 +145,16 @@ FactoryBot.define do
   trait :with_row_to_gb_route do
     import_destination { 'UK' }
     country_of_origin { 'AR' }
+  end
+
+  trait :with_eu_to_gb_route do
+    import_destination { 'UK' }
+    country_of_origin { 'PL' }
+  end
+
+  trait :with_ni_to_gb_route do
+    import_destination { 'UK' }
+    country_of_origin { 'XI' }
   end
 
   trait :with_document_codes do
