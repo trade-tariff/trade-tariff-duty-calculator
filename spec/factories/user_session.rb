@@ -117,6 +117,10 @@ FactoryBot.define do
     end
   end
 
+  trait :with_meursing_additional_code do
+    meursing_additional_code { '000' }
+  end
+
   trait :with_excise_additional_codes do
     excise do
       {

@@ -142,6 +142,7 @@ en:
     annual_turnover: Annual turnover
     planned_processing: Processing
     certificate_of_origin: Certificate of origin
+    meursing_additional_code: Meursing Code
     customs_value: Customs value
     measure_amount: Import quantity
     additional_code: Additional code(s)

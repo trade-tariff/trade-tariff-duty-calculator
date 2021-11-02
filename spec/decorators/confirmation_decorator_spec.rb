@@ -28,6 +28,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
       :with_measure_amount,
       :with_additional_codes,
       :with_excise_additional_codes,
+      :with_meursing_additional_code,
       :with_vat,
       :with_document_codes,
     )
@@ -47,6 +48,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
           annual_turnover
           planned_processing
           certificate_of_origin
+          meursing_additional_code
           customs_value
           measure_amount
           excise
@@ -68,6 +70,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
         { key: 'annual_turnover', label: 'Annual turnover', value: '£500,000 or more' },
         { key: 'planned_processing', label: 'Processing', value: 'Commercial purposes' },
         { key: 'certificate_of_origin', label: 'Certificate of origin', value: 'Yes' },
+        { key: 'meursing_additional_code', label: 'Meursing Code', value: '000' },
         { key: 'customs_value', label: 'Customs value', value: '£1,200.00' },
         { key: 'measure_amount', label: 'Import quantity', value: '100 x 100 kg' },
         { key: 'excise', label: 'Excise additional code', value: '444, 369' },

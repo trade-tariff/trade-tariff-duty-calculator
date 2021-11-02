@@ -13,6 +13,7 @@ class ConfirmationDecorator < SimpleDelegator
     annual_turnover
     planned_processing
     certificate_of_origin
+    meursing_additional_code
     customs_value
     measure_amount
     excise
@@ -31,6 +32,7 @@ class ConfirmationDecorator < SimpleDelegator
     return additional_codes_path(applicable_measure_type_ids.first) if key == 'additional_code'
     return document_codes_path(document_codes_applicable_measure_type_ids.first) if key == 'document_code'
     return excise_path(applicable_excise_measure_type_ids.first) if key == 'excise'
+    return meursing_additional_codes_path if key == 'meursing_additional_code'
 
     send("#{key}_path")
   end
