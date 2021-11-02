@@ -17,6 +17,7 @@ module Steps
     end
 
     def previous_step_path
+      return annual_turnover_path if user_session.annual_turnover == 'yes'
       return planned_processing_path if user_session.planned_processing.present? && user_session.acceptable_processing?
 
       interstitial_path

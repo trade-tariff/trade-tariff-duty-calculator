@@ -32,7 +32,7 @@ RSpec.describe Steps::MeursingAdditionalCode, :step, :user_session do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:meursing_additional_code]).to eq(['Specify a valid 3 digit meursing additional code'])
+        expect(step.errors.messages[:meursing_additional_code]).to eq(['Specify a valid 3-digit Meursing additional code'])
       end
     end
   end
@@ -50,6 +50,12 @@ RSpec.describe Steps::MeursingAdditionalCode, :step, :user_session do
   end
 
   describe '#previous_step_path' do
+    context 'when annual_turnover is less than 500k' do
+      let(:user_session) { build(:user_session, :with_small_turnover) }
+
+      it { expect(step.previous_step_path).to eq(annual_turnover_path) }
+    end
+
     context 'when the planned processing is acceptable' do
       let(:user_session) { build(:user_session, planned_processing: 'without_any_processing') }
 

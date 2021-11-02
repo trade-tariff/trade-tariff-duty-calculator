@@ -13,11 +13,7 @@ module Steps
     private
 
     def meursing_additional_code_params
-      if params[:steps_meursing_additional_code].present?
-        params.require(:steps_meursing_additional_code).permit(:meursing_additional_code)
-      else
-        {}
-      end
+      params.fetch(:steps_meursing_additional_code, {}).permit(:meursing_additional_code)
     end
   end
 end

@@ -64,16 +64,10 @@ RSpec.describe Steps::CertificateOfOrigin, :step, :user_session do
       it { expect(step.next_step_path).to eq(duty_path) }
     end
 
-    context 'when there is no certificate of origin and no applicable meursing codes' do
-      let(:user_session) { build(:user_session, :with_gb_to_ni_route, :with_non_meursing_commodity, certificate_of_origin: 'no') }
+    context 'when there is no certificate of origin' do
+      let(:user_session) { build(:user_session, :with_gb_to_ni_route, certificate_of_origin: 'no') }
 
-      it { expect(step.next_step_path).to eq(customs_value_path) }
-    end
-
-    context 'when there is no certificate of origin and applicable meursing codes' do
-      let(:user_session) { build(:user_session, :with_gb_to_ni_route, :with_meursing_commodity, certificate_of_origin: 'no') }
-
-      it { expect(step.next_step_path).to eq(meursing_additional_codes_path) }
+      it { expect(step.next_step_path).to eq(interstitial_path) }
     end
   end
 

@@ -104,8 +104,13 @@ en:
 
   interstitial:
     gb_to_ni:
-      heading: Duties apply to this import
-      body: As this commodity attracts a trade defence measure, imports of this commodity are treated as 'at risk' under all circumstances.
+      trade_defence:
+        heading: EU duties apply to this import
+        body: As this commodity attracts a trade defence measure, imports of this commodity are treated as 'at risk' under all circumstances.
+      certificate_of_origin:
+        heading: EU duties apply to this import
+        body: As you have no valid proof of origin, imports of this commodity are subject to EU import duties.
+
     row_to_ni:
       trade_defence:
         heading: EU duties apply to this import
@@ -223,7 +228,7 @@ en:
         steps/meursing_additional_code:
           attributes:
             meursing_additional_code:
-              invalid: Specify a valid 3 digit meursing additional code
+              invalid: Specify a valid 3-digit Meursing additional code
         steps/customs_value:
           attributes:
             monetary_value:

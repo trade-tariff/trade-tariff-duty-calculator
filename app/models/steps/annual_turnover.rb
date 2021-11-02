@@ -33,6 +33,7 @@ module Steps
     end
 
     def next_step_for_row_to_ni
+      return meursing_additional_codes_path if user_session.annual_turnover == 'yes' && applicable_meursing_codes?
       return customs_value_path if user_session.annual_turnover == 'yes'
 
       planned_processing_path
