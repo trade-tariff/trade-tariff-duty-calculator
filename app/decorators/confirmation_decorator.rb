@@ -27,13 +27,6 @@ class ConfirmationDecorator < SimpleDelegator
   end
 
   def path_for(key:)
-    return import_date_path(referred_service: user_session.referred_service, commodity_code: user_session.commodity_code) if key == 'import_date'
-
-    return additional_codes_path(applicable_measure_type_ids.first) if key == 'additional_code'
-    return document_codes_path(document_codes_applicable_measure_type_ids.first) if key == 'document_code'
-    return excise_path(applicable_excise_measure_type_ids.first) if key == 'excise'
-    return meursing_additional_codes_path if key == 'meursing_additional_code'
-
     send("#{key}_path")
   end
 
@@ -53,27 +46,41 @@ class ConfirmationDecorator < SimpleDelegator
 
   attr_reader :commodity
 
+  def import_date_path
+    super(referred_service: user_session.referred_service, commodity_code: user_session.commodity_code)
+  end
+
+  def additional_code_path
+    additional_codes_path(applicable_measure_type_ids.first)
+  end
+
+  def document_code_path
+    document_codes_path(document_codes_applicable_measure_type_ids.first)
+  end
+
+  def excise_path
+    excise_path(applicable_excise_measure_type_ids.first)
+  end
+
+  def meursing_additional_code_path
+    meursing_additional_codes_path
+  end
+
   def format_value_for(key)
     value = session_answers[key]
 
-    return format_import_date(value) if key == 'import_date'
-    return format_customs_value(value) if key == 'customs_value'
-    return format_measure_amount(value) if key == 'measure_amount'
-    return country_name_for(value, key) if %w[import_destination country_of_origin].include?(key)
-    return annual_turnover(value) if key == 'annual_turnover'
-    return additional_codes_for(value) if key == 'additional_code'
-    return document_codes_for(value) if key == 'document_code'
-    return excise_for(value) if key == 'excise'
-    return vat_label(value) if key == 'vat'
-
-    value.humanize
+    if respond_to?("format_#{key}", true)
+      send("format_#{key}", value, key)
+    else
+      value.humanize
+    end
   end
 
   def session_answers
     @session_answers ||= user_session.session['answers']
   end
 
-  def format_measure_amount(value)
+  def format_measure_amount(value, _key)
     return if commodity.applicable_measure_units.blank?
 
     value.map { |k, v| "#{v} #{applicable_measure_units[k.upcase]['unit']}" }
@@ -81,15 +88,15 @@ class ConfirmationDecorator < SimpleDelegator
          .html_safe
   end
 
-  def format_customs_value(_value)
+  def format_customs_value(_value, _key)
     number_to_currency(user_session.total_amount)
   end
 
-  def format_import_date(value)
+  def format_import_date(value, _key)
     I18n.l(Date.parse(value))
   end
 
-  def country_name_for(value, key)
+  def format_country_name(value, key)
     return Steps::ImportDestination::OPTIONS.find { |c| c.id == value }.name if key == 'import_destination'
 
     value = user_session.other_country_of_origin if value == 'OTHER'
@@ -97,33 +104,32 @@ class ConfirmationDecorator < SimpleDelegator
     Api::GeographicalArea.build(user_session.import_destination.downcase.to_sym, value.upcase).description
   end
 
-  def annual_turnover(value)
+  alias_method :format_import_destination, :format_country_name
+  alias_method :format_country_of_origin, :format_country_name
+
+  def format_annual_turnover(value, _key)
     return 'Less than £500,000' if value == 'yes'
 
     '£500,000 or more'
   end
 
-  def vat_label(value)
+  def format_vat(value, _key)
     applicable_vat_options[value]
   end
 
-  def additional_codes_for(value)
+  def format_additional_code(value, _key)
     return nil unless value.values.any? { |v| v.values.compact.present? }
 
     user_session.additional_codes
   end
 
-  def excise_for(value)
+  def format_excise(value, _key)
     return nil unless value.values.any?
 
-    excise_additional_codes
-  end
-
-  def excise_additional_codes
     user_session.excise_additional_code.values.join(', ')
   end
 
-  def document_codes_for(_answer)
+  def format_document_code(_value, _key)
     return nil if user_session.document_code_uk.empty? && user_session.document_code_xi.empty?
     return document_codes.uniq.sort.join(', ') if document_codes.present?
 
