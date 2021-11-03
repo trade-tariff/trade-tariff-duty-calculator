@@ -121,9 +121,12 @@ en:
       final_use:
         heading: EU duties apply to this import
         body: As your goods are not for final use in Northern Ireland, imports of this commodity are treated as 'at risk'.
-      no_commercial_purposes:
+      commercial_purposes:
         heading: EU duties apply to this import
         body: As your goods are subject to commercial processing, imports of this commodity are treated as 'at risk'.
+    fallback:
+      heading: Oops. You were not meant to get here
+      body: Please give feedback %{link}
   final_use:
     row_to_ni:
       heading: Are your goods for sale to, or final use by, end-consumers located in Northern Ireland?

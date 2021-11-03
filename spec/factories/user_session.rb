@@ -55,11 +55,19 @@ FactoryBot.define do
   end
 
   trait :with_trader_scheme do
+    trader_scheme { 'yes' }
+  end
+
+  trait :without_trader_scheme do
     trader_scheme { 'no' }
   end
 
   trait :with_certificate_of_origin do
     certificate_of_origin { 'yes' }
+  end
+
+  trait :without_certificate_of_origin do
+    certificate_of_origin { 'no' }
   end
 
   trait :with_small_turnover do
@@ -74,6 +82,10 @@ FactoryBot.define do
     planned_processing { 'commercial_purposes' }
   end
 
+  trait :with_unacceptable_processing do
+    planned_processing { 'commercial_purposes' }
+  end
+
   trait :with_customs_value do
     customs_value { { 'monetary_value' => '1200' } }
   end
@@ -84,6 +96,18 @@ FactoryBot.define do
 
   trait :with_retail_price_measure_amount do
     measure_amount { { 'ret' => '1000' } }
+  end
+
+  trait :with_trade_defence do
+    trade_defence { true }
+  end
+
+  trait :with_final_use do
+    final_use { 'yes' }
+  end
+
+  trait :without_final_use do
+    final_use { 'no' }
   end
 
   trait :deltas_applicable do
