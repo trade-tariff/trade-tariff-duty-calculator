@@ -1,6 +1,6 @@
 <%= render 'steps/shared/back_link' %>
 
-<%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: additional_codes_path do |f| %>
+<%= form_for @step, url: additional_codes_path do |f| %>
   <%= f.govuk_error_summary %>
   <span class="govuk-caption-xl">Calculate import duties</span>
   <h1 class="govuk-heading-xl">Describe your goods in more detail</h1>
