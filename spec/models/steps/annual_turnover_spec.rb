@@ -65,10 +65,16 @@ RSpec.describe Steps::AnnualTurnover, :step, :user_session do
       it { expect(step.next_step_path).to eq(planned_processing_path) }
     end
 
-    context 'when annual_turnover is less than 500k and on the row to ni route' do
-      let(:user_session) { build(:user_session, :with_row_to_ni_route, :with_small_turnover) }
+    context 'when annual_turnover is less than 500k and on the row to ni route with no meursing codes' do
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, :with_small_turnover, :with_non_meursing_commodity) }
 
       it { expect(step.next_step_path).to eq(customs_value_path) }
+    end
+
+    context 'when annual_turnover is less than 500k and on the row to ni route with meursing codes' do
+      let(:user_session) { build(:user_session, :with_row_to_ni_route, :with_small_turnover, :with_meursing_commodity) }
+
+      it { expect(step.next_step_path).to eq(meursing_additional_codes_path) }
     end
 
     context 'when annual_turnover is more than 500k and on the row to ni route' do

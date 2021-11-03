@@ -18,6 +18,7 @@ RSpec.describe UserSession do
   it_behaves_like 'a user session attribute', :certificate_of_origin, 'yes'
   it_behaves_like 'a user session attribute', :planned_processing, 'commercial_processing'
   it_behaves_like 'a user session attribute', :vat, 'VATZ'
+  it_behaves_like 'a user session attribute', :meursing_additional_code, '000'
 
   it_behaves_like 'a user session dual route attribute', :document_code, { '142' => 'N851', '353' => 'Y929' }
   it_behaves_like 'a user session dual route attribute', :additional_code, { '142' => '2340', '353' => '2601' }
@@ -374,6 +375,28 @@ RSpec.describe UserSession do
 
       it { is_expected.not_to be_deltas_applicable }
     end
+  end
+
+  describe '#meursing_route?' do
+    shared_examples_for 'a meursing route' do |route_trait|
+      subject(:user_session) { build(:user_session, route_trait) }
+
+      it { is_expected.to be_meursing_route }
+    end
+
+    shared_examples_for 'a non-meursing route' do |route_trait|
+      subject(:user_session) { build(:user_session, route_trait) }
+
+      it { is_expected.not_to be_meursing_route }
+    end
+
+    it_behaves_like 'a meursing route', :with_gb_to_ni_route
+    it_behaves_like 'a meursing route', :with_row_to_ni_route
+
+    it_behaves_like 'a non-meursing route', :with_eu_to_ni_route
+    it_behaves_like 'a non-meursing route', :with_eu_to_gb_route
+    it_behaves_like 'a non-meursing route', :with_row_to_gb_route
+    it_behaves_like 'a non-meursing route', :with_ni_to_gb_route
   end
 
   describe '#import_into_gb?' do

@@ -29,6 +29,8 @@ module Api
                :heading,
                :ancestors
 
+    alias_method :meursing_code?, :meursing_code
+
     def description
       super.html_safe
     end

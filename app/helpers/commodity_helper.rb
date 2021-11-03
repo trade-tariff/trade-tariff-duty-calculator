@@ -22,6 +22,10 @@ module CommodityHelper
     commodity_context_service.call(commodity_source, commodity_code, query)
   end
 
+  def applicable_meursing_codes?
+    xi_filtered_commodity.meursing_code?
+  end
+
   def applicable_additional_codes
     @applicable_additional_codes ||=
       {}.tap do |additional_codes|

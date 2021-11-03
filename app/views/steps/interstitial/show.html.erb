@@ -3,7 +3,11 @@
 <span class="govuk-caption-xl">Calculate import duties</span>
 
 <% if user_session.gb_to_ni_route? %>
-  <%= render partial: 'steps/interstitial/shared/context', locals: { heading: t('interstitial.gb_to_ni.heading'), body: t('interstitial.gb_to_ni.body') } %>
+  <% if user_session.trade_defence? %>
+  <%= render partial: 'steps/interstitial/shared/context', locals: { heading: t('interstitial.gb_to_ni.trade_defence.heading'), body: t('interstitial.gb_to_ni.trade_defence.body') } %>
+  <% else %>
+  <%= render partial: 'steps/interstitial/shared/context', locals: { heading: t('interstitial.gb_to_ni.certificate_of_origin.heading'), body: t('interstitial.gb_to_ni.certificate_of_origin.body') } %>
+  <% end %>
 <% elsif user_session.row_to_ni_route? %>
   <% if user_session.trade_defence %>
     <%= render partial: 'steps/interstitial/shared/context', locals: { heading: t('interstitial.row_to_ni.trade_defence.heading'), body: t('interstitial.row_to_ni.trade_defence.body') } %>

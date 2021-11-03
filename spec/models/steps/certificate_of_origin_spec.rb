@@ -58,28 +58,16 @@ RSpec.describe Steps::CertificateOfOrigin, :step, :user_session do
   end
 
   describe '#next_step_path' do
-    context 'when there is a certificate of origin available' do
-      let(:session_attributes) { { 'certificate_of_origin' => 'yes' } }
+    context 'when there is a certificate of origin' do
+      let(:user_session) { build(:user_session, :with_gb_to_ni_route, certificate_of_origin: 'yes') }
 
-      it 'returns duty_path' do
-        expect(
-          step.next_step_path,
-        ).to eq(
-          duty_path,
-        )
-      end
+      it { expect(step.next_step_path).to eq(duty_path) }
     end
 
-    context 'when there is no certificate of origin available' do
-      let(:session_attributes) { { 'certificate_of_origin' => 'no' } }
+    context 'when there is no certificate of origin' do
+      let(:user_session) { build(:user_session, :with_gb_to_ni_route, certificate_of_origin: 'no') }
 
-      it 'returns customs_value_path' do
-        expect(
-          step.next_step_path,
-        ).to eq(
-          customs_value_path,
-        )
-      end
+      it { expect(step.next_step_path).to eq(interstitial_path) }
     end
   end
 
@@ -87,13 +75,7 @@ RSpec.describe Steps::CertificateOfOrigin, :step, :user_session do
     context 'when final use answer is NO' do
       let(:session_attributes) { { 'final_use' => 'no' } }
 
-      it 'returns final_use_path' do
-        expect(
-          step.previous_step_path,
-        ).to eq(
-          final_use_path,
-        )
-      end
+      it { expect(step.previous_step_path).to eq(final_use_path) }
     end
 
     context 'when trader scheme answer is NO' do
@@ -101,13 +83,7 @@ RSpec.describe Steps::CertificateOfOrigin, :step, :user_session do
         { 'trader_scheme' => 'no' }
       end
 
-      it 'returns trader_scheme_path' do
-        expect(
-          step.previous_step_path,
-        ).to eq(
-          trader_scheme_path,
-        )
-      end
+      it { expect(step.previous_step_path).to eq(trader_scheme_path) }
     end
 
     context 'when planned processing answer is commercial_purposes' do
@@ -117,13 +93,7 @@ RSpec.describe Steps::CertificateOfOrigin, :step, :user_session do
         }
       end
 
-      it 'returns planned_processing_path' do
-        expect(
-          step.previous_step_path,
-        ).to eq(
-          planned_processing_path,
-        )
-      end
+      it { expect(step.previous_step_path).to eq(planned_processing_path) }
     end
   end
 end

@@ -190,7 +190,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
       ]
     end
 
-    it 'returns the correct additonal code options for the given measure' do
+    it 'returns the correct additional code options for the given measure' do
       expect(step.options_for_select_for(source: 'uk')).to eq(expected_options)
     end
   end

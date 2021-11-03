@@ -35,6 +35,7 @@ en:
     final_use: Are your goods for final use in the UK - Online Tariff Duty calculator
     import_date: When will the good be imported - Online Tariff Duty calculator
     confirmation: Check your answers - Online Tariff Duty calculator
+    meursing_additional_code: Enter a 'Meursing Code' for this commodity - Online Tariff Duty calculator
     customs_value: What is the customs value of this import - Online Tariff Duty calculator
     document_code: Do you have any of the following documents - Online Tariff Duty Calculator
     trader_scheme: Are you authorised under the UK Trader Scheme - Online Tariff Duty calculator
@@ -103,8 +104,13 @@ en:
 
   interstitial:
     gb_to_ni:
-      heading: Duties apply to this import
-      body: As this commodity attracts a trade defence measure, imports of this commodity are treated as 'at risk' under all circumstances.
+      trade_defence:
+        heading: EU duties apply to this import
+        body: As this commodity attracts a trade defence measure, imports of this commodity are treated as 'at risk' under all circumstances.
+      certificate_of_origin:
+        heading: EU duties apply to this import
+        body: As you have no valid proof of origin, imports of this commodity are subject to EU import duties.
+
     row_to_ni:
       trade_defence:
         heading: EU duties apply to this import
@@ -187,6 +193,11 @@ en:
     commercial_purposes:
       label_text_html: >
         The goods will be processed for <strong>commercial purposes other than those listed above</strong>
+  meursing_additional_code:
+    link_text: Meursing code finder (opens in new tab)
+    hint_text: >
+      If you know the additional code for your commodity, enter it in the box below. If you do not know the code, then use the %{link} to find the additional code.
+
   activemodel:
     errors:
       models:
@@ -214,6 +225,10 @@ en:
           attributes:
             certificate_of_origin:
               blank: Select one of the two options
+        steps/meursing_additional_code:
+          attributes:
+            meursing_additional_code:
+              invalid: Specify a valid 3-digit Meursing additional code
         steps/customs_value:
           attributes:
             monetary_value:

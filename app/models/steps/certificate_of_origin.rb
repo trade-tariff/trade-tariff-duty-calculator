@@ -22,7 +22,7 @@ module Steps
     def next_step_path
       return duty_path if user_session.certificate_of_origin == 'yes'
 
-      customs_value_path
+      interstitial_path
     end
 
     def previous_step_path

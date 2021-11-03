@@ -2,8 +2,6 @@ module Steps
   class Excise < Steps::Base
     DISABLED_ADDITIONAL_CODES = %w[440 441].freeze
 
-    include CommodityHelper
-
     attribute :measure_type_id, :string
     attribute :additional_code, :string
 

@@ -14,7 +14,8 @@ class UserSession
                     :planned_processing,
                     :customs_value,
                     :measure_amount,
-                    :vat
+                    :vat,
+                    :meursing_additional_code
 
   non_answer_attributes :commodity_code,
                         :commodity_source,
@@ -191,6 +192,10 @@ class UserSession
       trader_scheme? &&
       final_use_in_ni? &&
       small_turnover_or_non_commercial_purposes?
+  end
+
+  def meursing_route?
+    gb_to_ni_route? || row_to_ni_route?
   end
 
   def import_into_gb?

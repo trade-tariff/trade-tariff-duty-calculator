@@ -39,12 +39,22 @@ module ServiceHelper
     @trade_tariff_frontend_url ||= Rails.configuration.trade_tariff_frontend_url
   end
 
+  def meursing_lookup_url
+    xi_only_service_url_for('/meursing_lookup/steps/start')
+  end
+
   private
 
-  def service_url_for(relative_path)
+  def service_url_for(path)
     return '#' if trade_tariff_frontend_url.blank?
 
-    File.join(trade_tariff_frontend_url, referred_service_url, relative_path)
+    File.join(trade_tariff_frontend_url, referred_service_url, path)
+  end
+
+  def xi_only_service_url_for(path)
+    return '#' if trade_tariff_frontend_url.blank?
+
+    File.join(trade_tariff_frontend_url, 'xi', path)
   end
 
   def referred_service_url

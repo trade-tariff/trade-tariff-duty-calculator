@@ -55,56 +55,37 @@ RSpec.describe Steps::PlannedProcessing, :step, :user_session do
       context 'when the answer is not commercial_purposes' do
         let(:answer) { 'without_any_processing' }
 
-        it 'returns duty_path' do
-          expect(
-            step.next_step_path,
-          ).to eq(
-            duty_path,
-          )
-        end
+        it { expect(step.next_step_path).to eq(duty_path) }
       end
 
       context 'when the answer is commercial_purposes' do
         let(:answer) { 'commercial_purposes' }
 
-        it 'returns certificate_of_origin_path' do
-          expect(
-            step.next_step_path,
-          ).to eq(
-            certificate_of_origin_path,
-          )
-        end
+        it { expect(step.next_step_path).to eq(certificate_of_origin_path) }
       end
     end
 
     context 'when on RoW to NI route' do
-      shared_examples_for 'a step with a next step as customs' do |answer|
-        let(:session_attributes) do
-          {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'OTHER',
-            'other_country_of_origin' => 'AR',
-            'planned_processing' => answer,
-          }
-        end
+      shared_examples_for 'a step with a next step as customs_value' do |answer, meursing_trait|
+        let(:user_session) { build(:user_session, meursing_trait, :with_row_to_ni_route, planned_processing: answer) }
 
         it { expect(step.next_step_path).to eq(customs_value_path) }
       end
 
-      it_behaves_like 'a step with a next step as customs', 'commercial_processing'
-      it_behaves_like 'a step with a next step as customs', 'without_any_processing'
+      shared_examples_for 'a step with a next step as meursing_additional_codes' do |answer, meursing_trait|
+        let(:user_session) { build(:user_session, meursing_trait, :with_row_to_ni_route, planned_processing: answer) }
+
+        it { expect(step.next_step_path).to eq(meursing_additional_codes_path) }
+      end
+
+      it_behaves_like 'a step with a next step as customs_value', 'commercial_processing', :with_non_meursing_commodity
+      it_behaves_like 'a step with a next step as customs_value', 'without_any_processing', :with_non_meursing_commodity
+
+      it_behaves_like 'a step with a next step as meursing_additional_codes', 'commercial_processing', :with_meursing_commodity
+      it_behaves_like 'a step with a next step as meursing_additional_codes', 'without_any_processing', :with_meursing_commodity
 
       context 'when the answer is commercial_purposes' do
-        let(:answer) { 'commercial_purposes' }
-
-        let(:session_attributes) do
-          {
-            'import_destination' => 'XI',
-            'country_of_origin' => 'OTHER',
-            'other_country_of_origin' => 'AR',
-            'planned_processing' => answer,
-          }
-        end
+        let(:user_session) { build(:user_session, planned_processing: 'commercial_purposes') }
 
         it { expect(step.next_step_path).to eq(interstitial_path) }
       end

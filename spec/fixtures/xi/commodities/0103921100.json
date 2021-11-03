@@ -9527,7 +9527,7 @@
   "consigned": false,
   "consigned_from": null,
   "basic_duty_rate": "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>",
-  "meursing_code": false,
+  "meursing_code": true,
   "declarable": true,
   "footnotes": [
     {

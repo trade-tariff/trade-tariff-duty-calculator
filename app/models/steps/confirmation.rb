@@ -1,7 +1,5 @@
 module Steps
   class Confirmation < Steps::Base
-    include CommodityHelper
-
     def next_step_path
       duty_path
     end

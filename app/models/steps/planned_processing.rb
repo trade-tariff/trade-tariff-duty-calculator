@@ -38,6 +38,7 @@ module Steps
 
     def next_step_for_row_to_ni
       return interstitial_path if user_session.unacceptable_processing?
+      return meursing_additional_codes_path if user_session.acceptable_processing? && applicable_meursing_codes?
 
       customs_value_path
     end

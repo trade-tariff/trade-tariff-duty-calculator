@@ -1,7 +1,5 @@
 module Steps
   class CustomsValue < Steps::Base
-    include CommodityHelper
-
     STEPS_TO_REMOVE_FROM_SESSION = %w[additional_code document_code excise].freeze
 
     attribute :monetary_value, :string
@@ -49,15 +47,16 @@ module Steps
 
     def previous_step_path
       return previous_step_for_gb_to_ni if user_session.gb_to_ni_route?
-      return country_of_origin_path if user_session.row_to_gb_route?
+      return previous_step_for_row_to_ni if user_session.row_to_ni_route?
 
-      previous_step_for_row_to_ni
+      country_of_origin_path
     end
 
     private
 
     def previous_step_for_gb_to_ni
-      return interstitial_path if user_session.trade_defence
+      return meursing_additional_codes_path if applicable_meursing_codes?
+      return interstitial_path if user_session.trade_defence || user_session.certificate_of_origin == 'no'
 
       certificate_of_origin_path
     end
@@ -65,6 +64,7 @@ module Steps
     def previous_step_for_row_to_ni
       return country_of_origin_path if user_session.zero_mfn_duty
 
+      return meursing_additional_codes_path if applicable_meursing_codes?
       return planned_processing_path if user_session.planned_processing.present?
       return annual_turnover_path if user_session.annual_turnover.present?
       return final_use_path if user_session.final_use == 'no'
