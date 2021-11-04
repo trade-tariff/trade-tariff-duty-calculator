@@ -254,6 +254,7 @@ workflows:
             branches:
               ignore:
                 - master
+                - main
       - build:
           name: build_dev
           context: trade-tariff
@@ -266,6 +267,7 @@ workflows:
             branches:
               ignore:
                 - master
+                - main
           requires:
             - build_dev
       - build:
@@ -275,12 +277,14 @@ workflows:
             branches:
               only:
                 - master
+                - main
       - deploy_staging:
           context: trade-tariff
           filters:
             branches:
               only:
                 - master
+                - main
           requires:
             - build_live
       - cypress:
@@ -288,6 +292,7 @@ workflows:
             branches:
               only:
                 - master
+                - main
           requires:
             - deploy_staging
       - hold_production:
@@ -296,6 +301,7 @@ workflows:
             branches:
               only:
                 - master
+                - main
           requires:
             - deploy_staging
       - deploy_production:
@@ -304,5 +310,6 @@ workflows:
             branches:
               only:
                 - master
+                - main
           requires:
             - hold_production
