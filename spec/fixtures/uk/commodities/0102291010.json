@@ -19,7 +19,8 @@
       "applicable_vat_options": {
         "VATR": "VAT reduced rate 5% (5.0)"
       },
-      "applicable_additional_codes": { },
+      "applicable_additional_codes": {
+      },
       "meursing_code": false
     }
   },
@@ -43,6 +44,9 @@
         "id": "VTZ"
       },
       "legal_acts": [
+
+      ],
+      "resolved_measure_components": [
 
       ],
       "measure_conditions": [
@@ -1170,7 +1174,8 @@
           "formatted_description": "UK VAT zero rate"
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_duty_expression": ""
     },
     {
       "id": 3717655,
@@ -2372,7 +2377,11 @@
           "formatted_description": "The entry into free circulation of live animals is subject to the presentation of a Common Health Entry Document for live animals (CHED-A) in accordance with the conditions laid down in article 40 of the Commission Implementing Regulation (EU) 2019/1715 of 30 September 2019 laying down rules for the functioning of the information management system for official controls and its system components (‘the IMSOC Regulation’)."
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "id": 3211138,
@@ -3543,7 +3552,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "id": 2982600,
@@ -4695,7 +4708,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "id": 3288801,
@@ -5873,7 +5890,11 @@
           "formatted_description": "Declaration under this goods code is only allowed if the threshold values (net weight/supplementary unit or value/net weight or value/supplementary unit) are respected. If not, check the respective values and correct if necessary. Otherwise, another goods code should be declared."
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "id": 3522473,
@@ -7086,7 +7107,11 @@
           "formatted_description": "If goods bear a reference to organic production in the labelling, advertising or accompanying documents, the declarant has to present the certificate of inspection C644 as referred to in the Article 33(1)(d) of the Regulation (EC) No 834/2007 (equivalent products). If the goods are not equivalent products, code Y929 must be declared.<br/>Without prejudice to any measures or actions taken in accordance with Article 30 of Regulation (EC) No 834/2007 and/or Article 85 of Regulation (EC) No 889/2008, the release for free circulation in the Community of products not in conformity with the requirements of that Regulation shall be conditional on the removal of references to organic production from the labelling, advertising and accompanying documents.<br/>"
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "id": 3822121,
@@ -7146,7 +7171,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     }
   ],
   "export_measures": [
@@ -8300,7 +8329,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "id": 3288801,
@@ -9478,7 +9511,11 @@
           "formatted_description": "Declaration under this goods code is only allowed if the threshold values (net weight/supplementary unit or value/net weight or value/supplementary unit) are respected. If not, check the respective values and correct if necessary. Otherwise, another goods code should be declared."
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     }
   ],
   "producline_suffix": "80",
