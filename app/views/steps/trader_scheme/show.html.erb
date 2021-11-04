@@ -1,6 +1,6 @@
 <%= link_to('Back', @step.previous_step_path, class: "govuk-back-link") %>
 
-<%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: trader_scheme_path do |f| %>
+<%= form_for @step, url: trader_scheme_path do |f| %>
   <%= f.govuk_error_summary %>
   <span class="govuk-caption-xl">Calculate import duties</span>
 

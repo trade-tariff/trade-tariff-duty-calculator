@@ -2,7 +2,7 @@
 
 <span class="govuk-caption-xl">Calculate import duties</span>
 
-<%= form_for @step, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: meursing_additional_codes_path do |f| %>
+<%= form_for @step, url: meursing_additional_codes_path do |f| %>
   <%= f.govuk_error_summary %>
 
   <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
