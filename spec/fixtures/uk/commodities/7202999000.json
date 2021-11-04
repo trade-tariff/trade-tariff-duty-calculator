@@ -80,14 +80,21 @@
         "id": "5050",
         "description": "Countries subject to UK safeguard measures",
         "geographical_area_id": "5050",
-        "children_geographical_areas": [ ]
+        "children_geographical_areas": [
+
+        ]
       },
       "excluded_countries": [
+
       ],
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -152,7 +159,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -210,7 +221,9 @@
         "id": "1011",
         "description": "ERGA OMNES",
         "geographical_area_id": "1011",
-        "children_geographical_areas": []
+        "children_geographical_areas": [
+
+        ]
       },
       "excluded_countries": [
         {
@@ -236,7 +249,11 @@
         "code": "C490",
         "description": "COFCO International Argentina S.A.",
         "formatted_description": "COFCO International Argentina S.A."
-      }
+      },
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -273,6 +290,7 @@
         }
       ],
       "measure_conditions": [
+
       ],
       "measure_components": [
         {
@@ -287,23 +305,32 @@
         }
       ],
       "national_measurement_units": [
+
       ],
       "geographical_area": {
         "id": "1011",
         "description": "ERGA OMNES",
         "geographical_area_id": "1011",
-        "children_geographical_areas": [ ]
+        "children_geographical_areas": [
+
+        ]
       },
       "excluded_countries": [
+
       ],
       "footnotes": [
+
       ],
       "order_number": {
         "number": "054003",
         "definition": null
-      }
+      },
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
-     {
+    {
       "meta": {
         "duty_calculator": {
           "source": "uk"
@@ -1675,7 +1702,11 @@
           "formatted_description": "If goods bear a reference to organic production in the labelling, advertising or accompanying documents, the declarant has to present the certificate of inspection C644 as referred to in the Article 33(1)(d) of the Regulation (EC) No 834/2007 (equivalent products). If the goods are not equivalent products, code Y929 must be declared.<br>Without prejudice to any measures or actions taken in accordance with Article 30 of Regulation (EC) No 834/2007 and/or Article 85 of Regulation (EC) No 889/2008, the release for free circulation in the Community of products not in conformity with the requirements of that Regulation shall be conditional on the removal of references to organic production from the labelling, advertising and accompanying documents.<br>"
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -3047,7 +3078,11 @@
           "formatted_description": "1. Customs duties shall be suspended in respect of goods intended for incorporation in the ships, boats or other vessels classified at the following CN codes 8901 10 10; 8901 20 10; 8901 30 10; 8901 90 10; 8902 00 10; 8903 91 10; 8903 92 10; 8904 00 10; 8904 00 91; 8905 10 10; 8905 90 10; 8906 10 00; 8906 90 10 for the purposes of their construction, repair, maintenance or conversion, and in respect of goods intended for fitting to or equipping such ships, boats or other vessels.<br>2. Customs duties shall be suspended in respect of:<br>(a) goods intended for incorporation in drilling or production platforms:<br>(1) fixed, of subheading ex 8430 49, operating in or outside the territorial sea of Member States, or<br>(2) floating or submersible, of subheading 8905 20, for the purposes of their construction, repair, maintenance or conversion, and in respect of goods intended for equipping the said platforms.<br>(b) tubes, pipes, cables and their connection pieces, linking these drilling or production platforms to the mainland.<br>"
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -4200,7 +4235,11 @@
           "formatted_description": "UK VAT standard rate"
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -5366,7 +5405,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -5431,7 +5474,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     }
   ],
   "export_measures": [

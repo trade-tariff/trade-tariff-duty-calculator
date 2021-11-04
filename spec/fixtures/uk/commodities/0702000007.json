@@ -268,7 +268,11 @@
           "formatted_description": "Eligibility to benefit from this preference is subject to the presentation of an origin declaration stating the European Union origin of the goods, in the context of the Canada-European Union Comprehensive Economic and Trade Agreement (CETA)."
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -1600,7 +1604,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -2941,7 +2949,11 @@
         "description": "VAT zero rate",
         "formatted_description": "VAT zero rate"
       },
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -4299,7 +4311,11 @@
           "formatted_description": "Contact Details for lead Government Department are as follows: <P>Fruit and Vegetables conformity controls </P> <P>Horticultural Marketing Inspectorate ( HMI) </P><P>Rural Payments Agency </P><P> Office SCF3 South Core Produce Hall </P><P> Western International Market </P><P>Hayes Road </P><P>Southall</P><P>UB2 5XJ </P><P>Telephone 0845 6073224 </P><P>Email: Peachenquiries<sub>r</sub>pa.gsi.gov.uk"
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -5657,7 +5673,11 @@
           "formatted_description": "Contact Details for lead Government Department are as follows: <P> <P>Plant and Plant products <P>Plant Health and Seeds Inspectorate <P>Defra <P>Foss House , <P>Kings Pool <P>1-2 Peasholme Green <P>York . <P>YO1 7PX <P>Telephone: 01904 455174 <P>Email: planthealth.info<sub>d</sub>efra.gsi.gov.uk"
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -7031,7 +7051,11 @@
           "formatted_description": "If goods bear a reference to organic production in the labelling, advertising or accompanying documents, the declarant has to present the certificate of inspection C644 as referred to in the Article 33(1)(d) of the Regulation (EC) No 834/2007 (equivalent products). If the goods are not equivalent products, code Y929 must be declared.<br>Without prejudice to any measures or actions taken in accordance with Article 30 of Regulation (EC) No 834/2007 and/or Article 85 of Regulation (EC) No 889/2008, the release for free circulation in the Community of products not in conformity with the requirements of that Regulation shall be conditional on the removal of references to organic production from the labelling, advertising and accompanying documents.<br>"
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -7238,7 +7262,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -7370,7 +7398,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -7452,7 +7484,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -7544,7 +7580,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -7846,7 +7886,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -7968,7 +8012,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8033,7 +8081,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8116,7 +8168,11 @@
           "blocking_period_start_date": null,
           "blocking_period_end_date": null
         }
-      }
+      },
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8181,7 +8237,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8246,7 +8306,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8311,7 +8375,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8376,7 +8444,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8441,7 +8513,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8506,7 +8582,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8571,7 +8651,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8636,7 +8720,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8719,7 +8807,11 @@
           "blocking_period_start_date": null,
           "blocking_period_end_date": null
         }
-      }
+      },
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8784,7 +8876,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8849,7 +8945,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8914,7 +9014,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -8970,7 +9074,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9035,7 +9143,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9118,7 +9230,11 @@
           "blocking_period_start_date": null,
           "blocking_period_end_date": null
         }
-      }
+      },
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9201,7 +9317,11 @@
           "blocking_period_start_date": null,
           "blocking_period_end_date": null
         }
-      }
+      },
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9266,7 +9386,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9349,7 +9473,11 @@
           "blocking_period_start_date": null,
           "blocking_period_end_date": null
         }
-      }
+      },
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9432,7 +9560,11 @@
           "blocking_period_start_date": null,
           "blocking_period_end_date": null
         }
-      }
+      },
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9515,7 +9647,11 @@
           "blocking_period_start_date": null,
           "blocking_period_end_date": null
         }
-      }
+      },
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9580,7 +9716,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9645,7 +9785,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9710,7 +9854,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9775,7 +9923,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9840,7 +9992,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9905,7 +10061,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -9970,7 +10130,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -10035,7 +10199,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -10100,7 +10268,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -10165,7 +10337,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -10230,7 +10406,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -10295,7 +10475,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -10360,7 +10544,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -10425,7 +10613,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -10490,7 +10682,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     },
     {
       "meta": {
@@ -10555,7 +10751,11 @@
       "footnotes": [
 
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     }
   ],
   "export_measures": [
@@ -11915,7 +12115,11 @@
           "formatted_description": "Contact Details for lead Government Department are as follows: <P>Fruit and Vegetables conformity controls </P> <P>Horticultural Marketing Inspectorate ( HMI) </P><P>Rural Payments Agency </P><P> Office SCF3 South Core Produce Hall </P><P> Western International Market </P><P>Hayes Road </P><P>Southall</P><P>UB2 5XJ </P><P>Telephone 0845 6073224 </P><P>Email: Peachenquiries<sub>r</sub>pa.gsi.gov.uk"
         }
       ],
-      "order_number": null
+      "order_number": null,
+      "resolved_measure_components": [
+
+      ],
+      "resolved_duty_expression": ""
     }
   ]
 }
