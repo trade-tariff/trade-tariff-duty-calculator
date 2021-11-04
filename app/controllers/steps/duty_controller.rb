@@ -11,17 +11,17 @@ module Steps
 
     def duty_options
       return nil if user_session.no_duty_to_pay?
-      return DutyCalculator.new(filtered_commodity).options unless user_session.deltas_applicable?
+      return send("#{user_session.commodity_source}_options") unless user_session.deltas_applicable?
 
       RowToNiDutyCalculator.new(uk_options, xi_options).options if user_session.deltas_applicable?
     end
 
     def uk_options
-      @uk_options ||= DutyCalculator.new(filtered_commodity(source: 'uk')).options
+      @uk_options ||= DutyCalculator.new(uk_filtered_commodity).options
     end
 
     def xi_options
-      @xi_options ||= DutyCalculator.new(filtered_commodity(source: 'xi')).options
+      @xi_options ||= DutyCalculator.new(xi_filtered_commodity).options
     end
 
     def title

@@ -1,9 +1,10 @@
 module CommodityHelper
   def filtered_commodity(query: default_filter, source: user_session.commodity_source)
     commodity_source = source || user_session.commodity_source
-    commodity_code = user_session.commodity_code
+    commodity_code   = user_session.commodity_code
+    query            = query.merge(xi_query_params) if source == 'xi'
 
-    commodity_context_service.call(commodity_source, commodity_code, query)
+    commodity_context_service.call(commodity_source, commodity_code, query.merge(xi_query_params))
   end
 
   def uk_filtered_commodity
@@ -11,7 +12,7 @@ module CommodityHelper
   end
 
   def xi_filtered_commodity
-    filtered_commodity(source: 'xi')
+    filtered_commodity(source: 'xi', query: xi_query_params)
   end
 
   def commodity
@@ -125,5 +126,11 @@ module CommodityHelper
     }.slice(
       *Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS,
     )
+  end
+
+  def xi_query_params
+    default_filter.tap do |query|
+      query.merge!('filter[meursing_additional_code_id]' => user_session.meursing_additional_code) if user_session.meursing_additional_code.present?
+    end
   end
 end

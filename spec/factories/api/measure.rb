@@ -122,5 +122,11 @@ FactoryBot.define do
     trait :provisional_anti_dumping do
       measure_type { attributes_for :measure_type, :provisional_anti_dumping }
     end
+
+    trait :with_resolved_duty_expression do
+      resolved_duty_expression do
+        "<span>9.00</span> % <strong>+ <span>0.00</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr></strong> MAX <span>24.20</span> % <strong>+ <span>0.00</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr></strong>"
+      end
+    end
   end
 end
