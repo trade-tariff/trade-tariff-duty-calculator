@@ -203,6 +203,7 @@ RSpec.describe Api::Measure, :user_session do
             'measurement_unit_qualifier_code' => 'R',
           },
         ],
+        'resolved_measure_components' => [],
       )
     end
 
@@ -244,6 +245,7 @@ RSpec.describe Api::Measure, :user_session do
             'measurement_unit_qualifier_code' => nil,
           },
         ],
+        'resolved_measure_components' => [],
       )
     end
 
@@ -327,6 +329,7 @@ RSpec.describe Api::Measure, :user_session do
         'measure_type' => { 'id' => '117' },
         'measure_conditions' => measure_conditions,
         'measure_components' => measure_components,
+        'resolved_measure_components' => resolved_measure_components,
       )
     end
 
@@ -347,10 +350,75 @@ RSpec.describe Api::Measure, :user_session do
         ]
       end
 
+      let(:resolved_measure_components) { [] }
       let(:measure_conditions) { [] }
 
       it 'returns the correct components' do
         expect(measure.applicable_components.as_json).to eq(measure.measure_components.as_json)
+      end
+    end
+
+    context 'when there are only resolved measure components' do
+      let(:measure_components) { [] }
+
+      let(:resolved_measure_components) do
+        [
+          {
+            'duty_expression_id' => '01',
+            'duty_amount' => 0.0,
+            'monetary_unit_code' => nil,
+            'monetary_unit_abbreviation' => nil,
+            'measurement_unit_code' => nil,
+            'duty_expression_description' => '% or amount',
+            'duty_expression_abbreviation' => '%',
+            'measurement_unit_qualifier_code' => nil,
+            'meta' => nil,
+          },
+        ]
+      end
+      let(:measure_conditions) { [] }
+
+      it 'returns the correct components' do
+        expect(measure.applicable_components.as_json).to eq(measure.resolved_measure_components.as_json)
+      end
+    end
+
+    context 'when there are both resolved and standard measure components' do
+      let(:measure_components) do
+        [
+          {
+            'duty_expression_id' => '01',
+            'duty_amount' => 0.0,
+            'monetary_unit_code' => nil,
+            'monetary_unit_abbreviation' => nil,
+            'measurement_unit_code' => nil,
+            'duty_expression_description' => '% or amount',
+            'duty_expression_abbreviation' => '%',
+            'measurement_unit_qualifier_code' => nil,
+            'meta' => nil,
+          },
+        ]
+      end
+
+      let(:resolved_measure_components) do
+        [
+          {
+            'duty_expression_id' => '04',
+            'duty_amount' => 5.6,
+            'monetary_unit_code' => 'EUR',
+            'monetary_unit_abbreviation' => nil,
+            'measurement_unit_code' => 'DTN',
+            'duty_expression_description' => '% or amount',
+            'duty_expression_abbreviation' => '%',
+            'measurement_unit_qualifier_code' => nil,
+            'meta' => nil,
+          },
+        ]
+      end
+      let(:measure_conditions) { [] }
+
+      it 'returns the correct components' do
+        expect(measure.applicable_components.as_json).to eq(measure.resolved_measure_components.as_json)
       end
     end
 
@@ -416,6 +484,7 @@ RSpec.describe Api::Measure, :user_session do
       end
 
       let(:measure_conditions) { [unmatching_condition, matching_condition] }
+      let(:resolved_measure_components) { [] }
 
       context 'when the component we apply is in the measure components' do
         let(:measure_condition_components) { [] }
@@ -595,5 +664,34 @@ RSpec.describe Api::Measure, :user_session do
 
       it { is_expected.to be_applicable }
     end
+  end
+
+  describe '#all_units' do
+    subject(:measure) do
+      build(
+        :measure,
+        measure_components: measure_components,
+        resolved_measure_components: resolved_measure_components,
+        measure_conditions: measure_conditions,
+      )
+    end
+
+    let(:measure_components) { [attributes_for(:measure_component, :with_measure_units)] }
+    let(:resolved_measure_components) { [attributes_for(:measure_component, :with_retail_price_measure_units)] }
+    let(:measure_conditions) do
+      [
+        attributes_for(
+          :measure_condition,
+          measure_condition_components: [
+            attributes_for(
+              :measure_condition_component,
+              :with_measure_units,
+            ),
+          ],
+        ),
+      ]
+    end
+
+    it { expect(measure.all_units).to eq(%w[DTN RET]) }
   end
 end

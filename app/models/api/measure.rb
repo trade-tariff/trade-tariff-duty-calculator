@@ -66,7 +66,7 @@ module Api
     end
 
     def applicable_components
-      @applicable_components ||= document_components.presence || measure_components
+      @applicable_components ||= document_components.presence || resolved_or_standard_measure_components
     end
 
     def all_duties_zero?
@@ -103,8 +103,12 @@ module Api
 
     private
 
+    def resolved_or_standard_measure_components
+      resolved_measure_components.presence || measure_components
+    end
+
     def all_components
-      measure_conditions.flat_map(&:measure_condition_components) + measure_components
+      measure_conditions.flat_map(&:measure_condition_components) + resolved_or_standard_measure_components
     end
 
     def document_components

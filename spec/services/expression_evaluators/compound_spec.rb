@@ -55,14 +55,6 @@ RSpec.describe ExpressionEvaluators::Compound, :user_session do
     ]
   end
 
-  let(:expected_evaluation) do
-    {
-      calculation: '<span>144.10</span> GBP / <abbr title="Tonne">1000 kg/biodiesel</abbr>',
-      formatted_value: '£800.00',
-      value: 800.0,
-    }
-  end
-
   let(:user_session) do
     build(
       :user_session,
@@ -73,5 +65,35 @@ RSpec.describe ExpressionEvaluators::Compound, :user_session do
     )
   end
 
+  let(:expected_evaluation) do
+    {
+      calculation: '<span>144.10</span> GBP / <abbr title="Tonne">1000 kg/biodiesel</abbr>',
+      formatted_value: '£800.00',
+      value: 800.0,
+    }
+  end
+
   it { expect(evaluator.call).to eq(expected_evaluation) }
+
+  context 'when a resolved duty expression is returned' do
+    let(:measure) do
+      build(
+        :measure,
+        :third_country_tariff,
+        :with_resolved_duty_expression,
+        id: 3_211_138,
+        measure_components: measure_components,
+      )
+    end
+
+    let(:expected_evaluation) do
+      {
+        calculation: '<span>144.10</span> GBP / <abbr title="Tonne">1000 kg/biodiesel</abbr><br><span>9.00</span> % <strong>+ <span>0.00</span> EUR / <abbr title="Hectokilogram">100 kg</abbr></strong> MAX <span>24.20</span> % <strong>+ <span>0.00</span> EUR / <abbr title="Hectokilogram">100 kg</abbr></strong>',
+        formatted_value: '£800.00',
+        value: 800.0,
+      }
+    end
+
+    it { expect(evaluator.call).to eq(expected_evaluation) }
+  end
 end

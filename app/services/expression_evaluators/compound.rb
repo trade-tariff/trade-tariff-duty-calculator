@@ -11,7 +11,17 @@ module ExpressionEvaluators
     private
 
     def calculation_duty_expression
-      sanitize(measure.duty_expression&.formatted_base, tags: %w[span abbr], attributes: %w[title])
+      sanitize(duty_expression, tags: %w[span abbr strong br], attributes: %w[title])
+    end
+
+    def duty_expression
+      base_duty_expression = measure.duty_expression&.formatted_base
+
+      if measure.resolved_duty_expression.present?
+        "#{base_duty_expression}<br>#{measure.resolved_duty_expression}"
+      else
+        base_duty_expression
+      end
     end
 
     def build_expression

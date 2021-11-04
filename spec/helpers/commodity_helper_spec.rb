@@ -46,7 +46,7 @@ RSpec.describe CommodityHelper, :user_session do
       end
     end
 
-    context 'when on RoW to NI route' do
+    context 'when `OTHER` is used as the country_of_origin' do
       let(:user_session) do
         build(
           :user_session,
@@ -58,15 +58,35 @@ RSpec.describe CommodityHelper, :user_session do
         )
       end
 
-      let(:expected_query) { { 'filter[geographical_area_id]' => 'AR' } }
-
-      it 'returns a correctly filtered commodity' do
+      it 'uses the other_country_of_origin value for the filter' do
         helper.filtered_commodity
 
         expect(Api::Commodity).to have_received(:build).with(
           commodity_source,
           commodity_code,
-          expected_query,
+          { 'filter[geographical_area_id]' => 'AR' },
+        )
+      end
+    end
+
+    context 'when the source is xi and a meursing_additional_code is set' do
+      let(:user_session) do
+        build(
+          :user_session,
+          :with_gb_to_ni_route,
+          :with_commodity_information,
+          :with_meursing_additional_code,
+          commodity_source: 'xi',
+        )
+      end
+
+      it 'passes the correct query filter to the commodity context service' do
+        helper.filtered_commodity
+
+        expect(Api::Commodity).to have_received(:build).with(
+          'xi',
+          '0702000007',
+          'filter[geographical_area_id]' => 'GB', 'filter[meursing_additional_code_id]' => '000',
         )
       end
     end
@@ -83,6 +103,24 @@ RSpec.describe CommodityHelper, :user_session do
     it 'calls the commodity service with the uk as an argument' do
       helper.xi_filtered_commodity
       expect(commodity_context_service).to have_received(:call).with('xi', anything, anything)
+    end
+
+    context 'when a meursing_additional_code is set' do
+      let(:user_session) do
+        build(
+          :user_session,
+          :with_gb_to_ni_route,
+          :with_commodity_information,
+          :with_meursing_additional_code,
+          commodity_source: 'xi',
+        )
+      end
+
+      it 'passes a meursing_additional_code_id filter' do
+        helper.xi_filtered_commodity
+
+        expect(commodity_context_service).to have_received(:call).with('xi', anything, 'filter[geographical_area_id]' => 'GB', 'filter[meursing_additional_code_id]' => '000')
+      end
     end
   end
 
