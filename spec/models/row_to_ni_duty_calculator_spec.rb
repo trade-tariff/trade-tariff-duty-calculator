@@ -8,7 +8,7 @@ RSpec.describe RowToNiDutyCalculator, :user_session do
       :with_import_date,
       :with_import_destination,
       :with_country_of_origin,
-      :with_trader_scheme,
+      :without_trader_scheme,
       :with_certificate_of_origin,
       :with_customs_value,
       :with_measure_amount,
