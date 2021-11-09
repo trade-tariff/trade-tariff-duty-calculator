@@ -20,12 +20,6 @@ class ConfirmationDecorator < SimpleDelegator
     vat
   ].freeze
 
-  def initialize(confirmation_step, commodity)
-    super(confirmation_step)
-
-    @commodity = commodity
-  end
-
   def path_for(key:)
     send("#{key}_path")
   end
@@ -44,8 +38,6 @@ class ConfirmationDecorator < SimpleDelegator
 
   private
 
-  attr_reader :commodity
-
   def import_date_path
     super(referred_service: user_session.referred_service, commodity_code: user_session.commodity_code)
   end
@@ -59,7 +51,7 @@ class ConfirmationDecorator < SimpleDelegator
   end
 
   def excise_path
-    excise_path(applicable_excise_measure_type_ids.first)
+    super(applicable_excise_measure_type_ids.first)
   end
 
   def meursing_additional_code_path
@@ -81,7 +73,7 @@ class ConfirmationDecorator < SimpleDelegator
   end
 
   def format_measure_amount(value, _key)
-    return if commodity.applicable_measure_units.blank?
+    return if applicable_measure_units.blank?
 
     value.map { |k, v| "#{v} #{applicable_measure_units[k.upcase]['unit']}" }
          .join('<br>')
