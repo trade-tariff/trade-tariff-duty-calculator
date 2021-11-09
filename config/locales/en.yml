@@ -233,6 +233,7 @@ en:
           attributes:
             meursing_additional_code:
               invalid: Specify a valid 3-digit Meursing additional code
+              inclusion: Enter a valid Meursing code
         steps/customs_value:
           attributes:
             monetary_value:

@@ -32,7 +32,7 @@ RSpec.describe Steps::MeursingAdditionalCode, :step, :user_session do
       it 'adds the correct validation error message' do
         step.valid?
 
-        expect(step.errors.messages[:meursing_additional_code]).to eq(['Specify a valid 3-digit Meursing additional code'])
+        expect(step.errors.messages[:meursing_additional_code]).to eq(['Specify a valid 3-digit Meursing additional code', 'Enter a valid Meursing code'])
       end
     end
   end
