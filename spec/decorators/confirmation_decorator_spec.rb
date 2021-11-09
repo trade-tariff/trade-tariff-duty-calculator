@@ -1,17 +1,7 @@
 RSpec.describe ConfirmationDecorator, :user_session do
-  subject(:confirmation_decorator) { described_class.new(confirmation_step, commodity) }
+  subject(:confirmation_decorator) { described_class.new(confirmation_step) }
 
   let(:confirmation_step) { Steps::Confirmation.new }
-
-  let(:commodity) do
-    Api::Commodity.build(
-      commodity_source,
-      commodity_code,
-    )
-  end
-
-  let(:commodity_code) { '0702000007' }
-  let(:commodity_source) { 'uk' }
 
   let(:user_session) do
     build(
@@ -31,8 +21,11 @@ RSpec.describe ConfirmationDecorator, :user_session do
       :with_meursing_additional_code,
       :with_vat,
       :with_document_codes,
+      commodity_code: commodity_code,
     )
   end
+
+  let(:commodity_code) { '0103921100' }
 
   describe 'ORDERED_STEPS' do
     it 'returns the correct steps' do
@@ -98,24 +91,24 @@ RSpec.describe ConfirmationDecorator, :user_session do
   end
 
   describe '#path_for' do
-    context 'when the key is import_date' do
-      it 'returns the correct path' do
-        expect(
-          confirmation_decorator.path_for(
-            key: 'import_date',
-          ),
-        ).to eq("/duty-calculator/uk/#{commodity_code}/import-date")
-      end
+    shared_examples_for 'a valid path_for call' do |path_entity, expected_path|
+      it { expect(confirmation_decorator.path_for(key: path_entity)).to eq(expected_path) }
     end
 
-    context 'when the key is additional_code' do
-      it 'returns the additional_codes path with the first measure type id as param' do
-        expect(
-          confirmation_decorator.path_for(
-            key: 'additional_code',
-          ),
-        ).to eq('/duty-calculator/additional-codes/105')
-      end
-    end
+    it_behaves_like 'a valid path_for call', :additional_code, '/duty-calculator/additional-codes/105'
+    it_behaves_like 'a valid path_for call', :annual_turnover, '/duty-calculator/annual-turnover'
+    it_behaves_like 'a valid path_for call', :certificate_of_origin, '/duty-calculator/certificate-of-origin'
+    it_behaves_like 'a valid path_for call', :country_of_origin, '/duty-calculator/country-of-origin'
+    it_behaves_like 'a valid path_for call', :customs_value, '/duty-calculator/customs-value'
+    it_behaves_like 'a valid path_for call', :document_code, '/duty-calculator/document-codes/103'
+    it_behaves_like 'a valid path_for call', :excise, '/duty-calculator/excise/306'
+    it_behaves_like 'a valid path_for call', :final_use, '/duty-calculator/final-use'
+    it_behaves_like 'a valid path_for call', :import_date, '/duty-calculator/uk/0103921100/import-date'
+    it_behaves_like 'a valid path_for call', :import_destination, '/duty-calculator/import-destination'
+    it_behaves_like 'a valid path_for call', :measure_amount, '/duty-calculator/measure-amount'
+    it_behaves_like 'a valid path_for call', :meursing_additional_code, '/duty-calculator/meursing-additional-codes'
+    it_behaves_like 'a valid path_for call', :planned_processing, '/duty-calculator/planned-processing'
+    it_behaves_like 'a valid path_for call', :trader_scheme, '/duty-calculator/trader-scheme'
+    it_behaves_like 'a valid path_for call', :vat, '/duty-calculator/vat'
   end
 end

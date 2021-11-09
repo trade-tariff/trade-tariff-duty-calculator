@@ -39,11 +39,6 @@ RSpec.describe Steps::ConfirmationController, :user_session do
       ]
     end
 
-    it 'assigns the correct step' do
-      response
-      expect(assigns[:step]).to be_a(Steps::Confirmation)
-    end
-
     it 'assigns the correct decorated_step' do
       response
       expect(assigns[:decorated_step]).to be_a(ConfirmationDecorator)
