@@ -1,13 +1,29 @@
 module Api
   class Base
+    attr_accessor :attributes
+
+    delegate :user_session, to: :class
+    delegate :as_json, to: :attributes
+
+    def initialize(attributes = {})
+      @attributes = ActiveSupport::HashWithIndifferentAccess.new(attributes.fetch('attributes', attributes))
+    end
+
     class << self
       def inherited(child)
         super
 
-        child.include ActiveModel::Model
-        child.include ActiveModel::Attributes
-
         child.attribute :meta
+      end
+
+      def attribute(attribute)
+        define_method(attribute) do
+          attributes[attribute]
+        end
+
+        define_method("#{attribute}=") do |value|
+          attributes[attribute] = value
+        end
       end
 
       def meta_attribute(*attribute_path)
@@ -97,8 +113,6 @@ module Api
         { 'as_of' => (user_session&.import_date || Time.zone.today).iso8601 }
       end
     end
-
-    delegate :user_session, to: :class
 
     def eql?(other)
       as_json == other.as_json

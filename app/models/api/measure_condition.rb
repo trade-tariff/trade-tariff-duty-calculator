@@ -62,13 +62,13 @@ module Api
     has_many :measure_condition_components, MeasureConditionComponent
 
     def document_code
-      return super if super.present?
+      return attributes[:document_code] if attributes[:document_code].present?
 
       'None'
     end
 
     def certificate_description
-      return "#{document_code} - #{super}" unless document_code == 'None'
+      return "#{document_code} - #{attributes[:certificate_description]}" unless document_code == 'None'
 
       'None of the above'
     end

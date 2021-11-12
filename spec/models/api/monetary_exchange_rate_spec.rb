@@ -24,14 +24,12 @@ RSpec.describe Api::MonetaryExchangeRate, :user_session, type: :model do
 
       it 'returns the latest exchange rate' do
         expect(described_class.for(currency).as_json).to eq(
-          'attributes' => {
-            'meta' => nil,
-            'id' => nil,
-            'child_monetary_unit_code' => 'GBP',
-            'exchange_rate' => '0.8571',
-            'operation_date' => '2021-06-29',
-            'validity_start_date' => '2021-07-01T00:00:00.000Z',
-          },
+          'meta' => nil,
+          'id' => nil,
+          'child_monetary_unit_code' => 'GBP',
+          'exchange_rate' => '0.8571',
+          'operation_date' => '2021-06-29',
+          'validity_start_date' => '2021-07-01T00:00:00.000Z',
         )
       end
     end
@@ -41,14 +39,12 @@ RSpec.describe Api::MonetaryExchangeRate, :user_session, type: :model do
 
       it 'returns the exchange rate matching the month and year of the import date' do
         expect(described_class.for(currency).as_json).to eq(
-          'attributes' => {
-            'meta' => nil,
-            'id' => nil,
-            'child_monetary_unit_code' => 'GBP',
-            'exchange_rate' => '0.8512',
-            'operation_date' => '2021-04-29',
-            'validity_start_date' => '2021-04-01T00:00:00.000Z',
-          },
+          'meta' => nil,
+          'id' => nil,
+          'child_monetary_unit_code' => 'GBP',
+          'exchange_rate' => '0.8512',
+          'operation_date' => '2021-04-29',
+          'validity_start_date' => '2021-04-01T00:00:00.000Z',
         )
       end
     end

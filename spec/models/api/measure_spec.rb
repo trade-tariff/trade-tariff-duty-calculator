@@ -506,6 +506,8 @@ RSpec.describe Api::Measure, :user_session do
               'measurement_unit_code' => nil,
               'measurement_unit_qualifier_code' => nil,
               'meta' => nil,
+              'duty_expression_abbreviation' => nil,
+              'duty_expression_description' => nil,
             },
           ]
         end
@@ -514,18 +516,16 @@ RSpec.describe Api::Measure, :user_session do
           expect(measure.applicable_components.as_json).to eq(
             [
               {
-                'attributes' => {
-                  'duty_amount' => 10.0,
-                  'duty_expression_abbreviation' => nil,
-                  'duty_expression_description' => nil,
-                  'duty_expression_id' => '01',
-                  'id' => '20121795-01',
-                  'measurement_unit_code' => nil,
-                  'measurement_unit_qualifier_code' => nil,
-                  'meta' => nil,
-                  'monetary_unit_abbreviation' => nil,
-                  'monetary_unit_code' => nil,
-                },
+                'duty_amount' => 10.0,
+                'duty_expression_abbreviation' => nil,
+                'duty_expression_description' => nil,
+                'duty_expression_id' => '01',
+                'id' => '20121795-01',
+                'measurement_unit_code' => nil,
+                'measurement_unit_qualifier_code' => nil,
+                'meta' => nil,
+                'monetary_unit_abbreviation' => nil,
+                'monetary_unit_code' => nil,
               },
             ],
           )

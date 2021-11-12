@@ -32,7 +32,7 @@ module Api
     alias_method :meursing_code?, :meursing_code
 
     def description
-      super.html_safe
+      attributes[:description].html_safe
     end
 
     def code
