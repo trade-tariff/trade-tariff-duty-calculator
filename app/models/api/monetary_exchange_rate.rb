@@ -7,11 +7,11 @@ module Api
                :validity_start_date
 
     def validity_start_date
-      Date.parse(super)
+      Date.parse(attributes[:validity_start_date])
     end
 
     def exchange_rate
-      super.to_f
+      attributes[:exchange_rate].to_f
     end
 
     class << self

@@ -6,6 +6,21 @@ RSpec.describe Api::Base, :user_session do
     allow(Rails.application.config.http_client_xi).to receive(:retrieve).and_call_original
   end
 
+  describe '#initialize' do
+    context 'when initialized with unknown attributes' do
+      subject(:resource) { Api::Measure.new(foo: :bar) }
+
+      it { expect { resource }.not_to raise_error }
+      it { expect(resource).not_to respond_to(:foo) }
+    end
+
+    context 'when initialized with known attributes' do
+      subject(:resource) { Api::Measure.new(id: :bar) }
+
+      it { expect(resource.id).to eq(:bar) }
+    end
+  end
+
   describe '#build' do
     subject(:api_resource) { Api::Commodity }
 
