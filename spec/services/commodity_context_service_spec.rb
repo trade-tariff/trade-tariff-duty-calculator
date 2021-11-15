@@ -1,4 +1,4 @@
-describe CommodityContextService do
+RSpec.describe CommodityContextService do
   subject(:service) { described_class.new }
 
   let(:commodity_source) { 'uk' }
