@@ -282,7 +282,7 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
       end
 
       it 'calls the ApplicableMeasureUnitMerger service' do
-        step.previous_step_path
+        step.next_step_path
 
         expect(ApplicableMeasureUnitMerger).to have_received(:new)
       end
