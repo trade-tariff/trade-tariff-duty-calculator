@@ -60,7 +60,7 @@ module Steps
     end
 
     def ensure_session_integrity
-      return redirect_to trade_tariff_url if commodity_code.blank?
+      return redirect_to sections_url if commodity_code.blank?
     end
 
     def initialize_commodity_context_service
