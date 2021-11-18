@@ -267,11 +267,18 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
 
     before do
       allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
+      allow(ApplicableMeasureUnitMerger).to receive(:new).and_call_original
       allow(filtered_commodity).to receive(:applicable_measure_units).and_return(applicable_measure_units)
       allow(filtered_commodity).to receive(:applicable_document_codes).and_return(applicable_document_codes)
     end
 
     context 'when there are applicable measure units' do
+      it 'calls the ApplicableMeasureUnitMerger service' do
+        step.previous_step_path
+
+        expect(ApplicableMeasureUnitMerger).to have_received(:new)
+      end
+
       it { expect(step.next_step_path).to eq(measure_amount_path) }
     end
 

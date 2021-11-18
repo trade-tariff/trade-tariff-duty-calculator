@@ -32,7 +32,7 @@ module Steps
     end
 
     def next_step_path
-      return measure_amount_path if filtered_commodity.applicable_measure_units.present?
+      return measure_amount_path if applicable_measure_units.present?
 
       user_session.measure_amount = {}
 

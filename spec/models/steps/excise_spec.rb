@@ -227,6 +227,7 @@ RSpec.describe Steps::Excise, :step, :user_session do
 
     before do
       allow(filtered_commodity).to receive(:applicable_measure_units).and_return(applicable_measure_units)
+      allow(ApplicableMeasureUnitMerger).to receive(:new).and_call_original
     end
 
     context 'when there is just one measure type id available and measure units are available' do
@@ -256,6 +257,11 @@ RSpec.describe Steps::Excise, :step, :user_session do
 
       it 'returns the measure_amounts path' do
         expect(step.previous_step_path).to eq(measure_amount_path)
+
+      it 'calls the ApplicableMeasureUnitMerger service' do
+        step.previous_step_path
+
+        expect(ApplicableMeasureUnitMerger).to have_received(:new)
       end
     end
 

@@ -48,7 +48,7 @@ module Steps
       return document_codes_path(user_session.document_code_measure_type_ids.last) if user_session.document_code_uk.present? || user_session.document_code_xi.present?
       return additional_codes_path(applicable_measure_type_ids.first) if applicable_additional_codes?
 
-      return measure_amount_path if filtered_commodity.applicable_measure_units.present?
+      return measure_amount_path if applicable_measure_units.present?
 
       customs_value_path
     end
