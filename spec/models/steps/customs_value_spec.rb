@@ -258,20 +258,35 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
     let(:commodity_source) { :uk }
     let(:commodity_code) { '7202118000' }
 
-    let(:filtered_commodity) do
-      Api::Commodity.build(
-        commodity_source,
-        commodity_code,
-      )
-    end
+    let(:filtered_commodity) { Api::Commodity.build(commodity_source, commodity_code) }
 
     before do
       allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
+      allow(ApplicableMeasureUnitMerger).to receive(:new).and_call_original
       allow(filtered_commodity).to receive(:applicable_measure_units).and_return(applicable_measure_units)
       allow(filtered_commodity).to receive(:applicable_document_codes).and_return(applicable_document_codes)
     end
 
     context 'when there are applicable measure units' do
+      let(:applicable_measure_units) do
+        {
+          'DTN' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => '',
+            'abbreviation' => '100 kg',
+            'unit_question' => 'What is the weight of the goods you will be importing?',
+            'unit_hint' => 'Enter the value in decitonnes (100kg)',
+            'unit' => 'x 100 kg',
+          },
+        }
+      end
+
+      it 'calls the ApplicableMeasureUnitMerger service' do
+        step.next_step_path
+
+        expect(ApplicableMeasureUnitMerger).to have_received(:new)
+      end
+
       it { expect(step.next_step_path).to eq(measure_amount_path) }
     end
 
