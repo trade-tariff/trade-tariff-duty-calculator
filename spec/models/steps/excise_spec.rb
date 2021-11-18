@@ -255,8 +255,7 @@ RSpec.describe Steps::Excise, :step, :user_session do
         }
       end
 
-      it 'returns the measure_amounts path' do
-        expect(step.previous_step_path).to eq(measure_amount_path)
+      it { expect(step.previous_step_path).to eq(measure_amount_path) }
 
       it 'calls the ApplicableMeasureUnitMerger service' do
         step.previous_step_path

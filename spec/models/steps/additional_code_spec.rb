@@ -10,12 +10,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
   let(:commodity_source) { :uk }
   let(:commodity_code) { '7202118000' }
 
-  let(:filtered_commodity) do
-    Api::Commodity.build(
-      commodity_source,
-      commodity_code,
-    )
-  end
+  let(:filtered_commodity) { Api::Commodity.build(commodity_source, commodity_code) }
 
   let(:applicable_vat_options) { {} }
 
@@ -304,8 +299,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
         }
       end
 
-      it 'returns the measure_amounts path' do
-        expect(step.previous_step_path).to eq(measure_amount_path)
+      it { expect(step.previous_step_path).to eq(measure_amount_path) }
 
       it 'calls the ApplicableMeasureUnitMerger service' do
         step.previous_step_path
@@ -326,9 +320,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
         }
       end
 
-      it 'returns the customs path' do
-        expect(step.previous_step_path).to eq(customs_value_path)
-      end
+      it { expect(step.previous_step_path).to eq(customs_value_path) }
     end
 
     context 'when there are multiple measure type ids on the applicable_additional_codes hash' do
@@ -342,9 +334,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
 
       let(:measure_type_id) { '552' }
 
-      it 'returns additional_codes_path with the previous measure_type_id as argument' do
-        expect(step.previous_step_path).to eq(additional_codes_path('105'))
-      end
+      it { expect(step.previous_step_path).to eq(additional_codes_path('105')) }
     end
   end
 
@@ -361,9 +351,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
         }
       end
 
-      it 'returns confirm_path' do
-        expect(step.next_step_path).to eq(confirm_path)
-      end
+      it { expect(step.next_step_path).to eq(confirm_path) }
     end
 
     context 'when there are excise additional codes' do
@@ -384,15 +372,11 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
         }
       end
 
-      it 'returns excise_path' do
-        expect(step.next_step_path).to eq(excise_path('306'))
-      end
+      it { expect(step.next_step_path).to eq(excise_path('306')) }
     end
 
     context 'when there are multiple measure type ids on the applicable_additional_codes hash' do
-      it 'returns additional_codes_path with the next measure_type_id as argument' do
-        expect(step.next_step_path).to eq(additional_codes_path('552'))
-      end
+      it { expect(step.next_step_path).to eq(additional_codes_path('552')) }
     end
 
     context 'when there are less than 2 applicable vat options' do
@@ -413,9 +397,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
         }
       end
 
-      it 'returns confirm_path' do
-        expect(step.next_step_path).to eq(confirm_path)
-      end
+      it { expect(step.next_step_path).to eq(confirm_path) }
     end
 
     context 'when there are more than 1 applicable vat options' do
@@ -437,9 +419,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
         }
       end
 
-      it 'returns vat_path' do
-        expect(step.next_step_path).to eq(vat_path)
-      end
+      it { expect(step.next_step_path).to eq(vat_path) }
     end
 
     context 'when there are available document codes' do
@@ -470,9 +450,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
         }
       end
 
-      it 'returns document_codes_path' do
-        expect(step.next_step_path).to eq(document_codes_path(measure_type_id))
-      end
+      it { expect(step.next_step_path).to eq(document_codes_path(measure_type_id)) }
     end
   end
 end

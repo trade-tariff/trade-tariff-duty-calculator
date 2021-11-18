@@ -319,8 +319,7 @@ RSpec.describe Steps::DocumentCode, :user_session do
 
       let(:measure_type_id) { 105 }
 
-      it 'returns the measure_amounts path' do
-        expect(step.previous_step_path).to eq(measure_amount_path)
+      it { expect(step.previous_step_path).to eq(measure_amount_path) }
 
       it 'calls the ApplicableMeasureUnitMerger service' do
         step.previous_step_path
