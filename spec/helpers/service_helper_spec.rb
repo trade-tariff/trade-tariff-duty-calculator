@@ -51,91 +51,42 @@ RSpec.describe ServiceHelper, :user_session do
     end
   end
 
-  describe '#trade_tariff_url' do
-    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
+  shared_examples_for 'a service url' do |helper_method, path|
+    context 'when frontend url is set and service is not set' do
+      let(:service) { nil }
       let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
 
-      it 'returns the dev trade tariff url' do
-        expect(helper.trade_tariff_url).to eq(
-          'https://dev.trade-tariff.service.gov.uk/sections',
-        )
-      end
+      it { expect(helper.public_send(helper_method)).to eq("https://dev.trade-tariff.service.gov.uk#{path}") }
     end
 
-    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
-      let(:frontend_url) { nil }
+    context 'when frontend url is set and service is `uk`' do
+      let(:service) { 'uk' }
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
 
-      it 'returns the staging trade tariff url' do
-        expect(helper.trade_tariff_url).to eq('#')
-      end
+      it { expect(helper.public_send(helper_method)).to eq("https://dev.trade-tariff.service.gov.uk#{path}") }
     end
 
-    context 'when service choice is XI' do
+    context 'when frontend url is set and service is `xi`' do
       let(:service) { 'xi' }
-
-      it 'returns the dev trade tariff url for XI' do
-        expect(helper.trade_tariff_url).to eq(
-          'https://dev.trade-tariff.service.gov.uk/xi/sections',
-        )
-      end
-    end
-  end
-
-  describe '#a_to_z_url' do
-    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
       let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
 
-      it 'returns the dev trade tariff a to z url' do
-        expect(helper.a_to_z_url).to eq(
-          'https://dev.trade-tariff.service.gov.uk/a-z-index/a',
-        )
-      end
+      it { expect(helper.public_send(helper_method)).to eq("https://dev.trade-tariff.service.gov.uk/xi#{path}") }
     end
 
-    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
+    context 'when frontend url is not set' do
       let(:frontend_url) { nil }
 
-      it 'returns the dev trade tariff a to z url' do
-        expect(helper.a_to_z_url).to eq('#')
-      end
+      it { expect(helper.public_send(helper_method)).to eq('#') }
     end
   end
 
-  describe '#tools_url' do
-    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
-      it 'returns the dev trade tariff tools url' do
-        expect(helper.tools_url).to eq(
-          'https://dev.trade-tariff.service.gov.uk/tools',
-        )
-      end
-    end
-
-    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
-      let(:frontend_url) { nil }
-
-      it 'returns the dev trade tariff tools url' do
-        expect(helper.tools_url).to eq('#')
-      end
-    end
-  end
-
-  describe '#help_url' do
-    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
-      it 'returns the dev trade tariff tools url' do
-        expect(helper.help_url).to eq(
-          'https://dev.trade-tariff.service.gov.uk/help',
-        )
-      end
-    end
-
-    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
-      let(:frontend_url) { nil }
-
-      it 'returns the dev trade tariff tools url' do
-        expect(helper.help_url).to eq('#')
-      end
-    end
-  end
+  it_behaves_like 'a service url', :sections_url, '/sections'
+  it_behaves_like 'a service url', :search_url, '/find_commodity'
+  it_behaves_like 'a service url', :browse_url, '/browse'
+  it_behaves_like 'a service url', :a_to_z_url, '/a-z-index/a'
+  it_behaves_like 'a service url', :tools_url, '/tools'
+  it_behaves_like 'a service url', :feedback_url, '/feedback'
+  it_behaves_like 'a service url', :help_url, '/help'
 
   describe '#previous_service_url' do
     let(:commodity_code) { '0702000007' }
@@ -167,56 +118,18 @@ RSpec.describe ServiceHelper, :user_session do
   describe '#commodity_url' do
     let(:commodity_code) { '0702000007' }
 
-    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
-      it 'returns the dev trade tariff tools url' do
-        expect(helper.commodity_url(commodity_code)).to eq(
-          "https://dev.trade-tariff.service.gov.uk/commodities/#{commodity_code}",
-        )
-      end
+    context 'when frontend url is set' do
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
+
+      it { expect(helper.commodity_url(commodity_code)).to eq("https://dev.trade-tariff.service.gov.uk/commodities/#{commodity_code}") }
     end
 
-    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
+    context 'when frontend url is not set' do
       let(:frontend_url) { nil }
 
-      it 'returns the dev trade tariff tools url' do
+      it 'returns the correct url' do
         expect(helper.commodity_url(commodity_code)).to eq('#')
       end
-    end
-  end
-
-  describe '#feedback_url' do
-    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
-      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
-
-      it 'returns the dev trade tariff tools url' do
-        expect(helper.feedback_url).to eq(
-          'https://dev.trade-tariff.service.gov.uk/feedback',
-        )
-      end
-    end
-
-    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
-      let(:frontend_url) { nil }
-
-      it { expect(helper.feedback_url).to eq('#') }
-    end
-  end
-
-  describe '#meursing_lookup_url' do
-    context 'when TRADE_TARIFF_FRONTEND_URL is set' do
-      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
-
-      it 'returns the dev trade tariff meursing lookup url' do
-        expected_url = 'https://dev.trade-tariff.service.gov.uk/xi/meursing_lookup/steps/start'
-
-        expect(helper.meursing_lookup_url).to eq(expected_url)
-      end
-    end
-
-    context 'when TRADE_TARIFF_FRONTEND_URL is not set' do
-      let(:frontend_url) { nil }
-
-      it { expect(helper.meursing_lookup_url).to eq('#') }
     end
   end
 end

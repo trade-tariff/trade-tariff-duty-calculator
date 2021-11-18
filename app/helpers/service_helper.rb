@@ -7,8 +7,16 @@ module ServiceHelper
     t("header.#{referred_service}")
   end
 
-  def trade_tariff_url
+  def sections_url
     service_url_for('/sections')
+  end
+
+  def search_url
+    service_url_for('/find_commodity')
+  end
+
+  def browse_url
+    service_url_for('/browse')
   end
 
   def a_to_z_url

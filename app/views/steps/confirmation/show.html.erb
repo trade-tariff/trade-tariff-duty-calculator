@@ -7,7 +7,7 @@
     <dt class="govuk-summary-list__key">Commodity code</dt>
     <dd class="govuk-summary-list__value"><%= commodity.formatted_commodity_code %></dd>
     <dd class="govuk-summary-list__actions">
-      <%= link_to('Change', trade_tariff_url, class: 'govuk-link') %>
+      <%= link_to('Change', sections_url, class: 'govuk-link') %>
     </dd>
   </div>
   <%= render partial: 'entry', collection: @decorated_step.user_answers, as: :entry %>

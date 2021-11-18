@@ -17,4 +17,9 @@ module TradeTariffDutyCalculator
     config.trade_tariff_frontend_url = ENV['TRADE_TARIFF_FRONTEND_URL']
     config.duty_calculator_host      = ENV.fetch('DUTY_CALCULATOR_HOST', 'http://localhost')
   end
+
+  # TODO: HOTT-1048 - remove once in production
+  def self.updated_navigation?
+    ENV['UPDATED_NAVIGATION'].to_s == 'true'
+  end
 end
