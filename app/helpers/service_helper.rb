@@ -27,6 +27,14 @@ module ServiceHelper
     service_url_for('/tools')
   end
 
+  def updates_url
+    service_url_for('/updates')
+  end
+
+  def help_url
+    service_url_for('/help')
+  end
+
   def previous_service_url(commodity_code)
     UserSession.get&.redirect_to.presence || commodity_url(commodity_code)
   end
@@ -37,10 +45,6 @@ module ServiceHelper
 
   def feedback_url
     service_url_for('/feedback')
-  end
-
-  def help_url
-    service_url_for('/help')
   end
 
   def trade_tariff_frontend_url
