@@ -14,7 +14,6 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
   let(:monetary_value) { '12_500' }
   let(:insurance_cost) { '1_200' }
   let(:shipping_cost) { '340' }
-  let(:applicable_document_codes) { {} }
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do
     it 'returns the correct list of steps' do
@@ -264,7 +263,6 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
       allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
       allow(ApplicableMeasureUnitMerger).to receive(:new).and_call_original
       allow(filtered_commodity).to receive(:applicable_measure_units).and_return(applicable_measure_units)
-      allow(filtered_commodity).to receive(:applicable_document_codes).and_return(applicable_document_codes)
     end
 
     context 'when there are applicable measure units' do
@@ -303,7 +301,6 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
 
       let(:first_measure_type_id) { '105' }
       let(:applicable_additional_codes) { {} }
-      let(:applicable_document_codes) { {} }
       let(:applicable_vat_options) { {} }
 
       before do

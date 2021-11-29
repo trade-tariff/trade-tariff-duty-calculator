@@ -53,15 +53,7 @@ module CommodityHelper
   end
 
   def applicable_document_codes
-    @applicable_document_codes ||=
-      {}.tap do |applicable_document_codes|
-        if user_session.deltas_applicable?
-          applicable_document_codes['uk'] = surface_document_codes(commodity: uk_filtered_commodity)
-          applicable_document_codes['xi'] = surface_document_codes(commodity: xi_filtered_commodity)
-        else
-          applicable_document_codes[user_session.commodity_source] = surface_document_codes
-        end
-      end
+    @applicable_document_codes ||= ApplicableDocumentCodesService.new.call
   end
 
   def applicable_document_codes?
@@ -114,18 +106,6 @@ module CommodityHelper
     return user_session.other_country_of_origin if user_session.country_of_origin == 'OTHER'
 
     user_session.country_of_origin
-  end
-
-  def surface_document_codes(commodity: filtered_commodity)
-    commodity.applicable_measures.each_with_object({}) { |measure, acc|
-      next unless measure.expresses_document?
-      next if measure.document_codes.blank?
-
-      acc[measure.measure_type.id] ||= []
-      acc[measure.measure_type.id].concat(measure.document_codes)
-    }.slice(
-      *Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS,
-    )
   end
 
   def xi_query_params
