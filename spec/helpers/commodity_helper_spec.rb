@@ -293,6 +293,10 @@ RSpec.describe CommodityHelper, :user_session do
   end
 
   describe '#applicable_document_codes' do
+    before do
+      allow(ApplicableDocumentCodesService).to receive(:new).and_call_original
+    end
+
     let(:expected_options) do
       {
         'uk' => {
@@ -302,8 +306,12 @@ RSpec.describe CommodityHelper, :user_session do
       }
     end
 
-    it 'returns the applicable document codes' do
-      expect(helper.applicable_document_codes).to eq(expected_options)
+    it { expect(helper.applicable_document_codes).to eq(expected_options) }
+
+    it 'calls out to the ApplicableDocumentCodesService' do
+      helper.applicable_document_codes
+
+      expect(ApplicableDocumentCodesService).to have_received(:new)
     end
   end
 
