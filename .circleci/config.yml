@@ -115,7 +115,7 @@ jobs:
 
   checking:
     docker:
-      - image: 'cimg/ruby:3.0.2-node'
+      - image: 'cimg/ruby:3.0.3-node'
     steps:
       - checkout
       - ruby/install-deps
@@ -165,7 +165,7 @@ jobs:
 
   test:
     docker:
-      - image: cimg/ruby:3.0.2-node
+      - image: cimg/ruby:3.0.3-node
         environment:
           BUNDLE_JOBS: "3"
           BUNDLE_RETRY: "3"
@@ -198,7 +198,7 @@ jobs:
 
   deploy_dev:
     docker:
-      - image: cimg/ruby:3.0.2
+      - image: cimg/ruby:3.0.3
     environment:
       SENTRY_ENVIRONMENT: "development"
     steps:
@@ -215,7 +215,7 @@ jobs:
 
   deploy_staging:
     docker:
-      - image: cimg/ruby:3.0.2
+      - image: cimg/ruby:3.0.3
     environment:
       SENTRY_ENVIRONMENT: "staging"
     steps:
@@ -230,7 +230,7 @@ jobs:
 
   deploy_production:
     docker:
-      - image: cimg/ruby:3.0.2
+      - image: cimg/ruby:3.0.3
     environment:
       SENTRY_ENVIRONMENT: "production"
     steps:
