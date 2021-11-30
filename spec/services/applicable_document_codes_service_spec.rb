@@ -23,6 +23,7 @@ RSpec.describe ApplicableDocumentCodesService, :user_session do
           'uk' => {
             '105' => [
               { code: 'C644', description: 'C644 - ' },
+              { code: 'C655', description: 'C655 - ' },
               { code: 'Y929', description: 'Y929 - ' },
               { code: 'None', description: 'None of the above' },
             ],
@@ -34,6 +35,7 @@ RSpec.describe ApplicableDocumentCodesService, :user_session do
           'xi' => {
             '105' => [
               { code: 'C644', description: 'C644 - ' },
+              { code: 'C655', description: 'C655 - ' },
               { code: 'Y929', description: 'Y929 - ' },
               { code: 'None', description: 'None of the above' },
             ],
@@ -85,6 +87,7 @@ RSpec.describe ApplicableDocumentCodesService, :user_session do
           'xi' => {
             '105' => [
               { code: 'C644', description: 'C644 - ' },
+              { code: 'C655', description: 'C655 - ' },
               { code: 'Y929', description: 'Y929 - ' },
               { code: 'None', description: 'None of the above' },
             ],
@@ -136,6 +139,7 @@ RSpec.describe ApplicableDocumentCodesService, :user_session do
           'uk' => {
             '105' => [
               { code: 'C644', description: 'C644 - ' },
+              { code: 'C655', description: 'C655 - ' },
               { code: 'Y929', description: 'Y929 - ' },
               { code: 'None', description: 'None of the above' },
             ],
