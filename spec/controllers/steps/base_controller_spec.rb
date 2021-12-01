@@ -25,7 +25,7 @@ RSpec.describe Steps::BaseController, :user_session do
 
   before do
     allow(NewRelic::Agent).to receive(:add_custom_attributes).and_call_original
-    allow(Raven).to receive(:user_context)
+    allow(Sentry).to receive(:set_user)
     allow(Rails.configuration).to receive(:trade_tariff_frontend_url).and_return(trade_tariff_host)
   end
 
@@ -61,7 +61,7 @@ RSpec.describe Steps::BaseController, :user_session do
     it 'adds session context for the user on error' do
       response
     rescue ArgumentError
-      expect(Raven).to have_received(:user_context).with(user_session.session.to_h.except('_csrf_token'))
+      expect(Sentry).to have_received(:set_user).with(user_session.session.to_h.except('_csrf_token'))
     end
 
     it 'sends custom attributes to NewRelic' do
