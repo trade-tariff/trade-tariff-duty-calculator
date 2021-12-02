@@ -53,7 +53,7 @@ module Steps
     end
 
     def handle_exception(exception)
-      Raven.user_context(user_session.session.to_h.except('_csrf_token'))
+      Sentry.set_user(user_session.session.to_h.except('_csrf_token'))
       track_session
 
       raise exception

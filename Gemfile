@@ -15,7 +15,7 @@ gem 'logstash-event'
 gem 'newrelic_rpm'
 gem 'puma'
 gem 'railties', '~> 6'
-gem 'sentry-raven'
+gem 'sentry-rails'
 gem 'uktt', git: 'https://github.com/trade-tariff/uktt.git'
 gem 'webpacker'
 
