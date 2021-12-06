@@ -1,7 +1,11 @@
 module Api
   class BaseComponent < Api::Base
     CONJUNCTION_OPERATORS = %w[MAX MIN].freeze
+    COMPOUND_MEASURE_UNITS = %w[ASVX].freeze
     MATHEMATICAL_OPERATORS = %w[+ -].freeze
+
+    VOLUME_UNIT = 'HLT'.freeze
+    ALCOHOL_UNIT = 'ASV'.freeze
 
     attributes :id,
                :duty_expression_id,
@@ -15,6 +19,11 @@ module Api
 
     enum :measurement_unit_code, {
       retail_price: %w[RET],
+    }
+
+    enum :monetary_unit_code, {
+      euros: %w[EUR],
+      pounds: %w[GBP],
     }
 
     enum :duty_expression_id, {
@@ -37,6 +46,10 @@ module Api
       return nil if measurement_unit_code.blank?
 
       "#{measurement_unit_code}#{measurement_unit_qualifier_code}"
+    end
+
+    def compound_measure_unit?
+      unit.in?(COMPOUND_MEASURE_UNITS)
     end
 
     def conjunction_operator?

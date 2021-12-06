@@ -2,7 +2,6 @@ class ApplicableMeasureUnitMerger
   include CommodityHelper
 
   UNHANDLED_MEASURE_UNITS = %w[
-    ASV
     FC1X
   ].freeze
 

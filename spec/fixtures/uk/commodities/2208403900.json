@@ -1,0 +1,181 @@
+{
+  "id": "69078",
+  "producline_suffix": "80",
+  "description": "Other",
+  "number_indents": 4,
+  "goods_nomenclature_item_id": "2208403900",
+  "bti_url": "https://www.gov.uk/guidance/check-what-youll-need-to-get-a-legally-binding-decision-on-a-commodity-code",
+  "formatted_description": "Other",
+  "description_plain": "Other",
+  "consigned": false,
+  "consigned_from": null,
+  "basic_duty_rate": null,
+  "meursing_code": false,
+  "declarable": true,
+  "footnotes": [],
+  "section": {
+  },
+  "chapter": {
+  },
+  "heading": {
+  },
+  "ancestors": [
+  ],
+  "import_measures": [
+    {
+      "id": 20002828,
+      "origin": "eu",
+      "effective_start_date": "2021-01-01T00:00:00.000Z",
+      "effective_end_date": null,
+      "import": true,
+      "excise": false,
+      "vat": false,
+      "reduction_indicator": null,
+      "meursing": false,
+      "resolved_duty_expression": "",
+      "duty_expression": {
+        "id": "20002828-duty_expression",
+        "base": "0.50 GBP / % vol/hl + 2.60 GBP / hl",
+        "formatted_base": "<span>0.50</span> GBP / <abbr title='%vol'>% vol/hl</abbr> + <span>2.60</span> GBP / <abbr title='Hectolitre'>hl</abbr>",
+        "meta": null
+      },
+      "measure_type": {
+        "id": "103",
+        "description": "Third country duty",
+        "national": null,
+        "measure_type_series_id": "C",
+        "meta": null
+      },
+      "legal_acts": [
+        {
+          "id": "C2100001",
+          "validity_start_date": "2021-01-01T00:00:00.000Z",
+          "validity_end_date": null,
+          "officialjournal_number": "1",
+          "officialjournal_page": 1,
+          "published_date": "2021-01-01",
+          "regulation_code": "C0000/21",
+          "regulation_url": "",
+          "description": null,
+          "meta": null
+        }
+      ],
+      "measure_conditions": [
+
+      ],
+      "measure_components": [
+        {
+          "id": "20002828-01",
+          "duty_expression_id": "01",
+          "duty_amount": 0.5,
+          "monetary_unit_code": "GBP",
+          "monetary_unit_abbreviation": null,
+          "measurement_unit_code": "ASV",
+          "measurement_unit_qualifier_code": "X",
+          "duty_expression_description": "% or amount",
+          "duty_expression_abbreviation": "%",
+          "measurement_unit": {
+            "id": "ASV",
+            "description": "%vol",
+            "measurement_unit_code": "ASV",
+            "meta": null
+          },
+          "meta": null
+        },
+        {
+          "id": "20002828-04",
+          "duty_expression_id": "04",
+          "duty_amount": 2.6,
+          "monetary_unit_code": "GBP",
+          "monetary_unit_abbreviation": null,
+          "measurement_unit_code": "HLT",
+          "measurement_unit_qualifier_code": null,
+          "duty_expression_description": "+ % or amount",
+          "duty_expression_abbreviation": "+",
+          "measurement_unit": {
+            "id": "HLT",
+            "description": "Hectolitre",
+            "measurement_unit_code": "HLT",
+            "meta": null
+          },
+          "meta": null
+        }
+      ],
+      "resolved_measure_components": [
+
+      ],
+      "national_measurement_units": [
+
+      ],
+      "geographical_area": {
+        "id": "1011",
+        "description": "ERGA OMNES",
+        "geographical_area_id": "1011",
+        "children_geographical_areas": [
+        ],
+        "meta": null
+      },
+      "excluded_countries": [ ],
+      "footnotes": [ ],
+      "order_number": null,
+      "meta": {
+        "duty_calculator": {
+          "source": "uk"
+        }
+      }
+    }
+  ],
+  "export_measures": [],
+  "meta": {
+    "duty_calculator": {
+      "applicable_additional_codes": {
+        "306": {
+          "measure_type_description": "Excises",
+          "heading": null,
+          "additional_codes": [
+            {
+              "code": "X451",
+              "overlay": "451 - Spirits other than UK-produced whisky",
+              "hint": "",
+              "measure_sid": -493334
+            }
+          ]
+        }
+      },
+      "applicable_measure_units": {
+        "ASV": {
+          "measurement_unit_code": "ASV",
+          "measurement_unit_qualifier_code": "",
+          "abbreviation": "% vol",
+          "unit_question": "What is the alcohol percentage (%) of the goods you are importing?",
+          "unit_hint": "Enter the alcohol by volume (ABV) percentage",
+          "unit": "percent"
+        },
+        "HLT": {
+          "measurement_unit_code": "HLT",
+          "measurement_unit_qualifier_code": "",
+          "abbreviation": "hl",
+          "unit_question": "What is the volume of the goods that you will be importing?",
+          "unit_hint": "Enter the value in hectolitres (100 litres)",
+          "unit": "x 100 litres"
+        },
+        "LPA": {
+          "measurement_unit_code": "LPA",
+          "measurement_unit_qualifier_code": "",
+          "abbreviation": "l alc. 100%",
+          "unit_question": "What is the volume of pure alcohol in the goods you will be importing?",
+          "unit_hint": "Enter the value in litres",
+          "unit": "litres"
+        }
+      },
+      "applicable_vat_options": {
+        "VAT": "Value added tax (20.0%)"
+      },
+      "entry_price_system": false,
+      "meursing_code": false,
+      "source": "uk",
+      "trade_defence": false,
+      "zero_mfn_duty": false
+    }
+  }
+}

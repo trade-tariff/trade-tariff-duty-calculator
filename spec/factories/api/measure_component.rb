@@ -27,6 +27,16 @@ FactoryBot.define do
       duty_expression_id { '01' }
     end
 
+    trait :single_measure_unit do
+      measurement_unit_code { 'DTN' }
+      measurement_unit_qualifier_code {}
+    end
+
+    trait :compound_measure_unit do
+      measurement_unit_code { 'ASV' }
+      measurement_unit_qualifier_code { 'X' }
+    end
+
     trait :with_retail_price_measure_units do
       duty_amount { 16.5 }
       measurement_unit_code { 'RET' }
