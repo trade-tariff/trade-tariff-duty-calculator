@@ -34,10 +34,34 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
     )
   end
 
-  context "when passing a measure's component" do
+  context "when passing a measure's component that is in euros" do
     let(:component) { measure.measure_components.first }
 
-    let(:measure_component) { attributes_for(:measure_component, :with_measure_units) }
+    let(:measure_component) { attributes_for(:measure_component, :with_measure_units, :euros) }
+
+    let(:expected_evaluation) do
+      {
+        calculation: '<span>35.10</span> EUR / <abbr title="Hectokilogram">100 kg</abbr> * 100.00',
+        formatted_value: '£3,008.42',
+        unit: 'x 100 kg',
+        total_quantity: 100.0,
+        value: 3008.421,
+      }
+    end
+
+    it { expect(evaluator.call).to eq(expected_evaluation) }
+
+    it 'calls the ApplicableMeasureUnitMerger service to merge units' do
+      evaluator.call
+
+      expect(ApplicableMeasureUnitMerger).to have_received(:new)
+    end
+  end
+
+  context "when passing a measure's component that is in pounds" do
+    let(:component) { measure.measure_components.first }
+
+    let(:measure_component) { attributes_for(:measure_component, :with_measure_units, :pounds) }
 
     let(:expected_evaluation) do
       {

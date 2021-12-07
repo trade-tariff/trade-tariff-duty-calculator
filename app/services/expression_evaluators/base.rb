@@ -26,7 +26,7 @@ module ExpressionEvaluators
     end
 
     def euro_exchange_rate
-      Api::MonetaryExchangeRate.for('GBP').euro_exchange_rate
+      Api::MonetaryExchangeRate.for('GBP').exchange_rate
     end
   end
 end

@@ -27,6 +27,14 @@ FactoryBot.define do
       duty_expression_id { '01' }
     end
 
+    trait :pounds do
+      monetary_unit_code { 'GBP' }
+    end
+
+    trait :euros do
+      monetary_unit_code { 'EUR' }
+    end
+
     trait :single_measure_unit do
       measurement_unit_code { 'DTN' }
       measurement_unit_qualifier_code {}
