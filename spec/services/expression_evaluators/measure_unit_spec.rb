@@ -67,12 +67,13 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
       attributes_for(
         :measure_condition,
         :with_trigger_measure_units,
+        id: '12345',
         measure_condition_components: [measure_condition_component],
       )
     end
 
     let(:measure_condition_component) do
-      attributes_for(:measure_condition_component, :with_measure_units)
+      attributes_for(:measure_condition_component, :with_measure_units, id: '12345-01')
     end
 
     let(:expected_evaluation) do

@@ -43,23 +43,5 @@ module ExpressionEvaluators
     def total_quantity
       presented_unit[:answer].to_f
     end
-
-    def duty_amount_in_eur?
-      component.monetary_unit_code == 'EUR'
-    end
-
-    def measure_condition
-      return nil if component.is_a?(Api::MeasureComponent)
-
-      measure.measure_conditions.find do |measure_condition|
-        measure_condition.measure_condition_components.any? do |measure_condition_component|
-          measure_condition_component.eql?(component)
-        end
-      end
-    end
-
-    def euro_exchange_rate
-      Api::MonetaryExchangeRate.for('GBP').euro_exchange_rate
-    end
   end
 end
