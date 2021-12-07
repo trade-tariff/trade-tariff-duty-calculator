@@ -42,6 +42,8 @@ module Api
         ExpressionEvaluators::AdValorem.new(self, component)
       elsif retail_price?
         ExpressionEvaluators::RetailPrice.new(self, component)
+      elsif specific_duty? && component.compound_measure_unit?
+        ExpressionEvaluators::CompoundMeasureUnit.new(self, component)
       elsif specific_duty?
         ExpressionEvaluators::MeasureUnit.new(self, component)
       else
@@ -55,9 +57,10 @@ module Api
         ExpressionEvaluators::AdValorem.new(self, component)
       elsif component.retail_price?
         ExpressionEvaluators::RetailPrice.new(self, component)
+      elsif component.compound_measure_unit?
+        ExpressionEvaluators::CompoundMeasureUnit.new(self, component)
       elsif component.specific_duty?
         ExpressionEvaluators::MeasureUnit.new(self, component)
-
       end
     end
 

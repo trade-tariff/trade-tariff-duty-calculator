@@ -20,6 +20,14 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
 
       let(:expected_units) do
         {
+          'ASV' => {
+            'measurement_unit_code' => 'ASV',
+            'measurement_unit_qualifier_code' => '',
+            'abbreviation' => '% vol',
+            'unit_question' => 'What is the alcohol percentage (%) of the goods you are importing?',
+            'unit_hint' => 'Enter the alcohol by volume (ABV) percentage',
+            'unit' => 'percent',
+          },
           'DTN' => {
             'measurement_unit_code' => 'DTN',
             'measurement_unit_qualifier_code' => '',
@@ -154,6 +162,14 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
 
       let(:expected_units) do
         {
+          'ASV' => {
+            'measurement_unit_code' => 'ASV',
+            'measurement_unit_qualifier_code' => '',
+            'abbreviation' => '% vol',
+            'unit_question' => 'What is the alcohol percentage (%) of the goods you are importing?',
+            'unit_hint' => 'Enter the alcohol by volume (ABV) percentage',
+            'unit' => 'percent',
+          },
           'DTN' => {
             'measurement_unit_code' => 'DTN',
             'measurement_unit_qualifier_code' => '',

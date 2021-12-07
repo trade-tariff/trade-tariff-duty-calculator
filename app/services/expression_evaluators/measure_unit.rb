@@ -34,7 +34,7 @@ module ExpressionEvaluators
 
     def value
       @value ||= begin
-        return total_quantity * component.duty_amount * eur_to_gbp_rate if duty_amount_in_eur?
+        return total_quantity * component.duty_amount * euro_exchange_rate if component.euros?
 
         total_quantity * component.duty_amount
       end
@@ -42,14 +42,6 @@ module ExpressionEvaluators
 
     def total_quantity
       presented_unit[:answer].to_f
-    end
-
-    def applicable_unit
-      ApplicableMeasureUnitMerger.new.call[component.unit]
-    end
-
-    def eur_to_gbp_rate
-      Api::MonetaryExchangeRate.for('GBP').exchange_rate
     end
 
     def duty_amount_in_eur?
@@ -64,6 +56,10 @@ module ExpressionEvaluators
           measure_condition_component.eql?(component)
         end
       end
+    end
+
+    def euro_exchange_rate
+      Api::MonetaryExchangeRate.for('GBP').euro_exchange_rate
     end
   end
 end

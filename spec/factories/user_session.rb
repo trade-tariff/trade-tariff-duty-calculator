@@ -94,6 +94,10 @@ FactoryBot.define do
     measure_amount { { 'dtn' => '100' } }
   end
 
+  trait :with_compound_measure_amount do
+    measure_amount { { 'hlt' => '45', 'asv' => '40' } }
+  end
+
   trait :with_retail_price_measure_amount do
     measure_amount { { 'ret' => '1000' } }
   end

@@ -55,57 +55,34 @@ RSpec.describe Api::Measure, :user_session do
   describe '#evaluator' do
     subject(:measure) { build(:measure, :third_country_tariff, source: 'xi', measure_components: measure_components) }
 
-    context 'when an ad_valorem measure' do
+    shared_examples_for 'a measure evaluator' do |expected_evaluator|
+      it 'instantiates the correct evaluator' do
+        allow(expected_evaluator).to receive(:new)
+
+        measure.evaluator
+
+        expect(expected_evaluator).to have_received(:new).with(measure, (measure.component unless expected_evaluator == ExpressionEvaluators::Compound))
+      end
+    end
+
+    it_behaves_like 'a measure evaluator', ExpressionEvaluators::AdValorem do
       let(:measure_components) { [attributes_for(:measure_component, :ad_valorem)] }
-
-      it 'calls the correct evaluator' do
-        allow(ExpressionEvaluators::AdValorem).to receive(:new)
-
-        measure.evaluator
-
-        expect(ExpressionEvaluators::AdValorem).to have_received(:new).with(measure, measure.component)
-      end
     end
 
-    context 'when a specific duty' do
-      let(:measure_components) { [attributes_for(:measure_component, :with_measure_units)] }
-
-      it 'calls the correct evaluator' do
-        allow(ExpressionEvaluators::MeasureUnit).to receive(:new)
-
-        measure.evaluator
-
-        expect(ExpressionEvaluators::MeasureUnit).to have_received(:new).with(measure, measure.component)
-      end
+    it_behaves_like 'a measure evaluator', ExpressionEvaluators::MeasureUnit do
+      let(:measure_components) { [attributes_for(:measure_component, :with_measure_units, :single_measure_unit)] }
     end
 
-    context 'when a compound duty' do
-      let(:measure_components) do
-        [
-          attributes_for(:measure_component, :with_measure_units),
-          attributes_for(:measure_component, :ad_valorem),
-        ]
-      end
-
-      it 'calls the correct evaluator' do
-        allow(ExpressionEvaluators::Compound).to receive(:new)
-
-        measure.evaluator
-
-        expect(ExpressionEvaluators::Compound).to have_received(:new).with(measure, nil)
-      end
+    it_behaves_like 'a measure evaluator', ExpressionEvaluators::CompoundMeasureUnit do
+      let(:measure_components) { [attributes_for(:measure_component, :with_measure_units, :compound_measure_unit)] }
     end
 
-    context 'when a measure with retail price components' do
+    it_behaves_like 'a measure evaluator', ExpressionEvaluators::RetailPrice do
       let(:measure_components) { [attributes_for(:measure_component, :with_retail_price_measure_units)] }
+    end
 
-      it 'calls the correct evaluator' do
-        allow(ExpressionEvaluators::RetailPrice).to receive(:new)
-
-        measure.evaluator
-
-        expect(ExpressionEvaluators::RetailPrice).to have_received(:new).with(measure, measure.component)
-      end
+    it_behaves_like 'a measure evaluator', ExpressionEvaluators::Compound do
+      let(:measure_components) { [attributes_for(:measure_component, :with_measure_units), attributes_for(:measure_component, :ad_valorem)] }
     end
   end
 
@@ -116,48 +93,41 @@ RSpec.describe Api::Measure, :user_session do
     let(:ad_valorem) { false }
     let(:specific_duty) { false }
     let(:retail_price) { false }
+    let(:compound_measure_unit) { false }
 
     before do
       allow(component).to receive(:ad_valorem?).and_return(ad_valorem)
       allow(component).to receive(:specific_duty?).and_return(specific_duty)
       allow(component).to receive(:retail_price?).and_return(retail_price)
+      allow(component).to receive(:compound_measure_unit?).and_return(compound_measure_unit)
     end
 
-    context 'when an ad_valorem component' do
+    shared_examples_for 'a compound measure evaluator' do |expected_evaluator|
+      it 'instantiates the correct evaluator' do
+        allow(expected_evaluator).to receive(:new)
+
+        measure.evaluator_for_compound_component(component)
+
+        expect(expected_evaluator).to have_received(:new).with(measure, component)
+      end
+    end
+
+    it_behaves_like 'a compound measure evaluator', ExpressionEvaluators::AdValorem do
       let(:ad_valorem) { true }
-
-      it 'instantiates the correct evaluator' do
-        allow(ExpressionEvaluators::AdValorem).to receive(:new)
-
-        measure.evaluator_for_compound_component(component)
-
-        expect(ExpressionEvaluators::AdValorem).to have_received(:new).with(measure, component)
-      end
     end
 
-    context 'when a specific duty component' do
+    it_behaves_like 'a compound measure evaluator', ExpressionEvaluators::MeasureUnit do
       let(:specific_duty) { true }
-
-      it 'instantiates the correct evaluator' do
-        allow(ExpressionEvaluators::MeasureUnit).to receive(:new)
-
-        measure.evaluator_for_compound_component(component)
-
-        expect(ExpressionEvaluators::MeasureUnit).to have_received(:new).with(measure, component)
-      end
     end
 
-    context 'when a retail price component' do
+    it_behaves_like 'a compound measure evaluator', ExpressionEvaluators::CompoundMeasureUnit do
+      let(:specific_duty) { true }
+      let(:compound_measure_unit) { true }
+    end
+
+    it_behaves_like 'a compound measure evaluator', ExpressionEvaluators::RetailPrice do
       let(:specific_duty) { true }
       let(:retail_price) { true }
-
-      it 'instantiates the correct evaluator' do
-        allow(ExpressionEvaluators::RetailPrice).to receive(:new)
-
-        measure.evaluator_for_compound_component(component)
-
-        expect(ExpressionEvaluators::RetailPrice).to have_received(:new).with(measure, component)
-      end
     end
   end
 

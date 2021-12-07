@@ -23,6 +23,11 @@ RSpec.describe Api::BaseComponent do
                   duty_expression_abbreviation: '%',
                   measurement_unit_qualifier_code: nil
 
+  it_behaves_like 'a resource that has an enum', :monetary_unit_code, {
+    euros: %w[EUR],
+    pounds: %w[GBP],
+  }
+
   it_behaves_like 'a resource that has an enum', :measurement_unit_code, {
     retail_price: %w[RET],
   }
@@ -87,6 +92,29 @@ RSpec.describe Api::BaseComponent do
       let(:measurement_unit_code) { nil }
 
       it { expect(component).to be_no_specific_duty }
+    end
+  end
+
+  describe '#compound_measure_unit?' do
+    subject(:component) do
+      described_class.new(
+        'measurement_unit_code' => measurement_unit_code,
+        'measurement_unit_qualifier_code' => measurement_unit_qualifier_code,
+      )
+    end
+
+    context 'when the unit is a compound unit' do
+      let(:measurement_unit_code) { 'ASV' }
+      let(:measurement_unit_qualifier_code) { 'X' }
+
+      it { expect(component).to be_compound_measure_unit }
+    end
+
+    context 'when the unit is not a compound unit' do
+      let(:measurement_unit_code) { 'ASV' }
+      let(:measurement_unit_qualifier_code) { '' }
+
+      it { expect(component).not_to be_compound_measure_unit }
     end
   end
 

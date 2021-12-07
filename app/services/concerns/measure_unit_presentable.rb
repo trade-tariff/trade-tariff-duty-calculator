@@ -9,6 +9,12 @@ module MeasureUnitPresentable
   end
 
   def applicable_unit
-    ApplicableMeasureUnitMerger.new.call[component.unit]
+    applicable_units[component.unit]
+  end
+
+  private
+
+  def applicable_units
+    ApplicableMeasureUnitMerger.new.call
   end
 end
