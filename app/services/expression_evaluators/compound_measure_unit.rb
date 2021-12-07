@@ -58,19 +58,5 @@ module ExpressionEvaluators
         unit: volume_unit['unit'],
       }
     end
-
-    def measure_condition
-      return nil if component.is_a?(Api::MeasureComponent)
-
-      measure.measure_conditions.find do |measure_condition|
-        measure_condition.measure_condition_components.any? do |measure_condition_component|
-          measure_condition_component.eql?(component)
-        end
-      end
-    end
-
-    def euro_exchange_rate
-      Api::MonetaryExchangeRate.for('GBP').exchange_rate
-    end
   end
 end

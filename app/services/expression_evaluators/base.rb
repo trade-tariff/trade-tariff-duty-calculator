@@ -13,8 +13,20 @@ module ExpressionEvaluators
 
     attr_reader :measure, :component, :duty_total
 
+    def measure_condition
+      if component.belongs_to_measure_condition?
+        measure.measure_conditions.find do |measure_condition|
+          measure_condition.id == component.measure_condition_sid
+        end
+      end
+    end
+
     def user_session
       UserSession.get
+    end
+
+    def euro_exchange_rate
+      Api::MonetaryExchangeRate.for('GBP').euro_exchange_rate
     end
   end
 end
