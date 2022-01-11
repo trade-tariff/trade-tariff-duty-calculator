@@ -258,6 +258,11 @@ workflows:
           name: build_dev
           context: trade-tariff
           dev-build: true
+          filters:
+            branches:
+              ignore:
+                - main
+                - /^dependabot\/.*/
           requires:
             - test
       - deploy_dev:
@@ -266,6 +271,7 @@ workflows:
             branches:
               ignore:
                 - main
+                - /^dependabot\/.*/
           requires:
             - build_dev
       - build:
