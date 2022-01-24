@@ -9,7 +9,7 @@ gem 'activerecord', '~> 6'
 gem 'activesupport', '~> 6'
 gem 'bootsnap', require: false
 gem 'foreman'
-gem 'govuk_design_system_formbuilder', '= 2.4.0'
+gem 'govuk_design_system_formbuilder', '3.0.1'
 gem 'lograge'
 gem 'logstash-event'
 gem 'newrelic_rpm'
