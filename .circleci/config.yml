@@ -8,7 +8,7 @@ orbs:
   node: circleci/node@2
   ruby: circleci/ruby@1.1.4
   slack: circleci/slack@4.3.0
-  queue: eddiewebb/queue@1.6.1
+  queue: eddiewebb/queue@1.6.4
 
 commands:
   cf_deploy_docker:
