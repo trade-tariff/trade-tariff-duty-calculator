@@ -1,6 +1,7 @@
 Dir[File.join(__dir__, '../../app/models/steps/', '*.rb')].sort.each { |file| require_relative file }
 
-POSSIBLE_ANSWERS = Steps.constants.map { |step| "Steps::#{step}".constantize.id }
+POSSIBLE_STEPS = Steps.constants.reject { |step| step =~ /Controller$/ }
+POSSIBLE_ANSWERS = POSSIBLE_STEPS.map { |step| "Steps::#{step}".constantize.id }
 
 FactoryBot.define do
   factory :user_session do
