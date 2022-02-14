@@ -101,7 +101,7 @@ GEM
       railties (>= 4)
       request_store (~> 1.0)
     logstash-event (1.2.02)
-    loofah (2.13.0)
+    loofah (2.14.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     method_source (1.0.0)
@@ -216,10 +216,10 @@ GEM
     scss_lint-govuk (0.2.0)
       scss_lint
     semantic_range (3.0.0)
-    sentry-rails (5.0.2)
+    sentry-rails (5.1.0)
       railties (>= 5.0)
-      sentry-ruby-core (~> 5.0.2)
-    sentry-ruby-core (5.0.2)
+      sentry-ruby-core (~> 5.1.0)
+    sentry-ruby-core (5.1.0)
       concurrent-ruby
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
