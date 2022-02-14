@@ -2,9 +2,9 @@
   <a href="<%= sections_url %>" class="govuk-header__link govuk-header__link--service-name" id="proposition-name">
     <%= header %>
   </a>
-  <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="proposition-links" aria-label="Show or hide Top Level Navigation">Menu</button>
-  <nav id="proposition-menu"  aria-label="Top Level Navigation">
-    <ul id="proposition-links" class="govuk-header__navigation ">
+  <nav id="proposition-menu" class="govuk-header__navigation" aria-label="Top Level Navigation">
+    <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="proposition-links" aria-label="Show or hide Top Level Navigation">Menu</button>
+    <ul id="proposition-links" class="govuk-header__navigation-list">
       <li class="govuk-header__navigation-item">
         <%= link_to 'Search', search_url, class: "govuk-header__link" %>
       </li>
