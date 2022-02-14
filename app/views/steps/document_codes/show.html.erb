@@ -5,9 +5,9 @@
 
   <span class="govuk-caption-xl">Calculate import duties</span>
   <h1 class="govuk-heading-xl">Do you have any of the following documents?</h1>
-  <span class="govuk-hint govuk-!-margin-bottom-7">
+  <div class="govuk-hint govuk-!-margin-bottom-7">
     You may be able to reduce the duty applicable if you possess and can present one of the following documents.
-  </span>
+  </div>
 
   <% if @step.options_for('uk').present? %>
     <%= f.govuk_collection_radio_buttons(
