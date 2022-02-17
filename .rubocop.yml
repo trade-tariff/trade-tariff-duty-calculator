@@ -6,14 +6,13 @@ inherit_gem:
 require: rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.7.1
+  TargetRubyVersion: 3.0.1
   Exclude:
-    - 'db/schema.rb'
     - 'vendor/**/*'
     - 'bin/**'
     - 'db/**/*'
     - 'tmp/**/*'
-    - 'config/puma.rb'
+    - 'config/**/*'
     - 'node_modules/**/*'
 Layout/LineLength:
   Max: 120
