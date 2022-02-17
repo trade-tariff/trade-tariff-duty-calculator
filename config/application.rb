@@ -10,7 +10,7 @@ Bundler.require(*Rails.groups)
 
 module TradeTariffDutyCalculator
   class Application < Rails::Application
-    config.load_defaults 5.2
+    config.load_defaults 6.1
     config.middleware.use Rack::Deflater
     config.time_zone                 = 'London'
     config.exceptions_app            = routes
