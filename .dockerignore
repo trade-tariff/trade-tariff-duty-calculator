@@ -15,8 +15,6 @@ config/master.key
 
 public/packs
 public/packs-test
-node_modules
-vendor
 yarn-debug.log*
 .yarn-integrity
 
