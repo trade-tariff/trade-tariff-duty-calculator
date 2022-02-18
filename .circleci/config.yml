@@ -161,6 +161,9 @@ jobs:
       - image: 'cimg/ruby:3.1.0-node'
     steps:
       - checkout
+      - run: 
+          command: gem install bundler:2.2.18 --no-document
+          name: Bring bundler up-to-date
       - ruby/install-deps
       - ruby/rubocop-check:
           format: progress
@@ -182,13 +185,17 @@ jobs:
         default: false
         type: boolean
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/ruby:3.1.0-node
     steps:
       - checkout
       - setup_remote_docker:
           version: 20.10.11
           docker_layer_caching: false
       - aws-cli/install
+      - ruby/install-deps
+      - node/install-packages:
+          cache-key: yarn.lock
+          pkg-manager: yarn
       - run:
           name: "Set docker tag"
           command: |
