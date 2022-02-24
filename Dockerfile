@@ -1,5 +1,5 @@
 # Build compilation image
-FROM ruby:3.1.0-alpine3.15 as builder
+FROM ruby:3.1.1-alpine3.15 as builder
 
 # The application runs from /app
 WORKDIR /app
@@ -11,9 +11,6 @@ RUN apk add --update --no-cache build-base git yarn tzdata && \
   cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
   echo "Europe/London" > /etc/timezone
 
-# Install bundler to run bundle exec
-# This should be the same version as the Gemfile.lock
-RUN gem install bundler:2.2.18 --no-document
 RUN bundle config set without 'development test'
 
 # Install gems defined in Gemfile
@@ -27,10 +24,7 @@ RUN yarn install --frozen-lockfile
 # Copy all files to /app (except what is defined in .dockerignore)
 COPY . /app/
 
-# Compile assets and run webpack
-# Run in rails test environment to avoid loading development gems
-RUN RAILS_ENV=test bundle exec rails assets:precompile
-ENV RAILS_SERVE_STATIC_FILES=true
+RUN RAILS_ENV=production bundle exec rails assets:precompile
 
 # Cleanup to save space in the production image
 RUN rm -rf node_modules log tmp && \
@@ -42,7 +36,7 @@ RUN rm -rf node_modules log tmp && \
       find /usr/local/bundle/gems -name "*.html" -delete
 
 # Build runtime image
-FROM ruby:3.1.0-alpine3.15 as production
+FROM ruby:3.1.1-alpine3.15 as production
 
 RUN apk add --update --no-cache tzdata && \
   cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
@@ -50,6 +44,11 @@ RUN apk add --update --no-cache tzdata && \
 
 # The application runs from /app
 WORKDIR /app
+
+ENV RAILS_SERVE_STATIC_FILES=true \
+    RAILS_ENV=production
+
+RUN bundle config set without 'development test'
 
 # Copy files generated in the builder image
 COPY --from=builder /app /app
