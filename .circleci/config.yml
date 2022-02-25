@@ -158,7 +158,7 @@ jobs:
 
   checking:
     docker:
-      - image: 'cimg/ruby:3.1.0-node'
+      - image: 'cimg/ruby:3.1.1-node'
     steps:
       - checkout
       - ruby/install-deps
@@ -170,7 +170,8 @@ jobs:
           command: bundle exec rake lint:scss
       - run:
           name: Brakeman
-          command:  bundle exec brakeman -o brakeman_results.html
+          # See https://github.com/presidentbeef/brakeman/issues/1664
+          command:  bundle exec brakeman -o brakeman_results.html --no-exit-on-error
       - store_artifacts:
           path: brakeman_results.html
 
@@ -208,7 +209,7 @@ jobs:
 
   test:
     docker:
-      - image: cimg/ruby:3.1.0-node
+      - image: cimg/ruby:3.1.1-node
         environment:
           BUNDLE_JOBS: "3"
           BUNDLE_RETRY: "3"
@@ -241,7 +242,7 @@ jobs:
 
   deploy_dev:
     docker:
-      - image: cimg/ruby:3.1.0
+      - image: cimg/ruby:3.1.1
     environment:
       SENTRY_ENVIRONMENT: "development"
     steps:
@@ -258,7 +259,7 @@ jobs:
 
   deploy_staging:
     docker:
-      - image: cimg/ruby:3.1.0
+      - image: cimg/ruby:3.1.1
     environment:
       SENTRY_ENVIRONMENT: "staging"
     steps:
@@ -273,7 +274,7 @@ jobs:
 
   deploy_production:
     docker:
-      - image: cimg/ruby:3.1.0
+      - image: cimg/ruby:3.1.1
     environment:
       SENTRY_ENVIRONMENT: "production"
     steps:

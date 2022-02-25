@@ -19,8 +19,8 @@ RSpec.describe Steps::DocumentCodesController, :user_session do
     let(:answers) do
       {
         steps_document_code: {
-          document_code_uk: document_code_uk,
-          document_code_xi: document_code_xi,
+          document_code_uk:,
+          document_code_xi:,
         },
       }
     end
