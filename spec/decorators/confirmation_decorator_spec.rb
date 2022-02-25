@@ -21,7 +21,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
       :with_meursing_additional_code,
       :with_vat,
       :with_document_codes,
-      commodity_code: commodity_code,
+      commodity_code:,
     )
   end
 

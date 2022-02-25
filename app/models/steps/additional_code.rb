@@ -24,7 +24,7 @@ module Steps
     end
 
     def options_for_select_for(source:)
-      available_additional_codes_for(source: source).map { |ac| build_option(ac['code'], ac['overlay']) }
+      available_additional_codes_for(source:).map { |ac| build_option(ac['code'], ac['overlay']) }
     end
 
     def measure_type_description_for(source:)

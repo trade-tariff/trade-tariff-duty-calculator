@@ -25,7 +25,7 @@ RSpec.describe Steps::ExciseController, :user_session do
     let(:answers) do
       {
         steps_excise: {
-          additional_code: additional_code,
+          additional_code:,
         },
       }
     end

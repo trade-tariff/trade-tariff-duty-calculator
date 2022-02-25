@@ -15,7 +15,7 @@ RSpec.describe Api::MeasureType do
   }
 
   describe '#call' do
-    subject(:measure_type) { described_class.new(id: id) }
+    subject(:measure_type) { described_class.new(id:) }
 
     context 'when there is a corresponding option for the id' do
       let(:id) { '142' }
@@ -31,7 +31,7 @@ RSpec.describe Api::MeasureType do
   end
 
   describe '#additional_duty_option' do
-    subject(:measure_type) { described_class.new(id: id) }
+    subject(:measure_type) { described_class.new(id:) }
 
     context 'when there is a corresponding option for the id' do
       let(:id) { '551' }
@@ -47,7 +47,7 @@ RSpec.describe Api::MeasureType do
   end
 
   describe '#additional_option?' do
-    subject(:measure_type) { described_class.new(id: id) }
+    subject(:measure_type) { described_class.new(id:) }
 
     context 'when there is a corresponding option for the id' do
       let(:id) { '551' }

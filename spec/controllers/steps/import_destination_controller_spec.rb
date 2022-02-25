@@ -19,7 +19,7 @@ RSpec.describe Steps::ImportDestinationController, :user_session do
     let(:answers) do
       {
         steps_import_destination: {
-          import_destination: import_destination,
+          import_destination:,
         },
       }
     end

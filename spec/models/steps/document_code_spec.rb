@@ -1,5 +1,5 @@
 RSpec.describe Steps::DocumentCode, :user_session do
-  subject(:step) { build(:document_code, measure_type_id: measure_type_id) }
+  subject(:step) { build(:document_code, measure_type_id:) }
 
   let(:user_session) { build(:user_session, :with_commodity_information) }
   let(:commodity_source) { :uk }
@@ -76,9 +76,9 @@ RSpec.describe Steps::DocumentCode, :user_session do
       subject(:step) do
         build(
           :document_code,
-          user_session: user_session,
+          user_session:,
           document_code_uk: nil,
-          measure_type_id: measure_type_id,
+          measure_type_id:,
         )
       end
 
@@ -107,9 +107,9 @@ RSpec.describe Steps::DocumentCode, :user_session do
       subject(:step) do
         build(
           :document_code,
-          user_session: user_session,
+          user_session:,
           document_code_xi: nil,
-          measure_type_id: measure_type_id,
+          measure_type_id:,
         )
       end
 
@@ -340,8 +340,8 @@ RSpec.describe Steps::DocumentCode, :user_session do
       subject(:step) do
         build(
           :document_code,
-          user_session: user_session,
-          measure_type_id: measure_type_id,
+          user_session:,
+          measure_type_id:,
         )
       end
 
@@ -379,8 +379,8 @@ RSpec.describe Steps::DocumentCode, :user_session do
       subject(:step) do
         build(
           :document_code,
-          user_session: user_session,
-          measure_type_id: measure_type_id,
+          user_session:,
+          measure_type_id:,
         )
       end
 

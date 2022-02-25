@@ -170,7 +170,8 @@ jobs:
           command: bundle exec rake lint:scss
       - run:
           name: Brakeman
-          command:  bundle exec brakeman -o brakeman_results.html
+          # See https://github.com/presidentbeef/brakeman/issues/1664
+          command:  bundle exec brakeman -o brakeman_results.html --no-exit-on-error
       - store_artifacts:
           path: brakeman_results.html
 

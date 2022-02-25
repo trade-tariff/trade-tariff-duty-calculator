@@ -6,7 +6,7 @@ RSpec.describe ExpressionEvaluators::Compound, :user_session do
       :measure,
       :third_country_tariff,
       id: 3_211_138,
-      measure_components: measure_components,
+      measure_components:,
     )
   end
 
@@ -82,7 +82,7 @@ RSpec.describe ExpressionEvaluators::Compound, :user_session do
         :third_country_tariff,
         :with_resolved_duty_expression,
         id: 3_211_138,
-        measure_components: measure_components,
+        measure_components:,
       )
     end
 
