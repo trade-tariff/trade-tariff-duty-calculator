@@ -8,8 +8,5 @@
     "set-value": "^4.1.0",
     "turbolinks": "^5.2.0"
   },
-  "devDependencies": {
-    "webpack": "^4.0.0"
-  },
   "license": "MIT"
 }
