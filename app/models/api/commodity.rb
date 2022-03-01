@@ -22,6 +22,7 @@ module Api
                :consigned_from,
                :basic_duty_rate,
                :meursing_code,
+
                :declarable,
                :footnotes,
                :section,
@@ -37,6 +38,15 @@ module Api
 
     def code
       goods_nomenclature_item_id
+    end
+
+    def rules_of_origin_schemes
+      RulesOfOriginScheme.build_collection(
+        user_session.import_destination.downcase.to_sym,
+        nil,
+        heading_code: goods_nomenclature_item_id.first(6),
+        country_code: user_session.country_of_origin,
+      )
     end
 
     def formatted_commodity_code(additional_code = nil)

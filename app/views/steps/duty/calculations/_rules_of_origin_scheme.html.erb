@@ -1,0 +1,37 @@
+<details class="govuk-details" data-module="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      <% if multiple_schemes %>
+        <span class="govuk-caption-l">
+          <%= scheme.title %>
+        </span>
+      <% end %>
+
+      Product-specific rules for commodity <%= commodity_code %>
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    <% tariff_update.inserts.each_with_index do |(key, value), index| %>
+      <%= tag.br if index.positive? %>
+
+      <%= key.sub('::Operation', '') %>: <%= value %>
+    <% end %>
+  </div>
+</details>
+<div class="rules-of-origin__scheme govuk-!-margin-bottom-7">
+  <h3 class="govuk-heading-m"></h3>
+
+  <%- if scheme.rules.any? -%>
+    <%= render 'rules_of_origin/rules_table', country_name: country_name,
+                                              rules: scheme.rules %>
+
+  <%- else -%>
+    <p>
+      There are no product-specific rules for commodity <%= commodity_code %>
+    </p>
+  <%- end -%>
+
+  <%= render 'rules_of_origin/proofs',
+              proofs: scheme.proofs,
+              scheme_title: (multiple_schemes ? scheme.title : nil) %>
+</div>

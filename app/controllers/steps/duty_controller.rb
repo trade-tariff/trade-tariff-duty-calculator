@@ -5,6 +5,7 @@ module Steps
     def show
       @duty_options = duty_options
       @gbp_to_eur_exchange_rate = Api::MonetaryExchangeRate.for('GBP').exchange_rate.round(4) unless user_session.import_into_gb?
+      @rules_of_origin_schemes = commodity.rules_of_origin_schemes
     end
 
     private

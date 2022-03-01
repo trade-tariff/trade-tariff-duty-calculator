@@ -38,6 +38,10 @@ class UserSession
   end
 
   class << self
+    def uk?
+      get == 'uk'
+    end
+
     def build_from_params(session, params)
       import_destination = params[:import_destination]
       country_of_origin = params[:country_of_origin]

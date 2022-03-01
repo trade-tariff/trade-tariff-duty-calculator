@@ -15,6 +15,17 @@
         <%= render partial: 'steps/duty/calculations/option_row', collection: option.values, as: :row %>
       </tbody>
     </table>
+
+    <%= if option.show_rules_of_origin? %>
+      <%= render partial: 'rules_of_origin_scheme',
+             collection: rules_of_origin_schemes,
+             locals: {
+               country_name: country_name,
+               commodity_code: commodity_code,
+               multiple_schemes: rules_of_origin_schemes.many?
+             }
+       %>
+     <% end %>
   <% end %>
   <div class="govuk-!-margin-bottom-5">
     <%= option.footnote.html_safe if option.footnote.present? %>
