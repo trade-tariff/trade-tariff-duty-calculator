@@ -27,8 +27,8 @@ module ServiceHelper
     service_url_for('/tools')
   end
 
-  def updates_url
-    service_url_for('/updates')
+  def news_url
+    service_url_for('/news')
   end
 
   def help_url

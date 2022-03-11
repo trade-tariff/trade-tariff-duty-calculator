@@ -85,7 +85,7 @@ RSpec.describe ServiceHelper, :user_session do
   it_behaves_like 'a service url', :browse_url, '/browse'
   it_behaves_like 'a service url', :a_to_z_url, '/a-z-index/a'
   it_behaves_like 'a service url', :tools_url, '/tools'
-  it_behaves_like 'a service url', :updates_url, '/updates'
+  it_behaves_like 'a service url', :news_url, '/news'
   it_behaves_like 'a service url', :feedback_url, '/feedback'
   it_behaves_like 'a service url', :help_url, '/help'
 
