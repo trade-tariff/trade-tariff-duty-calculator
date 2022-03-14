@@ -3,7 +3,7 @@
     "@rails/webpacker": "^5.4.3",
     "accessible-autocomplete": "^2.0.4",
     "govuk-frontend": "^4.0.1",
-    "rails-ujs": "^5.2.4",
+    "rails-ujs": "^5.2.7",
     "serialize-javascript": "^6.0.0",
     "set-value": "^4.1.0",
     "turbolinks": "^5.2.0"
