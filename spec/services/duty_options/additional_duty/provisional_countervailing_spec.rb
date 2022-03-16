@@ -15,6 +15,7 @@ RSpec.describe DutyOptions::AdditionalDuty::ProvisionalCountervailing, :user_ses
         type: 'provisional_countervailing',
         category: :additional_duty,
         priority: 5,
+        scheme_code: nil,
         order_number: nil,
         geographical_area_description: nil,
       }

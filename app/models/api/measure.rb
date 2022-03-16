@@ -12,6 +12,7 @@ module Api
     has_one :suspension_legal_act, SuspensionLegalAct
 
     meta_attribute :duty_calculator, :source
+    meta_attribute :duty_calculator, :scheme_code
 
     attributes :id,
                :effective_end_date,
@@ -21,9 +22,9 @@ module Api
                :footnotes,
                :import,
                :legal_acts,
+               :meursing,
                :national_measurement_units,
                :origin,
-               :meursing,
                :reduction_indicator,
                :resolved_duty_expression,
                :vat

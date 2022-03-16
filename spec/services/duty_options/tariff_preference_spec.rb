@@ -17,6 +17,7 @@ RSpec.describe DutyOptions::TariffPreference, :user_session do
         type: 'tariff_preference',
         category: :tariff_preference,
         priority: 2,
+        scheme_code: 'eu',
         order_number: nil,
         geographical_area_description: 'United Kingdom',
       }

@@ -15,6 +15,7 @@ RSpec.describe DutyOptions::AdditionalDuty::DefinitiveAntiDumping, :user_session
         type: 'definitive_anti_dumping',
         category: :additional_duty,
         priority: 5,
+        scheme_code: nil,
         order_number: nil,
         geographical_area_description: nil,
       }

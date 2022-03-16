@@ -22,7 +22,6 @@ module Api
                :consigned_from,
                :basic_duty_rate,
                :meursing_code,
-
                :declarable,
                :footnotes,
                :section,

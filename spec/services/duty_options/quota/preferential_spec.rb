@@ -17,6 +17,7 @@ RSpec.describe DutyOptions::Quota::Preferential, :user_session do
         type: 'preferential',
         category: :quota,
         priority: 3,
+        scheme_code: 'albania',
         order_number: '058048',
         geographical_area_description: nil,
       }

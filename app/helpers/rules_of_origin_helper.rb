@@ -11,7 +11,7 @@ module RulesOfOriginHelper
       matched_tag = Regexp.last_match(1)
 
       if ROO_TAGGED_DESCRIPTIONS.include?(matched_tag)
-        render "rules_of_origin/tagged_descriptions/#{matched_tag.downcase}"
+        render "steps/duty/calculations/rules_of_origin/tagged_descriptions/#{matched_tag.downcase}"
       else
         ''
       end

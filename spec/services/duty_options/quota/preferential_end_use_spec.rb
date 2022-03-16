@@ -17,6 +17,7 @@ RSpec.describe DutyOptions::Quota::PreferentialEndUse, :user_session do
         type: 'preferential_end_use',
         category: :quota,
         priority: 3,
+        scheme_code: 'andean',
         order_number: '058048',
         geographical_area_description: nil,
       }
