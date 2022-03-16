@@ -9,6 +9,7 @@ gem 'activerecord', '~> 7'
 gem 'activesupport', '~> 7'
 gem 'bootsnap', require: false
 gem 'foreman'
+gem 'govspeak'
 gem 'govuk_design_system_formbuilder'
 gem 'lograge'
 gem 'logstash-event'

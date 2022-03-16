@@ -15,8 +15,16 @@
         <%= render partial: 'steps/duty/calculations/option_row', collection: option.values, as: :row %>
       </tbody>
     </table>
+
   <% end %>
+
   <div class="govuk-!-margin-bottom-5">
     <%= option.footnote.html_safe if option.footnote.present? %>
   </div>
+
+  <% if option.show_rules_of_origin? %>
+    <% scheme = @rules_of_origin_schemes.find { |scheme| scheme.scheme_code == option.scheme_code } %>
+
+    <%= render partial: 'steps/duty/calculations/rules_of_origin_scheme', locals: { scheme: scheme, } %>
+  <% end %>
 <% end %>

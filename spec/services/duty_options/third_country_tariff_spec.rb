@@ -17,6 +17,7 @@ RSpec.describe DutyOptions::ThirdCountryTariff, :user_session do
         type: 'third_country_tariff',
         category: :third_country_tariff,
         priority: 1,
+        scheme_code: nil,
         order_number: nil,
         geographical_area_description: nil,
       }

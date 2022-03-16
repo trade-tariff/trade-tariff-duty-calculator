@@ -15,6 +15,7 @@ RSpec.describe DutyOptions::AdditionalDuty::ProvisionalAntiDumping, :user_sessio
         type: 'provisional_anti_dumping',
         category: :additional_duty,
         priority: 5,
+        scheme_code: nil,
         order_number: nil,
         geographical_area_description: nil,
       }

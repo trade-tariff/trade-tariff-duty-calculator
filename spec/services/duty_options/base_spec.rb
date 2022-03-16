@@ -47,6 +47,7 @@ RSpec.describe DutyOptions::Base, :user_session do
         priority: 5,
         order_number: nil,
         geographical_area_description: nil,
+        scheme_code: nil,
       }
     end
 

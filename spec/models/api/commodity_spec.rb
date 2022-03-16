@@ -191,4 +191,22 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
       it { expect(commodity.applicable_excise_measure_units).to eq(expected_units) }
     end
   end
+
+  describe '#rules_of_origin_schemes' do
+    before do
+      allow(Api::RulesOfOriginScheme).to receive(:build_collection).and_call_original
+    end
+
+    let(:user_session) { build(:user_session, :with_row_to_gb_route) }
+
+    it 'passes the correct arguments to the RulesOfOriginScheme collection builder' do
+      commodity.rules_of_origin_schemes
+
+      expect(Api::RulesOfOriginScheme).to have_received(:build_collection).with('uk', nil, { country_code: 'AR', heading_code: '070200' })
+    end
+
+    it 'returns a collection of RulesOfOriginScheme records' do
+      expect(commodity.rules_of_origin_schemes.first).to be_a(Api::RulesOfOriginScheme)
+    end
+  end
 end

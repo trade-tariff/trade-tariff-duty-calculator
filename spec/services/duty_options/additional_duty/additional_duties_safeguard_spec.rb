@@ -15,6 +15,7 @@ RSpec.describe DutyOptions::AdditionalDuty::AdditionalDutiesSafeguard, :user_ses
         type: 'additional_duties_safeguard',
         category: :additional_duty,
         priority: 5,
+        scheme_code: nil,
         order_number: nil,
         geographical_area_description: nil,
       }

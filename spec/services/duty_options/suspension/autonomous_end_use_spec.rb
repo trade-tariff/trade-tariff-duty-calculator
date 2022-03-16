@@ -17,6 +17,7 @@ RSpec.describe DutyOptions::Suspension::AutonomousEndUse, :user_session do
         type: 'autonomous_end_use',
         category: :suspension,
         priority: 3,
+        scheme_code: nil,
         order_number: nil,
         geographical_area_description: nil,
       }

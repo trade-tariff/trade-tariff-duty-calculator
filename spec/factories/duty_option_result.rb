@@ -25,6 +25,7 @@ FactoryBot.define do
           :warning_text,
           :category,
           :priority,
+          :scheme_code,
         ),
       )
     end
@@ -42,6 +43,23 @@ FactoryBot.define do
     category { DutyOptions::TariffPreference::CATEGORY }
     measure_type_id { '142' }
     priority { DutyOptions::TariffPreference::PRIORITY }
+    scheme_code { 'eu' }
+  end
+
+  trait :preferential_quota do
+    type { DutyOptions::Quota::Preferential.id }
+    category { DutyOptions::Quota::Base::CATEGORY }
+    measure_type_id { '143' }
+    priority { DutyOptions::Quota::Base::PRIORITY }
+    scheme_code { 'albania' }
+  end
+
+  trait :preferential_quota_end_use do
+    type { DutyOptions::Quota::PreferentialEndUse.id }
+    category { DutyOptions::Quota::Base::CATEGORY }
+    measure_type_id { '146' }
+    priority { DutyOptions::Quota::Base::PRIORITY }
+    scheme_code { 'andean' }
   end
 
   trait :suspension do
