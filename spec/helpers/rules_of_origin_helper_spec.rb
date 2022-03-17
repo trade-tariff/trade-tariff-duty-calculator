@@ -1,6 +1,29 @@
 RSpec.describe RulesOfOriginHelper, :user_session do
   let(:user_session) { build(:user_session) }
 
+  describe '#scheme_for' do
+    subject { helper.scheme_for(option, schemes) }
+
+    let(:schemes) do
+      [
+        build(:rules_of_origin_scheme, scheme_code: 'foo'),
+        build(:rules_of_origin_scheme, scheme_code: 'bar'),
+      ]
+    end
+
+    context 'when there is a matching scheme' do
+      let(:option) { build(:duty_option_result, scheme_code: 'foo') }
+
+      it { is_expected.to eq(schemes.first) }
+    end
+
+    context 'when there is no matching scheme' do
+      let(:option) { build(:duty_option_result, scheme_code: 'qux') }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe '#rules_of_origin_tagged_descriptions' do
     subject { helper.rules_of_origin_tagged_descriptions(content) }
 

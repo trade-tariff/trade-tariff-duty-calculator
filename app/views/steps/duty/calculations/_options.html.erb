@@ -22,9 +22,7 @@
     <%= option.footnote.html_safe if option.footnote.present? %>
   </div>
 
-  <% if option.show_rules_of_origin? %>
-    <% scheme = @rules_of_origin_schemes.find { |scheme| scheme.scheme_code == option.scheme_code } %>
-
-    <%= render partial: 'steps/duty/calculations/rules_of_origin_scheme', locals: { scheme: scheme, } %>
+  <% if option.show_rules_of_origin? && scheme_for(option, @rules_of_origin_schemes).present? %>
+    <%= render partial: 'steps/duty/calculations/rules_of_origin_scheme', locals: { scheme: scheme_for(option, @rules_of_origin_schemes) } %>
   <% end %>
 <% end %>
