@@ -24,6 +24,7 @@ module DutyOptions
           source: measure.source,
           priority: self.class::PRIORITY,
           category: self.class::CATEGORY,
+          scheme_code: measure.scheme_code,
         },
       )
     end

@@ -10,6 +10,11 @@ RSpec.describe Steps::DutyController, :user_session do
   describe 'GET #show' do
     subject(:response) { get :show }
 
+    it 'assigns the correct rules of origin' do
+      response
+      expect(assigns[:rules_of_origin_schemes].first).to be_a(Api::RulesOfOriginScheme)
+    end
+
     it 'assigns the correct duty options' do
       response
       expect(assigns[:duty_options]).to eq([])

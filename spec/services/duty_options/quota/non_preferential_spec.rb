@@ -17,6 +17,7 @@ RSpec.describe DutyOptions::Quota::NonPreferential, :user_session do
         type: 'non_preferential',
         category: :quota,
         priority: 3,
+        scheme_code: nil,
         order_number: '058048',
         geographical_area_description: nil,
       }

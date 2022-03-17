@@ -15,6 +15,7 @@ RSpec.describe DutyOptions::AdditionalDuty::DefinitiveCountervailing, :user_sess
         type: 'definitive_countervailing',
         category: :additional_duty,
         priority: 5,
+        scheme_code: nil,
         order_number: nil,
         geographical_area_description: nil,
       }

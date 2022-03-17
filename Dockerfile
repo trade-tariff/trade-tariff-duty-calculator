@@ -24,7 +24,11 @@ RUN yarn install --frozen-lockfile
 # Copy all files to /app (except what is defined in .dockerignore)
 COPY . /app/
 
-RUN RAILS_ENV=production bundle exec rails assets:precompile
+ENV GOVUK_APP_DOMAIN=localhost \
+    GOVUK_WEBSITE_ROOT=http://localhost/ \
+    RAILS_ENV=production
+
+RUN bundle exec rails assets:precompile
 
 # Cleanup to save space in the production image
 RUN rm -rf node_modules log tmp && \
@@ -45,7 +49,9 @@ RUN apk add --update --no-cache tzdata && \
 # The application runs from /app
 WORKDIR /app
 
-ENV RAILS_SERVE_STATIC_FILES=true \
+ENV GOVUK_APP_DOMAIN=localhost \
+    GOVUK_WEBSITE_ROOT=http://localhost/ \
+    RAILS_SERVE_STATIC_FILES=true \
     RAILS_ENV=production
 
 RUN bundle config set without 'development test'

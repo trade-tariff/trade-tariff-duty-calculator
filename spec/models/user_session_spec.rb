@@ -622,4 +622,24 @@ RSpec.describe UserSession do
       end
     end
   end
+
+  describe '#origin_country_code' do
+    context 'when country of origin is OTHER' do
+      subject(:origin_country_code) { build(:user_session, country_of_origin: 'OTHER', other_country_of_origin: 'AD').origin_country_code }
+
+      it { is_expected.to eq('AD') }
+    end
+
+    context 'when country of origin is not OTHER' do
+      subject(:origin_country_code) { build(:user_session, country_of_origin: 'AR').origin_country_code }
+
+      it { is_expected.to eq('AR') }
+    end
+
+    context 'when country of origin is not set' do
+      subject(:origin_country_code) { build(:user_session).origin_country_code }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end

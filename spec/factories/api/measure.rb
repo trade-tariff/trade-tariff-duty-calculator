@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :measure, class: 'Api::Measure' do
     transient do
       source { 'uk' }
+      scheme_code {}
     end
 
     id { generate(:measure_sid) }
@@ -31,7 +32,14 @@ FactoryBot.define do
     resolved_measure_components { [] }
 
     initialize_with do
-      meta = { 'meta' => { 'duty_calculator' => { 'source' => source } } }
+      meta = {
+        'meta' => {
+          'duty_calculator' => {
+            'source' => source,
+            'scheme_code' => scheme_code,
+          },
+        },
+      }
       attributes = attribute_lists.first(&:non_ignored).each_with_object({}) do |dynamic_attribute, acc|
         acc[dynamic_attribute.name] = public_send(dynamic_attribute.name)
       end
@@ -67,14 +75,17 @@ FactoryBot.define do
 
     trait :tariff_preference do
       measure_type { attributes_for :measure_type, :tariff_preference }
+      scheme_code { 'eu' }
     end
 
     trait :preferential do
       measure_type { attributes_for :measure_type, :preferential }
+      scheme_code { 'albania' }
     end
 
     trait :preferential_end_use do
       measure_type { attributes_for :measure_type, :preferential_end_use }
+      scheme_code { 'andean' }
     end
 
     trait :vat do

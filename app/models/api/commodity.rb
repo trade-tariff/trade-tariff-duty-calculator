@@ -60,6 +60,15 @@ module Api
       @applicable_excise_measures ||= applicable_measures.select(&:excise)
     end
 
+    def rules_of_origin_schemes
+      RulesOfOriginScheme.build_collection(
+        source,
+        nil,
+        heading_code: goods_nomenclature_item_id.first(6),
+        country_code: user_session.origin_country_code,
+      )
+    end
+
     private
 
     def excise_measure_units

@@ -75,4 +75,28 @@ RSpec.describe DutyOptionResult do
       end
     end
   end
+
+  describe '#show_rules_of_origin?' do
+    shared_examples_for 'an option result that shows rules of origin' do |option_type|
+      subject(:result) { build(:duty_option_result, :uk, option_type) }
+
+      it { is_expected.to be_show_rules_of_origin }
+    end
+
+    it_behaves_like 'an option result that shows rules of origin', :tariff_preference
+    it_behaves_like 'an option result that shows rules of origin', :preferential_quota
+    it_behaves_like 'an option result that shows rules of origin', :preferential_quota_end_use
+
+    context 'when not on the uk service' do
+      subject(:result) { build(:duty_option_result, :xi, :tariff_preference) }
+
+      it { is_expected.not_to be_show_rules_of_origin }
+    end
+
+    context 'when there is no scheme code' do
+      subject(:result) { build(:duty_option_result, :uk, :third_country_tariff) }
+
+      it { is_expected.not_to be_show_rules_of_origin }
+    end
+  end
 end

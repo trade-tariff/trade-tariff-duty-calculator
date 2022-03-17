@@ -15,6 +15,7 @@ RSpec.describe DutyOptions::AdditionalDuty::AdditionalDuties, :user_session do
         type: 'additional_duties',
         category: :additional_duty,
         priority: 5,
+        scheme_code: nil,
         order_number: nil,
         geographical_area_description: nil,
       }
