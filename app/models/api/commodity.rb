@@ -65,7 +65,7 @@ module Api
         source,
         nil,
         heading_code: goods_nomenclature_item_id.first(6),
-        country_code: user_session.country_of_origin,
+        country_code: user_session.origin_country_code,
       )
     end
 

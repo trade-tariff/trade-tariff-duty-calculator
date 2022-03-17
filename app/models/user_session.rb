@@ -224,6 +224,10 @@ class UserSession
     session['answers']
   end
 
+  def origin_country_code
+    country_of_origin == 'OTHER' ? other_country_of_origin : country_of_origin
+  end
+
   private
 
   def trader_scheme?
