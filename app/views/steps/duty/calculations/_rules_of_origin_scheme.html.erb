@@ -6,9 +6,7 @@
   </summary>
   <div class="govuk-details__text">
     <%- if scheme.rules.any? -%>
-      <%= render 'steps/duty/calculations/rules_of_origin/rules_table', country_name: user_session.country_of_origin,
-        rules: scheme.rules %>
-
+      <%= render 'steps/duty/calculations/rules_of_origin/rules_table', rules: scheme.rules %>
     <%- else -%>
       <p>
         There are no product-specific rules for commodity <%= commodity.formatted_commodity_code %>
