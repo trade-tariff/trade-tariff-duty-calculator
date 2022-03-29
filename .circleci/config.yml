@@ -171,7 +171,7 @@ jobs:
       - run:
           name: Brakeman
           # See https://github.com/presidentbeef/brakeman/issues/1664
-          command:  bundle exec brakeman -o brakeman_results.html --no-exit-on-error
+          command:  bundle exec brakeman -o brakeman_results.html
       - store_artifacts:
           path: brakeman_results.html
 

@@ -14,10 +14,10 @@ RSpec.describe CommodityHelper, :user_session do
   let(:user_session) do
     build(
       :user_session,
-      import_destination:,
+      import_destination: import_destination,
       country_of_origin: 'GB',
-      commodity_source:,
-      commodity_code:,
+      commodity_source: commodity_source,
+      commodity_code: commodity_code,
     )
   end
 
@@ -50,10 +50,10 @@ RSpec.describe CommodityHelper, :user_session do
       let(:user_session) do
         build(
           :user_session,
-          import_destination:,
+          import_destination: import_destination,
           country_of_origin: 'OTHER',
-          commodity_source:,
-          commodity_code:,
+          commodity_source: commodity_source,
+          commodity_code: commodity_code,
           other_country_of_origin: 'AR',
         )
       end
@@ -128,9 +128,9 @@ RSpec.describe CommodityHelper, :user_session do
     let(:user_session) do
       build(
         :user_session,
-        import_destination:,
-        commodity_source:,
-        commodity_code:,
+        import_destination: import_destination,
+        commodity_source: commodity_source,
+        commodity_code: commodity_code,
       )
     end
 

@@ -85,7 +85,7 @@ RSpec.describe Steps::Excise, :step, :user_session do
       subject(:step) do
         build(
           :excise,
-          user_session:,
+          user_session: user_session,
           measure_type_id: nil,
         )
       end
@@ -107,7 +107,7 @@ RSpec.describe Steps::Excise, :step, :user_session do
       subject(:step) do
         build(
           :excise,
-          user_session:,
+          user_session: user_session,
           additional_code: nil,
         )
       end
@@ -201,7 +201,7 @@ RSpec.describe Steps::Excise, :step, :user_session do
       subject(:step) do
         build(
           :excise,
-          user_session:,
+          user_session: user_session,
           additional_code: nil,
         )
       end
