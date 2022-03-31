@@ -2,10 +2,10 @@ RSpec.describe Steps::ImportDate, :step, :user_session do
   subject(:step) do
     build(
       :import_date,
-      user_session:,
-      day:,
-      month:,
-      year:,
+      user_session: user_session,
+      day: day,
+      month: month,
+      year: year,
     )
   end
 

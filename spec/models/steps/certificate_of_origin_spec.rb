@@ -2,8 +2,8 @@ RSpec.describe Steps::CertificateOfOrigin, :step, :user_session do
   subject(:step) do
     build(
       :certificate_of_origin,
-      user_session:,
-      certificate_of_origin:,
+      user_session: user_session,
+      certificate_of_origin: certificate_of_origin,
     )
   end
 

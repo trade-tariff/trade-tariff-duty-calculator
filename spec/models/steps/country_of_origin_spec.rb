@@ -2,11 +2,11 @@ RSpec.describe Steps::CountryOfOrigin, :step, :user_session do
   subject(:step) do
     build(
       :country_of_origin,
-      user_session:,
-      country_of_origin:,
-      other_country_of_origin:,
-      trade_defence:,
-      zero_mfn_duty:,
+      user_session: user_session,
+      country_of_origin: country_of_origin,
+      other_country_of_origin: other_country_of_origin,
+      trade_defence: trade_defence,
+      zero_mfn_duty: zero_mfn_duty,
     )
   end
 

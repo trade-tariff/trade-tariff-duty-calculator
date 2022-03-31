@@ -10,9 +10,9 @@ class NumberWithHighPrecisionFormatter
   def call
     number_with_precision(
       @quantity,
-      precision:,
+      precision: precision,
       significant: false,
-      strip_insignificant_zeros:,
+      strip_insignificant_zeros: strip_insignificant_zeros,
     )
   end
 

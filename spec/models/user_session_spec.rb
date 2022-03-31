@@ -400,7 +400,7 @@ RSpec.describe UserSession do
   end
 
   describe '#import_into_gb?' do
-    subject(:user_session) { build(:user_session, import_destination:) }
+    subject(:user_session) { build(:user_session, import_destination: import_destination) }
 
     context 'when the import_destination is UK' do
       let(:import_destination) { 'UK' }
@@ -497,9 +497,9 @@ RSpec.describe UserSession do
     let(:params) do
       ActionController::Parameters.new(
         commodity_code: '0702000007',
-        country_of_origin:,
+        country_of_origin: country_of_origin,
         import_date: '2021-01-01',
-        import_destination:,
+        import_destination: import_destination,
       )
     end
 
@@ -588,7 +588,7 @@ RSpec.describe UserSession do
       )
     end
 
-    let(:measure_type) { Api::MeasureType.new(id:, measure_type_series_id:) }
+    let(:measure_type) { Api::MeasureType.new(id: id, measure_type_series_id: measure_type_series_id) }
 
     context 'when the measure type is an excise measure type' do
       let(:measure_type_series_id) { 'Q' }

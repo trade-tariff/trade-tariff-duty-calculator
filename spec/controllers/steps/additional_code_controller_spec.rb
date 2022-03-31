@@ -19,8 +19,8 @@ RSpec.describe Steps::AdditionalCodesController, :user_session do
     let(:answers) do
       {
         steps_additional_code: {
-          additional_code_uk:,
-          additional_code_xi:,
+          additional_code_uk: additional_code_uk,
+          additional_code_xi: additional_code_xi,
         },
       }
     end

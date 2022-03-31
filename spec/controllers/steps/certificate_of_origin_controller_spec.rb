@@ -19,7 +19,7 @@ RSpec.describe Steps::CertificateOfOriginController, :user_session do
     let(:answers) do
       {
         steps_certificate_of_origin: {
-          certificate_of_origin:,
+          certificate_of_origin: certificate_of_origin,
         },
       }
     end

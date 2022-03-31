@@ -19,7 +19,7 @@ module DutyOptions
           footnote: localised_footnote,
           warning_text: nil,
           values: option_values,
-          value:,
+          value: value,
           measure_sid: measure.id,
           source: measure.source,
           priority: self.class::PRIORITY,
@@ -57,7 +57,7 @@ module DutyOptions
       presented_rows << I18n.t(
         'duty_calculations.options.import_duty_html',
         commodity_source: presented_commodity_source,
-        option_type:,
+        option_type: option_type,
         additional_code: formatted_additional_code,
       ).html_safe
       presented_rows.concat(duty_evaluation.slice(:calculation, :formatted_value).values)

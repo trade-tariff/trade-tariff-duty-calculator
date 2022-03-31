@@ -4,8 +4,8 @@ RSpec.describe Steps::Confirmation, :step, :user_session do
   let(:filtered_commodity) do
     instance_double(
       'Api::Commodity',
-      applicable_additional_codes:,
-      applicable_vat_options:,
+      applicable_additional_codes: applicable_additional_codes,
+      applicable_vat_options: applicable_vat_options,
     )
   end
 

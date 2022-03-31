@@ -1,5 +1,5 @@
 RSpec.describe Steps::PlannedProcessing, :step, :user_session do
-  subject(:step) { build(:planned_processing, user_session:, planned_processing:) }
+  subject(:step) { build(:planned_processing, user_session: user_session, planned_processing: planned_processing) }
 
   let(:session_attributes) { {} }
   let(:user_session) { build(:user_session, session_attributes) }

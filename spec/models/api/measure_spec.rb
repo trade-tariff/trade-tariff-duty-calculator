@@ -53,7 +53,7 @@ RSpec.describe Api::Measure, :user_session do
                                                     resolved_duty_expression: ''
 
   describe '#evaluator' do
-    subject(:measure) { build(:measure, :third_country_tariff, source: 'xi', measure_components:) }
+    subject(:measure) { build(:measure, :third_country_tariff, source: 'xi', measure_components: measure_components) }
 
     shared_examples_for 'a measure evaluator' do |expected_evaluator|
       it 'instantiates the correct evaluator' do
@@ -640,9 +640,9 @@ RSpec.describe Api::Measure, :user_session do
     subject(:measure) do
       build(
         :measure,
-        measure_components:,
-        resolved_measure_components:,
-        measure_conditions:,
+        measure_components: measure_components,
+        resolved_measure_components: resolved_measure_components,
+        measure_conditions: measure_conditions,
       )
     end
 
