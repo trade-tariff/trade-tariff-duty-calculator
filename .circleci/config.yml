@@ -248,7 +248,7 @@ jobs:
           app_domain_prefix: "dev"
       - sentry-release
 
-  deploy_staging:
+  deploy_main_to_staging:
     docker:
       - image: cimg/ruby:3.1.1
     environment:
@@ -263,6 +263,16 @@ jobs:
           environment_key: "staging"
           app_domain_prefix: "staging"
       - sentry-release
+
+  deploy_release_to_staging:
+    docker:
+      - image: cimg/ruby:3.1.1
+    steps:
+      - cf_deploy_docker:
+          docker_image_tag: $CIRCLE_TAG
+          space: "staging"
+          environment_key: "staging"
+          app_domain_prefix: "staging"
 
   deploy_production:
     docker:
@@ -332,7 +342,7 @@ workflows:
             branches:
               only:
                 - main
-      - deploy_staging:
+      - deploy_main_to_staging:
           context: trade-tariff
           filters:
             branches:
@@ -346,14 +356,14 @@ workflows:
               only:
                 - main
           requires:
-            - deploy_staging
+            - deploy_main_to_staging
       - cypress:
           filters:
             branches:
               only:
                 - main
           requires:
-            - deploy_staging
+            - deploy_main_to_staging
       - hold_create_release:
           type: approval
           filters:
@@ -361,7 +371,7 @@ workflows:
               only:
                 - main
           requires:
-            - deploy_staging
+            - deploy_main_to_staging
       - tariff/create-production-release:
           context: trade-tariff
           image-name: tariff-dutycalculator
@@ -371,6 +381,13 @@ workflows:
                 - main
           requires:
             - hold_create_release
+      - deploy_release_to_staging:
+          context: trade-tariff
+          filters:
+            tags:
+              only: /^release-202[\d-]+/
+            branches:
+              ignore: /.*/
       - hold_deploy_production:
           type: approval
           filters:
