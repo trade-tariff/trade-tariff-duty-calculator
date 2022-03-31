@@ -125,10 +125,6 @@ module Api
       TYPE_ADDITIONAL_OPTION_MAPPING[id]
     end
 
-    def additional_option?
-      id.in?(TYPE_ADDITIONAL_OPTION_MAPPING.keys)
-    end
-
     def self.supported_option_category?(category)
       TYPE_OPTION_MAPPING.values.any? { |option_klass| option_klass::CATEGORY == category }
     end
