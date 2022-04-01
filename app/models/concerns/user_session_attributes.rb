@@ -32,6 +32,10 @@ module UserSessionAttributes
       define_method("#{attribute}_xi=") do |value|
         public_send("#{attribute}_xi").merge!(value)
       end
+
+      define_method("#{attribute}?") do
+        public_send("#{attribute}_uk").present? || public_send("#{attribute}_xi").present?
+      end
     end
 
     def answer_attributes(*attributes)

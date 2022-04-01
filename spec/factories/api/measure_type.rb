@@ -11,6 +11,12 @@ FactoryBot.define do
       measure_type_series_id { 'C' }
     end
 
+    trait :third_country_authorised_use do
+      id { '105' }
+      description { 'Non preferential duty under authorised use' }
+      measure_type_series_id { 'C' }
+    end
+
     trait :autonomous do
       id { '112' }
       description { 'Autonomous tariff suspension' }

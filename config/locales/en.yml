@@ -46,6 +46,7 @@ en:
     annual_turnover: What was your annual turnover - Online Tariff Duty Calculator
     planned_processing: How will your goods be processed - Online Tariff Duty calculator
     certificate_of_origin: Do you have a valid proof of origin - Online Tariff Duty calculator
+    stopping: Declared subheading not allowed - Online Tariff Duty calculator
     interstitial:
       gb_to_ni: Duties apply to this import - Online Tariff Duty calculator
       default: EU duties apply to this import - Online Tariff Duty calculator

@@ -23,5 +23,39 @@ FactoryBot.define do
       condition_measurement_unit_code { 'DTN' }
       duty_expression { "<span>35.10</span> GBP / <abbr title='Hectokilogram'>100 kg</abbr>" }
     end
+
+    trait :stopping_negative do
+      action { 'Declared subheading not allowed' }
+      action_code { '08' }
+      certificate_description {}
+      condition { 'B: Presentation of a certificate/licence/document' }
+      condition_code { 'B' }
+      condition_duty_amount {}
+      condition_measurement_unit_code {}
+      condition_measurement_unit_qualifier_code {}
+      condition_monetary_unit_code {}
+      document_code { '' }
+      duty_expression { '' }
+      monetary_unit_abbreviation {}
+      requirement {}
+      measure_condition_class { 'negative' }
+    end
+
+    trait :stopping_document do
+      action { 'Apply the mentioned duty' }
+      action_code { '27' }
+      certificate_description { 'EUS - Authorisation for the use of end use procedure (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)' }
+      condition { 'B: Presentation of a certificate/licence/document' }
+      condition_code { 'B' }
+      condition_duty_amount {}
+      condition_measurement_unit_code {}
+      condition_measurement_unit_qualifier_code {}
+      condition_monetary_unit_code {}
+      document_code { 'N990' }
+      duty_expression { '' }
+      monetary_unit_abbreviation {}
+      requirement { 'UN/EDIFACT certificates: EUS - Authorisation for the use of end use procedure (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)' }
+      measure_condition_class { 'document' }
+    end
   end
 end

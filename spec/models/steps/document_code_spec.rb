@@ -1,4 +1,4 @@
-RSpec.describe Steps::DocumentCode, :user_session do
+RSpec.describe Steps::DocumentCode, :step, :user_session do
   subject(:step) { build(:document_code, measure_type_id: measure_type_id) }
 
   let(:user_session) { build(:user_session, :with_commodity_information) }
@@ -15,10 +15,12 @@ RSpec.describe Steps::DocumentCode, :user_session do
 
   let(:applicable_vat_options) { {} }
   let(:additional_codes) { {} }
+  let(:stopping_conditions_met) { false }
 
   before do
     allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
     allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(additional_codes)
+    allow(filtered_commodity).to receive(:stopping_conditions_met?).and_return(stopping_conditions_met)
     allow(filtered_commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
   end
 
@@ -294,8 +296,6 @@ RSpec.describe Steps::DocumentCode, :user_session do
   end
 
   describe '#previous_step_path' do
-    include Rails.application.routes.url_helpers
-
     let(:applicable_measure_units) { {} }
 
     before do
@@ -393,21 +393,22 @@ RSpec.describe Steps::DocumentCode, :user_session do
   end
 
   describe '#next_step_path' do
-    include Rails.application.routes.url_helpers
-
     context 'when there is just one measure type id on the applicable_document_codes
     hash' do
-      it 'returns confirm_path' do
-        expect(step.next_step_path).to eq(confirm_path)
-      end
+      it { expect(step.next_step_path).to eq(confirm_path) }
     end
 
     context 'when there are multiple measure type ids on the applicable_document_codes hash' do
       let(:measure_type_id) { 105 }
 
-      it 'returns document_codes_path with the next measure_type_id as argument' do
-        expect(step.next_step_path).to eq(document_codes_path(117))
-      end
+      it { expect(step.next_step_path).to eq(document_codes_path(117)) }
+    end
+
+    context 'when there are multiple measure type ids on the applicable_document_codes and stopping conditions are met' do
+      let(:measure_type_id) { 117 }
+      let(:stopping_conditions_met) { true }
+
+      it { expect(step.next_step_path).to eq(stopping_path) }
     end
 
     context 'when there are less than 2 applicable vat options' do

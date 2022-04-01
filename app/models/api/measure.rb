@@ -105,18 +105,12 @@ module Api
       all_components.map(&:unit).compact
     end
 
-    private
-
-    def resolved_or_standard_measure_components
-      resolved_measure_components.presence || measure_components
+    def stopping?
+      measure_conditions&.any?(&:stopping?)
     end
 
-    def all_components
-      measure_conditions.flat_map(&:measure_condition_components) + resolved_or_standard_measure_components
-    end
-
-    def document_components
-      applicable_document_condition&.measure_condition_components
+    def stopping_condition_met?
+      applicable_document_condition&.stopping?
     end
 
     def applicable_document_condition
@@ -129,6 +123,20 @@ module Api
           measure_condition.document_code == document_code
         end
       end
+    end
+
+    private
+
+    def resolved_or_standard_measure_components
+      resolved_measure_components.presence || measure_components
+    end
+
+    def all_components
+      measure_conditions.flat_map(&:measure_condition_components) + resolved_or_standard_measure_components
+    end
+
+    def document_components
+      applicable_document_condition&.measure_condition_components
     end
 
     def ad_valorem?

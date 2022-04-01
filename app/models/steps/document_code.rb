@@ -30,6 +30,7 @@ module Steps
     end
 
     def next_step_path
+      return stopping_path if filtered_commodity.stopping_conditions_met?
       return document_codes_path(next_measure_type_id) if next_measure_type_id.present?
       return excise_path(applicable_excise_measure_type_ids.first) if applicable_excise_additional_codes?
       return vat_path if applicable_vat_options.keys.count > 1
