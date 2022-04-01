@@ -1,11 +1,17 @@
 RSpec.describe Steps::Stopping, :step, :user_session do
+  let(:filtered_commodity) { build(:commodity, :with_multiple_stopping_condition_measures) }
+
+  before do
+    allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
+  end
+
   describe '#previous_step_path' do
     subject(:step) { build(:stopping).previous_step_path }
 
     context 'when there are document codes' do
-      let(:user_session) { build(:user_session, :with_commodity_information, :with_document_codes) }
+      let(:user_session) { build(:user_session, :with_commodity_information, :with_multiple_stopping_condition_document_answers) }
 
-      it { is_expected.to eq(document_codes_path('105')) }
+      it { is_expected.to eq(document_codes_path('103')) }
     end
 
     context 'when there are no document codes' do

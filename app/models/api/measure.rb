@@ -113,6 +113,18 @@ module Api
       applicable_document_condition&.stopping?
     end
 
+    def applicable_document_condition
+      @applicable_document_condition ||= begin
+        document_code = user_session.document_code_for(measure_type.id, source)
+
+        return if document_code.nil?
+
+        measure_conditions.find do |measure_condition|
+          measure_condition.document_code == document_code
+        end
+      end
+    end
+
     private
 
     def resolved_or_standard_measure_components
@@ -125,18 +137,6 @@ module Api
 
     def document_components
       applicable_document_condition&.measure_condition_components
-    end
-
-    def applicable_document_condition
-      @applicable_document_condition ||= begin
-        document_code = user_session.document_code_for(measure_type.id, source)
-
-        return if document_code.nil?
-
-        measure_conditions.find do |measure_condition|
-          measure_condition.document_code == document_code
-        end
-      end
     end
 
     def ad_valorem?
