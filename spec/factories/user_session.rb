@@ -243,4 +243,26 @@ FactoryBot.define do
   trait :zero_mfn_duty do
     zero_mfn_duty { true }
   end
+
+  trait :with_multiple_stopping_condition_document_answers do
+    document_code do
+      {
+        'uk' => {
+          '103' => 'None',
+          '105' => 'None',
+        },
+      }
+    end
+  end
+
+  trait :with_a_single_stopping_condition_document_answer do
+    document_code do
+      {
+        'uk' => {
+          '103' => 'None',
+          '105' => 'N990',
+        },
+      }
+    end
+  end
 end

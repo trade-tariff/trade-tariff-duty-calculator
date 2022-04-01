@@ -69,7 +69,15 @@ module Api
       )
     end
 
+    def stopping_conditions_met?
+      stopping_measures.any? && stopping_measures.all?(&:stopping_condition_met?)
+    end
+
     private
+
+    def stopping_measures
+      applicable_measures.select(&:stopping?)
+    end
 
     def excise_measure_units
       @excise_measure_units ||= excise_measures.flat_map(&:all_units).uniq

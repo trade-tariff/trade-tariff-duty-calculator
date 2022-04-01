@@ -209,4 +209,46 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
       expect(commodity.rules_of_origin_schemes.first).to be_a(Api::RulesOfOriginScheme)
     end
   end
+
+  describe '#stopping_conditions_met?' do
+    context 'when all measures have an applicable stopping condition' do
+      subject(:commodity) { build(:commodity, :with_multiple_stopping_condition_measures) }
+
+      let(:user_session) { build(:user_session, :with_multiple_stopping_condition_document_answers) }
+
+      it { is_expected.to be_stopping_conditions_met }
+    end
+
+    context 'when one of the measures have an applicable stopping condition' do
+      subject(:commodity) { build(:commodity, :with_multiple_stopping_condition_measures) }
+
+      let(:user_session) { build(:user_session, :with_a_single_stopping_condition_document_answer) }
+
+      it { is_expected.not_to be_stopping_conditions_met }
+    end
+
+    context 'when none of the measures have an applicable stopping condition' do
+      subject(:commodity) { build(:commodity, :with_multiple_stopping_condition_measures) }
+
+      let(:user_session) { build(:user_session) }
+
+      it { is_expected.not_to be_stopping_conditions_met }
+    end
+
+    context 'when there are no stopping measures' do
+      subject(:commodity) { build(:commodity, :with_measures) }
+
+      let(:user_session) { build(:user_session) }
+
+      it { is_expected.not_to be_stopping_conditions_met }
+    end
+
+    context 'when there are no measures' do
+      subject(:commodity) { build(:commodity, :without_measures) }
+
+      let(:user_session) { build(:user_session) }
+
+      it { is_expected.not_to be_stopping_conditions_met }
+    end
+  end
 end

@@ -105,6 +105,14 @@ module Api
       all_components.map(&:unit).compact
     end
 
+    def stopping?
+      measure_conditions&.any?(&:stopping?)
+    end
+
+    def stopping_condition_met?
+      applicable_document_condition&.stopping?
+    end
+
     private
 
     def resolved_or_standard_measure_components

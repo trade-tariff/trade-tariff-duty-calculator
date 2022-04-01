@@ -23,6 +23,11 @@ RSpec.describe Api::MeasureCondition do
                   condition_measurement_unit_qualifier_code: nil,
                   measure_condition_components: []
 
+  it_behaves_like 'a resource that has an enum', :action_code, {
+    applicable: %w[01 24 25 26 27 28 29 34 36],
+    stopping: %w[08],
+  }
+
   describe '#expresses_unit?' do
     it 'returns false' do
       expect(measure_condition).not_to be_expresses_unit
@@ -58,32 +63,6 @@ RSpec.describe Api::MeasureCondition do
       let(:condition_code) { 'V' }
 
       it { is_expected.not_to be_expresses_document }
-    end
-  end
-
-  describe '#applicable?' do
-    shared_examples 'an applicable measure condition' do |action_code|
-      subject(:measure_condition) { described_class.new(action_code: action_code) }
-
-      context 'when the measure condition has an action code which requires we apply the duty amount' do
-        it { is_expected.to be_applicable }
-      end
-    end
-
-    it_behaves_like 'an applicable measure condition', '01'
-    it_behaves_like 'an applicable measure condition', '24'
-    it_behaves_like 'an applicable measure condition', '25'
-    it_behaves_like 'an applicable measure condition', '26'
-    it_behaves_like 'an applicable measure condition', '27'
-    it_behaves_like 'an applicable measure condition', '28'
-    it_behaves_like 'an applicable measure condition', '29'
-    it_behaves_like 'an applicable measure condition', '34'
-    it_behaves_like 'an applicable measure condition', '36'
-
-    context 'when the measure condition has an action which does not require we apply the duty amount' do
-      subject(:measure_condition) { described_class.new(action_code: 'foo') }
-
-      it { is_expected.not_to be_applicable }
     end
   end
 

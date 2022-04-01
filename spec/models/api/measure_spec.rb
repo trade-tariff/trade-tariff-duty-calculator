@@ -664,4 +664,44 @@ RSpec.describe Api::Measure, :user_session do
 
     it { expect(measure.all_units).to eq(%w[DTN RET]) }
   end
+
+  describe '#stopping_condition_met?' do
+    context 'when there is a stopping condition with a stopping user session answer' do
+      subject(:measure) { build(:measure, :third_country_tariff_authorised_use, :with_stopping_conditions) }
+
+      let(:user_session) { build(:user_session, :with_multiple_stopping_condition_document_answers) }
+
+      it { is_expected.to be_stopping_condition_met }
+    end
+
+    context 'when there is a stopping condition with no stopping user session answer' do
+      subject(:measure) { build(:measure, :third_country_tariff_authorised_use, :with_stopping_conditions) }
+
+      let(:user_session) { build(:user_session, :with_a_single_stopping_condition_document_answer) }
+
+      it { is_expected.not_to be_stopping_condition_met }
+    end
+
+    context 'when there are no stopping conditions' do
+      subject(:measure) { build(:measure, :third_country_tariff_authorised_use) }
+
+      let(:user_session) { build(:user_session, :with_a_single_stopping_condition_document_answer) }
+
+      it { is_expected.not_to be_stopping_condition_met }
+    end
+  end
+
+  describe '#stopping?' do
+    context 'when the measure has a measure condition that is stopping' do
+      subject(:measure) { build(:measure, :with_stopping_conditions) }
+
+      it { is_expected.to be_stopping }
+    end
+
+    context 'when the measure does not have a measure condition that is stopping' do
+      subject(:measure) { build(:measure) }
+
+      it { is_expected.not_to be_stopping }
+    end
+  end
 end

@@ -19,6 +19,14 @@ FactoryBot.define do
     origin {}
     reduction_indicator {}
     vat { false }
+    meta do
+      {
+        'duty_calculator' => {
+          'source' => source,
+          'scheme_code' => scheme_code,
+        },
+      }
+    end
 
     measure_type         { attributes_for :measure_type }
     geographical_area    { attributes_for :geographical_area }
@@ -30,24 +38,6 @@ FactoryBot.define do
     measure_conditions { [] }
     measure_components { [] }
     resolved_measure_components { [] }
-
-    initialize_with do
-      meta = {
-        'meta' => {
-          'duty_calculator' => {
-            'source' => source,
-            'scheme_code' => scheme_code,
-          },
-        },
-      }
-      attributes = attribute_lists.first(&:non_ignored).each_with_object({}) do |dynamic_attribute, acc|
-        acc[dynamic_attribute.name] = public_send(dynamic_attribute.name)
-      end
-
-      attributes = attributes.except(:source).merge(meta)
-
-      new(attributes)
-    end
 
     trait :autonomous do
       measure_type { attributes_for :measure_type, :autonomous }
@@ -126,6 +116,10 @@ FactoryBot.define do
       measure_type { attributes_for :measure_type, :third_country }
     end
 
+    trait :third_country_tariff_authorised_use do
+      measure_type { attributes_for :measure_type, :third_country_authorised_use }
+    end
+
     trait :tariff_preference do
       measure_type { attributes_for :measure_type, :tariff_preference }
     end
@@ -137,6 +131,15 @@ FactoryBot.define do
     trait :with_resolved_duty_expression do
       resolved_duty_expression do
         "<span>9.00</span> % <strong>+ <span>0.00</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr></strong> MAX <span>24.20</span> % <strong>+ <span>0.00</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr></strong>"
+      end
+    end
+
+    trait :with_stopping_conditions do
+      measure_conditions do
+        [
+          attributes_for(:measure_condition, :stopping_document),
+          attributes_for(:measure_condition, :stopping_negative),
+        ]
       end
     end
   end
