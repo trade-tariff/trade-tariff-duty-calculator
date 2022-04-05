@@ -224,7 +224,7 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
 
       let(:user_session) { build(:user_session, :with_a_single_stopping_condition_document_answer) }
 
-      it { is_expected.not_to be_stopping_conditions_met }
+      it { is_expected.to be_stopping_conditions_met }
     end
 
     context 'when none of the measures have an applicable stopping condition' do
