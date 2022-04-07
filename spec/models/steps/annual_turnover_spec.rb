@@ -1,5 +1,5 @@
 RSpec.describe Steps::AnnualTurnover, :step, :user_session do
-  subject(:step) { build(:annual_turnover, user_session: user_session, annual_turnover: annual_turnover) }
+  subject(:step) { build(:annual_turnover, user_session:, annual_turnover:) }
 
   let(:user_session) { build(:user_session) }
   let(:annual_turnover) { '' }

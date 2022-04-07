@@ -4,7 +4,7 @@ RSpec.describe Steps::ImportDateController, :user_session do
   let(:referred_service) { 'uk' }
 
   describe 'GET #show' do
-    subject(:response) { get :show, params: { commodity_code: commodity_code, referred_service: referred_service } }
+    subject(:response) { get :show, params: { commodity_code:, referred_service: } }
 
     it 'assigns the correct step' do
       response
@@ -20,7 +20,7 @@ RSpec.describe Steps::ImportDateController, :user_session do
   end
 
   describe 'POST #create' do
-    subject(:response) { post :create, params: { commodity_code: commodity_code, referred_service: referred_service }.merge(answers) }
+    subject(:response) { post :create, params: { commodity_code:, referred_service: }.merge(answers) }
 
     let(:answers) do
       {

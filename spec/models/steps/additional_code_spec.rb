@@ -2,7 +2,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
   subject(:step) do
     build(
       :additional_code,
-      user_session: user_session,
+      user_session:,
     )
   end
 
@@ -88,7 +88,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
       subject(:step) do
         build(
           :additional_code,
-          user_session: user_session,
+          user_session:,
           measure_type_id: nil,
         )
       end
@@ -110,7 +110,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
       subject(:step) do
         build(
           :additional_code,
-          user_session: user_session,
+          user_session:,
           additional_code_uk: nil,
         )
       end
@@ -134,7 +134,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
       subject(:step) do
         build(
           :additional_code,
-          user_session: user_session,
+          user_session:,
           additional_code_xi: nil,
         )
       end
@@ -201,7 +201,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
       subject(:step) do
         build(
           :additional_code,
-          user_session: user_session,
+          user_session:,
           additional_code_uk: nil,
         )
       end
@@ -233,7 +233,7 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
       subject(:step) do
         build(
           :additional_code,
-          user_session: user_session,
+          user_session:,
           additional_code_xi: nil,
         )
       end
@@ -327,8 +327,8 @@ RSpec.describe Steps::AdditionalCode, :step, :user_session do
       subject(:step) do
         build(
           :additional_code,
-          user_session: user_session,
-          measure_type_id: measure_type_id,
+          user_session:,
+          measure_type_id:,
         )
       end
 

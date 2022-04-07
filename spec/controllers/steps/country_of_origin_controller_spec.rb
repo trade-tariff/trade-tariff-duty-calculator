@@ -19,8 +19,8 @@ RSpec.describe Steps::CountryOfOriginController, :user_session do
     let(:answers) do
       {
         steps_country_of_origin: {
-          country_of_origin: country_of_origin,
-          other_country_of_origin: other_country_of_origin,
+          country_of_origin:,
+          other_country_of_origin:,
         },
       }
     end

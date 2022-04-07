@@ -1,5 +1,5 @@
 RSpec.describe Steps::ImportDestination, :step, :user_session do
-  subject(:step) { build(:import_destination, import_destination: import_destination) }
+  subject(:step) { build(:import_destination, import_destination:) }
 
   let(:user_session) { build(:user_session, commodity_source: nil) }
   let(:import_destination) { '' }

@@ -1,5 +1,5 @@
 RSpec.describe Steps::MeursingAdditionalCode, :step, :user_session do
-  subject(:step) { build(:meursing_additional_code, meursing_additional_code: meursing_additional_code) }
+  subject(:step) { build(:meursing_additional_code, meursing_additional_code:) }
 
   let(:meursing_additional_code) { nil }
 

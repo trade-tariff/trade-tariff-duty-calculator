@@ -1,5 +1,5 @@
 RSpec.describe Steps::Vat, :step, :user_session do
-  subject(:step) { build(:vat, user_session: user_session, vat: vat) }
+  subject(:step) { build(:vat, user_session:, vat:) }
 
   let(:vat) { nil }
 

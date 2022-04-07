@@ -5,7 +5,7 @@ RSpec.describe ExpressionEvaluators::CompoundMeasureUnit, :user_session do
     build(
       :measure,
       :third_country_tariff,
-      measure_components: measure_components,
+      measure_components:,
       duty_expression: {
         'formatted_base' => "<span>0.50</span> GBP / <abbr title='%vol'>% vol/hl</abbr> + <span>2.60</span> GBP / <abbr title='Hectolitre'>hl</abbr>",
       },
