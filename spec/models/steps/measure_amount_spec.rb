@@ -2,8 +2,8 @@ RSpec.describe Steps::MeasureAmount, :step, :user_session do
   subject(:step) do
     build(
       :measure_amount,
-      user_session: user_session,
-      measure_amount: measure_amount,
+      user_session:,
+      measure_amount:,
     )
   end
 

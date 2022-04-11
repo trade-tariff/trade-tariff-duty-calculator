@@ -64,7 +64,7 @@ RSpec.describe Api::BaseComponent do
   end
 
   describe '#specific_duty?' do
-    subject(:component) { described_class.new(measurement_unit_code: measurement_unit_code) }
+    subject(:component) { described_class.new(measurement_unit_code:) }
 
     context 'when measurement_unit_code is present' do
       let(:measurement_unit_code) { 'DTN' }
@@ -80,7 +80,7 @@ RSpec.describe Api::BaseComponent do
   end
 
   describe '#no_specific_duty?' do
-    subject(:component) { described_class.new(measurement_unit_code: measurement_unit_code) }
+    subject(:component) { described_class.new(measurement_unit_code:) }
 
     context 'when measurement_unit_code is present' do
       let(:measurement_unit_code) { 'DTN' }

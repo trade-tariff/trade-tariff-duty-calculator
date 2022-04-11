@@ -16,7 +16,7 @@ RSpec.describe Steps::MeursingAdditionalCodesController, :user_session do
   describe 'POST #create' do
     subject(:response) { post :create, params: answers }
 
-    let(:answers) { { steps_meursing_additional_code: { meursing_additional_code: meursing_additional_code } } }
+    let(:answers) { { steps_meursing_additional_code: { meursing_additional_code: } } }
 
     context 'when the step answers are valid' do
       let(:meursing_additional_code) { '000' }

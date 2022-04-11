@@ -1,8 +1,8 @@
 RSpec.describe Api::MeasureCondition do
   subject(:measure_condition) do
     described_class.new(
-      condition_measurement_unit_code: condition_measurement_unit_code,
-      condition_monetary_unit_code: condition_monetary_unit_code,
+      condition_measurement_unit_code:,
+      condition_monetary_unit_code:,
     )
   end
 
@@ -51,7 +51,7 @@ RSpec.describe Api::MeasureCondition do
   end
 
   describe '#expresses_document?' do
-    subject(:measure_condition) { described_class.new(condition_code: condition_code) }
+    subject(:measure_condition) { described_class.new(condition_code:) }
 
     context 'when the condition_code is a document condition code' do
       let(:condition_code) { 'I' }

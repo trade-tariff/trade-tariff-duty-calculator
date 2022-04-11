@@ -1,5 +1,5 @@
 RSpec.describe Steps::FinalUse, :step, :user_session do
-  subject(:step) { build(:final_use, user_session: user_session, final_use: final_use) }
+  subject(:step) { build(:final_use, user_session:, final_use:) }
 
   let(:session_attributes) { {} }
   let(:user_session) { build(:user_session, session_attributes) }
