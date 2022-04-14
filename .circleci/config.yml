@@ -9,13 +9,13 @@ orbs:
   ruby: circleci/ruby@1.4.0
   slack: circleci/slack@4.3.0
   queue: eddiewebb/queue@1.6.4
+  tariff: trade-tariff/trade-tariff-ci-orb@0 # can also change to @dev:<gitsha> for specific version or @dev:alpha to test dev branches
 
 commands:
   cf_deploy_docker:
     parameters:
-      dev-release:
-        default: false
-        type: boolean
+      docker_image_tag:
+        type: string
       space:
         type: string
       environment_key:
@@ -24,17 +24,8 @@ commands:
         type: string
     steps:
       - checkout
-      - run:
-          name: "Setup CF CLI"
-          command: |
-            curl -L -o cf.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=7.2.0&source=github-rel'
-            sudo dpkg -i cf.deb
-            cf -v
-            cf api "$CF_ENDPOINT"
-            cf auth "$CF_USER" "$CF_PASSWORD"
-            cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
-            cf install-plugin app-autoscaler-plugin -r CF-Community -f
-            cf target -o "$CF_ORG" -s "<< parameters.space >>"
+      - tariff/cf-install:
+          space: << parameters.space >>
       - run:
           name: "Fetch existing manifest"
           command: |
@@ -43,7 +34,7 @@ commands:
           name: "Push new app in dark mode"
           command: |
             export DOCKER_IMAGE=tariff-dutycalculator
-            export DOCKER_TAG=<<# parameters.dev-release >>dev-<</ parameters.dev-release >>${CIRCLE_SHA1}
+            export DOCKER_TAG="<< parameters.docker_image_tag >>"
 
             # Push as "dark" instance
             CF_DOCKER_PASSWORD=$AWS_SECRET_ACCESS_KEY cf push  "$CF_APP-<< parameters.environment_key >>-dark" -f deploy_manifest.yml --no-route --docker-image "$ECR_REPO/$DOCKER_IMAGE:$DOCKER_TAG" --docker-username "$AWS_ACCESS_KEY_ID"
@@ -254,13 +245,13 @@ jobs:
           consider-branch: false
           dont-quit: true
       - cf_deploy_docker:
-          dev-release: true
+          docker_image_tag: dev-$CIRCLE_SHA1
           space: "development"
           environment_key: "dev"
           app_domain_prefix: "dev"
       - sentry-release
 
-  deploy_staging:
+  deploy_main_to_staging:
     docker:
       - image: cimg/ruby:3.1.1
     environment:
@@ -270,10 +261,21 @@ jobs:
           time: '10'
           dont-quit: true
       - cf_deploy_docker:
+          docker_image_tag: $CIRCLE_SHA1
           space: "staging"
           environment_key: "staging"
           app_domain_prefix: "staging"
       - sentry-release
+
+  deploy_release_to_staging:
+    docker:
+      - image: cimg/ruby:3.1.1
+    steps:
+      - cf_deploy_docker:
+          docker_image_tag: $CIRCLE_TAG
+          space: "staging"
+          environment_key: "staging"
+          app_domain_prefix: "staging"
 
   deploy_production:
     docker:
@@ -285,10 +287,15 @@ jobs:
           time: '10'
           dont-quit: true
       - cf_deploy_docker:
+          docker_image_tag: $CIRCLE_TAG
           space: "production"
           environment_key: "production"
           app_domain_prefix: "www"
       - sentry-release
+      - tariff/notify-production-release:
+          app-name: Duty Calculator
+          slack-channel: trade_tariff
+          release-tag: $CIRCLE_TAG
 
 workflows:
   version: 2
@@ -338,7 +345,7 @@ workflows:
             branches:
               only:
                 - main
-      - deploy_staging:
+      - deploy_main_to_staging:
           context: trade-tariff
           filters:
             branches:
@@ -352,27 +359,51 @@ workflows:
               only:
                 - main
           requires:
-            - deploy_staging
+            - deploy_main_to_staging
       - cypress:
           filters:
             branches:
               only:
                 - main
           requires:
-            - deploy_staging
-      - hold_production:
+            - deploy_main_to_staging
+      - hold_create_release:
           type: approval
           filters:
             branches:
               only:
                 - main
           requires:
-            - deploy_staging
-      - deploy_production:
+            - deploy_main_to_staging
+      - tariff/create-production-release:
           context: trade-tariff
+          image-name: tariff-dutycalculator
           filters:
             branches:
               only:
                 - main
           requires:
-            - hold_production
+            - hold_create_release
+      - deploy_release_to_staging:
+          context: trade-tariff
+          filters:
+            tags:
+              only: /^release-202[\d-]+/
+            branches:
+              ignore: /.*/
+      - hold_deploy_production:
+          type: approval
+          filters:
+            tags:
+              only: /^release-202[\d-]+/
+            branches:
+              ignore: /.*/
+      - deploy_production:
+          context: trade-tariff
+          filters:
+            tags:
+              only: /^release-202[\d-]+/
+            branches:
+              ignore: /.*/
+          requires:
+            - hold_deploy_production
