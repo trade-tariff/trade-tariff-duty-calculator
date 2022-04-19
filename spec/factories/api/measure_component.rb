@@ -41,6 +41,7 @@ FactoryBot.define do
     end
 
     trait :compound_measure_unit do
+      duty_amount { 0.5 }
       measurement_unit_code { 'ASV' }
       measurement_unit_qualifier_code { 'X' }
     end

@@ -34,7 +34,7 @@ module ExpressionEvaluators
     end
 
     def volume_quantity
-      presented_volume_unit[:answer].to_f
+      presented_volume_unit[:answer].to_f * presented_volume_unit[:multiplier].to_f
     end
 
     def alcohol_unit
@@ -56,7 +56,12 @@ module ExpressionEvaluators
       @presented_volume_unit ||= {
         answer: user_session.measure_amount[Api::BaseComponent::VOLUME_UNIT.downcase],
         unit: volume_unit['unit'],
+        multiplier: volume_unit_multiplier,
       }
+    end
+
+    def volume_unit_multiplier
+      volume_unit['multiplier'].presence || 1
     end
   end
 end

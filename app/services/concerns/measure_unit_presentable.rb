@@ -5,6 +5,7 @@ module MeasureUnitPresentable
     @presented_unit ||= {
       answer: user_session.measure_amount[component.unit.downcase.to_s],
       unit: applicable_unit['unit'],
+      multiplier: applicable_unit['multiplier'].presence || 1,
     }
   end
 
@@ -15,6 +16,6 @@ module MeasureUnitPresentable
   private
 
   def applicable_units
-    ApplicableMeasureUnitMerger.new.call
+    @applicable_units ||= ApplicableMeasureUnitMerger.new.call
   end
 end

@@ -41,7 +41,11 @@ module ExpressionEvaluators
     end
 
     def total_quantity
-      presented_unit[:answer].to_f
+      presented_unit[:answer].to_f * multiplier
+    end
+
+    def multiplier
+      presented_unit[:multiplier].to_f
     end
   end
 end

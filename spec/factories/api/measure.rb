@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence(:measure_sid)
+  sequence(:measure_sid, &:to_s)
 
   factory :measure, class: 'Api::Measure' do
     transient do
@@ -139,6 +139,51 @@ FactoryBot.define do
         [
           attributes_for(:measure_condition, :stopping_document),
           attributes_for(:measure_condition, :stopping_negative),
+        ]
+      end
+    end
+
+    trait :with_compound_measure_components do
+      duty_expression do
+        attributes_for(:duty_expression, :compound_measure_unit)
+      end
+
+      measure_components do
+        [
+          attributes_for(:measure_component, :compound_measure_unit),
+          attributes_for(:measure_component, :compound_measure_unit),
+        ]
+      end
+    end
+
+    trait :with_euro_measure_unit_measure_component do
+      duty_expression do
+        attributes_for(:duty_expression, :euro_measure_unit)
+      end
+
+      measure_components do
+        [
+          attributes_for(:measure_component, :with_measure_units, :euros),
+        ]
+      end
+    end
+
+    trait :with_pounds_measure_unit_measure_component do
+      duty_expression do
+        attributes_for(:duty_expression, :pounds_measure_unit)
+      end
+
+      measure_components do
+        [
+          attributes_for(:measure_component, :with_measure_units, :pounds),
+        ]
+      end
+    end
+
+    trait :with_condition_measure_units do
+      measure_conditions do
+        [
+          attributes_for(:measure_condition, :with_measure_units),
         ]
       end
     end
