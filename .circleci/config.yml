@@ -6,7 +6,7 @@ orbs:
   cloudfoundry: circleci/cloudfoundry@1.0
   cypress: cypress-io/cypress@1.27.0
   node: circleci/node@2
-  ruby: circleci/ruby@1.4.0
+  ruby: circleci/ruby@1
   slack: circleci/slack@4.3.0
   queue: eddiewebb/queue@1.6.4
 
