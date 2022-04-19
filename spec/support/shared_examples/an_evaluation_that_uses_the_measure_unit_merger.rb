@@ -1,4 +1,4 @@
-RSpec.shared_examples_for 'an evaluation that uses the measure unit merger' do |config|
+RSpec.shared_examples_for 'an evaluation that uses the measure unit merger' do
   describe '#call' do
     before do
       allow(ApplicableMeasureUnitMerger).to receive(:new).and_call_original
