@@ -9,9 +9,19 @@ RSpec.describe ExpressionEvaluators::RetailPrice, :user_session do
   let(:measure_component) { measure.measure_components.first }
 
   let(:commodity) do
-    measure = attributes_for(:measure, :excise, measure_components: [attributes_for(:measure_component, :with_retail_price_measure_units)])
-
-    build(:commodity, :with_retail_price_measure_units, import_measures: [measure])
+    build(
+      :commodity,
+      :with_retail_price_measure_units,
+      import_measures: [
+        attributes_for(
+          :measure,
+          :excise,
+          measure_components: [
+            attributes_for(:measure_component, :with_retail_price_measure_units),
+          ]
+        )
+      ]
+    )
   end
 
   let(:expected_evaluation) do
