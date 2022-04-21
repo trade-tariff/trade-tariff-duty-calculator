@@ -65,7 +65,7 @@ RSpec.describe ConfirmationDecorator, :user_session do
         { key: 'certificate_of_origin', label: 'Certificate of origin', value: 'Yes' },
         { key: 'meursing_additional_code', label: 'Meursing Code', value: '000' },
         { key: 'customs_value', label: 'Customs value', value: '£1,200.00' },
-        { key: 'measure_amount', label: 'Import quantity', value: '100 x 100 kg' },
+        { key: 'measure_amount', label: 'Import quantity', value: "<span title='100 kg'>100 x 100 kg</span>" },
         { key: 'excise', label: 'Excise additional code', value: '444, 369' },
         { key: 'vat', label: 'Applicable VAT rate', value: 'VAT zero rate (0.0)' },
       ]
@@ -85,6 +85,26 @@ RSpec.describe ConfirmationDecorator, :user_session do
       end
 
       it 'returns n/a for documents line' do
+        expect(confirmation_decorator.user_answers).to eq(expected)
+      end
+    end
+
+    context 'when the measure amount is retail price' do
+      let(:user_session) do
+        build(
+          :user_session,
+          :with_retail_price_measure_amount,
+          commodity_code:,
+        )
+      end
+
+      let(:expected) do
+        [
+          { key: 'measure_amount', label: 'Import quantity', value: "<span title='GBP'>£1,000.00</span>" },
+        ]
+      end
+
+      it 'reverses the unit and the answer' do
         expect(confirmation_decorator.user_answers).to eq(expected)
       end
     end

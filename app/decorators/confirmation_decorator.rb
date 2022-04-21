@@ -75,9 +75,18 @@ class ConfirmationDecorator < SimpleDelegator
   def format_measure_amount(value, _key)
     return if applicable_measure_units.blank?
 
-    value.map { |k, v| "#{v} #{applicable_measure_units[k.upcase]['unit']}" }
-         .join('<br>')
-         .html_safe
+    formatted_values = value.map do |measure_unit_key, answer|
+      abbreviation = applicable_measure_units[measure_unit_key.upcase]['abbreviation']
+      unit = applicable_measure_units[measure_unit_key.upcase]['unit']
+
+      if measure_unit_key.upcase == Api::BaseComponent::RETAIL_PRICE_UNIT
+        "<span title='#{abbreviation}'>#{number_to_currency(answer, unit:)}</span>"
+      else
+        "<span title='#{abbreviation}'>#{answer} #{unit}</span>"
+      end
+    end
+
+    formatted_values.join('<br>').html_safe
   end
 
   def format_customs_value(_value, _key)
