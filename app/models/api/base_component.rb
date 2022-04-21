@@ -4,6 +4,7 @@ module Api
     COMPOUND_MEASURE_UNITS = %w[ASVX].freeze
     MATHEMATICAL_OPERATORS = %w[+ -].freeze
 
+    RETAIL_PRICE_UNIT = 'RET'.freeze
     VOLUME_UNIT = 'HLT'.freeze
     ALCOHOL_UNIT = 'ASV'.freeze
 
