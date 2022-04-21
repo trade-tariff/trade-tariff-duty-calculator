@@ -18,9 +18,9 @@ RSpec.describe ExpressionEvaluators::RetailPrice, :user_session do
           :excise,
           measure_components: [
             attributes_for(:measure_component, :with_retail_price_measure_units),
-          ]
-        )
-      ]
+          ],
+        ),
+      ],
     )
   end
 
