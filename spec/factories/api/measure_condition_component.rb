@@ -2,7 +2,11 @@ FactoryBot.define do
   sequence(:measure_condition_component_sid)
 
   factory :measure_condition_component, class: 'Api::MeasureConditionComponent' do
-    id { generate(:measure_condition_component_sid) }
+    transient do
+      measure_condition_sid {}
+    end
+
+    id { "#{measure_condition_sid}-#{generate(:measure_condition_component_sid)}" }
     duty_expression_id {}
     duty_amount {}
     monetary_unit_code {}

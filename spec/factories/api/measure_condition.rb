@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence(:measure_condition_sid)
+  sequence(:measure_condition_sid, &:to_s)
 
   factory :measure_condition, class: 'Api::MeasureCondition' do
     id { generate(:measure_condition_sid) }
@@ -18,10 +18,20 @@ FactoryBot.define do
     requirement {}
     measure_condition_components { [] }
 
-    trait :with_trigger_measure_units do
+    trait :with_measure_units do
       condition_duty_amount { 35.1 }
       condition_measurement_unit_code { 'DTN' }
       duty_expression { "<span>35.10</span> GBP / <abbr title='Hectokilogram'>100 kg</abbr>" }
+
+      measure_condition_components do
+        [
+          attributes_for(
+            :measure_condition_component,
+            :with_measure_units,
+            measure_condition_sid: id,
+          ),
+        ]
+      end
     end
 
     trait :stopping_negative do

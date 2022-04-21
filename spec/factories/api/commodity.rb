@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence(:goods_nomenclature_sid)
+  sequence(:goods_nomenclature_sid, &:to_s)
 
   factory :commodity, class: 'Api::Commodity' do
     transient do
@@ -30,7 +30,7 @@ FactoryBot.define do
       }
     end
 
-    id { generate(:measure_sid) }
+    id { generate(:goods_nomenclature_sid) }
     producline_suffix { '80' }
     number_indents { 4 }
     description { 'Cherry tomatoes' }
@@ -75,6 +75,72 @@ FactoryBot.define do
 
     trait :without_measures do
       import_measures { [] }
+    end
+
+    trait :with_compound_measure_units do
+      import_measures do
+        [
+          attributes_for(
+            :measure,
+            :third_country_tariff,
+            :with_compound_measure_components,
+          ),
+        ]
+      end
+
+      applicable_measure_units do
+        {
+          'ASV' => { 'unit' => 'percent', 'multiplier' => nil },
+          'HLT' => { 'unit' => 'litres', "multiplier": '0.01' },
+        }
+      end
+    end
+
+    trait :with_compound_measure_units_no_multiplier do
+      import_measures do
+        [
+          attributes_for(
+            :measure,
+            :third_country_tariff,
+            :with_compound_measure_components,
+          ),
+        ]
+      end
+
+      applicable_measure_units do
+        {
+          'ASV' => { 'unit' => 'percent' },
+          'HLT' => { 'unit' => 'x 100 litres' },
+        }
+      end
+    end
+
+    trait :with_measure_units_with_multiplier do
+      import_measures { [attributes_for(:measure, :third_country_tariff, :with_pounds_measure_unit_measure_component)] }
+
+      applicable_measure_units { { 'DTN' => { 'unit' => 'kilogrammes', 'multiplier' => '0.01' } } }
+    end
+
+    trait :with_retail_price_measure_units do
+      applicable_measure_units { { 'RET' => { 'unit' => '£', 'multiplier' => nil } } }
+    end
+
+    trait :with_euro_measure_unit_measure_component do
+      import_measures { [attributes_for(:measure, :third_country_tariff, :with_euro_measure_unit_measure_component)] }
+
+      applicable_measure_units { { 'DTN' => { 'unit' => 'x 100 kg', 'multiplier' => nil } } }
+    end
+
+    trait :with_pounds_measure_unit_measure_component do
+      import_measures { [attributes_for(:measure, :third_country_tariff, :with_pounds_measure_unit_measure_component)] }
+
+      applicable_measure_units { { 'DTN' => { 'unit' => 'x 100 kg', 'multiplier' => nil } } }
+    end
+
+    trait :with_condition_measure_units do
+      import_measures { [attributes_for(:measure, :third_country_tariff, :with_condition_measure_units)] }
+
+      applicable_measure_units { { 'DTN' => { 'unit' => 'x 100 kg', 'multiplier' => nil } } }
     end
   end
 end

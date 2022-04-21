@@ -1,28 +1,10 @@
 RSpec.describe ExpressionEvaluators::CompoundMeasureUnit, :user_session do
   subject(:evaluator) { described_class.new(measure, measure.component) }
 
-  let(:measure) do
-    build(
-      :measure,
-      :third_country_tariff,
-      measure_components:,
-      duty_expression: {
-        'formatted_base' => "<span>0.50</span> GBP / <abbr title='%vol'>% vol/hl</abbr> + <span>2.60</span> GBP / <abbr title='Hectolitre'>hl</abbr>",
-      },
-    )
-  end
+  include_context 'with a fake commodity'
 
-  let(:measure_components) do
-    [
-
-      {
-        'duty_amount' => 0.5,
-        'monetary_unit_code' => 'GBP',
-        'measurement_unit_code' => 'ASV',
-        'measurement_unit_qualifier_code' => 'X',
-      },
-    ]
-  end
+  let(:measure) { commodity.import_measures.first }
+  let(:measure_component) { measure.measure_components.first }
 
   let(:user_session) do
     build(
@@ -30,17 +12,40 @@ RSpec.describe ExpressionEvaluators::CompoundMeasureUnit, :user_session do
       :with_commodity_information,
       :with_customs_value,
       :with_compound_measure_amount,
-      commodity_code: '2208403900',
     )
   end
 
-  let(:expected_evaluation) do
-    {
-      calculation: '<span>0.50</span> GBP / <abbr title="%vol">% vol/hl</abbr> + <span>2.60</span> GBP / <abbr title="Hectolitre">hl</abbr>',
-      formatted_value: '£900.00',
-      value: 900.0,
-    }
+  context 'when there is an applicable multiplier on the volume unit' do
+    let(:commodity) { build(:commodity, :with_compound_measure_units) }
+
+    let(:expected_evaluation) do
+      {
+        calculation: '<span>0.50</span> GBP / <abbr title="%vol">% vol/hl</abbr> + <span>2.60</span> GBP / <abbr title="Hectolitre">hl</abbr>',
+        formatted_value: '£9.00', # Result of converting volume input in litres to hectolitres
+        value: 9.0,
+      }
+    end
+
+    it 'returns the evaluation with the multiplier applied' do
+      expect(evaluator.call).to eq(expected_evaluation)
+    end
+
+    it_behaves_like 'an evaluation that uses the measure unit merger'
   end
 
-  it { expect(evaluator.call).to eq(expected_evaluation) }
+  context 'when there are no applicable multipliers' do
+    let(:commodity) { build(:commodity, :with_compound_measure_units_no_multiplier) }
+
+    let(:expected_evaluation) do
+      {
+        calculation: '<span>0.50</span> GBP / <abbr title="%vol">% vol/hl</abbr> + <span>2.60</span> GBP / <abbr title="Hectolitre">hl</abbr>',
+        formatted_value: '£900.00', # Result of no conversion to litres
+        value: 900.0,
+      }
+    end
+
+    it { expect(evaluator.call).to eq(expected_evaluation) }
+
+    it_behaves_like 'an evaluation that uses the measure unit merger'
+  end
 end
