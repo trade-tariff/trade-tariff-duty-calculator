@@ -76,13 +76,17 @@ class ConfirmationDecorator < SimpleDelegator
     return if applicable_measure_units.blank?
 
     formatted_values = value.map do |measure_unit_key, answer|
-      abbreviation = applicable_measure_units[measure_unit_key.upcase]['abbreviation']
-      unit = applicable_measure_units[measure_unit_key.upcase]['unit']
+      applicable_unit = applicable_measure_units[measure_unit_key.upcase]
+      has_coerced_unit = applicable_unit['coerced_measurement_unit_code'].present?
+      abbreviation = applicable_unit['abbreviation']
+      unit = applicable_unit['unit']
 
       if measure_unit_key.upcase == Api::BaseComponent::RETAIL_PRICE_UNIT
         "<span title='#{abbreviation}'>#{number_to_currency(answer, unit:)}</span>"
-      else
+      elsif !has_coerced_unit
         "<span title='#{abbreviation}'>#{answer} #{unit}</span>"
+      else
+        "#{answer} #{unit}"
       end
     end
 

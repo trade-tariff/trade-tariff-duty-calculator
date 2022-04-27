@@ -20,15 +20,15 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_hint' => 'Enter the alcohol by volume (ABV) percentage',
             'unit' => 'percent',
           },
-          'DTN' => {
-            'measurement_unit_code' => 'DTN',
+          'KGM' => {
+            'measurement_unit_code' => 'KGM',
             'measurement_unit_qualifier_code' => nil,
-            'abbreviation' => '100 kg',
-            'unit_question' => 'What is the weight of the goods you will be importing?',
-            'unit_hint' => 'Enter the value in kilogrammes',
-            'unit' => 'kilogrammes',
-            'multiplier' => '0.01',
-            'coerced_measurement_unit_code' => 'KGM',
+            'abbreviation' => 'kg',
+            'unit_question' => 'What is the weight of the goods that you will be importing?',
+            'unit_hint' => 'Enter the value in kilograms',
+            'unit' => 'kilograms',
+            'multiplier' => nil,
+            'coerced_measurement_unit_code' => nil,
           },
           'RET' => {
             'measurement_unit_code' => 'RET',
@@ -77,7 +77,7 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
 
       let(:expected_units) do
         {
-          'DTN' => { # XI filtered commodity measurement unit
+          'KGM' => { # XI filtered commodity measurement unit
             'measurement_unit_code' => 'DTN',
             'measurement_unit_qualifier_code' => nil,
             'abbreviation' => '100 kg',
@@ -142,15 +142,15 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_hint' => 'Enter the alcohol by volume (ABV) percentage',
             'unit' => 'percent',
           },
-          'DTN' => {
-            'measurement_unit_code' => 'DTN',
+          'KGM' => {
+            'measurement_unit_code' => 'KGM',
             'measurement_unit_qualifier_code' => nil,
-            'abbreviation' => '100 kg',
-            'unit_question' => 'What is the weight of the goods you will be importing?',
-            'unit_hint' => 'Enter the value in kilogrammes',
-            'unit' => 'kilogrammes',
-            'multiplier' => '0.01',
-            'coerced_measurement_unit_code' => 'KGM',
+            'abbreviation' => 'kg',
+            'unit_question' => 'What is the weight of the goods that you will be importing?',
+            'unit_hint' => 'Enter the value in kilograms',
+            'unit' => 'kilograms',
+            'multiplier' => nil,
+            'coerced_measurement_unit_code' => nil,
           },
           'RET' => {
             'measurement_unit_code' => 'RET',
@@ -205,11 +205,11 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
 
       let(:expected_units) do
         {
-          'DTN' => {
-            'measurement_unit_code' => 'DTN',
-            'measurement_unit_qualifier_code' => nil,
-            'coerced_measurement_unit_code' => 'KGM',
-          },
+          # 'DTN' => { # Removed unit - coerced
+          #   'measurement_unit_code' => 'DTN',
+          #   'measurement_unit_qualifier_code' => nil,
+          #   'coerced_measurement_unit_code' => 'KGM',
+          # },
           'RET' => {
             'measurement_unit_code' => 'RET',
             'measurement_unit_qualifier_code' => '',
@@ -227,11 +227,11 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
           #   'measurement_unit_qualifier_code' => 'R',
           #   'coerced_measurement_unit_code' => 'KGM',
           # },
-          # 'KGM' => { # Removed unit - uncoerced
-          #   'measurement_unit_code' => 'KGM',
-          #   'measurement_unit_qualifier_code' => nil,
-          #   'coerced_measurement_unit_code' => nil,
-          # },
+          'KGM' => { # Last unit wins - uncoerced
+            'measurement_unit_code' => 'KGM',
+            'measurement_unit_qualifier_code' => nil,
+            'coerced_measurement_unit_code' => nil,
+          },
         }
       end
 
@@ -251,11 +251,11 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
 
       let(:expected_units) do
         {
-          'DTN' => {
-            'measurement_unit_code' => 'DTN',
-            'measurement_unit_qualifier_code' => nil,
-            'coerced_measurement_unit_code' => 'KGM',
-          },
+          # 'DTN' => { # Removed unit - coerced
+          #   'measurement_unit_code' => 'DTN',
+          #   'measurement_unit_qualifier_code' => nil,
+          #   'coerced_measurement_unit_code' => 'KGM',
+          # },
           'RET' => {
             'measurement_unit_code' => 'RET',
             'measurement_unit_qualifier_code' => '',
@@ -273,11 +273,11 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
           #   'measurement_unit_qualifier_code' => 'R',
           #   'coerced_measurement_unit_code' => 'KGM',
           # },
-          # 'KGM' => { # Removed unit - uncoerced
-          #   'measurement_unit_code' => 'KGM',
-          #   'measurement_unit_qualifier_code' => nil,
-          #   'coerced_measurement_unit_code' => nil,
-          # },
+          'KGM' => { # Last unit wins - uncoerced
+            'measurement_unit_code' => 'KGM',
+            'measurement_unit_qualifier_code' => nil,
+            'coerced_measurement_unit_code' => nil,
+          },
         }
       end
 

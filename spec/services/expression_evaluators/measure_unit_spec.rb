@@ -5,17 +5,8 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
 
   let(:measure) { commodity.import_measures.first }
 
-  let(:user_session) do
-    build(
-      :user_session,
-      :with_commodity_information,
-      :with_customs_value,
-      :with_measure_amount,
-      commodity_code: '0103921100',
-    )
-  end
-
   context 'when passing a measure component with a multiplier' do
+    let(:user_session) { build(:user_session, :with_coerced_measure_amount) }
     let(:commodity) { build(:commodity, :with_measure_units_with_multiplier) }
     let(:component) { measure.measure_components.first }
 
@@ -37,6 +28,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
   end
 
   context 'when passing a measure component that is in euros' do
+    let(:user_session) { build(:user_session, :with_measure_amount) }
     let(:commodity) { build(:commodity, :with_euro_measure_unit_measure_component) }
     let(:component) { measure.measure_components.first }
 
@@ -56,6 +48,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
   end
 
   context 'when passing a measure component that is in pounds' do
+    let(:user_session) { build(:user_session, :with_measure_amount) }
     let(:commodity) { build(:commodity, :with_pounds_measure_unit_measure_component) }
     let(:component) { measure.measure_components.first }
 
@@ -75,6 +68,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
   end
 
   context 'when passing a measure condition component' do
+    let(:user_session) { build(:user_session, :with_measure_amount) }
     let(:commodity) { build(:commodity, :with_condition_measure_units) }
     let(:component) { measure.measure_conditions.first.measure_condition_components.first }
 

@@ -37,9 +37,9 @@ class ApplicableMeasureUnitMerger
 
   def clean_and_dedup_measure_units(applicable_units)
     if @dedupe
-      applicable_units = applicable_units.uniq { |measurement_unit_code, measurement_unit_values|
-        measurement_unit_values['coerced_measurement_unit_code'].presence || measurement_unit_code
-      }.to_h
+      applicable_units = applicable_units.each_with_object({}) do |(measurement_unit_code, measurement_unit_values), acc|
+        acc[measurement_unit_values['coerced_measurement_unit_code'].presence || measurement_unit_code] = measurement_unit_values
+      end
     end
 
     UNHANDLED_MEASURE_UNITS.each do |unhandled_unit|

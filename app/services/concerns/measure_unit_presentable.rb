@@ -14,7 +14,9 @@ module MeasureUnitPresentable
   end
 
   def unit_answer_for(unit)
-    UnitAnswerService.new(unit, applicable_units).call
+    key = unit['coerced_measurement_unit_code'].presence || "#{unit['measurement_unit_code']}#{unit['measurement_unit_qualifier_code']}"
+
+    user_session.measure_amount[key.downcase]
   end
 
   private
