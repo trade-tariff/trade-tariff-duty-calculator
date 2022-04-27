@@ -47,14 +47,14 @@ module ExpressionEvaluators
 
     def presented_alcohol_unit
       @presented_alcohol_unit ||= {
-        answer: user_session.measure_amount[Api::BaseComponent::ALCOHOL_UNIT.downcase],
+        answer: unit_answer_for(alcohol_unit),
         unit: alcohol_unit['unit'],
       }
     end
 
     def presented_volume_unit
       @presented_volume_unit ||= {
-        answer: user_session.measure_amount[Api::BaseComponent::VOLUME_UNIT.downcase],
+        answer: unit_answer_for(volume_unit),
         unit: volume_unit['unit'],
         multiplier: volume_unit_multiplier,
       }

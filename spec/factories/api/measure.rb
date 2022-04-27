@@ -180,6 +180,15 @@ FactoryBot.define do
       end
     end
 
+    trait :with_excise_measure_components do
+      measure_components do
+        [
+          attributes_for(:measure_component, :with_retail_price_measure_units),
+          attributes_for(:measure_component, :with_mil_measure_units),
+        ]
+      end
+    end
+
     trait :with_condition_measure_units do
       measure_conditions do
         [

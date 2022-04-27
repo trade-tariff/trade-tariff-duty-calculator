@@ -64,7 +64,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
         calculation: '<span>35.10</span> GBP / <abbr title="Hectokilogram">100 kg</abbr> * 100.00',
         value: 3510.0,
         formatted_value: '£3,510.00',
-        unit: 'x 100 kg',
+        unit: 'kilogrammes',
         total_quantity: 100.0,
       }
     end
@@ -83,7 +83,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
         calculation: '<span>35.10</span> GBP / <abbr title="Hectokilogram">100 kg</abbr> * 100.00',
         value: 3510.0,
         formatted_value: '£3,510.00',
-        unit: 'x 100 kg',
+        unit: 'kilogrammes',
         total_quantity: 100.0,
       }
     end
