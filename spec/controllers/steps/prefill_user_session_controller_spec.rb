@@ -2,7 +2,7 @@ RSpec.describe Steps::PrefillUserSessionController, :user_session do
   let(:user_session) { build(:user_session) }
 
   describe 'GET #show' do
-    subject(:response) { get :show, params: params }
+    subject(:response) { get :show, params: }
 
     let(:params) do
       {

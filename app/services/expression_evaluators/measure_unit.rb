@@ -6,10 +6,10 @@ module ExpressionEvaluators
     def call
       {
         calculation: calculation_duty_expression,
-        value: value,
+        value:,
         formatted_value: number_to_currency(value),
         unit: presented_unit[:unit],
-        total_quantity: total_quantity,
+        total_quantity:,
       }
     end
 

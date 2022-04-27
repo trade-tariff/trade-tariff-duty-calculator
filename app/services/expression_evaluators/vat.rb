@@ -3,7 +3,7 @@ module ExpressionEvaluators
     def call
       {
         calculation: "#{number_to_percentage(component.duty_amount)} * #{number_to_currency(duty_plus_total_amount)}",
-        value: value,
+        value:,
         formatted_value: number_to_currency(value),
       }
     end
