@@ -1,22 +1,14 @@
 RSpec.describe ApplicableMeasureUnitMerger, :user_session do
   subject(:service) { described_class.new }
 
-  describe '#call' do
-    before do
-      allow(Api::Commodity).to receive(:build).and_call_original
-    end
+  include_context 'with a fake commodity'
 
+  let(:uk_commodity) { build(:commodity, :with_uk_complex_measure_units) }
+  let(:xi_commodity) { build(:commodity, :with_xi_simple_measure_units) }
+
+  describe '#call' do
     context 'when on the deltas route' do
-      let(:user_session) do
-        build(
-          :user_session,
-          :with_commodity_information,
-          :with_customs_value,
-          :with_measure_amount,
-          :deltas_applicable,
-          commodity_code: '0103921100',
-        )
-      end
+      let(:user_session) { build(:user_session, :deltas_applicable) }
 
       let(:expected_units) do
         {
@@ -30,12 +22,13 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
           },
           'DTN' => {
             'measurement_unit_code' => 'DTN',
-            'measurement_unit_qualifier_code' => '',
+            'measurement_unit_qualifier_code' => nil,
             'abbreviation' => '100 kg',
             'unit_question' => 'What is the weight of the goods you will be importing?',
-            'unit_hint' => 'Enter the value in decitonnes (100kg)',
-            'unit' => 'x 100 kg',
-            'measure_sids' => [2_046_828],
+            'unit_hint' => 'Enter the value in kilogrammes',
+            'unit' => 'kilogrammes',
+            'multiplier' => '0.01',
+            'coerced_measurement_unit_code' => 'KGM',
           },
           'RET' => {
             'measurement_unit_code' => 'RET',
@@ -44,7 +37,6 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'What is the retail price of the goods you will be importing?',
             'unit_hint' => 'Enter the value in pounds',
             'unit' => '£',
-            'measure_sids' => [-1_010_806_389],
           },
           'MIL' => {
             'measurement_unit_code' => 'MIL',
@@ -53,7 +45,6 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'How many items will you be importing?',
             'unit_hint' => 'Enter the value in thousands of items',
             'unit' => 'x 1,000 items',
-            'measure_sids' => [-1_010_806_389],
           },
         }
       end
@@ -61,9 +52,9 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
       it 'fetches the xi commodity' do
         service.call
 
-        expect(Api::Commodity).to have_received(:build).with(
+        expect(commodity_context_service).to have_received(:call).with(
           'xi',
-          '0103921100',
+          anything,
           anything,
         )
       end
@@ -71,9 +62,9 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
       it 'fetches the uk commodity' do
         service.call
 
-        expect(Api::Commodity).to have_received(:build).with(
+        expect(commodity_context_service).to have_received(:call).with(
           'uk',
-          '0103921100',
+          anything,
           anything,
         )
       end
@@ -82,45 +73,35 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
     end
 
     context 'when on an xi route' do
-      let(:user_session) do
-        build(
-          :user_session,
-          :with_commodity_information,
-          :with_customs_value,
-          :with_measure_amount,
-          commodity_source: 'xi',
-          commodity_code: '0103921100',
-        )
-      end
+      let(:user_session) { build(:user_session, commodity_source: 'xi') }
 
       let(:expected_units) do
         {
-          'DTN' => {
+          'DTN' => { # XI filtered commodity measurement unit
             'measurement_unit_code' => 'DTN',
-            'measurement_unit_qualifier_code' => '',
+            'measurement_unit_qualifier_code' => nil,
             'abbreviation' => '100 kg',
             'unit_question' => 'What is the weight of the goods you will be importing?',
-            'unit_hint' => 'Enter the value in decitonnes (100kg)',
-            'unit' => 'x 100 kg',
-            'measure_sids' => [2_046_828],
+            'unit_hint' => 'Enter the value in kilogrammes',
+            'unit' => 'kilogrammes',
+            'multiplier' => '0.01',
+            'coerced_measurement_unit_code' => 'KGM',
           },
-          'RET' => {
+          'RET' => { # UK filtered commodity excise measurement unit
             'measurement_unit_code' => 'RET',
             'measurement_unit_qualifier_code' => '',
             'abbreviation' => 'GBP',
             'unit_question' => 'What is the retail price of the goods you will be importing?',
             'unit_hint' => 'Enter the value in pounds',
             'unit' => '£',
-            'measure_sids' => [-1_010_806_389],
           },
-          'MIL' => {
+          'MIL' => { # UK filtered commodity excise measurement unit
             'measurement_unit_code' => 'MIL',
             'measurement_unit_qualifier_code' => '',
             'abbreviation' => '1,000 p/st',
             'unit_question' => 'How many items will you be importing?',
             'unit_hint' => 'Enter the value in thousands of items',
             'unit' => 'x 1,000 items',
-            'measure_sids' => [-1_010_806_389],
           },
         }
       end
@@ -128,9 +109,9 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
       it 'fetches the xi commodity' do
         service.call
 
-        expect(Api::Commodity).to have_received(:build).with(
+        expect(commodity_context_service).to have_received(:call).with(
           'xi',
-          '0103921100',
+          anything,
           anything,
         )
       end
@@ -138,9 +119,9 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
       it 'fetches the uk commodity' do
         service.call
 
-        expect(Api::Commodity).to have_received(:build).with(
+        expect(commodity_context_service).to have_received(:call).with(
           'uk',
-          '0103921100',
+          anything,
           anything,
         )
       end
@@ -149,16 +130,7 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
     end
 
     context 'when on a uk route' do
-      let(:user_session) do
-        build(
-          :user_session,
-          :with_commodity_information,
-          :with_customs_value,
-          :with_measure_amount,
-          commodity_source: 'uk',
-          commodity_code: '0103921100',
-        )
-      end
+      let(:user_session) { build(:user_session, commodity_source: 'uk') }
 
       let(:expected_units) do
         {
@@ -172,12 +144,13 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
           },
           'DTN' => {
             'measurement_unit_code' => 'DTN',
-            'measurement_unit_qualifier_code' => '',
+            'measurement_unit_qualifier_code' => nil,
             'abbreviation' => '100 kg',
             'unit_question' => 'What is the weight of the goods you will be importing?',
-            'unit_hint' => 'Enter the value in decitonnes (100kg)',
-            'unit' => 'x 100 kg',
-            'measure_sids' => [2_046_828],
+            'unit_hint' => 'Enter the value in kilogrammes',
+            'unit' => 'kilogrammes',
+            'multiplier' => '0.01',
+            'coerced_measurement_unit_code' => 'KGM',
           },
           'RET' => {
             'measurement_unit_code' => 'RET',
@@ -186,7 +159,6 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'What is the retail price of the goods you will be importing?',
             'unit_hint' => 'Enter the value in pounds',
             'unit' => '£',
-            'measure_sids' => [-1_010_806_389],
           },
           'MIL' => {
             'measurement_unit_code' => 'MIL',
@@ -195,7 +167,6 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
             'unit_question' => 'How many items will you be importing?',
             'unit_hint' => 'Enter the value in thousands of items',
             'unit' => 'x 1,000 items',
-            'measure_sids' => [-1_010_806_389],
           },
         }
       end
@@ -203,9 +174,9 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
       it 'does not fetch the xi commodity' do
         service.call
 
-        expect(Api::Commodity).not_to have_received(:build).with(
+        expect(commodity_context_service).not_to have_received(:call).with(
           'xi',
-          '0103921100',
+          anything,
           anything,
         )
       end
@@ -213,14 +184,152 @@ RSpec.describe ApplicableMeasureUnitMerger, :user_session do
       it 'fetches the uk commodity' do
         service.call
 
-        expect(Api::Commodity).to have_received(:build).with(
+        expect(commodity_context_service).to have_received(:call).with(
           'uk',
-          '0103921100',
+          anything,
           anything,
         )
       end
 
       it { expect(service.call).to eq(expected_units) }
+    end
+
+    context 'when dedupe is not set on the constructor' do
+      subject(:result) do
+        described_class.new.call.transform_values do |value|
+          value.slice('measurement_unit_code', 'measurement_unit_qualifier_code', 'coerced_measurement_unit_code')
+        end
+      end
+
+      let(:user_session) { build(:user_session, :deltas_applicable) }
+
+      let(:expected_units) do
+        {
+          'DTN' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => nil,
+            'coerced_measurement_unit_code' => 'KGM',
+          },
+          'RET' => {
+            'measurement_unit_code' => 'RET',
+            'measurement_unit_qualifier_code' => '',
+          },
+          'MIL' => {
+            'measurement_unit_code' => 'MIL',
+            'measurement_unit_qualifier_code' => '',
+          },
+          'ASV' => {
+            'measurement_unit_code' => 'ASV',
+            'measurement_unit_qualifier_code' => '',
+          },
+          # 'DTNR' => { # Removed unit - coerced
+          #   'measurement_unit_code' => 'DTN',
+          #   'measurement_unit_qualifier_code' => 'R',
+          #   'coerced_measurement_unit_code' => 'KGM',
+          # },
+          # 'KGM' => { # Removed unit - uncoerced
+          #   'measurement_unit_code' => 'KGM',
+          #   'measurement_unit_qualifier_code' => nil,
+          #   'coerced_measurement_unit_code' => nil,
+          # },
+        }
+      end
+
+      it 'dedupes the measure units' do
+        expect(result).to eq(expected_units)
+      end
+    end
+
+    context 'when dedupe is set to true on the constructor' do
+      subject(:result) do
+        described_class.new(dedupe: true).call.transform_values do |value|
+          value.slice('measurement_unit_code', 'measurement_unit_qualifier_code', 'coerced_measurement_unit_code')
+        end
+      end
+
+      let(:user_session) { build(:user_session, :deltas_applicable) }
+
+      let(:expected_units) do
+        {
+          'DTN' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => nil,
+            'coerced_measurement_unit_code' => 'KGM',
+          },
+          'RET' => {
+            'measurement_unit_code' => 'RET',
+            'measurement_unit_qualifier_code' => '',
+          },
+          'MIL' => {
+            'measurement_unit_code' => 'MIL',
+            'measurement_unit_qualifier_code' => '',
+          },
+          'ASV' => {
+            'measurement_unit_code' => 'ASV',
+            'measurement_unit_qualifier_code' => '',
+          },
+          # 'DTNR' => { # Removed unit - coerced
+          #   'measurement_unit_code' => 'DTN',
+          #   'measurement_unit_qualifier_code' => 'R',
+          #   'coerced_measurement_unit_code' => 'KGM',
+          # },
+          # 'KGM' => { # Removed unit - uncoerced
+          #   'measurement_unit_code' => 'KGM',
+          #   'measurement_unit_qualifier_code' => nil,
+          #   'coerced_measurement_unit_code' => nil,
+          # },
+        }
+      end
+
+      it 'dedupes the measure units' do
+        expect(result).to eq(expected_units)
+      end
+    end
+
+    context 'when dedupe is set to false on the constructor' do
+      subject(:result) do
+        described_class.new(dedupe: false).call.transform_values do |value|
+          value.slice('measurement_unit_code', 'measurement_unit_qualifier_code', 'coerced_measurement_unit_code')
+        end
+      end
+
+      let(:user_session) { build(:user_session, :deltas_applicable) }
+
+      let(:expected_units) do
+        {
+          'DTN' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => nil,
+            'coerced_measurement_unit_code' => 'KGM',
+          },
+          'RET' => {
+            'measurement_unit_code' => 'RET',
+            'measurement_unit_qualifier_code' => '',
+          },
+          'MIL' => {
+            'measurement_unit_code' => 'MIL',
+            'measurement_unit_qualifier_code' => '',
+          },
+          'ASV' => {
+            'measurement_unit_code' => 'ASV',
+            'measurement_unit_qualifier_code' => '',
+          },
+          'DTNR' => { # Unit not removed
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => 'R',
+            'coerced_measurement_unit_code' => 'KGM',
+          },
+          'KGM' => { # Unit not removed
+            'measurement_unit_code' => 'KGM',
+            'measurement_unit_qualifier_code' => nil,
+            'coerced_measurement_unit_code' => nil,
+          },
+        }
+      end
+
+      it 'does not dedupe the measure units' do
+        expect(result).to eq(expected_units)
+      end
     end
   end
 end
