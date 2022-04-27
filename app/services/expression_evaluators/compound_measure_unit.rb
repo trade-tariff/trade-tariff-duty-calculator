@@ -5,7 +5,7 @@ module ExpressionEvaluators
     def call
       {
         calculation: calculation_duty_expression,
-        value: value,
+        value:,
         formatted_value: number_to_currency(value),
       }
     end
