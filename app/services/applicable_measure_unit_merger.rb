@@ -18,7 +18,9 @@ class ApplicableMeasureUnitMerger
   private
 
   def delta_measure_units
-    applicable_units =  uk_filtered_commodity.applicable_measure_units.merge(xi_filtered_commodity.applicable_measure_units)
+    uk_units = uk_filtered_commodity.applicable_measure_units
+    xi_units = xi_filtered_commodity.applicable_measure_units
+    applicable_units = uk_units.merge(xi_units)
 
     clean_and_dedup_measure_units(applicable_units)
   end
@@ -30,23 +32,21 @@ class ApplicableMeasureUnitMerger
   end
 
   def xi_measure_units
-    applicable_units = xi_filtered_commodity.applicable_measure_units.merge(uk_filtered_commodity.applicable_excise_measure_units)
+    uk_units = uk_filtered_commodity.applicable_excise_measure_units
+    xi_units = xi_filtered_commodity.applicable_measure_units
+    applicable_units = xi_units.merge(uk_units)
 
     clean_and_dedup_measure_units(applicable_units)
   end
 
   def clean_and_dedup_measure_units(applicable_units)
     if @dedupe
-      applicable_units = applicable_units.each_with_object({}) do |(measurement_unit_code, measurement_unit_values), acc|
-        acc[measurement_unit_values['coerced_measurement_unit_code'].presence || measurement_unit_code] = measurement_unit_values
+      applicable_units = applicable_units.each_with_object({}) do |(code, values), units|
+        units[values['coerced_measurement_unit_code'].presence || code] = values
       end
     end
 
-    UNHANDLED_MEASURE_UNITS.each do |unhandled_unit|
-      applicable_units.delete(unhandled_unit)
-    end
-
-    applicable_units
+    applicable_units.except(*UNHANDLED_MEASURE_UNITS)
   end
 
   def user_session
