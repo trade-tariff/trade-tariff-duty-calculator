@@ -10,6 +10,7 @@ module ExpressionEvaluators
         formatted_value: number_to_currency(value),
         unit: presented_unit[:unit],
         total_quantity:,
+        original_unit: presented_unit[:original_unit],
       }
     end
 

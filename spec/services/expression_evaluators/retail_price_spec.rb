@@ -40,6 +40,7 @@ RSpec.describe ExpressionEvaluators::RetailPrice, :user_session do
         answer: '1000',
         multiplier: 1,
         unit: '£',
+        original_unit: nil,
       }
     end
 
@@ -49,6 +50,7 @@ RSpec.describe ExpressionEvaluators::RetailPrice, :user_session do
         'measurement_unit_qualifier_code' => nil,
         'unit' => '£',
         'multiplier' => nil,
+        'original_unit' => nil,
       }
     end
   end

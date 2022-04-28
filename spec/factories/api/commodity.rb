@@ -96,6 +96,7 @@ FactoryBot.define do
             'unit' => 'percent',
             'multiplier' => nil,
             'coerced_measurement_unit_code' => nil,
+            'original_unit' => nil,
           },
           'HLT' => {
             'measurement_unit_code' => 'HLT',
@@ -103,6 +104,7 @@ FactoryBot.define do
             'unit' => 'litres',
             'multiplier' => '0.01',
             'coerced_measurement_unit_code' => 'LTR',
+            'original_unit' => 'x 100 litres',
           },
           'LTR' => {
             'measurement_unit_code' => 'LTR',
@@ -110,6 +112,7 @@ FactoryBot.define do
             'unit' => 'litres',
             'multiplier' => nil,
             'coerced_measurement_unit_code' => nil,
+            'original_unit' => nil,
           },
         }
       end
@@ -153,6 +156,7 @@ FactoryBot.define do
             'unit' => 'kilogrammes',
             'multiplier' => '0.01',
             'coerced_measurement_unit_code' => 'KGM',
+            'original_unit' => 'x 100 kg',
           },
           'DTNR' => {
             'measurement_unit_code' => 'DTN',
@@ -160,6 +164,7 @@ FactoryBot.define do
             'unit' => 'kilogrammes',
             'multiplier' => '0.01',
             'coerced_measurement_unit_code' => 'KGM',
+            'original_unit' => 'x 100 kg',
           },
         }
       end
@@ -173,6 +178,7 @@ FactoryBot.define do
             'measurement_unit_qualifier_code' => nil,
             'unit' => '£',
             'multiplier' => nil,
+            'original_unit' => nil,
           },
         }
       end
@@ -187,7 +193,6 @@ FactoryBot.define do
             'measurement_unit_code' => 'DTN',
             'measurement_unit_qualifier_code' => nil,
             'unit' => 'x 100 kg',
-            'multiplier' => nil,
           },
         }
       end
@@ -201,8 +206,7 @@ FactoryBot.define do
           'DTN' => {
             'measurement_unit_code' => 'DTN',
             'measurement_unit_qualifier_code' => nil,
-            'unit' => 'kilogrammes',
-            'multiplier' => nil,
+            'unit' => 'x 100 kg',
           },
         }
       end
@@ -216,64 +220,7 @@ FactoryBot.define do
           'DTN' => {
             'measurement_unit_code' => 'DTN',
             'measurement_unit_qualifier_code' => nil,
-            'unit' => 'kilogrammes',
-            'multiplier' => nil,
-          },
-        }
-      end
-    end
-
-    trait :with_comprehensive_measure_units do
-      applicable_measure_units do
-        {
-          'DTN' => {
-            'measurement_unit_code' => 'DTN',
-            'measurement_unit_qualifier_code' => '',
-            'abbreviation' => '100 kg',
-            'unit_question' => 'What is the weight of the goods you will be importing?',
-            'unit_hint' => 'Enter the value in decitonnes (100kg)',
             'unit' => 'x 100 kg',
-            'measure_sids' => [
-              2_046_828,
-            ],
-          },
-          'RET' => {
-            'measurement_unit_code' => 'RET',
-            'measurement_unit_qualifier_code' => '',
-            'abbreviation' => 'GBP',
-            'unit_question' => 'What is the retail price of the goods you will be importing?',
-            'unit_hint' => 'Enter the value in pounds',
-            'unit' => '£',
-            'measure_sids' => [
-              -1_010_806_389,
-            ],
-          },
-          'MIL' => {
-            'measurement_unit_code' => 'MIL',
-            'measurement_unit_qualifier_code' => '',
-            'abbreviation' => '1,000 p/st',
-            'unit_question' => 'How many items will you be importing?',
-            'unit_hint' => 'Enter the value in thousands of items',
-            'unit' => 'x 1,000 items',
-            'measure_sids' => [
-              -1_010_806_389,
-            ],
-          },
-          'FC1X' => {
-            'measurement_unit_code' => 'FC1',
-            'measurement_unit_qualifier_code' => 'X',
-            'abbreviation' => 'Factor',
-            'unit_question' => 'Please enter unit: Factor',
-            'unit_hint' => 'Please correctly enter unit: Factor',
-            'unit' => nil,
-          },
-          'ASV' => {
-            'measurement_unit_code' => 'ASV',
-            'measurement_unit_qualifier_code' => '',
-            'abbreviation' => '% vol',
-            'unit_question' => 'What is the alcohol percentage (%) of the goods you are importing?',
-            'unit_hint' => 'Enter the alcohol by volume (ABV) percentage',
-            'unit' => 'percent',
           },
         }
       end
@@ -303,6 +250,7 @@ FactoryBot.define do
             'unit' => 'kilogrammes',
             'multiplier' => '0.01',
             'coerced_measurement_unit_code' => 'KGM',
+            'original_unit' => 'x 100 kg',
           },
           'RET' => { # Excise measurement unit code
             'measurement_unit_code' => 'RET',

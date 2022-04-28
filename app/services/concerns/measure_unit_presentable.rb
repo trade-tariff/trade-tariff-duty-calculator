@@ -5,6 +5,7 @@ module MeasureUnitPresentable
     @presented_unit ||= {
       answer: unit_answer_for(applicable_unit),
       unit: applicable_unit['unit'],
+      original_unit: applicable_unit['original_unit'],
       multiplier: applicable_unit['multiplier'].presence || 1,
     }
   end
