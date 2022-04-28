@@ -90,8 +90,30 @@ FactoryBot.define do
 
       applicable_measure_units do
         {
-          'ASV' => { 'unit' => 'percent', 'multiplier' => nil },
-          'HLT' => { 'unit' => 'litres', "multiplier": '0.01' },
+          'ASV' => {
+            'measurement_unit_code' => 'ASV',
+            'measurement_unit_qualifier_code' => nil,
+            'unit' => 'percent',
+            'multiplier' => nil,
+            'coerced_measurement_unit_code' => nil,
+            'original_unit' => nil,
+          },
+          'HLT' => {
+            'measurement_unit_code' => 'HLT',
+            'measurement_unit_qualifier_code' => nil,
+            'unit' => 'litres',
+            'multiplier' => '0.01',
+            'coerced_measurement_unit_code' => 'LTR',
+            'original_unit' => 'x 100 litres',
+          },
+          'LTR' => {
+            'measurement_unit_code' => 'LTR',
+            'measurement_unit_qualifier_code' => nil,
+            'unit' => 'litres',
+            'multiplier' => nil,
+            'coerced_measurement_unit_code' => nil,
+            'original_unit' => nil,
+          },
         }
       end
     end
@@ -109,8 +131,16 @@ FactoryBot.define do
 
       applicable_measure_units do
         {
-          'ASV' => { 'unit' => 'percent' },
-          'HLT' => { 'unit' => 'x 100 litres' },
+          'ASV' => {
+            'measurement_unit_code' => 'ASV',
+            'measurement_unit_qualifier_code' => nil,
+            'unit' => 'percent',
+          },
+          'HLT' => {
+            'measurement_unit_code' => 'HLT',
+            'measurement_unit_qualifier_code' => nil,
+            'unit' => 'x 100 litres',
+          },
         }
       end
     end
@@ -118,29 +148,183 @@ FactoryBot.define do
     trait :with_measure_units_with_multiplier do
       import_measures { [attributes_for(:measure, :third_country_tariff, :with_pounds_measure_unit_measure_component)] }
 
-      applicable_measure_units { { 'DTN' => { 'unit' => 'kilogrammes', 'multiplier' => '0.01' } } }
+      applicable_measure_units do
+        {
+          'DTN' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => nil,
+            'unit' => 'kilogrammes',
+            'multiplier' => '0.01',
+            'coerced_measurement_unit_code' => 'KGM',
+            'original_unit' => 'x 100 kg',
+          },
+          'DTNR' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => 'R',
+            'unit' => 'kilogrammes',
+            'multiplier' => '0.01',
+            'coerced_measurement_unit_code' => 'KGM',
+            'original_unit' => 'x 100 kg',
+          },
+        }
+      end
     end
 
     trait :with_retail_price_measure_units do
-      applicable_measure_units { { 'RET' => { 'unit' => '£', 'multiplier' => nil } } }
+      applicable_measure_units do
+        {
+          'RET' => {
+            'measurement_unit_code' => 'RET',
+            'measurement_unit_qualifier_code' => nil,
+            'unit' => '£',
+            'multiplier' => nil,
+            'original_unit' => nil,
+          },
+        }
+      end
     end
 
     trait :with_euro_measure_unit_measure_component do
       import_measures { [attributes_for(:measure, :third_country_tariff, :with_euro_measure_unit_measure_component)] }
 
-      applicable_measure_units { { 'DTN' => { 'unit' => 'x 100 kg', 'multiplier' => nil } } }
+      applicable_measure_units do
+        {
+          'DTN' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => nil,
+            'unit' => 'x 100 kg',
+          },
+        }
+      end
     end
 
     trait :with_pounds_measure_unit_measure_component do
       import_measures { [attributes_for(:measure, :third_country_tariff, :with_pounds_measure_unit_measure_component)] }
 
-      applicable_measure_units { { 'DTN' => { 'unit' => 'x 100 kg', 'multiplier' => nil } } }
+      applicable_measure_units do
+        {
+          'DTN' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => nil,
+            'unit' => 'x 100 kg',
+          },
+        }
+      end
     end
 
     trait :with_condition_measure_units do
       import_measures { [attributes_for(:measure, :third_country_tariff, :with_condition_measure_units)] }
 
-      applicable_measure_units { { 'DTN' => { 'unit' => 'x 100 kg', 'multiplier' => nil } } }
+      applicable_measure_units do
+        {
+          'DTN' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => nil,
+            'unit' => 'x 100 kg',
+          },
+        }
+      end
+    end
+
+    trait :with_excise_measures do
+      import_measures do
+        [
+          attributes_for(:measure, :excise, :with_excise_measure_components),
+        ]
+      end
+    end
+
+    trait :with_uk_complex_measure_units do
+      with_excise_measures
+
+      source { 'uk' }
+
+      applicable_measure_units do
+        {
+          'DTN' => { # Duplicated in xi simple measurement units
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => nil,
+            'abbreviation' => '100 kg',
+            'unit_question' => 'What is the weight of the goods you will be importing?',
+            'unit_hint' => 'Enter the value in kilogrammes',
+            'unit' => 'kilogrammes',
+            'multiplier' => '0.01',
+            'coerced_measurement_unit_code' => 'KGM',
+            'original_unit' => 'x 100 kg',
+          },
+          'RET' => { # Excise measurement unit code
+            'measurement_unit_code' => 'RET',
+            'measurement_unit_qualifier_code' => '',
+            'abbreviation' => 'GBP',
+            'unit_question' => 'What is the retail price of the goods you will be importing?',
+            'unit_hint' => 'Enter the value in pounds',
+            'unit' => '£',
+          },
+          'MIL' => { # Excise measurement unit code
+            'measurement_unit_code' => 'MIL',
+            'measurement_unit_qualifier_code' => '',
+            'abbreviation' => '1,000 p/st',
+            'unit_question' => 'How many items will you be importing?',
+            'unit_hint' => 'Enter the value in thousands of items',
+            'unit' => 'x 1,000 items',
+          },
+          'FC1X' => { # Excluded measurment unit code
+            'measurement_unit_code' => 'FC1',
+            'measurement_unit_qualifier_code' => 'X',
+            'abbreviation' => 'Factor',
+            'unit_question' => 'Please enter unit: Factor',
+            'unit_hint' => 'Please correctly enter unit: Factor',
+            'unit' => nil,
+          },
+          'ASV' => {
+            'measurement_unit_code' => 'ASV',
+            'measurement_unit_qualifier_code' => '',
+            'abbreviation' => '% vol',
+            'unit_question' => 'What is the alcohol percentage (%) of the goods you are importing?',
+            'unit_hint' => 'Enter the alcohol by volume (ABV) percentage',
+            'unit' => 'percent',
+          },
+          'DTNR' => { # Deduped measurement unit code
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => 'R',
+            'abbreviation' => '100 kg std qual',
+            'unit_question' => 'What is the weight net of the standard quality of the goods you will be importing?',
+            'unit_hint' => 'Enter the value in kilogrammes',
+            'unit' => 'kilogrammes',
+            'multiplier' => '0.01',
+            'coerced_measurement_unit_code' => 'KGM',
+          },
+          'KGM' => { # Deduped measurement unit code without coercian
+            'measurement_unit_code' => 'KGM',
+            'measurement_unit_qualifier_code' => nil,
+            'abbreviation' => 'kg',
+            'unit_question' => 'What is the weight of the goods that you will be importing?',
+            'unit_hint' => 'Enter the value in kilograms',
+            'unit' => 'kilograms',
+            'multiplier' => nil,
+            'coerced_measurement_unit_code' => nil,
+          },
+        }
+      end
+    end
+
+    trait :with_xi_simple_measure_units do
+      source { 'xi' }
+
+      applicable_measure_units do
+        {
+          'DTN' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => nil,
+            'abbreviation' => '100 kg',
+            'unit_question' => 'What is the weight of the goods you will be importing?',
+            'unit_hint' => 'Enter the value in kilogrammes',
+            'unit' => 'kilogrammes',
+            'multiplier' => '0.01',
+            'coerced_measurement_unit_code' => 'KGM',
+          },
+        }
+      end
     end
   end
 end

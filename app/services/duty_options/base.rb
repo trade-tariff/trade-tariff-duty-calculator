@@ -90,7 +90,7 @@ module DutyOptions
     end
 
     def unit
-      duty_evaluation[:unit]
+      duty_evaluation[:original_unit].presence || duty_evaluation[:unit]
     end
 
     def value

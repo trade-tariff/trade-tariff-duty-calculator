@@ -53,5 +53,16 @@ FactoryBot.define do
       duty_expression_description { '%' }
       duty_expression_id { '01' }
     end
+
+    trait :with_mil_measure_units do
+      duty_expression_id { '04' }
+      duty_amount { 244.78 }
+      monetary_unit_code { 'GBP' }
+      monetary_unit_abbreviation { nil }
+      measurement_unit_code { 'MIL' }
+      measurement_unit_qualifier_code { nil }
+      duty_expression_description { '+ % or amount' }
+      duty_expression_abbreviation { '+' }
+    end
   end
 end

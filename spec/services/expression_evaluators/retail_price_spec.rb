@@ -40,13 +40,17 @@ RSpec.describe ExpressionEvaluators::RetailPrice, :user_session do
         answer: '1000',
         multiplier: 1,
         unit: '£',
+        original_unit: nil,
       }
     end
 
     let(:expected_applicable_unit) do
       {
+        'measurement_unit_code' => 'RET',
+        'measurement_unit_qualifier_code' => nil,
         'unit' => '£',
         'multiplier' => nil,
+        'original_unit' => nil,
       }
     end
   end

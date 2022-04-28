@@ -6,16 +6,15 @@ RSpec.describe ExpressionEvaluators::CompoundMeasureUnit, :user_session do
   let(:measure) { commodity.import_measures.first }
   let(:measure_component) { measure.measure_components.first }
 
-  let(:user_session) do
-    build(
-      :user_session,
-      :with_commodity_information,
-      :with_customs_value,
-      :with_compound_measure_amount,
-    )
-  end
-
   context 'when there is an applicable multiplier on the volume unit' do
+    let(:user_session) do
+      build(
+        :user_session,
+        :with_commodity_information,
+        :with_customs_value,
+        :with_coerced_compound_measure_amount,
+      )
+    end
     let(:commodity) { build(:commodity, :with_compound_measure_units) }
 
     let(:expected_evaluation) do
@@ -34,6 +33,14 @@ RSpec.describe ExpressionEvaluators::CompoundMeasureUnit, :user_session do
   end
 
   context 'when there are no applicable multipliers' do
+    let(:user_session) do
+      build(
+        :user_session,
+        :with_commodity_information,
+        :with_customs_value,
+        :with_compound_measure_amount,
+      )
+    end
     let(:commodity) { build(:commodity, :with_compound_measure_units_no_multiplier) }
 
     let(:expected_evaluation) do

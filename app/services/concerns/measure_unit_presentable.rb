@@ -3,8 +3,9 @@ module MeasureUnitPresentable
 
   def presented_unit
     @presented_unit ||= {
-      answer: user_session.measure_amount[component.unit.downcase.to_s],
+      answer: unit_answer_for(applicable_unit),
       unit: applicable_unit['unit'],
+      original_unit: applicable_unit['original_unit'],
       multiplier: applicable_unit['multiplier'].presence || 1,
     }
   end
@@ -13,9 +14,15 @@ module MeasureUnitPresentable
     applicable_units[component.unit]
   end
 
+  def unit_answer_for(unit)
+    key = unit['coerced_measurement_unit_code'].presence || "#{unit['measurement_unit_code']}#{unit['measurement_unit_qualifier_code']}"
+
+    user_session.measure_amount[key.downcase]
+  end
+
   private
 
   def applicable_units
-    @applicable_units ||= ApplicableMeasureUnitMerger.new.call
+    @applicable_units ||= ApplicableMeasureUnitMerger.new(dedupe: false).call
   end
 end
