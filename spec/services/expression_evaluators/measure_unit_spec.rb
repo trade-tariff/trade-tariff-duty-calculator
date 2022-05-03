@@ -12,7 +12,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
 
     let(:expected_evaluation) do
       {
-        calculation: '<span>35.10</span> GBP / <abbr title="Hectokilogram">100 kg</abbr> * 1.00',
+        calculation: '<span>35.10</span> GBP / <abbr title="Hectokilogram">100 kg</abbr>',
         formatted_value: '£35.10',
         total_quantity: 1.0,
         unit: 'kilogrammes',
@@ -35,7 +35,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
 
     let(:expected_evaluation) do
       {
-        calculation: '<span>35.10</span> EUR / <abbr title="Hectokilogram">100 kg</abbr> * 100.00',
+        calculation: '<span>35.10</span> EUR / <abbr title="Hectokilogram">100 kg</abbr>',
         formatted_value: '£3,008.42',
         unit: 'x 100 kg',
         total_quantity: 100.0,
@@ -56,7 +56,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
 
     let(:expected_evaluation) do
       {
-        calculation: '<span>35.10</span> GBP / <abbr title="Hectokilogram">100 kg</abbr> * 100.00',
+        calculation: '<span>35.10</span> GBP / <abbr title="Hectokilogram">100 kg</abbr>',
         value: 3510.0,
         formatted_value: '£3,510.00',
         unit: 'x 100 kg',
@@ -77,7 +77,7 @@ RSpec.describe ExpressionEvaluators::MeasureUnit, :user_session do
 
     let(:expected_evaluation) do
       {
-        calculation: '<span>35.10</span> GBP / <abbr title="Hectokilogram">100 kg</abbr> * 100.00',
+        calculation: '<span>35.10</span> GBP / <abbr title="Hectokilogram">100 kg</abbr>',
         value: 3510.0,
         formatted_value: '£3,510.00',
         unit: 'x 100 kg',
