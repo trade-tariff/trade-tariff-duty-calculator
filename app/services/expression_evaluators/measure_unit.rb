@@ -24,8 +24,6 @@ module ExpressionEvaluators
           measure.duty_expression.formatted_base
         end
 
-      expression = "#{expression} * #{quantity_string}"
-
       sanitize(expression, tags: %w[span abbr], attributes: %w[title])
     end
 
