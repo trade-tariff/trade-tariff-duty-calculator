@@ -223,17 +223,6 @@ jobs:
           event: fail
           template: basic_fail_1
 
-  cypress:
-    docker:
-      - image: 'cypress/base:latest'
-    steps:
-      - run:
-          name: "Checkout tests repo"
-          command: git clone "https://github.com/trade-tariff/trade-tariff-testing/"
-      - run:
-          name: "Cypress (dcSmokeTestCI)"
-          command: 'cd trade-tariff-testing && npm install &&  npx cypress run --spec "/*/**/DutyCalculator/dcShared/dcSmokeTestCI.spec.js"'
-
   deploy_dev:
     docker:
       - image: cimg/ruby:3.1.2
@@ -351,13 +340,6 @@ workflows:
           requires:
             - build_live
       - smoketest_staging:
-          filters:
-            branches:
-              only:
-                - main
-          requires:
-            - deploy_main_to_staging
-      - cypress:
           filters:
             branches:
               only:
