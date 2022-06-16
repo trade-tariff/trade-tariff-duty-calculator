@@ -93,21 +93,19 @@ commands:
     parameters:
       url:
         type: string
+      space:
+        type: string
+        default: DEVELOPMENT
     steps:
       - run:
           name: "Checkout tests repo"
           command: git clone --depth=1 "https://github.com/trade-tariff/trade-tariff-testing/"
-      - run:
-          name: "Check environment being tested"
-          environment:
-            CYPRESS_BASE_URL: '<< parameters.url >>'
-          command: 'echo "Testing: ${CYPRESS_BASE_URL}"'
       - restore_cache:
           keys:
             - v2-smoketest-deps-{{ checksum "trade-tariff-testing/yarn.lock" }}
       - run:
           name: "Install NPM packages"
-          command: 'cd trade-tariff-testing && yarn install'
+          command: "cd trade-tariff-testing && yarn install"
       - save_cache:
           key: v2-smoketest-deps-{{ checksum "trade-tariff-testing/yarn.lock" }}
           paths:
@@ -116,8 +114,12 @@ commands:
       - run:
           name: "Cypress Smoke tests"
           environment:
-            CYPRESS_BASE_URL: '<< parameters.url >>'
-          command: 'cd trade-tariff-testing && yarn run cypress run --spec "cypress/integration/DutyCalculator/dcShared/dcSmokeTestCI.spec.js"'
+            CYPRESS_BASE_URL: "<< parameters.url >>"
+            CYPRESS_SPACE: "<< parameters.space >>"
+          command: |
+            cd trade-tariff-testing
+
+            yarn run cypress run --spec "/*/**/HOTT-Shared/devSmokeTestCI.spec.js"
 
   sentry-release:
     steps:
@@ -139,21 +141,23 @@ commands:
 jobs:
   smoketest_dev:
     docker:
-      - image: 'cypress/base:16.5.0'
+      - image: "cypress/base:16.5.0"
     steps:
       - smoketest:
           url: https://dev.trade-tariff.service.gov.uk
+          space: DEVELOPMENT
 
   smoketest_staging:
     docker:
-      - image: 'cypress/base:16.5.0'
+      - image: "cypress/base:16.5.0"
     steps:
       - smoketest:
           url: https://staging.trade-tariff.service.gov.uk
+          space: STAGING
 
   checking:
     docker:
-      - image: 'cimg/ruby:3.1.2-node'
+      - image: "cimg/ruby:3.1.2-node"
     steps:
       - checkout
       - ruby/install-deps
@@ -166,7 +170,7 @@ jobs:
       - run:
           name: Brakeman
           # See https://github.com/presidentbeef/brakeman/issues/1664
-          command:  bundle exec brakeman -o brakeman_results.html
+          command: bundle exec brakeman -o brakeman_results.html
       - store_artifacts:
           path: brakeman_results.html
 
@@ -231,7 +235,7 @@ jobs:
       SENTRY_ENVIRONMENT: "development"
     steps:
       - queue/until_front_of_line:
-          time: '10'
+          time: "10"
           consider-branch: false
           dont-quit: true
       - cf_deploy_docker:
@@ -248,7 +252,7 @@ jobs:
       SENTRY_ENVIRONMENT: "staging"
     steps:
       - queue/until_front_of_line:
-          time: '10'
+          time: "10"
           dont-quit: true
       - cf_deploy_docker:
           docker_image_tag: $CIRCLE_SHA1
