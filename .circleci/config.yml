@@ -307,6 +307,7 @@ workflows:
             branches:
               ignore:
                 - main
+                - /^hotfix\/.+/
                 - /^dependabot\/.*/
           requires:
             - test
@@ -316,6 +317,7 @@ workflows:
             branches:
               ignore:
                 - main
+                - /^hotfix\/.+/
                 - /^dependabot\/.*/
           requires:
             - build_dev
@@ -326,6 +328,7 @@ workflows:
             branches:
               ignore:
                 - main
+                - /^hotfix\/.+/
                 - /^dependabot\/.*/
           requires:
             - deploy_dev
@@ -336,12 +339,14 @@ workflows:
             branches:
               only:
                 - main
+                - /^hotfix\/.+/
       - deploy_main_to_staging:
           context: trade-tariff
           filters:
             branches:
               only:
                 - main
+                - /^hotfix\/.+/
           requires:
             - build_live
       - smoketest_staging:
@@ -349,6 +354,7 @@ workflows:
             branches:
               only:
                 - main
+                - /^hotfix\/.+/
           requires:
             - deploy_main_to_staging
       - hold_create_release:
@@ -357,6 +363,7 @@ workflows:
             branches:
               only:
                 - main
+                - /^hotfix\/.+/
           requires:
             - deploy_main_to_staging
       - tariff/create-production-release:
@@ -366,6 +373,7 @@ workflows:
             branches:
               only:
                 - main
+                - /^hotfix\/.+/
           requires:
             - hold_create_release
       - deploy_release_to_staging:
