@@ -297,8 +297,9 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - debug_notifications
+      - debug_notifications:
           context: trade-tariff
+
       # - checking
       # - test:
       #     context: trade-tariff
