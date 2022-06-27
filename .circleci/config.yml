@@ -289,7 +289,7 @@ jobs:
       - image: cimg/ruby:3.1.2
     steps:
       - tariff/notify-production-release:
-          app-name: Duty Calculator
+          app-name: Duty Calculator2
           slack-channel: tariff-regression
           release-tag: release-20220627-1306
 
