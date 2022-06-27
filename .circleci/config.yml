@@ -288,6 +288,7 @@ jobs:
     docker:
       - image: cimg/ruby:3.1.2
     steps:
+      - run: which jo
       - tariff/notify-production-release:
           app-name: Duty Calculator
           slack-channel: tariff-regression
