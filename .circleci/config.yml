@@ -290,7 +290,7 @@ jobs:
     steps:
       - tariff/notify-production-release:
           app-name: Duty Calculator2
-          slack-channel: tariff-regression
+          slack-channel: deployments
           release-tag: release-20220627-1306
 
 workflows:
