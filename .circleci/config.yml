@@ -119,7 +119,7 @@ commands:
           command: |
             cd trade-tariff-testing
 
-            yarn run cypress run --spec "/*/**/HOTT-Shared/devSmokeTestCI.spec.js"
+            yarn run dev-tariff-duty-calculator-smoketests
 
   sentry-release:
     steps:
