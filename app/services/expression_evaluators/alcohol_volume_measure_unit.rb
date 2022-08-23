@@ -1,5 +1,5 @@
 module ExpressionEvaluators
-  class CompoundMeasureUnit < ExpressionEvaluators::Base
+  class AlcoholVolumeMeasureUnit < ExpressionEvaluators::Base
     include MeasureUnitPresentable
 
     def call

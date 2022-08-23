@@ -40,7 +40,7 @@ FactoryBot.define do
       measurement_unit_qualifier_code {}
     end
 
-    trait :compound_measure_unit do
+    trait :alcohol_volume do
       duty_amount { 0.5 }
       measurement_unit_code { 'ASV' }
       measurement_unit_qualifier_code { 'X' }
