@@ -95,7 +95,7 @@ RSpec.describe Api::BaseComponent do
     end
   end
 
-  describe '#compound_measure_unit?' do
+  describe '#alcohol_volume?' do
     subject(:component) do
       described_class.new(
         'measurement_unit_code' => measurement_unit_code,
@@ -103,18 +103,18 @@ RSpec.describe Api::BaseComponent do
       )
     end
 
-    context 'when the unit is a compound unit' do
+    context 'when the unit is an alcohol volume unit' do
       let(:measurement_unit_code) { 'ASV' }
       let(:measurement_unit_qualifier_code) { 'X' }
 
-      it { expect(component).to be_compound_measure_unit }
+      it { expect(component).to be_alcohol_volume }
     end
 
-    context 'when the unit is not a compound unit' do
+    context 'when the unit is not an alcohol volume unit' do
       let(:measurement_unit_code) { 'ASV' }
       let(:measurement_unit_qualifier_code) { '' }
 
-      it { expect(component).not_to be_compound_measure_unit }
+      it { expect(component).not_to be_alcohol_volume }
     end
   end
 

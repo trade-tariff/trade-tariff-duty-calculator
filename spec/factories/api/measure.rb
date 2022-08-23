@@ -145,13 +145,13 @@ FactoryBot.define do
 
     trait :with_compound_measure_components do
       duty_expression do
-        attributes_for(:duty_expression, :compound_measure_unit)
+        attributes_for(:duty_expression, :alcohol_volume_measure_unit)
       end
 
       measure_components do
         [
-          attributes_for(:measure_component, :compound_measure_unit),
-          attributes_for(:measure_component, :compound_measure_unit),
+          attributes_for(:measure_component, :alcohol_volume),
+          attributes_for(:measure_component, :alcohol_volume),
         ]
       end
     end

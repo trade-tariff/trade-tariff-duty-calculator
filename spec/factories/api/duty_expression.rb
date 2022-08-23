@@ -6,7 +6,7 @@ FactoryBot.define do
     base { '144.10 GBP / 1000 kg/biodiesel' }
     formatted_base { "<span>144.10</span> GBP / <abbr title='Tonne'>1000 kg/biodiesel</abbr>" }
 
-    trait :compound_measure_unit do
+    trait :alcohol_volume_measure_unit do
       base { '0.50 GBP / % vol/hl + 2.60 GBP / hl' }
       formatted_base do
         "<span>0.50</span> GBP / <abbr title='%vol'>% vol/hl</abbr> + <span>2.60</span> GBP / <abbr title='Hectolitre'>hl</abbr>"

@@ -1,12 +1,12 @@
 module Api
   class BaseComponent < Api::Base
     CONJUNCTION_OPERATORS = %w[MAX MIN].freeze
-    COMPOUND_MEASURE_UNITS = %w[ASVX].freeze
     MATHEMATICAL_OPERATORS = %w[+ -].freeze
 
+    ALCOHOL_UNIT = 'ASV'.freeze
+    ALCOHOL_VOLUME_UNIT = 'ASVX'.freeze
     RETAIL_PRICE_UNIT = 'RET'.freeze
     VOLUME_UNIT = 'HLT'.freeze
-    ALCOHOL_UNIT = 'ASV'.freeze
 
     attributes :id,
                :duty_expression_id,
@@ -49,8 +49,8 @@ module Api
       "#{measurement_unit_code}#{measurement_unit_qualifier_code}"
     end
 
-    def compound_measure_unit?
-      unit.in?(COMPOUND_MEASURE_UNITS)
+    def alcohol_volume?
+      unit == ALCOHOL_VOLUME_UNIT
     end
 
     def conjunction_operator?

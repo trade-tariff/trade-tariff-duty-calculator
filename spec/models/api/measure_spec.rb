@@ -73,8 +73,8 @@ RSpec.describe Api::Measure, :user_session do
       let(:measure_components) { [attributes_for(:measure_component, :with_measure_units, :single_measure_unit)] }
     end
 
-    it_behaves_like 'a measure evaluator', ExpressionEvaluators::CompoundMeasureUnit do
-      let(:measure_components) { [attributes_for(:measure_component, :with_measure_units, :compound_measure_unit)] }
+    it_behaves_like 'a measure evaluator', ExpressionEvaluators::AlcoholVolumeMeasureUnit do
+      let(:measure_components) { [attributes_for(:measure_component, :with_measure_units, :alcohol_volume)] }
     end
 
     it_behaves_like 'a measure evaluator', ExpressionEvaluators::RetailPrice do
@@ -93,13 +93,13 @@ RSpec.describe Api::Measure, :user_session do
     let(:ad_valorem) { false }
     let(:specific_duty) { false }
     let(:retail_price) { false }
-    let(:compound_measure_unit) { false }
+    let(:alcohol_volume) { false }
 
     before do
       allow(component).to receive(:ad_valorem?).and_return(ad_valorem)
       allow(component).to receive(:specific_duty?).and_return(specific_duty)
       allow(component).to receive(:retail_price?).and_return(retail_price)
-      allow(component).to receive(:compound_measure_unit?).and_return(compound_measure_unit)
+      allow(component).to receive(:alcohol_volume?).and_return(alcohol_volume)
     end
 
     shared_examples_for 'a compound measure evaluator' do |expected_evaluator|
@@ -120,9 +120,9 @@ RSpec.describe Api::Measure, :user_session do
       let(:specific_duty) { true }
     end
 
-    it_behaves_like 'a compound measure evaluator', ExpressionEvaluators::CompoundMeasureUnit do
+    it_behaves_like 'a compound measure evaluator', ExpressionEvaluators::AlcoholVolumeMeasureUnit do
       let(:specific_duty) { true }
-      let(:compound_measure_unit) { true }
+      let(:alcohol_volume) { true }
     end
 
     it_behaves_like 'a compound measure evaluator', ExpressionEvaluators::RetailPrice do
