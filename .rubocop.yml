@@ -41,7 +41,8 @@ RSpec/VerifiedDoubles:
 Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: never
 Style/GuardClause:
   MinBodyLength: 2
 Style/StringLiterals:
