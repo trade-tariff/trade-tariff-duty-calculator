@@ -156,6 +156,18 @@ FactoryBot.define do
       end
     end
 
+    trait :with_sucrose_measure_components do
+      duty_expression do
+        attributes_for(:duty_expression, :sucrose_measure_unit)
+      end
+
+      measure_components do
+        [
+          attributes_for(:measure_component, :sucrose),
+        ]
+      end
+    end
+
     trait :with_euro_measure_unit_measure_component do
       duty_expression do
         attributes_for(:duty_expression, :euro_measure_unit)

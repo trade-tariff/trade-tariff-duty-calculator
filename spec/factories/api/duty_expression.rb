@@ -13,6 +13,11 @@ FactoryBot.define do
       end
     end
 
+    trait :sucrose_measure_unit do
+      base { '0.30 GBP / 100 kg/net/%sacchar.' }
+      formatted_base { "<span>0.30</span> GBP / <abbr title='Hectokilogram'>100 kg/net/%sacchar.</abbr>" }
+    end
+
     trait :euro_measure_unit do
       base { '35.10 EUR / 100 kg' }
       formatted_base { "<span>35.10</span> EUR / <abbr title='Hectokilogram'>100 kg</abbr>" }

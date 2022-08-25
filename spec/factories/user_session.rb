@@ -107,6 +107,10 @@ FactoryBot.define do
     measure_amount { { 'ltr' => '45', 'asv' => '40' } }
   end
 
+  trait :with_sucrose_measure_amount do
+    measure_amount { { 'kgm' => '16320', 'brx' => '80' } }
+  end
+
   trait :with_retail_price_measure_amount do
     measure_amount { { 'ret' => '1000' } }
   end
