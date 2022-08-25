@@ -45,6 +45,8 @@ module Api
         ExpressionEvaluators::RetailPrice.new(self, component)
       elsif specific_duty? && component.alcohol_volume?
         ExpressionEvaluators::AlcoholVolumeMeasureUnit.new(self, component)
+      elsif specific_duty? && component.sucrose?
+        ExpressionEvaluators::SucroseMeasureUnit.new(self, component)
       elsif specific_duty?
         ExpressionEvaluators::MeasureUnit.new(self, component)
       else
@@ -60,6 +62,8 @@ module Api
         ExpressionEvaluators::RetailPrice.new(self, component)
       elsif component.alcohol_volume?
         ExpressionEvaluators::AlcoholVolumeMeasureUnit.new(self, component)
+      elsif component.sucrose?
+        ExpressionEvaluators::SucroseMeasureUnit.new(self, component)
       elsif component.specific_duty?
         ExpressionEvaluators::MeasureUnit.new(self, component)
       end
