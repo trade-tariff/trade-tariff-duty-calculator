@@ -4,8 +4,9 @@ module Api
     MATHEMATICAL_OPERATORS = %w[+ -].freeze
 
     ALCOHOL_UNIT = 'ASV'.freeze
-    ALCOHOL_VOLUME_UNIT = 'ASVX'.freeze
+    DECITONNE_UNIT = 'DTN'.freeze
     RETAIL_PRICE_UNIT = 'RET'.freeze
+    SUCROSE_UNIT = 'BRX'.freeze
     VOLUME_UNIT = 'HLT'.freeze
 
     attributes :id,
@@ -31,6 +32,11 @@ module Api
       amount_or_percentage: %w[01 04 19 20],
     }
 
+    enum :unit, {
+      alcohol_volume: %w[ASVX],
+      sucrose: %w[DTNZ],
+    }
+
     def ad_valorem?
       no_specific_duty?
     end
@@ -47,10 +53,6 @@ module Api
       return nil if measurement_unit_code.blank?
 
       "#{measurement_unit_code}#{measurement_unit_qualifier_code}"
-    end
-
-    def alcohol_volume?
-      unit == ALCOHOL_VOLUME_UNIT
     end
 
     def conjunction_operator?
