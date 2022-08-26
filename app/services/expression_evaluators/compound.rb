@@ -2,7 +2,7 @@ module ExpressionEvaluators
   class Compound < ExpressionEvaluators::Base
     def call
       {
-        calculation: calculation_duty_expression,
+        calculation: sanitized_duty_expression,
         value: evaluation_result,
         formatted_value: number_to_currency(evaluation_result),
       }
@@ -10,7 +10,7 @@ module ExpressionEvaluators
 
     private
 
-    def calculation_duty_expression
+    def sanitized_duty_expression
       sanitize(duty_expression, tags: %w[span abbr strong br], attributes: %w[title])
     end
 

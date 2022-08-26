@@ -126,14 +126,14 @@ RSpec.describe Api::BaseComponent do
       )
     end
 
-    context 'when the unit is an sucrose volume unit' do
+    context 'when the unit is sucrose' do
       let(:measurement_unit_code) { 'DTN' }
       let(:measurement_unit_qualifier_code) { 'Z' }
 
       it { is_expected.to be_sucrose }
     end
 
-    context 'when the unit is not an sucrose volume unit' do
+    context 'when the unit is `not` sucrose' do
       let(:measurement_unit_code) { 'DTN' }
       let(:measurement_unit_qualifier_code) { '' }
 

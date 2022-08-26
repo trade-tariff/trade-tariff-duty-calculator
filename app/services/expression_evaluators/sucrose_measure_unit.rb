@@ -4,7 +4,7 @@ module ExpressionEvaluators
 
     def call
       {
-        calculation: calculation_duty_expression,
+        calculation: sanitized_duty_expression,
         value:,
         formatted_value: number_to_currency(value),
       }
@@ -12,19 +12,14 @@ module ExpressionEvaluators
 
     private
 
-    def calculation_duty_expression
-      expression =
-        if measure_condition.present?
-          measure_condition.duty_expression
-        else
-          measure.duty_expression.formatted_base
-        end
+    def sanitized_duty_expression
+      expression = measure_condition&.duty_expression || measure.duty_expression.formatted_base
 
       sanitize(expression, tags: %w[span abbr], attributes: %w[title])
     end
 
     def value
-      candidate_value = component.duty_amount * decitonne_quantity * sucrose_quantity
+      candidate_value = component.duty_amount * quantity_in_decitonnes * sucrose_quantity
 
       if component.euros?
         candidate_value * euro_exchange_rate
@@ -33,7 +28,7 @@ module ExpressionEvaluators
       end
     end
 
-    def decitonne_quantity
+    def quantity_in_decitonnes
       presented_decitonne_unit[:answer].to_f * presented_decitonne_unit[:multiplier].to_f
     end
 
