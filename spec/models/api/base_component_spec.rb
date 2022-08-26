@@ -118,6 +118,29 @@ RSpec.describe Api::BaseComponent do
     end
   end
 
+  describe '#sucrose?' do
+    subject(:component) do
+      described_class.new(
+        'measurement_unit_code' => measurement_unit_code,
+        'measurement_unit_qualifier_code' => measurement_unit_qualifier_code,
+      )
+    end
+
+    context 'when the unit is sucrose' do
+      let(:measurement_unit_code) { 'DTN' }
+      let(:measurement_unit_qualifier_code) { 'Z' }
+
+      it { is_expected.to be_sucrose }
+    end
+
+    context 'when the unit is `not` sucrose' do
+      let(:measurement_unit_code) { 'DTN' }
+      let(:measurement_unit_qualifier_code) { '' }
+
+      it { is_expected.not_to be_sucrose }
+    end
+  end
+
   describe '#conjunction_operator?' do
     subject(:component) do
       described_class.new(

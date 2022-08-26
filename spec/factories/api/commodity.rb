@@ -118,6 +118,42 @@ FactoryBot.define do
       end
     end
 
+    trait :with_sucrose_measure_units do
+      import_measures do
+        [
+          attributes_for(
+            :measure,
+            :third_country_tariff,
+            :with_sucrose_measure_components,
+          ),
+        ]
+      end
+
+      applicable_measure_units do
+        {
+          'DTN' => {
+            'measurement_unit_code' => 'DTN',
+            'measurement_unit_qualifier_code' => nil,
+            'abbreviation' => '100 kg',
+            'unit_question' => 'What is the weight of the goods you will be importing?',
+            'unit_hint' => 'Enter the value in kilograms',
+            'unit' => 'kilograms',
+            'multiplier' => '0.01',
+            'coerced_measurement_unit_code' => 'KGM',
+            'original_unit' => 'x 100 kg',
+          },
+          'BRX' => {
+            'measurement_unit_code' => 'BRX',
+            'measurement_unit_qualifier_code' => '',
+            'abbreviation' => '% sucrose',
+            'unit_question' => 'What is the percentage of sucrose (Brix) in your goods?',
+            'unit_hint' => 'If you do not know the percentage sucrose content (Brix value), check the footnotes for the commodity code to identify how to calculate it.',
+            'unit' => '% sucrose',
+          },
+        }
+      end
+    end
+
     trait :with_compound_measure_units_no_multiplier do
       import_measures do
         [

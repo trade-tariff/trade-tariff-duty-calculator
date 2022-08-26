@@ -46,6 +46,12 @@ FactoryBot.define do
       measurement_unit_qualifier_code { 'X' }
     end
 
+    trait :sucrose do
+      duty_amount { 0.3 }
+      measurement_unit_code { 'DTN' }
+      measurement_unit_qualifier_code { 'Z' }
+    end
+
     trait :with_retail_price_measure_units do
       duty_amount { 16.5 }
       measurement_unit_code { 'RET' }

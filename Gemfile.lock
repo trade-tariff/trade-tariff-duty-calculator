@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/trade-tariff/uktt.git
-  revision: 66ff55eeee024939267113a458d4b8c982f2fa12
+  revision: a443ca8ec5e567a0000b46ffd0360a4d601b143c
   specs:
-    uktt (2.5.0)
+    uktt (2.6.0)
       faraday
       faraday-net_http_persistent
       faraday_middleware
@@ -102,7 +102,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faraday (1.10.0)
+    faraday (1.10.2)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -118,8 +118,8 @@ GEM
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
     faraday-httpclient (1.0.1)
-    faraday-multipart (1.0.3)
-      multipart-post (>= 1.2, < 3)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
@@ -197,7 +197,7 @@ GEM
     mini_portile2 (2.8.0)
     minitest (5.16.3)
     msgpack (1.5.4)
-    multipart-post (2.1.1)
+    multipart-post (2.2.3)
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
     net-imap (0.2.3)

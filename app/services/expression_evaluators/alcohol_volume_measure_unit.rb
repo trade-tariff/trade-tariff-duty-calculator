@@ -4,7 +4,7 @@ module ExpressionEvaluators
 
     def call
       {
-        calculation: calculation_duty_expression,
+        calculation: sanitized_duty_expression,
         value:,
         formatted_value: number_to_currency(value),
       }
@@ -12,7 +12,7 @@ module ExpressionEvaluators
 
     private
 
-    def calculation_duty_expression
+    def sanitized_duty_expression
       expression =
         if measure_condition.present?
           measure_condition.duty_expression
