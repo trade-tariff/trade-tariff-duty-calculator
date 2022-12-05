@@ -11,7 +11,7 @@ class DutyCalculator
 
       next if option_klass.nil?
 
-      acc << option_klass.new(measure, additional_duty_rows, vat_measure).call
+      acc << option_klass.new(measure, additional_duty_rows_for(option_klass), vat_measure).call
     end
 
     options.sort_by(&:priority)
@@ -21,14 +21,15 @@ class DutyCalculator
 
   attr_reader :commodity
 
-  def additional_duty_rows
+  def additional_duty_rows_for(option_klass)
     rows = AdditionalDutyApplicableMeasuresMerger.new.call.each_with_object([]) do |measure, acc|
-      option_klass = measure.measure_type.additional_duty_option
+      additional_duty_option_klass = measure.measure_type.additional_duty_option
 
-      next if option_klass.nil?
+      next if additional_duty_option_klass.nil?
+      next if option_klass.excludes?(additional_duty_option_klass)
       next if measure.all_duties_zero?
 
-      acc << option_klass.new(measure, [], nil).call
+      acc << additional_duty_option_klass.new(measure, [], nil).call
     end
 
     rows.sort_by(&:priority)

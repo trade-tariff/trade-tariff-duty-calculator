@@ -3,6 +3,7 @@ module DutyOptions
     class Base < DutyOptions::Base
       PRIORITY = 3
       CATEGORY = :quota
+      EXCLUDED_ADDITIONAL_DUTIES = [DutyOptions::AdditionalDuty::AdditionalDutiesSafeguard].freeze
 
       def call
         result = super

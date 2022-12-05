@@ -2,6 +2,7 @@ module DutyOptions
   class Base
     CATEGORY = :default
     PRIORITY = 5
+    EXCLUDED_ADDITIONAL_DUTIES = [].freeze
 
     include ActionView::Helpers::NumberHelper
     include ServiceHelper
@@ -31,6 +32,10 @@ module DutyOptions
 
     def self.id
       name.split('::').last.underscore
+    end
+
+    def self.excludes?(additional_duty_option)
+      additional_duty_option.in?(self::EXCLUDED_ADDITIONAL_DUTIES)
     end
 
     protected
