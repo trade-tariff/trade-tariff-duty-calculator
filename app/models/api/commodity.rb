@@ -61,6 +61,8 @@ module Api
     end
 
     def rules_of_origin_schemes
+      raise Errors::SessionIntegrityError, 'origin_country_code' if user_session.origin_country_code.blank?
+
       RulesOfOriginScheme.build_collection(
         source,
         nil,

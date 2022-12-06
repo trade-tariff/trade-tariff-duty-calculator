@@ -3,6 +3,7 @@ module Steps
     include CommodityHelper
     include ServiceHelper
 
+    rescue_from Errors::SessionIntegrityError, with: :handle_session_integrity_error
     rescue_from StandardError, with: :handle_exception
 
     default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
@@ -53,14 +54,20 @@ module Steps
     end
 
     def handle_exception(exception)
-      Sentry.set_user(user_session.session.to_h.except('_csrf_token'))
-      track_session
+      with_session_tracking do
+        raise exception
+      end
+    end
 
-      raise exception
+    def handle_session_integrity_error(exception)
+      with_session_tracking do
+        Sentry.capture_exception(exception)
+        redirect_to sections_url, allow_other_host: true
+      end
     end
 
     def ensure_session_integrity
-      return redirect_to sections_url, allow_other_host: true if commodity_code.blank?
+      handle_session_integrity_error(Errors::SessionIntegrityError.new('commodity_code')) if commodity_code.blank?
     end
 
     def initialize_commodity_context_service
@@ -69,6 +76,12 @@ module Steps
 
     def title
       t("page_titles.#{@step.class.try(:id)}", default: super)
+    end
+
+    def with_session_tracking
+      Sentry.set_user(user_session.session.to_h.except('_csrf_token'))
+      track_session
+      yield
     end
   end
 end
