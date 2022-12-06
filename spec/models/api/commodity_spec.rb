@@ -197,16 +197,24 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
       allow(Api::RulesOfOriginScheme).to receive(:build_collection).and_call_original
     end
 
-    let(:user_session) { build(:user_session, :with_row_to_gb_route) }
+    context 'when the user session has no origin country code in it' do
+      let(:user_session) { build(:user_session) }
 
-    it 'passes the correct arguments to the RulesOfOriginScheme collection builder' do
-      commodity.rules_of_origin_schemes
-
-      expect(Api::RulesOfOriginScheme).to have_received(:build_collection).with('uk', nil, { country_code: 'AR', heading_code: '070200' })
+      it { expect { commodity.rules_of_origin_schemes }.to raise_error(Errors::SessionIntegrityError, /origin_country_code/) }
     end
 
-    it 'returns a collection of RulesOfOriginScheme records' do
-      expect(commodity.rules_of_origin_schemes.first).to be_a(Api::RulesOfOriginScheme)
+    context 'when the user session has an origin country code in it' do
+      let(:user_session) { build(:user_session, :with_row_to_gb_route) }
+
+      it 'passes the correct arguments to the RulesOfOriginScheme collection builder' do
+        commodity.rules_of_origin_schemes
+
+        expect(Api::RulesOfOriginScheme).to have_received(:build_collection).with('uk', nil, { country_code: 'AR', heading_code: '070200' })
+      end
+
+      it 'returns a collection of RulesOfOriginScheme records' do
+        expect(commodity.rules_of_origin_schemes.first).to be_a(Api::RulesOfOriginScheme)
+      end
     end
   end
 
