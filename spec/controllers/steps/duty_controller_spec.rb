@@ -4,7 +4,7 @@ RSpec.describe Steps::DutyController, :user_session do
     allow(Api::MonetaryExchangeRate).to receive(:for).with('GBP').and_call_original
   end
 
-  let(:user_session) { build(:user_session, import_destination: 'XI', commodity_code: '0103921100') }
+  let(:user_session) { build(:user_session, import_destination: 'XI', commodity_code: '0103921100', country_of_origin: 'AF') }
   let(:duty_calculator) { instance_double('DutyCalculator', options: []) }
 
   describe 'GET #show' do
