@@ -82,11 +82,11 @@ RSpec.describe DutyCalculator, :user_session do
           values: [
             ['Valuation for import', 'Value of goods + freight + insurance costs', '£1,260.89'],
             ['Import duty<br><span class="govuk-green govuk-body-xs"> Non Preferential Quota (UK)</span>', '20.00% * £1,260.89', '£252.18'],
-            ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional duties (safeguard) (UK)</span>', '25.00% * £1,260.89', '£315.22'],
+            # ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional duties (safeguard) (UK)</span>', '25.00% * £1,260.89', '£315.22'], Excluded safeguard
             ['Import duty<br><span class="govuk-green govuk-body-xs"> Additional Duties (UK)</span>', '25.00% * £1,260.89', '£315.22'],
             ['Import duty (C490)<br><span class="govuk-green govuk-body-xs"> Definitive anti-dumping duty (UK)</span>', '<span>144.10</span> GBP / <abbr title="Tonne">1000 kg/biodiesel</abbr>', '£288.20'],
-            ['VAT <br><span class="govuk-green govuk-body-xs"> Standard rate</span>', '20.00% * £2,431.71', '£486.34'],
-            ['<strong>Duty Total</strong>', nil, '<strong>£1,657.17</strong>'],
+            ['VAT <br><span class="govuk-green govuk-body-xs"> Standard rate</span>', '20.00% * £2,116.49', '£423.30'],
+            ['<strong>Duty Total</strong>', nil, '<strong>£1,278.90</strong>'],
           ],
           value: 252.17799999999997,
           footnote: I18n.t('measure_type_footnotes.122'),

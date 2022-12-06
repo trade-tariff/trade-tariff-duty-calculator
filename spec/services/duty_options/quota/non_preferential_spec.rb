@@ -25,4 +25,6 @@ RSpec.describe DutyOptions::Quota::NonPreferential, :user_session do
 
     it { expect(service.call.attributes.deep_symbolize_keys).to eq(expected_table) }
   end
+
+  it_behaves_like 'a duty option that excludes safeguard additional duties'
 end
