@@ -5,8 +5,8 @@ orbs:
   aws-cli: circleci/aws-cli@2.0.3
   cloudfoundry: circleci/cloudfoundry@1.0
   cypress: cypress-io/cypress@1.27.0
-  node: circleci/node@2
-  ruby: circleci/ruby@1
+  node: circleci/node@5
+  ruby: circleci/ruby@2
   slack: circleci/slack@4.3.0
   queue: eddiewebb/queue@1.6.4
   tariff: trade-tariff/trade-tariff-ci-orb@0 # can also change to @dev:<gitsha> for specific version or @dev:alpha to test dev branches
@@ -161,7 +161,7 @@ jobs:
 
   checking:
     docker:
-      - image: "cimg/ruby:3.1.2-node"
+      - image: cimg/ruby:3.1.3-node
     steps:
       - checkout
       - ruby/install-deps
@@ -212,18 +212,18 @@ jobs:
 
   test:
     docker:
-      - image: cimg/ruby:3.1.2-node
+      - image: cimg/ruby:3.1.3-node
         environment:
           BUNDLE_JOBS: "3"
           BUNDLE_RETRY: "3"
           RAILS_ENV: test
           COVERAGE: 1
+          NODE_OPTIONS: --openssl-legacy-provider
     steps:
       - checkout
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: "yarn.lock"
       - ruby/rspec-test
       - store_artifacts:
           path: coverage
@@ -234,7 +234,7 @@ jobs:
 
   deploy_dev:
     docker:
-      - image: cimg/ruby:3.1.2
+      - image: cimg/ruby:3.1.3
     environment:
       SENTRY_ENVIRONMENT: "development"
     steps:
@@ -251,7 +251,7 @@ jobs:
 
   deploy_main_to_staging:
     docker:
-      - image: cimg/ruby:3.1.2
+      - image: cimg/ruby:3.1.3
     environment:
       SENTRY_ENVIRONMENT: "staging"
     steps:
@@ -267,7 +267,7 @@ jobs:
 
   deploy_release_to_staging:
     docker:
-      - image: cimg/ruby:3.1.1
+      - image: cimg/ruby:3.1.3
     steps:
       - cf_deploy_docker:
           docker_image_tag: $CIRCLE_TAG
@@ -277,7 +277,7 @@ jobs:
 
   deploy_production:
     docker:
-      - image: cimg/ruby:3.1.2
+      - image: cimg/ruby:3.1.3
     environment:
       SENTRY_ENVIRONMENT: "production"
     steps:
