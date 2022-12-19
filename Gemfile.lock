@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/trade-tariff/uktt.git
-  revision: a443ca8ec5e567a0000b46ffd0360a4d601b143c
+  revision: 550fb6c12f52650edcb8c7d89dbb7e2b851b44b3
   specs:
     uktt (2.6.0)
       faraday
@@ -87,7 +87,7 @@ GEM
     byebug (11.1.3)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
-    connection_pool (2.2.5)
+    connection_pool (2.3.0)
     crass (1.0.6)
     diff-lcs (1.5.0)
     digest (3.1.0)
