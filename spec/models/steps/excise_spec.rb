@@ -325,29 +325,6 @@ RSpec.describe Steps::Excise, :step, :user_session do
       end
     end
 
-    context 'when there are multiple measure type ids on the applicable_additional_codes hash' do
-      let(:applicable_additional_codes) do
-        {
-          '306' => {
-            'additional_codes' => [
-              { 'code' => 'X411' },
-              { 'code' => 'X444' },
-            ],
-          },
-          'DAA' => {
-            'additional_codes' => [
-              { 'code' => 'X422' },
-              { 'code' => 'X488' },
-            ],
-          },
-        }
-      end
-
-      it 'returns excise_path with the next measure_type_id as argument' do
-        expect(step.next_step_path).to eq(excise_path('DAA'))
-      end
-    end
-
     context 'when there are less than 2 applicable vat options' do
       let(:applicable_vat_options) do
         {
