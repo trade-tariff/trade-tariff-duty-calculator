@@ -66,23 +66,30 @@ en:
       import_quantity: Import quantity
       vat_html: Import duty<br><span class="govuk-green govuk-body-xs"> VAT (UK)</span>
       option_type:
-        third_country_tariff: Third-country duty
-        tariff_preference: Tariff preference
-        autonomous: Autonomous tariff suspension
-        airworthiness: Airworthiness tariff suspension
-        autonomous_end_use: Autonomous suspension under end-use
-        certain_category_goods: Suspension - goods for certain categories of ships, boats and other vessels and for drilling or production platforms
-        preferential: Preferential Quota
-        preferential_end_use: Preferential Quota Under End Use
-        non_preferential: Non Preferential Quota
-        non_preferential_end_use: Non Preferential Quota Under End Use
-        definitive_anti_dumping: Definitive anti-dumping duty
-        definitive_countervailing: Definitive countervailing  duty
-        provisional_anti_dumping: Provisional anti-dumping duty
-        provisional_countervailing: Provisional countervailing duty
-        additional_duties: Additional Duties
-        additional_duties_safeguard:  Additional duties (safeguard)
-        base: Please implement a concrete option class
+        third_country_tariff:
+          third_country_tariff: Third-country duty
+        tariff_preference:
+          tariff_preference: Tariff preference
+        suspension:
+          autonomous: Autonomous tariff suspension
+          airworthiness: Airworthiness tariff suspension
+          autonomous_end_use: Autonomous suspension under end-use
+          certain_category_goods: Suspension - goods for certain categories of ships, boats and other vessels and for drilling or production platforms
+          preferential: Preferential Suspension
+        quota:
+          preferential: Preferential Quota
+          preferential_end_use: Preferential Quota Under End Use
+          non_preferential: Non Preferential Quota
+          non_preferential_end_use: Non Preferential Quota Under End Use
+        additional_duty:
+          definitive_anti_dumping: Definitive anti-dumping duty
+          definitive_countervailing: Definitive countervailing  duty
+          provisional_anti_dumping: Provisional anti-dumping duty
+          provisional_countervailing: Provisional countervailing duty
+          additional_duties: Additional Duties
+          additional_duties_safeguard:  Additional duties (safeguard)
+        default:
+          base: Please implement a concrete option class
         excise: Excise
         vat_type:
           vate: VAT exempt
@@ -90,18 +97,23 @@ en:
           vatr: Reduced rate
           vat: Standard rate
       heading:
-        third_country_tariff: 'Option %{option_no}: Third-country duty'
-        tariff_preference: 'Option %{option_no}: Tariff preference - %{geographical_area_description}'
-        autonomous: 'Option %{option_no}: Autonomous tariff suspension'
-        airworthiness: 'Option %{option_no}: Airworthiness tariff suspension'
-        autonomous_end_use: 'Option %{option_no}: Autonomous suspension under end-use'
-        certain_category_goods: 'Option %{option_no}: Suspension - goods for certain categories of ships, boats and other vessels and for drilling or production platforms'
-        preferential: 'Option %{option_no}: Preferential tariff quota %{order_number}'
-        preferential_end_use: 'Option %{option_no}: Preferential tariff quota under end-use %{order_number}'
-        non_preferential: 'Option %{option_no}: Non-preferential quota %{order_number}'
-        non_preferential_end_use: 'Option %{option_no}: Non-preferential tariff quota under end-use %{order_number}'
-        waiver: 'Option %{option_no}: Claiming a waiver – Exchange rate'
-
+        third_country_tariff:
+          third_country_tariff: 'Option %{option_no}: Third-country duty'
+        tariff_preference:
+          tariff_preference: 'Option %{option_no}: Tariff preference - %{geographical_area_description}'
+        suspension:
+          autonomous: 'Option %{option_no}: Autonomous tariff suspension'
+          airworthiness: 'Option %{option_no}: Airworthiness tariff suspension'
+          autonomous_end_use: 'Option %{option_no}: Autonomous suspension under end-use'
+          certain_category_goods: 'Option %{option_no}: Suspension - goods for certain categories of ships, boats and other vessels and for drilling or production platforms'
+          preferential: 'Option %{option_no}: Preferential suspension'
+        quota:
+          preferential: 'Option %{option_no}: Preferential tariff quota %{order_number}'
+          preferential_end_use: 'Option %{option_no}: Preferential tariff quota under end-use %{order_number}'
+          non_preferential: 'Option %{option_no}: Non-preferential quota %{order_number}'
+          non_preferential_end_use: 'Option %{option_no}: Non-preferential tariff quota under end-use %{order_number}'
+        waiver:
+          waiver: 'Option %{option_no}: Claiming a waiver – Exchange rate'
 
   interstitial:
     gb_to_ni:

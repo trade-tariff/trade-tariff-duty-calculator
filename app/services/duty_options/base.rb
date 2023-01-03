@@ -147,7 +147,7 @@ module DutyOptions
     end
 
     def option_type
-      I18n.t("duty_calculations.options.option_type.#{self.class.id}")
+      I18n.t("duty_calculations.options.option_type.#{self.class::CATEGORY}.#{self.class.id}")
     end
 
     def additional_duty_rows
