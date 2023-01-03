@@ -55,6 +55,10 @@ FactoryBot.define do
       measure_type { attributes_for :measure_type, :airworthiness }
     end
 
+    trait :preferential_suspension do
+      measure_type { attributes_for :measure_type, :preferential_suspension }
+    end
+
     trait :non_preferential do
       measure_type { attributes_for :measure_type, :non_preferential }
     end

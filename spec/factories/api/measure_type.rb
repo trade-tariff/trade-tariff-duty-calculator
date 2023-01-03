@@ -41,6 +41,12 @@ FactoryBot.define do
       measure_type_series_id { 'C' }
     end
 
+    trait :preferential_suspension do
+      id { '141' }
+      description { 'Preferential suspension' }
+      measure_type_series_id { 'C' }
+    end
+
     trait :non_preferential do
       id { '122' }
       description { 'Non preferential tariff quota' }
