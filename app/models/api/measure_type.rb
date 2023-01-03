@@ -7,6 +7,7 @@ module Api
       '115' => ::DutyOptions::Suspension::AutonomousEndUse,
       '117' => ::DutyOptions::Suspension::CertainCategoryGoods,
       '119' => ::DutyOptions::Suspension::Airworthiness,
+      '141' => ::DutyOptions::Suspension::Preferential,
       '142' => ::DutyOptions::TariffPreference,
       '145' => ::DutyOptions::TariffPreference,
       '106' => ::DutyOptions::TariffPreference,
