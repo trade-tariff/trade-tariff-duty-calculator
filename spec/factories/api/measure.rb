@@ -88,6 +88,17 @@ FactoryBot.define do
       excise { true }
     end
 
+    trait :authorised_use_provisions_submission do
+      measure_type { attributes_for :measure_type, :authorised_use_provisions_submission }
+
+      measure_conditions do
+        [
+          attributes_for(:measure_condition, :declaration_document_present),
+          attributes_for(:measure_condition, :declaration_document_not_present),
+        ]
+      end
+    end
+
     trait :provisional_anti_dumping do
       measure_type { attributes_for :measure_type, :provisional_anti_dumping }
     end

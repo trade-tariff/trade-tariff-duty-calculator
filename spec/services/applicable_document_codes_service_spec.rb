@@ -173,5 +173,32 @@ RSpec.describe ApplicableDocumentCodesService, :user_session do
 
       it { expect(service.call).to eq(expected_documents) }
     end
+
+    context 'with commodity requiring declaration document' do
+      subject { service.call }
+
+      include_context 'with a fake commodity'
+
+      let(:commodity) { build :commodity, import_measures: }
+
+      let :import_measures do
+        attributes_for_list(:measure, 1, :authorised_use_provisions_submission)
+      end
+
+      let :user_session do
+        build(:user_session, :with_commodity_information, :with_customs_value)
+      end
+
+      let :four_six_four_declaration do
+        {
+          '464' => [
+            { code: 'D019', description: match('D019 - ') },
+            { code: 'None', description: 'None of the above' },
+          ],
+        }
+      end
+
+      it { is_expected.to include 'uk' => four_six_four_declaration }
+    end
   end
 end
