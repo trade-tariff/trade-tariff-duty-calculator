@@ -89,6 +89,12 @@ FactoryBot.define do
       measure_type_series_id { 'Q' }
     end
 
+    trait :authorised_use_provisions_submission do
+      id { '464' }
+      description { 'Declaration of subheading submitted to authorised use provisions' }
+      measure_type_series_id { 'B' }
+    end
+
     trait :provisional_anti_dumping do
       id { '551' }
       description { 'Provisional anti-dumping duty' }

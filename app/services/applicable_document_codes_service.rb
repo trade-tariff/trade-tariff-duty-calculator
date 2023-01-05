@@ -47,7 +47,7 @@ class ApplicableDocumentCodesService
       acc[measure_type_id] << last_option if last_option
     end
 
-    document_codes.slice(*Api::MeasureType::SUPPORTED_MEASURE_TYPE_IDS)
+    document_codes.slice(*Api::MeasureType::DOCUMENT_SUPPORTED_MEASURE_TYPE_IDS)
   end
 
   def user_session

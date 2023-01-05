@@ -67,5 +67,28 @@ FactoryBot.define do
       requirement { 'UN/EDIFACT certificates: EUS - Authorisation for the use of end use procedure (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)' }
       measure_condition_class { 'document' }
     end
+
+    trait :declaration_document_present do
+      action { 'Declared subheading allowed' }
+      action_code { '28' }
+      condition { 'B: Presentation of a certificate/licence/document' }
+      condition_code { 'B' }
+      document_code { 'D019' }
+
+      certificate_description do
+        'Authorisation to use a customs procedure with economic impact/end-use within the context of an anti-dumping/countervailing measure (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)'
+      end
+
+      requirement do
+        'Anti-dumping/countervailing document: Authorisation to use a customs procedure with economic impact/end-use within the context of an anti-dumping/countervailing measure (Column 8c, Annex A of Delegated Regulation (EU) 2015/2446)'
+      end
+    end
+
+    trait :declaration_document_not_present do
+      action { 'Declared subheading not allowed' }
+      action_code { '08' }
+      condition { 'B: Presentation of a certificate/licence/document' }
+      condition_code { 'B' }
+    end
   end
 end
