@@ -14,37 +14,60 @@ AllCops:
     - 'tmp/**/*'
     - 'config/**/*'
     - 'node_modules/**/*'
+
 Layout/LineLength:
   Max: 120
+
 Layout/AccessModifierIndentation:
   Enabled: false
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Exclude:
+    - config/initializers/*.rb
+    - config/environments/*.rb
+
 Lint/AmbiguousBlockAssociation:
   Enabled: false
+
 Metrics/AbcSize:
   Max: 20
+
 Metrics/BlockLength:
   Enabled: false
+
 Metrics/ModuleLength:
   Enabled: false
+
 RSpec/ExampleLength:
   Enabled: false
+
 RSpec/MultipleMemoizedHelpers:
   Max: 11
+
 RSpec/NestedGroups:
   Enabled: false
+
 Rails/SaveBang:
   Enabled: false
+
 RSpec/FilePath:
   Enabled: false
+
 RSpec/VerifiedDoubles:
   Enabled: false
+
 Style/Documentation:
   Enabled: false
+
 Style/FrozenStringLiteralComment:
   Enabled: true
   EnforcedStyle: never
+
 Style/GuardClause:
   MinBodyLength: 2
+
 Style/StringLiterals:
   EnforcedStyle: single_quotes
-
+  Exclude:
+    - config/initializers/*.rb
+    - config/environments/*.rb
