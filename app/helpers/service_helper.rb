@@ -1,4 +1,9 @@
 module ServiceHelper
+  UK_SERVICE = 'uk'.freeze
+  XI_SERVICE = 'xi'.freeze
+
+  DEFAULT_REFERRED_SERVICE = UK_SERVICE.freeze
+
   def title
     t("title.#{referred_service}")
   end
@@ -55,6 +60,10 @@ module ServiceHelper
     xi_only_service_url_for('/meursing_lookup/steps/start')
   end
 
+  def referred_service
+    params_referred_service.presence || session_referred_service.presence || DEFAULT_REFERRED_SERVICE
+  end
+
   private
 
   def service_url_for(path)
@@ -66,14 +75,28 @@ module ServiceHelper
   def xi_only_service_url_for(path)
     return '#' if trade_tariff_frontend_url.blank?
 
-    File.join(trade_tariff_frontend_url, 'xi', path)
+    File.join(trade_tariff_frontend_url, XI_SERVICE, path)
   end
 
   def referred_service_url
-    referred_service == 'uk' ? '' : referred_service.to_s
+    referred_service == UK_SERVICE ? '' : referred_service.to_s
   end
 
-  def referred_service
-    params[:referred_service] || session['referred_service'] || 'uk'
+  def params_referred_service
+    case params[:referred_service]
+    when UK_SERVICE
+      UK_SERVICE
+    when XI_SERVICE
+      XI_SERVICE
+    end
+  end
+
+  def session_referred_service
+    case UserSession.get.referred_service
+    when UK_SERVICE
+      UK_SERVICE
+    when XI_SERVICE
+      XI_SERVICE
+    end
   end
 end
