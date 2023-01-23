@@ -133,4 +133,60 @@ RSpec.describe ServiceHelper, :user_session do
       end
     end
   end
+
+  describe '#referred_service' do
+    subject(:result) { helper.referred_service }
+
+    context 'when the service comes from the url params' do
+      let(:params) { ActionController::Parameters.new(referred_service:).permit(:referred_service) }
+
+      context 'when the url params value is the exact uk service' do
+        let(:referred_service) { 'uk' }
+
+        it { is_expected.to eq('uk') }
+      end
+
+      context 'when the url params value is the exact xi service' do
+        let(:referred_service) { 'xi' }
+
+        it { is_expected.to eq('xi') }
+      end
+
+      context 'when the url params value is anything but the xi or uk service' do
+        let(:referred_service) { 'https://redirect.here/phishing' }
+
+        it { is_expected.to eq('uk') }
+      end
+    end
+
+    context 'when the service comes from the session' do
+      let(:params) { ActionController::Parameters.new(referred_service: nil).permit(:referred_service) }
+      let(:user_session) { build(:user_session, referred_service:) }
+
+      context 'when the session value is the exact uk service' do
+        let(:referred_service) { 'uk' }
+
+        it { is_expected.to eq('uk') }
+      end
+
+      context 'when the session value is the exact xi service' do
+        let(:referred_service) { 'xi' }
+
+        it { is_expected.to eq('xi') }
+      end
+
+      context 'when the session value is anything but the xi or uk service' do
+        let(:referred_service) { 'https://redirect.here/phishing' }
+
+        it { is_expected.to eq('uk') }
+      end
+    end
+
+    context 'when the service is not present on the url params or the session' do
+      let(:params) { ActionController::Parameters.new(referred_service: nil).permit(:referred_service) }
+      let(:user_session) { build(:user_session, referred_service: nil) }
+
+      it { is_expected.to eq('uk') }
+    end
+  end
 end
