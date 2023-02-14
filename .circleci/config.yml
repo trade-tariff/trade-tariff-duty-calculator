@@ -304,7 +304,7 @@ workflows:
               ignore:
                 - main
                 - /^hotfix\/.+/
-                - /^dependabot\/.*/
+                - /^dependabot/(?!docker/).*/
           requires:
             - test
       - deploy_dev:
@@ -314,7 +314,7 @@ workflows:
               ignore:
                 - main
                 - /^hotfix\/.+/
-                - /^dependabot\/.*/
+                - /^dependabot/(?!docker/).*/
           requires:
             - build_dev
       - smoketest_dev:
@@ -325,7 +325,7 @@ workflows:
               ignore:
                 - main
                 - /^hotfix\/.+/
-                - /^dependabot\/.*/
+                - /^dependabot/(?!docker/).*/
           requires:
             - deploy_dev
       - build:
