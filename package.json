@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@rails/webpacker": "^5.4.3",
+    "@rails/webpacker": "^5.4.4",
     "accessible-autocomplete": "^2.0.4",
     "govuk-frontend": "^4.5.0",
     "rails-ujs": "^5.2.8",
