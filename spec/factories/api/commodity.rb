@@ -362,5 +362,55 @@ FactoryBot.define do
         }
       end
     end
+
+    trait :with_none_additional_code_measures do
+      applicable_additional_codes do
+        {
+          '103' => {
+            'measure_type_description' => 'Foo',
+            'heading' => {
+              'overlay' => 'Bar',
+              'hint' => 'Baz',
+            },
+            'additional_codes' => [
+              {
+                'code' => 'B107',
+                'overlay' => 'BIOX Corporation, Oakville, Ontario, Canada<br>',
+                'hint' => '',
+                'measure_sid' => 20_041_389,
+              },
+              {
+                'code' => 'none',
+                'overlay' => 'Pick the none option',
+                'hint' => '',
+                'measure_sid' => 20_041_402,
+              },
+            ],
+          },
+        }
+      end
+
+      import_measures do
+        [
+          attributes_for(
+            :measure,
+            :third_country_tariff,
+            id: 20_041_389,
+            additional_code: attributes_for(:api_additional_code, code: 'B107'),
+          ),
+          attributes_for(
+            :measure,
+            :third_country_tariff,
+            id: 20_041_402,
+            additional_code: nil,
+          ),
+          attributes_for(
+            :measure,
+            :autonomous,
+            id: 20_041_462,
+          ),
+        ]
+      end
+    end
   end
 end

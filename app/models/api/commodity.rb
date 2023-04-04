@@ -43,6 +43,8 @@ module Api
       formatted_code = "#{code[0..3]} #{code[4..5]} #{code[6..7]} #{code[8..9]}"
       return formatted_code if additional_code.blank?
 
+      additional_code = 'No additional code' if additional_code == 'none'
+
       "#{formatted_code} (#{additional_code})".html_safe
     end
 
@@ -91,22 +93,54 @@ module Api
     end
 
     def no_additional_code_measures
-      non_vat_import_measures.reject(&:additional_code)
+      non_vat_import_measures.reject do |measure|
+        measure.id.in?(additional_code_measure_sids)
+      end
     end
 
     def additional_code_measures
       non_vat_import_measures.select do |measure|
-        measure_additional_code = measure.additional_code&.formatted_code
-        user_additional_code_answer = user_session.additional_code_for(measure.measure_type, source)
+        answer = user_session.additional_code_for(measure.measure_type.id)
+        is_additional_code_measure = measure.id.in?(additional_code_measure_sids)
+        has_answer = answer == if measure.additional_code.blank?
+                                 'none'
+                               else
+                                 measure.additional_code.code
+                               end
 
-        next if measure_additional_code.nil?
+        is_additional_code_measure && has_answer
+      end
+    end
 
-        user_additional_code_answer == measure_additional_code
+    def has_none_additional_code(measure)
+      return false if applicable_additional_codes.blank?
+
+      additional_codes_have_measure_type?(measure.measure_type.id) &&
+        additional_codes_has_none_option?(measure.measure_type.id)
+    end
+
+    def additional_codes_have_measure_type?(measure_type_id)
+      measure_type_id.in?(applicable_additional_codes.keys)
+    end
+
+    def additional_codes_has_none_option?(measure_type_id)
+      applicable_additional_codes.dig(measure_type_id, 'additional_codes').any? do |co|
+        co['code'] == 'none'
       end
     end
 
     def non_vat_import_measures
       import_measures.reject(&:vat)
+    end
+
+    def additional_code_measure_sids
+      @additional_code_measure_sids ||= if applicable_additional_codes.blank?
+                                          []
+                                        else
+                                          applicable_additional_codes.values.flat_map do |values|
+                                            values['additional_codes'].pluck('measure_sid')
+                                          end
+                                        end
     end
   end
 end

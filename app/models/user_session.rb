@@ -102,10 +102,12 @@ class UserSession
     }
   end
 
-  def additional_code_for(measure_type, source = 'uk')
-    return excise_additional_code[measure_type.id] if measure_type.excise?
+  def additional_code_for(measure_type_id, source = 'uk')
+    public_send("additional_code_#{source}")[measure_type_id]
+  end
 
-    public_send("additional_code_#{source}")[measure_type.id]
+  def excise_additional_code_for(measure_type_id)
+    excise_additional_code[measure_type_id]
   end
 
   def document_code_for(measure_type_id, source)
