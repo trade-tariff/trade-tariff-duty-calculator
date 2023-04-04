@@ -9,9 +9,7 @@ module Api
       @attributes = ActiveSupport::HashWithIndifferentAccess.new(attributes.fetch('attributes', attributes))
     end
 
-    def [](key)
-      attributes[key]
-    end
+    delegate :[], to: :attributes
 
     class << self
       def inherited(child)

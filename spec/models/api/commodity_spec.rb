@@ -186,9 +186,6 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
         end
       end
     end
-
-    context 'when there are `none` additional code measures' do
-    end
   end
 
   describe '#applicable_excise_measures' do
