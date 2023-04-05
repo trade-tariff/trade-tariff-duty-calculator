@@ -580,46 +580,26 @@ RSpec.describe UserSession do
   end
 
   describe '#additional_code_for' do
-    subject(:user_session) do
-      build(
-        :user_session,
-        :with_additional_codes,
-        :with_excise_additional_codes,
-      )
+    subject(:user_session) { build(:user_session, :with_additional_codes) }
+
+    context 'with a corresponding answer on the session' do
+      it { expect(user_session.additional_code_for('103', 'uk')).to eq('2600') }
     end
 
-    let(:measure_type) { Api::MeasureType.new(id:, measure_type_series_id:) }
+    context 'with no corresponding answer on the session' do
+      it { expect(user_session.additional_code_for('117', 'uk')).to be_nil }
+    end
+  end
 
-    context 'when the measure type is an excise measure type' do
-      let(:measure_type_series_id) { 'Q' }
+  describe '#excise_additional_code_for' do
+    subject(:user_session) { build(:user_session, :with_excise_additional_codes) }
 
-      context 'with a corresponding answer on the session' do
-        let(:id) { '306' }
-
-        it { expect(user_session.additional_code_for(measure_type, 'uk')).to eq('444') }
-      end
-
-      context 'with no corresponding answer on the session' do
-        let(:id) { 'LGJ' }
-
-        it { expect(user_session.additional_code_for(measure_type, 'uk')).to be_nil }
-      end
+    context 'with a corresponding answer on the session' do
+      it { expect(user_session.excise_additional_code_for('306')).to eq('444') }
     end
 
-    context 'when the measure type is not an excise measure type' do
-      let(:measure_type_series_id) { 'C' }
-
-      context 'with a corresponding answer on the session' do
-        let(:id) { '103' }
-
-        it { expect(user_session.additional_code_for(measure_type, 'uk')).to eq('2600') }
-      end
-
-      context 'with no corresponding answer on the session' do
-        let(:id) { '117' }
-
-        it { expect(user_session.additional_code_for(measure_type, 'uk')).to be_nil }
-      end
+    context 'with no corresponding answer on the session' do
+      it { expect(user_session.excise_additional_code_for('LGJ')).to be_nil }
     end
   end
 

@@ -32,7 +32,7 @@ module DutyOptions
 
       def additional_code
         applicable_additional_codes.find do |code|
-          code['code'] == "X#{user_session.additional_code_for(measure.measure_type)}"
+          code['code'] == "X#{user_session.excise_additional_code_for(measure.measure_type.id)}"
         end
       end
 
