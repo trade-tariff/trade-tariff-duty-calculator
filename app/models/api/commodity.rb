@@ -101,12 +101,10 @@ module Api
     def additional_code_measures
       non_vat_import_measures.select do |measure|
         answer = user_session.additional_code_for(measure.measure_type.id)
+        code = measure.additional_code.presence&.code || 'none'
+
         is_additional_code_measure = measure.id.in?(additional_code_measure_sids)
-        has_answer = answer == if measure.additional_code.blank?
-                                 'none'
-                               else
-                                 measure.additional_code.code
-                               end
+        has_answer = answer == code
 
         is_additional_code_measure && has_answer
       end
