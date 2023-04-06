@@ -406,6 +406,12 @@ FactoryBot.define do
           ),
           attributes_for(
             :measure,
+            :excise,
+            additional_code: attributes_for(:api_additional_code, code: 'X419'),
+            id: 20_041_452,
+          ),
+          attributes_for(
+            :measure,
             :autonomous,
             id: 20_041_462,
           ),
