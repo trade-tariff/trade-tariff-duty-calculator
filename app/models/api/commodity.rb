@@ -103,7 +103,7 @@ module Api
         answer = if measure.measure_type.excise?
                    "X#{user_session.excise_additional_code_for(measure.measure_type.id)}"
                  else
-                   user_session.additional_code_for(measure.measure_type.id)
+                   user_session.additional_code_for(measure.measure_type.id, source)
                  end
 
         code = measure.additional_code.presence&.code || 'none'
