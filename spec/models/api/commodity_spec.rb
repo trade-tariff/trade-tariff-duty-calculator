@@ -142,12 +142,12 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
     end
 
     context 'when there are additional code answers on the session' do
-      let(:commodity) { build(:commodity, :with_none_additional_code_measures) }
+      let(:commodity) { build(:commodity, :with_none_additional_code_measures, source: 'xi') }
 
       let(:user_session) do
         build(
           :user_session,
-          additional_code: { 'uk' => { '103' => picked_additional_code } },
+          additional_code: { 'xi' => { '103' => picked_additional_code } },
           excise: { '306' => '419' },
         )
       end
