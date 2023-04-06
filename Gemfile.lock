@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/trade-tariff/uktt.git
-  revision: 2f18bce22d5c69ab938e0b657f65db49acd3d25a
+  revision: 9e103fc184aec53f54217e94a3e820f63c72d5b3
   specs:
     uktt (2.6.0)
       faraday
@@ -202,7 +202,7 @@ GEM
     mini_portile2 (2.8.1)
     minitest (5.18.0)
     msgpack (1.7.0)
-    multipart-post (2.3.0)
+    multipart-post (2.2.3)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
     net-imap (0.3.4)

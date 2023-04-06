@@ -143,25 +143,41 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
 
     context 'when there are additional code answers on the session' do
       let(:commodity) { build(:commodity, :with_none_additional_code_measures) }
-      let(:user_session) { build(:user_session, additional_code: { 'uk' => { '103' => picked_additional_code } }) }
+
+      let(:user_session) do
+        build(
+          :user_session,
+          additional_code: { 'uk' => { '103' => picked_additional_code } },
+          excise: { '306' => '419' },
+        )
+      end
 
       context 'when the user picks `none`' do
         let(:picked_additional_code) { 'none' }
 
         it 'filters in measures which match the measure_sid' do
-          expect(commodity.applicable_measures.pluck(:id)).to eq([20_041_462, 20_041_402])
+          expect(commodity.applicable_measures.pluck(:id)).to eq([20_041_452, 20_041_462, 20_041_402])
         end
 
         it 'filters in measures which match the additional_code' do
-          expect(commodity.applicable_measures.pluck(:additional_code)).to eq([nil, nil])
+          expect(commodity.applicable_measures.pluck(:additional_code)).to include(
+            {
+              'code' => 'X419',
+              'description' => nil,
+              'formatted_description' => nil,
+              'id' => anything,
+            },
+            nil,
+            nil,
+          )
         end
       end
 
-      context 'when the user picks `B107`' do
+      context 'when the user picks additional code `B107`' do
         let(:picked_additional_code) { 'B107' }
 
         it 'filters in measures which match the measure_sid' do
-          expect(commodity.applicable_measures.pluck(:id)).to eq([20_041_462, 20_041_389])
+          expect(commodity.applicable_measures.pluck(:id)).to eq([20_041_452, 20_041_462, 20_041_389])
         end
 
         it 'filters in measures which match the additional_code' do
@@ -174,15 +190,13 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
                 'formatted_description' => nil,
                 'id' => anything,
               },
+              {
+                'code' => 'X419',
+                'description' => nil,
+                'formatted_description' => nil,
+                'id' => anything,
+              },
             )
-        end
-      end
-
-      context 'when the user has not answered' do
-        let(:picked_additional_code) { nil }
-
-        it 'returns just the no additional code measures' do
-          expect(commodity.applicable_measures.pluck(:id)).to eq([20_041_462])
         end
       end
     end

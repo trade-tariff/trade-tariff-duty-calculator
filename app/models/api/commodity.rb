@@ -100,7 +100,12 @@ module Api
 
     def additional_code_measures
       non_vat_import_measures.select do |measure|
-        answer = user_session.additional_code_for(measure.measure_type.id)
+        answer = if measure.measure_type.excise?
+                   "X#{user_session.excise_additional_code_for(measure.measure_type.id)}"
+                 else
+                   user_session.additional_code_for(measure.measure_type.id)
+                 end
+
         code = measure.additional_code.presence&.code || 'none'
 
         is_additional_code_measure = measure.id.in?(additional_code_measure_sids)
