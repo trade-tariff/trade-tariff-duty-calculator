@@ -12,7 +12,7 @@ RSpec.describe ApplicationController, type: :controller do
   it 'has the correct Cache-Control header' do
     get :index
 
-    expect(response.headers['Cache-Control']).to eq('max-age=0, private, stale-while-revalidate=0, stale-if-error=0')
+    expect(response.headers['Cache-Control']).to eq('no-store')
   end
 
   describe '#title' do

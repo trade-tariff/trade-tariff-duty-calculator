@@ -1,10 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_action :no_store # Rails method to prevent caching
   before_action :user_session
-  after_action :no_store_cache
-
-  def no_store_cache
-    expires_in 0, public: false, stale_while_revalidate: 0, stale_if_error: 0
-  end
 
   protected
 
