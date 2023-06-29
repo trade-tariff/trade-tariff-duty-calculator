@@ -1,19 +1,9 @@
 RSpec.describe ExciseHelper do
   describe '#excise_hint' do
-    subject(:excise_hint) { helper.excise_hint(small_brewers_relief:) }
+    subject(:excise_hint) { helper.excise_hint }
 
-    context 'when the excise additional codes do not have small brewers relief' do
-      let(:small_brewers_relief) { false }
-
-      it { is_expected.to be_html_safe }
-      it { is_expected.not_to match(/SBR/) }
-    end
-
-    context 'when the excise additional codes have small brewers relief' do
-      let(:small_brewers_relief) { true }
-
-      it { is_expected.to be_html_safe }
-      it { is_expected.to match(/SBR/) }
-    end
+    it { is_expected.to be_html_safe }
+    it { is_expected.not_to match(/SBR/) }
+    it { is_expected.to include('https://www.gov.uk/government/publications/uk-trade-tariff-excise-duties-reliefs-drawbacks-and-allowances/uk-trade-tariff-excise-duties-reliefs-drawbacks-and-allowances') }
   end
 end
