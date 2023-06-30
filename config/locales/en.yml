@@ -25,10 +25,10 @@ en:
 
   title:
     uk: UK Integrated Online Tariff
-    xi: Northern Ireland Online Tariff 
+    xi: Northern Ireland Online Tariff
   header:
     uk: UK Integrated Online Tariff
-    xi: Northern Ireland Online Tariff 
+    xi: Northern Ireland Online Tariff
   page_titles:
     vat: Which VAT rate is applicable to your trade - Online Tariff Duty Calculator
     excise: Which class of excise is applicable to your trade - Online Tariff Duty Calculator
@@ -87,7 +87,7 @@ en:
           provisional_anti_dumping: Provisional anti-dumping duty
           provisional_countervailing: Provisional countervailing duty
           additional_duties: Additional Duties
-          additional_duties_safeguard:  Additional duties (safeguard)
+          additional_duties_safeguard: Additional duties (safeguard)
           excise: Excise
         default:
           base: Please implement a concrete option class
@@ -98,22 +98,22 @@ en:
           vat: Standard rate
       heading:
         third_country_tariff:
-          third_country_tariff: 'Option %{option_no}: Third-country duty'
+          third_country_tariff: "Option %{option_no}: Third-country duty"
         tariff_preference:
-          tariff_preference: 'Option %{option_no}: Tariff preference - %{geographical_area_description}'
+          tariff_preference: "Option %{option_no}: Tariff preference - %{geographical_area_description}"
         suspension:
-          autonomous: 'Option %{option_no}: Autonomous tariff suspension'
-          airworthiness: 'Option %{option_no}: Airworthiness tariff suspension'
-          autonomous_end_use: 'Option %{option_no}: Autonomous suspension under end-use'
-          certain_category_goods: 'Option %{option_no}: Suspension - goods for certain categories of ships, boats and other vessels and for drilling or production platforms'
-          preferential: 'Option %{option_no}: Preferential suspension'
+          autonomous: "Option %{option_no}: Autonomous tariff suspension"
+          airworthiness: "Option %{option_no}: Airworthiness tariff suspension"
+          autonomous_end_use: "Option %{option_no}: Autonomous suspension under end-use"
+          certain_category_goods: "Option %{option_no}: Suspension - goods for certain categories of ships, boats and other vessels and for drilling or production platforms"
+          preferential: "Option %{option_no}: Preferential suspension"
         quota:
-          preferential: 'Option %{option_no}: Preferential tariff quota %{order_number}'
-          preferential_end_use: 'Option %{option_no}: Preferential tariff quota under end-use %{order_number}'
-          non_preferential: 'Option %{option_no}: Non-preferential quota %{order_number}'
-          non_preferential_end_use: 'Option %{option_no}: Non-preferential tariff quota under end-use %{order_number}'
+          preferential: "Option %{option_no}: Preferential tariff quota %{order_number}"
+          preferential_end_use: "Option %{option_no}: Preferential tariff quota under end-use %{order_number}"
+          non_preferential: "Option %{option_no}: Non-preferential quota %{order_number}"
+          non_preferential_end_use: "Option %{option_no}: Non-preferential tariff quota under end-use %{order_number}"
         waiver:
-          waiver: 'Option %{option_no}: Claiming a waiver – Exchange rate'
+          waiver: "Option %{option_no}: Claiming a waiver – Exchange rate"
 
   interstitial:
     gb_to_ni:
@@ -166,10 +166,10 @@ en:
     vat: Applicable VAT rate
     excise: Excise additional code
   excise_page:
-    hint_html: "<p>Excise duty applies to trade in this commodity code. Select which class of excise duty applies to your trade</p>%{small_brewers_relief_hint_text}<p>For more information on excise duty classes, please see %{excise_link}</p>"
+    hint_html: >
+      <p>Excise duty applies to trade in this commodity code. Select which class of excise duty applies to your trade</p>
+      <p>For more information on excise duty classes, please see %{excise_link}</p>
     link_text: "UK Trade: excise, duties, reliefs, drawbacks and allowances (opens in new browser window)"
-    small_brewers_relief_link_text: "Small Breweries' Relief (SBR)"
-    small_brewers_relief_hint_text_html: "<p>Please note that the work to calculate the %{small_brewers_relief_link} is in development and will be available shortly.</p>"
 
   annual_turnover:
     fieldset_hint_text:
@@ -205,7 +205,7 @@ en:
           <li><strong>construction</strong>, where the processed goods form a permanent part of a structure that is constructed and located in NI by the importer</li>
           <li>direct provision of <strong>health or care services</strong> by the importer in NI</li>
           <li><strong>not for profit</strong> activities in NI, where there is no subsequent sale of the processed good by the importer</li>
-          <li>the final use of <strong>animal feed</strong> on premises located in NI by the importer.</li> 
+          <li>the final use of <strong>animal feed</strong> on premises located in NI by the importer.</li>
         </ul>
     commercial_purposes:
       label_text_html: >
@@ -268,19 +268,19 @@ en:
             planned_processing:
               blank: Select one of the available options
         steps/additional_code:
-            attributes:
-              measure_type_id:
-                blank: Enter a valid measure type id
-              additional_code_uk:
-                blank: Specify a valid additional code
-              additional_code_xi:
-                blank: Specify a valid additional code
+          attributes:
+            measure_type_id:
+              blank: Enter a valid measure type id
+            additional_code_uk:
+              blank: Specify a valid additional code
+            additional_code_xi:
+              blank: Specify a valid additional code
         steps/excise:
-            attributes:
-              measure_type_id:
-                blank: Enter a valid measure type id
-              additional_code:
-                blank: Select an excise class
+          attributes:
+            measure_type_id:
+              blank: Enter a valid measure type id
+            additional_code:
+              blank: Select an excise class
         steps/measure_amount:
           attributes:
             answers:
@@ -292,10 +292,10 @@ en:
             vat:
               blank: Select one of the available options
         steps/document_code:
-            attributes:
-              measure_type_id:
-                blank: Enter a valid measure type id
-              document_code_uk:
-                blank: Specify a valid option
-              document_code_xi:
-                blank: Specify a valid option
+          attributes:
+            measure_type_id:
+              blank: Enter a valid measure type id
+            document_code_uk:
+              blank: Specify a valid option
+            document_code_xi:
+              blank: Specify a valid option
