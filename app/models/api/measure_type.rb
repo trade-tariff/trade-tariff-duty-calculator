@@ -66,7 +66,7 @@ module Api
     end
 
     def self.supported_option_category?(category)
-      TYPE_OPTION_MAPPING.values.any? { |option_klass| option_klass::CATEGORY == category }
+      TYPE_OPTION_MAPPING.values.any? { |option_klass| category == option_klass::CATEGORY }
     end
   end
 end

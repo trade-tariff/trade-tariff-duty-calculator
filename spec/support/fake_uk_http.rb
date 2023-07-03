@@ -18,7 +18,7 @@ class FakeUkttHttp
   private
 
   def read(fixture)
-    fixture_path = "#{::Rails.root}/spec/fixtures/#{@service}"
+    fixture_path = Rails.root.join("spec/fixtures/#{@service}").to_s
     path = File.join(fixture_path, fixture)
 
     File.read(path)
