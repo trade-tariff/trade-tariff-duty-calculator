@@ -59,7 +59,7 @@ commands:
               --port 8080
 
       - tariff/test-dark-app:
-          cf_app: tariff-dutycalculator
+          cf_app: tariff-duty-calculator
           environment_key: << parameters.environment_key >>
           healthcheck_path: "healthcheckz"
 
