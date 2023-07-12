@@ -1,6 +1,6 @@
 class HealthcheckController < ApplicationController
   def checkz
-    head :ok  
+    head :ok
   end
 
   def healthcheck
