@@ -78,23 +78,6 @@ commands:
           event: pass
           template: basic_success_1
 
-  sentry-release:
-    steps:
-      - checkout
-      - run:
-          name: Create release and notify Sentry of deploy
-          command: |
-            sudo curl -sL \
-                      -o /usr/local/bin/sentry-cli \
-                      https://github.com/getsentry/sentry-cli/releases/download/1.74.3/sentry-cli-Linux-x86_64
-            sudo chmod 0755 /usr/local/bin/sentry-cli
-            export SENTRY_RELEASE=$(sentry-cli releases propose-version)
-            sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE &&
-              sentry-cli releases set-commits $SENTRY_RELEASE --auto &&
-              sentry-cli releases finalize $SENTRY_RELEASE &&
-              sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT ||
-              /usr/bin/true # prevent sentry outage from blocking deploys - see HOTT-1570
-
 jobs:
   checking:
     docker:
@@ -180,11 +163,12 @@ jobs:
           consider-branch: false
           dont-quit: true
       - cf_deploy_docker:
-          docker_image_tag: dev-$CIRCLE_SHA1
+          docker_tag: dev-$CIRCLE_SHA1
           space: "development"
           environment_key: "dev"
           app_domain_prefix: "dev"
-      - sentry-release
+      - tariff/sentry-release:
+          environment: development
 
   deploy_main_to_staging:
     docker:
@@ -196,18 +180,19 @@ jobs:
           time: "10"
           dont-quit: true
       - cf_deploy_docker:
-          docker_image_tag: $CIRCLE_SHA1
+          docker_tag: $CIRCLE_SHA1
           space: "staging"
           environment_key: "staging"
           app_domain_prefix: "staging"
-      - sentry-release
+      - tariff/sentry-release:
+          environment: staging
 
   deploy_release_to_staging:
     docker:
       - image: cimg/ruby:3.2.2
     steps:
       - cf_deploy_docker:
-          docker_image_tag: $CIRCLE_TAG
+          docker_tag: $CIRCLE_TAG
           space: "staging"
           environment_key: "staging"
           app_domain_prefix: "staging"
@@ -219,11 +204,12 @@ jobs:
       SENTRY_ENVIRONMENT: "production"
     steps:
       - cf_deploy_docker:
-          docker_image_tag: $CIRCLE_TAG
+          docker_tag: $CIRCLE_TAG
           space: "production"
           environment_key: "production"
           app_domain_prefix: "www"
-      - sentry-release
+      - tariff/sentry-release:
+          environment: production
       - tariff/notify-production-release:
           app-name: Duty Calculator
           slack-channel: trade_tariff
