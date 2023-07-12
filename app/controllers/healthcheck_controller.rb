@@ -1,6 +1,6 @@
 class HealthcheckController < ApplicationController
   def checkz
-    render json: { git_sha1: CURRENT_REVISION }
+    head :ok  
   end
 
   def healthcheck
