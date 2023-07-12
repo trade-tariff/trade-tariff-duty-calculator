@@ -6,7 +6,7 @@ RSpec.describe HealthcheckController do
     it { expect(response).to have_http_status(:ok) }
   end
 
-  describe 'GET #healthcheckz' do
+  describe 'GET #checkz' do
     subject(:response) { get :healthcheckz }
 
     it { expect(response.body).to eq('{"git_sha1":"test"}') }
