@@ -1,6 +1,6 @@
 class HealthcheckController < ApplicationController
-  def ping
-    render status: :ok, body: 'PONG'
+  def checkz
+    render json: { git_sha1: CURRENT_REVISION }
   end
 
   def healthcheck
