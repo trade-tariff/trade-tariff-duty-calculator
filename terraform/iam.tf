@@ -31,6 +31,6 @@ data "aws_iam_policy_document" "secrets" {
 }
 
 resource "aws_iam_policy" "secrets" {
-  name   = "frontend-execution-role-secrets-policy"
+  name   = "${local.service}-execution-role-secrets-policy"
   policy = data.aws_iam_policy_document.secrets.json
 }

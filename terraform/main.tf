@@ -4,7 +4,7 @@ module "service" {
   environment = var.environment
   region      = var.region
 
-  service_name  = "duty-calculator"
+  service_name  = local.service
   service_count = var.service_count
 
   cluster_name              = "trade-tariff-cluster-${var.environment}"
@@ -39,8 +39,12 @@ module "service" {
       value = jsonencode(local.api_service_backend_url_options)
     },
     {
+      name  = "DUTY_CALCULATOR_EXCISE_STEP_ENABLED"
+      value = "true"
+    },
+    {
       name  = "NEW_RELIC_APP_NAME"
-      value = "tariff-duty-calculator-${var.environment}"
+      value = "tariff-${local.service}-${var.environment}"
     },
     {
       name  = "NEW_RELIC_ENV"
@@ -49,6 +53,10 @@ module "service" {
     {
       name  = "NEW_RELIG_LOG"
       value = "stdout"
+    },
+    {
+      name  = "NEW_RELIC_DISTRIBUTED_TRACING"
+      value = "false"
     },
     {
       name  = "RAILS_ENV"
