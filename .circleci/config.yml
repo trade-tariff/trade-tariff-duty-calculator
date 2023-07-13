@@ -9,7 +9,7 @@ orbs:
   ruby: circleci/ruby@2
   slack: circleci/slack@4.3.0
   queue: eddiewebb/queue@1.6.4
-  tariff: trade-tariff/trade-tariff-ci-orb@0 # can also change to @dev:<gitsha> for specific version or @dev:alpha to test dev branches
+  tariff: trade-tariff/trade-tariff-ci-orb@0
 
 commands:
   cf_deploy_docker:
@@ -73,15 +73,6 @@ commands:
           cf_app: tariff-duty-calculator
           environment_key: << parameters.environment_key >>
           space: << parameters.space >>
-
-      # - run:
-      #     name: 'Custom pivot dark app'
-      #     command: |
-      #       app_name="tariff-duty-calculator-<< parameters.environment_key >>"
-      #       cf unmap-route \
-      #         $app_name \
-      #         "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk \
-      #         --path "/duty-calculator"
 
       - slack/notify:
           channel: deployments
