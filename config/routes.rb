@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: proc { [404, {}, ['Not found.']] }
 
+  get 'healthcheckz', to: 'healthcheck#checkz'
+
   scope path: '/duty-calculator/:referred_service/:commodity_code/' do
     get 'import-date', to: 'steps/import_date#show'
     post 'import-date', to: 'steps/import_date#create'
@@ -8,7 +10,6 @@ Rails.application.routes.draw do
 
   scope path: '/duty-calculator/' do
     get 'healthcheck', to: 'healthcheck#healthcheck'
-    get 'healthcheckz', to: 'healthcheck#checkz'
 
     get 'import-destination', to: 'steps/import_destination#show'
     post 'import-destination', to: 'steps/import_destination#create'

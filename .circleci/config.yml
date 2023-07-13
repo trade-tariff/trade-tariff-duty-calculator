@@ -66,7 +66,7 @@ commands:
       - tariff/test-dark-app:
           cf_app: tariff-duty-calculator
           environment_key: << parameters.environment_key >>
-          healthcheck_path: "/duty-calculator/healthcheck"
+          healthcheck_path: "/healthcheckz"
 
       - tariff/pivot-dark-app:
           app_domain_prefix: << parameters.app_domain_prefix >>
