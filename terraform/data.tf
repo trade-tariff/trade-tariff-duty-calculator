@@ -14,7 +14,7 @@ data "aws_subnets" "private" {
 }
 
 data "aws_lb_target_group" "this" {
-  name = "trade-tariff-fe-tg-${var.environment}"
+  name = "trade-tariff-dc-tg-${var.environment}"
 }
 
 data "aws_security_group" "this" {
