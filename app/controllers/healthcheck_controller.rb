@@ -1,6 +1,6 @@
 class HealthcheckController < ApplicationController
-  def ping
-    render status: :ok, body: 'PONG'
+  def checkz
+    head :ok
   end
 
   def healthcheck
