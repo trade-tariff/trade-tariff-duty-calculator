@@ -46,6 +46,12 @@ commands:
               london.cloudapps.digital \
               -n "$CF_APP-<< parameters.environment_key >>-dark"
 
+            cf map-route \
+              "$CF_APP-<< parameters.environment_key >>-dark" \
+              london.cloudapps.digital \
+              -n "$CF_APP-<< parameters.environment_key >>-dark" \
+              --path /duty-calculator
+
             cf add-network-policy \
               "$CF_APP-<< parameters.environment_key >>-dark" \
               "$CF_BACKEND_APP_XI-<< parameters.environment_key >>" \
@@ -68,6 +74,15 @@ commands:
           cf_app: tariff-duty-calculator
           environment_key: << parameters.environment_key >>
           space: << parameters.space >>
+
+      - run:
+          name: 'Custom pivot dark app'
+          command: |
+            app_name="tariff-duty-calculator-<< parameters.environment_key >>"
+            cf unmap-route \
+              $app_name \
+              "<< parameters.app_domain_prefix >>".trade-tariff.service.gov.uk \
+              --path "/duty-calculator"
 
       - slack/notify:
           channel: deployments
