@@ -48,7 +48,7 @@ commands:
 
             cf map-route \
               "$CF_APP-<< parameters.environment_key >>-dark" \
-                << parameters.environment_key >>.trade-tariff.service.gov.uk \
+                << parameters.app_domain_prefix >>.trade-tariff.service.gov.uk \
                 --path "/duty-calculator"
 
             cf add-network-policy \
