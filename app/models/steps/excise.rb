@@ -22,7 +22,7 @@ module Steps
 
         OpenStruct.new(
           id: code,
-          name: additional_code['overlay'],
+          name: additional_code['overlay'].to_s.html_safe,
           disabled: code.in?(DISABLED_ADDITIONAL_CODES),
         )
       end

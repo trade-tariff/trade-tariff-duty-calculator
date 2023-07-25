@@ -403,7 +403,7 @@ RSpec.describe Api::Measure, :user_session do
       end
     end
 
-    context 'when there are measure conditions with a matching document answer' do
+    context 'when there are document measure conditions with a matching document answer' do
       let(:user_session) do
         build(:user_session, document_code: { 'uk' => { '117' => 'C990' } })
       end
@@ -522,7 +522,7 @@ RSpec.describe Api::Measure, :user_session do
       let(:measure_conditions) do
         [
           {
-            'condition' => 'B: Presentation of a certificate/licence/document',
+            'document_code' => 'C990',
             'condition_code' => 'B',
           },
         ]
@@ -535,8 +535,8 @@ RSpec.describe Api::Measure, :user_session do
       let(:measure_conditions) do
         [
           {
-            'condition' => 'Import price must be equal to or greater than the entry price (see components)',
-            'condition_code' => 'V',
+            'document_code' => nil,
+            'condition_code' => 'B',
           },
         ]
       end
@@ -564,7 +564,7 @@ RSpec.describe Api::Measure, :user_session do
       )
     end
 
-    context 'when the matching condition is applicable' do
+    context 'when the matching document condition is applicable' do
       let(:user_session) do
         build(
           :user_session,
@@ -595,7 +595,7 @@ RSpec.describe Api::Measure, :user_session do
       it { is_expected.to be_applicable }
     end
 
-    context 'when the matching condition is not applicable' do
+    context 'when the matching document condition is not applicable' do
       let(:user_session) do
         build(
           :user_session,
@@ -624,6 +624,54 @@ RSpec.describe Api::Measure, :user_session do
       end
 
       it { is_expected.not_to be_applicable }
+    end
+
+    context 'when the matching threshold condition is applicable' do
+      let(:user_session) do
+        build(
+          :user_session,
+          measure_amount: { 'asv' => 10.42 },
+        )
+      end
+
+      let(:matching_condition) do
+        {
+          'id' => '-1010130922',
+          'action' => 'Apply the amount of the action (see components)',
+          'action_code' => '01',
+          'certificate_description' => nil,
+          'condition' => 'E: The quantity or the price per unit declared, as appropriate, is equal or less than the specified maximum, or presentation of the required document',
+          'condition_code' => 'E',
+          'condition_duty_amount' => 14.499999999999998,
+          'condition_measurement_unit_code' => 'ASV',
+          'condition_measurement_unit_qualifier_code' => nil,
+          'condition_monetary_unit_code' => nil,
+          'document_code' => '',
+          'duty_expression' => "<span>35.62</span> GBP / <abbr title='%vol'>% vol/hl</abbr>",
+          'guidance_cds' => nil,
+          'guidance_chief' => nil,
+          'measure_condition_class' => 'threshold',
+          'monetary_unit_abbreviation' => nil,
+          'requirement' => "<span>14.50</span> <abbr title='%vol'>% vol</abbr>",
+          'requirement_operator' => '=<',
+          'threshold_unit_type' => nil,
+          'measure_condition_components' => [
+            {
+              'id' => '-1010130922-01',
+              'duty_expression_id' => '01',
+              'duty_amount' => 35.62,
+              'monetary_unit_code' => 'GBP',
+              'monetary_unit_abbreviation' => nil,
+              'measurement_unit_code' => 'ASV',
+              'measurement_unit_qualifier_code' => 'X',
+              'duty_expression_description' => '% or amount',
+              'duty_expression_abbreviation' => '%',
+            },
+          ],
+        }
+      end
+
+      it { is_expected.to be_applicable }
     end
 
     context 'when there is no matching condition' do

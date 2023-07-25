@@ -603,6 +603,12 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#measure_amount_for' do
+    subject(:user_session) { build(:user_session, measure_amount: { 'asvx' => :bar }) }
+
+    it { expect(user_session.measure_amount_for('ASVX')).to eq(:bar) }
+  end
+
   describe '#origin_country_code' do
     context 'when country of origin is OTHER' do
       subject(:origin_country_code) { build(:user_session, country_of_origin: 'OTHER', other_country_of_origin: 'AD').origin_country_code }
