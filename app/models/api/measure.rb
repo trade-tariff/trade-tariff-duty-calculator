@@ -29,6 +29,8 @@ module Api
                :resolved_duty_expression,
                :vat
 
+    alias_method :excise?, :excise
+
     def document_codes
       measure_conditions.map do |measure_condition|
         {
@@ -74,7 +76,10 @@ module Api
     end
 
     def applicable_components
-      @applicable_components ||= document_components.presence || resolved_or_standard_measure_components
+      @applicable_components ||= document_components.presence ||
+        threshold_condition_components.presence ||
+        resolved_measure_components.presence ||
+        measure_components
     end
 
     def all_duties_zero?
@@ -90,11 +95,13 @@ module Api
       additional_code.code
     end
 
-    # Measures are always applicable unless they have a condition which makes them conditionally applicable.
+    # Measures are always applicable unless they have a condition which makes them conditionally applicable
+    # depending on the expressed requirement of the condition.
     def applicable?
-      return true if applicable_document_condition.blank?
+      return true if applicable_document_condition.blank? && applicable_threshold_condition.blank?
+      return applicable_document_condition.applicable? if applicable_document_condition.present?
 
-      applicable_document_condition.applicable?
+      applicable_threshold_condition.applicable?
     end
 
     def expresses_document?
@@ -125,6 +132,24 @@ module Api
       end
     end
 
+    def applicable_threshold_condition
+      @applicable_threshold_condition ||= begin
+        return unless excise?
+
+        measure_conditions.find do |candidate_measure_condition|
+          unit_answer = user_session.measure_amount_for(candidate_measure_condition.condition_measurement_unit)
+          unit_answer = unit_answer.to_f if unit_answer.present?
+
+          next unless candidate_measure_condition.expresses_unit? && unit_answer.present?
+
+          unit_answer.public_send(
+            candidate_measure_condition.requirement_operator,
+            candidate_measure_condition.condition_duty_amount.to_f,
+          )
+        end
+      end
+    end
+
     private
 
     def resolved_or_standard_measure_components
@@ -137,6 +162,10 @@ module Api
 
     def document_components
       applicable_document_condition&.measure_condition_components
+    end
+
+    def threshold_condition_components
+      applicable_threshold_condition&.measure_condition_components
     end
 
     def ad_valorem?

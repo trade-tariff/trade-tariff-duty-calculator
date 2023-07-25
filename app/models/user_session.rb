@@ -114,6 +114,10 @@ class UserSession
     public_send("document_code_#{source}")[measure_type_id]
   end
 
+  def measure_amount_for(measurement_unit)
+    measure_amount[measurement_unit.to_s.downcase]
+  end
+
   def excise_additional_code=(value)
     session['answers'][Steps::Excise.id].merge!(value)
   end
