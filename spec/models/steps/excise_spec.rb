@@ -188,6 +188,7 @@ RSpec.describe Steps::Excise, :step, :user_session do
     end
 
     it { expect(step.options).to eq(expected_options) }
+    it { expect(step.options.first.name).to be_html_safe }
   end
 
   describe '#additional_code' do
