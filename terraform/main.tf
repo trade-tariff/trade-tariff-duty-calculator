@@ -35,7 +35,7 @@ module "service" {
       value = "8080"
     },
     {
-      name  = "API_SERVICE_BACKEND_OPTIONS"
+      name  = "API_SERVICE_BACKEND_URL_OPTIONS"
       value = jsonencode(local.api_service_backend_url_options)
     },
     {
