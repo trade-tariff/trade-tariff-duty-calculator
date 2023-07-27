@@ -19,10 +19,12 @@ module Steps
     def options
       available_additional_codes.map do |additional_code|
         code = additional_code['code'].sub('X', '')
+        overlay = additional_code['overlay'].to_s
+        overlay = "#{overlay} (X#{code})".html_safe
 
         OpenStruct.new(
           id: code,
-          name: additional_code['overlay'].to_s.html_safe,
+          name: overlay,
           disabled: code.in?(DISABLED_ADDITIONAL_CODES),
         )
       end

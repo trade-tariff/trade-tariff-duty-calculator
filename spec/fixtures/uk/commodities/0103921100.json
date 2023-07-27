@@ -8,12 +8,14 @@
           "measurement_unit_code": "DTN",
           "measurement_unit_qualifier_code": "",
           "abbreviation": "100 kg",
+          "expansion": "100 kg",
           "unit_question": "What is the weight of the goods you will be importing?",
-          "unit_hint": "Enter the value in decitonnes (100kg)",
-          "unit": "x 100 kg",
-          "measure_sids": [
-            2046828
-          ]
+          "unit_hint": "Enter the value in kilograms",
+          "unit": "kilograms",
+          "multiplier": "0.01",
+          "coerced_measurement_unit_code": "KGM",
+          "original_unit": "x 100 kg",
+          "measurement_unit_type": "weight"
         },
         "RET": {
           "measurement_unit_code": "RET",

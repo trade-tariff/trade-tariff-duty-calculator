@@ -34,6 +34,25 @@ FactoryBot.define do
       end
     end
 
+    trait :spq_positive do
+      action { 'Apply the amount of the action (see components)' }
+      action_code { '01' }
+      certificate_description {}
+      condition { 'E: The quantity or the price per unit declared, as appropriate, is equal or less than the specified maximum, or presentation of the required document' }
+      condition_code { 'E' }
+      condition_duty_amount { 3.49 }
+      condition_measurement_unit_code { 'ASV' }
+      condition_measurement_unit_qualifier_code {}
+      condition_monetary_unit_code {}
+      document_code { '' }
+      duty_expression { "<span>9.27</span> GBP / <abbr title='Litre pure (100%) alcohol'>l alc. 100%</abbr> - £1.00  / for each litre of pure alcohol, multiplied by the SPR discount" }
+      measure_condition_class { 'threshold' }
+      monetary_unit_abbreviation {}
+      requirement { "<span>3.49</span> <abbr title='%vol'>% vol</abbr>" }
+      requirement_operator { '=<' }
+      threshold_unit_type { 'percentage_abv' }
+    end
+
     trait :stopping_negative do
       action { 'Declared subheading not allowed' }
       action_code { '08' }

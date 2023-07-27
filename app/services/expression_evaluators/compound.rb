@@ -15,7 +15,11 @@ module ExpressionEvaluators
     end
 
     def duty_expression
-      base_duty_expression = measure.duty_expression&.formatted_base
+      base_duty_expression = if measure_condition.present?
+                               measure_condition.duty_expression
+                             else
+                               measure.duty_expression&.formatted_base
+                             end
 
       if measure.resolved_duty_expression.present?
         "#{base_duty_expression}<br>#{measure.resolved_duty_expression}"

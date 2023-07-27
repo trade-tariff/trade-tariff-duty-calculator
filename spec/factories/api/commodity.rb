@@ -363,6 +363,65 @@ FactoryBot.define do
       end
     end
 
+    trait :with_spq_measurement_units do
+      applicable_measure_units do
+        {
+          'HLT' => {
+            'measurement_unit_code' => 'HLT',
+            'measurement_unit_qualifier_code' => nil,
+            'abbreviation' => 'hl',
+            'expansion' => '100 litre (hl)',
+            'unit_question' => 'What is the volume of the goods that you will be importing?',
+            'unit_hint' => 'Enter the value in litres',
+            'unit' => 'litres',
+            'multiplier' => '0.01',
+            'coerced_measurement_unit_code' => 'LTR',
+            'original_unit' => 'x 100 litres',
+            'measurement_unit_type' => 'volume',
+          },
+          'LPA' => {
+            'measurement_unit_code' => 'LPA',
+            'measurement_unit_qualifier_code' => nil,
+            'abbreviation' => 'l alc. 100%',
+            'expansion' => 'litre of pure (100%) alcohol (l alc. 100%)',
+            'unit_question' => 'What is the volume of pure alcohol in the goods you will be importing?',
+            'unit_hint' => 'Enter the value in litres',
+            'unit' => 'litres',
+            'multiplier' => nil,
+            'coerced_measurement_unit_code' => nil,
+            'original_unit' => nil,
+            'measurement_unit_type' => 'volume',
+          },
+          'ASV' => {
+            'measurement_unit_code' => 'ASV',
+            'measurement_unit_qualifier_code' => nil,
+            'abbreviation' => '% vol',
+            'expansion' => 'percentage ABV (% vol)',
+            'unit_question' => 'What is the alcohol percentage (%) of the goods you are importing?',
+            'unit_hint' => 'Enter the alcohol by volume (ABV) percentage',
+            'unit' => 'percent',
+            'multiplier' => nil,
+            'coerced_measurement_unit_code' => nil,
+            'original_unit' => nil,
+            'measurement_unit_type' => 'percentage_abv',
+          },
+          'SPR' => {
+            'measurement_unit_code' => 'SPR',
+            'measurement_unit_qualifier_code' => nil,
+            'abbreviation' => 'SPR discount',
+            'expansion' => 'SPR discount (£)',
+            'unit_question' => 'What discount are you entitled to as a result of Small Producer Relief?',
+            'unit_hint' => 'Enter the SPR discount against the full rate, not the chargeable SPR rate. For example, if the full rate, before application of SPR is £10.00 / litre of pure alcohol, and you are entitled to pay £7.00, enter 3.00 as your SPR discount.',
+            'unit' => 'SPR discount (£)',
+            'multiplier' => nil,
+            'coerced_measurement_unit_code' => nil,
+            'original_unit' => nil,
+            'measurement_unit_type' => 'other',
+          },
+        }
+      end
+    end
+
     trait :with_none_additional_code_measures do
       applicable_additional_codes do
         {

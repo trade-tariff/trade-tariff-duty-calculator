@@ -78,20 +78,24 @@ class ConfirmationDecorator < SimpleDelegator
 
     formatted_values = value.map do |measure_unit_key, answer|
       applicable_unit = applicable_measure_units[measure_unit_key.upcase]
-      has_coerced_unit = applicable_unit['coerced_measurement_unit_code'].present?
-      abbreviation = applicable_unit['abbreviation']
-      unit = applicable_unit['unit']
+      unit = if applicable_unit['coerced_measurement_unit_code'].present?
+               applicable_unit['unit']
+             else
+               applicable_unit['expansion'] || applicable_unit['abbreviation'] || applicable_unit['unit']
+             end
 
-      if measure_unit_key.upcase == Api::BaseComponent::RETAIL_PRICE_UNIT
-        tag.span(number_to_currency(answer, unit:), title: abbreviation)
-      elsif !has_coerced_unit
-        tag.span("#{answer} #{unit}", title: abbreviation)
-      else
-        "#{answer} #{unit}"
-      end
+      content = safe_join(
+        [
+          tag.span(tag.b(unit), title: applicable_unit['unit_question']),
+          tag.br,
+          answer,
+        ],
+        '',
+      )
+      tag.div(content, id: "measure-#{measure_unit_key}")
     end
 
-    formatted_values.join('<br>').html_safe
+    formatted_values.join('').html_safe
   end
 
   def format_customs_value(_value, _key)

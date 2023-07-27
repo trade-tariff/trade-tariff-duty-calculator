@@ -5,7 +5,10 @@ module Api
 
     ALCOHOL_UNIT = 'ASV'.freeze
     DECITONNE_UNIT = 'DTN'.freeze
+    LITERS_PURE_ALCOHOL_UNIT = 'LPA'.freeze
+    HECTOLITERS_UNIT = 'HLT'.freeze
     RETAIL_PRICE_UNIT = 'RET'.freeze
+    SPR_DISCOUNT_UNIT = 'SPR'.freeze
     SUCROSE_UNIT = 'BRX'.freeze
     VOLUME_UNIT = 'HLT'.freeze
 
@@ -35,6 +38,7 @@ module Api
     enum :unit, {
       alcohol_volume: %w[ASVX],
       sucrose: %w[DTNZ],
+      spq: %w[SPQ],
     }
 
     def ad_valorem?

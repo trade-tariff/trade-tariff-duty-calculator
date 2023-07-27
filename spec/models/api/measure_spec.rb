@@ -99,6 +99,7 @@ RSpec.describe Api::Measure, :user_session do
     let(:retail_price) { false }
     let(:alcohol_volume) { false }
     let(:sucrose) { false }
+    let(:spq) { false }
 
     before do
       allow(component).to receive(:ad_valorem?).and_return(ad_valorem)
@@ -106,6 +107,7 @@ RSpec.describe Api::Measure, :user_session do
       allow(component).to receive(:retail_price?).and_return(retail_price)
       allow(component).to receive(:alcohol_volume?).and_return(alcohol_volume)
       allow(component).to receive(:sucrose?).and_return(sucrose)
+      allow(component).to receive(:spq?).and_return(spq)
     end
 
     shared_examples_for 'a compound measure evaluator' do |expected_evaluator|
@@ -139,6 +141,10 @@ RSpec.describe Api::Measure, :user_session do
     it_behaves_like 'a compound measure evaluator', ExpressionEvaluators::RetailPrice do
       let(:specific_duty) { true }
       let(:retail_price) { true }
+    end
+
+    it_behaves_like 'a compound measure evaluator', ExpressionEvaluators::Spq do
+      let(:spq) { true }
     end
   end
 
