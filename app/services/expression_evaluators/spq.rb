@@ -21,11 +21,15 @@ module ExpressionEvaluators
     private
 
     def value
-      @value ||= if measure_condition.lpa_based?
-                   lpa_value
-                 elsif measure_condition.asvx_based?
-                   asvx_value
-                 end.to_f.floor(2)
+      @value ||= begin
+        candidate_value = if measure_condition.lpa_based?
+                            lpa_value
+                          elsif measure_condition.asvx_based?
+                            asvx_value
+                          end
+
+        candidate_value.present? ? candidate_value.to_f.floor(2) : 0.0
+      end
     end
 
     def lpa_value
