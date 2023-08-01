@@ -16,7 +16,7 @@ module ExpressionEvaluators
     def measure_condition
       candidate_measure_condition_component = measure.applicable_components.first.presence || component
 
-      if candidate_measure_condition_component.belongs_to_measure_condition?
+      if candidate_measure_condition_component&.belongs_to_measure_condition?
         measure.measure_conditions.find do |measure_condition|
           measure_condition.id == candidate_measure_condition_component.measure_condition_sid
         end
