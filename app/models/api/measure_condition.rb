@@ -75,6 +75,14 @@ module Api
       condition_measurement_unit_code.present?
     end
 
+    def lpa_based?
+      measure_condition_component_units.include?('LPA')
+    end
+
+    def asvx_based?
+      measure_condition_component_units.include?('ASVX')
+    end
+
     def document_code
       return attributes[:document_code] if attributes[:document_code].present?
 
@@ -89,6 +97,12 @@ module Api
 
     def condition_measurement_unit
       "#{condition_measurement_unit_code}#{condition_measurement_unit_qualifier_code}" if expresses_unit?
+    end
+
+    private
+
+    def measure_condition_component_units
+      @measure_condition_component_units ||= measure_condition_components.map(&:unit).compact
     end
   end
 end

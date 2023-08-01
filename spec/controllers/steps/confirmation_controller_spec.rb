@@ -44,16 +44,8 @@ RSpec.describe Steps::ConfirmationController, :user_session do
       expect(assigns[:decorated_step]).to be_a(ConfirmationDecorator)
     end
 
-    it 'contains the summary of all the previously given answers' do
-      expect(response.body).to include(expected_content)
-    end
-
-    it 'contains the links that allow users to go back and change their answers' do
-      expected_links.each do |link|
-        expect(response.body).to include(link)
-      end
-    end
-
+    it { expect(response.body).to include(expected_content) }
+    it { expected_links.each { |link| expect(response.body).to include(link) } }
     it { expect(response).to have_http_status(:ok) }
     it { expect(response).to render_template('confirmation/show') }
   end

@@ -66,6 +66,8 @@ module Api
         ExpressionEvaluators::AlcoholVolumeMeasureUnit.new(self, component)
       elsif component.sucrose?
         ExpressionEvaluators::SucroseMeasureUnit.new(self, component)
+      elsif component.spq?
+        ExpressionEvaluators::Spq.new(self, component)
       elsif component.specific_duty?
         ExpressionEvaluators::MeasureUnit.new(self, component)
       end

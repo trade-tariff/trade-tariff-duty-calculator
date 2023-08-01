@@ -25,4 +25,10 @@ FactoryBot.define do
     description { 'CLIMATE CHANGE LEVY (CCL), 990, solid' }
     formatted_description { 'CLIMATE CHANGE LEVY (CCL), 990, solid' }
   end
+
+  trait :excise_spq do
+    code { 'X444' }
+    description { 'Spirits at least 3.5 but less than 8.5% &amp; eligible for SPR and DR' }
+    formatted_description { 'Spirits at least 3.5 but less than 8.5% &amp; eligible for SPR and DR' }
+  end
 end
