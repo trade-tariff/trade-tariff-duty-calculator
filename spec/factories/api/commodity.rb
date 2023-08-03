@@ -477,5 +477,48 @@ FactoryBot.define do
         ]
       end
     end
+
+    trait :with_all_variations_of_measurement_unit do
+      applicable_measure_units do
+        {
+          'ASV' => {
+            'measurement_unit_code' => 'ASV',
+            'measurement_unit_qualifier_code' => nil,
+            'unit_hint' => 'Enter the alcohol by volume (ABV) percentage',
+            'measurement_unit_type' => 'percentage_abv',
+          },
+          'BRX' => {
+            'measurement_unit_code' => 'BRX',
+            'measurement_unit_qualifier_code' => nil,
+            'unit_hint' => 'If you do not know the percentage sucrose content (Brix value), check the footnotes for the commodity code to identify how to calculate it.',
+            'measurement_unit_type' => 'percentage',
+          },
+          'CEN' => {
+            'measurement_unit_code' => 'CEN',
+            'measurement_unit_qualifier_code' => nil,
+            'unit_hint' => 'Enter the number of items',
+            'measurement_unit_type' => 'number',
+          },
+          'HLT' => {
+            'measurement_unit_code' => 'HLT',
+            'measurement_unit_qualifier_code' => nil,
+            'unit_hint' => 'Enter the value in litres',
+            'measurement_unit_type' => 'volume',
+          },
+          'KGM' => {
+            'measurement_unit_code' => 'KGM',
+            'measurement_unit_qualifier_code' => nil,
+            'unit_hint' => 'Enter the value in kilograms',
+            'measurement_unit_type' => 'weight',
+          },
+          'SPR' => {
+            'measurement_unit_code' => 'SPR',
+            'measurement_unit_qualifier_code' => nil,
+            'unit_hint' => 'Enter the SPR discount against the full rate, not the chargeable SPR rate. For example, if the full rate, before application of SPR is £10.00 / litre of pure alcohol, and you are entitled to pay £7.00, enter 3.00 as your SPR discount.',
+            'measurement_unit_type' => 'discount',
+          },
+        }
+      end
+    end
   end
 end
