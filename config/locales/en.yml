@@ -287,6 +287,8 @@ en:
               blank: Enter a valid import quantity.
               not_a_number: Enter a numeric import quantity.
               greater_than: Enter an import quantity value greater than zero.
+              max: Enter an import quantity value less than or equal too
+              min: Enter an import quantity value more than or equal too
         steps/vat:
           attributes:
             vat:

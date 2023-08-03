@@ -2,6 +2,18 @@ module Steps
   class MeasureAmount
     STEPS_TO_REMOVE_FROM_SESSION = %w[additional_code document_code excise].freeze
 
+    DEFAULT_MEASUREMENT_UNIT_TYPE = 'number'.freeze
+    DEFAULT_HINT = 'Enter the correct value'.freeze
+
+    # By default, all measurement types are validated as positive numbers
+    MEASUREMENT_TYPE_VALIDATIONS = Hash.new do |validations, type|
+      validations[type] = { 'only_positive' => true }
+    end
+    MEASUREMENT_TYPE_VALIDATIONS['percentage'] = { 'max' => 100, 'min' => 0 }
+    MEASUREMENT_TYPE_VALIDATIONS['percentage_abv'] = { 'max' => 100, 'min' => 0 }
+    MEASUREMENT_TYPE_VALIDATIONS['money'] = { 'min' => 0.001 }
+    MEASUREMENT_TYPE_VALIDATIONS['discount'] = { 'min' => 0 }
+
     include ActiveModel::Model
     include CommodityHelper
     include Rails.application.routes.url_helpers
@@ -12,14 +24,25 @@ module Steps
       validation_messages = I18n.t('activemodel.errors.models.steps/measure_amount.attributes.answers')
 
       record.applicable_measure_units.each do |key, values|
+        type = values['measurement_unit_type'].presence || DEFAULT_MEASUREMENT_UNIT_TYPE
         key = key.downcase
         value = record.public_send(key.downcase)
+        hint = values['unit_hint'] || DEFAULT_HINT
 
         record.errors.add(key, "#{validation_messages[:blank]} #{values['unit_hint']}") if value.blank?
 
         value = Float(value)
 
-        record.errors.add(key, "#{validation_messages[:greater_than]} #{values['unit_hint']}") unless value.positive?
+        MEASUREMENT_TYPE_VALIDATIONS[type].each do |validation, validation_value|
+          case validation
+          when 'only_positive'
+            record.errors.add(key, "#{validation_messages[:greater_than]} #{hint}") unless value.positive?
+          when 'max'
+            record.errors.add(key, "#{validation_messages[:max]} #{validation_value}. #{hint}") if value > validation_value
+          when 'min'
+            record.errors.add(key, "#{validation_messages[:min]} #{validation_value}. #{hint}") if value < validation_value
+          end
+        end
       rescue ArgumentError, TypeError
         record.errors.add(key, "#{validation_messages[:not_a_number]} #{values['unit_hint']}")
       end

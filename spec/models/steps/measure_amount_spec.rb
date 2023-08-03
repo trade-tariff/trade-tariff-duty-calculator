@@ -26,73 +26,109 @@ RSpec.describe Steps::MeasureAmount, :step, :user_session do
   end
 
   describe '#validations' do
-    context 'when all answers are present, positive floats' do
-      let(:measure_amount) { { 'dtn' => 500.42, 'hlt' => 204.64 } }
-
-      it 'is a valid object' do
-        expect(step).to be_valid
-      end
-
-      it 'has no validation errors' do
-        step.valid?
-
-        expect(step.errors.messages).to be_empty
-      end
+    subject(:step) do
+      build(
+        :measure_amount,
+        user_session:,
+        measure_amount:,
+        applicable_measure_units: commodity.applicable_measure_units,
+      )
     end
 
-    context 'when one of the answers is blank' do
-      let(:measure_amount) { { 'dtn' => 500.42 } }
+    include_context 'with a fake commodity'
 
-      it 'is not a valid object' do
-        expect(step).not_to be_valid
+    let(:commodity) { build(:commodity, :with_all_variations_of_measurement_unit) }
+
+    shared_examples_for 'a valid step' do |measure_amount|
+      let(:measure_amount) do
+        {
+          'asv' => 0,
+          'brx' => 0,
+          'cen' => 1,
+          'hlt' => 1,
+          'kgm' => 1,
+          'spr' => 0,
+        }.merge(measure_amount)
       end
 
-      it 'adds the correct validation error message' do
-        step.valid?
-
-        expect(step.errors.messages[:hlt]).to eq(
-          [
-            'Enter a valid import quantity. Enter the value in hectolitres (100 litres)',
-            'Enter a numeric import quantity. Enter the value in hectolitres (100 litres)',
-          ],
-        )
-      end
+      it { expect(step).to be_valid }
     end
 
-    context 'when one of the answers is negative' do
-      let(:measure_amount) { { 'dtn' => 500.42, 'hlt' => -1.5 } }
+    shared_examples_for 'an invalid step' do |measure_amount, error_message|
+      let(:measure_amount) { measure_amount }
 
-      it 'is not a valid object' do
-        expect(step).not_to be_valid
-      end
+      before { step.valid? }
 
-      it 'adds the correct validation error message' do
-        step.valid?
-
-        expect(step.errors.messages[:hlt]).to eq(
-          [
-            'Enter an import quantity value greater than zero. Enter the value in hectolitres (100 litres)',
-          ],
-        )
-      end
+      it { expect(step).not_to be_valid }
+      it { expect(step.errors.messages[measure_amount.keys.first.to_sym]).to include(error_message) }
     end
 
-    context 'when one of the answers is not a numeric' do
-      let(:measure_amount) { { 'dtn' => 500.42, 'hlt' => 'foo' } }
+    context 'when the answer unit is a percentage abv type' do
+      hint = 'Enter the alcohol by volume (ABV) percentage'
 
-      it 'is not a valid object' do
-        expect(step).not_to be_valid
-      end
+      it_behaves_like 'a valid step', { 'asv' => 0 }
 
-      it 'adds the correct validation error message' do
-        step.valid?
+      it_behaves_like 'an invalid step', { 'asv' => 'foo' }, "Enter a numeric import quantity. #{hint}"
+      it_behaves_like 'an invalid step', { 'asv' => -1 }, "Enter an import quantity value more than or equal too 0. #{hint}"
+      it_behaves_like 'an invalid step', { 'asv' => 101 }, "Enter an import quantity value less than or equal too 100. #{hint}"
+      it_behaves_like 'an invalid step', { 'asv' => '' }, "Enter a numeric import quantity. #{hint}"
+      it_behaves_like 'an invalid step', { 'asv' => nil }, "Enter a numeric import quantity. #{hint}"
+    end
 
-        expect(step.errors.messages[:hlt]).to eq(
-          [
-            'Enter a numeric import quantity. Enter the value in hectolitres (100 litres)',
-          ],
-        )
-      end
+    context 'when the answer unit is a percentage type' do
+      hint = 'If you do not know the percentage sucrose content (Brix value), check the footnotes for the commodity code to identify how to calculate it.'
+
+      it_behaves_like 'a valid step', { 'brx' => 0 }
+
+      it_behaves_like 'an invalid step', { 'brx' => 'foo' }, "Enter a numeric import quantity. #{hint}"
+      it_behaves_like 'an invalid step', { 'brx' => -1 }, "Enter an import quantity value more than or equal too 0. #{hint}"
+      it_behaves_like 'an invalid step', { 'brx' => 101 }, "Enter an import quantity value less than or equal too 100. #{hint}"
+      it_behaves_like 'an invalid step', { 'brx' => '' }, "Enter a numeric import quantity. #{hint}"
+      it_behaves_like 'an invalid step', { 'brx' => nil }, "Enter a numeric import quantity. #{hint}"
+    end
+
+    context 'when the answer unit is a number type' do
+      hint = 'Enter the number of items'
+
+      it_behaves_like 'a valid step', { 'cen' => 1 }
+
+      it_behaves_like 'an invalid step', { 'cen' => 'foo' }, "Enter a numeric import quantity. #{hint}"
+      it_behaves_like 'an invalid step', { 'cen' => 0 }, "Enter an import quantity value greater than zero. #{hint}"
+      it_behaves_like 'an invalid step', { 'cen' => '' }, "Enter a numeric import quantity. #{hint}"
+      it_behaves_like 'an invalid step', { 'cen' => nil }, "Enter a numeric import quantity. #{hint}"
+    end
+
+    context 'when the anser unit is a volume type' do
+      hint = 'Enter the value in litres'
+
+      it_behaves_like 'a valid step', { 'hlt' => 1 }
+
+      it_behaves_like 'an invalid step', { 'hlt' => 'foo' }, "Enter a numeric import quantity. #{hint}"
+      it_behaves_like 'an invalid step', { 'hlt' => 0 }, "Enter an import quantity value greater than zero. #{hint}"
+      it_behaves_like 'an invalid step', { 'hlt' => '' }, "Enter a numeric import quantity. #{hint}"
+      it_behaves_like 'an invalid step', { 'hlt' => nil }, "Enter a numeric import quantity. #{hint}"
+    end
+
+    context 'when the answer unit is a weight type' do
+      hint = 'Enter the value in kilograms'
+
+      it_behaves_like 'a valid step', { 'kgm' => 0.00001 }
+
+      it_behaves_like 'an invalid step', { 'kgm' => 'foo' }, "Enter a numeric import quantity. #{hint}"
+      it_behaves_like 'an invalid step', { 'kgm' => 0 }, "Enter an import quantity value greater than zero. #{hint}"
+      it_behaves_like 'an invalid step', { 'kgm' => '' }, "Enter a numeric import quantity. #{hint}"
+      it_behaves_like 'an invalid step', { 'kgm' => nil }, "Enter a numeric import quantity. #{hint}"
+    end
+
+    context 'when the answer unit is a discount type' do
+      hint = 'Enter the SPR discount against the full rate, not the chargeable SPR rate. For example, if the full rate, before application of SPR is £10.00 / litre of pure alcohol, and you are entitled to pay £7.00, enter 3.00 as your SPR discount.'
+
+      it_behaves_like 'a valid step', { 'spr' => 0 }
+
+      it_behaves_like 'an invalid step', { 'spr' => 'foo' }, "Enter a numeric import quantity. #{hint}"
+      it_behaves_like 'an invalid step', { 'spr' => -1 }, "Enter an import quantity value more than or equal too 0. #{hint}"
+      it_behaves_like 'an invalid step', { 'spr' => '' }, "Enter a numeric import quantity. #{hint}"
+      it_behaves_like 'an invalid step', { 'spr' => nil }, "Enter a numeric import quantity. #{hint}"
     end
   end
 
