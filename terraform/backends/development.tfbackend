@@ -1,4 +1,5 @@
-bucket  = "terraform-state-development-844815912454"
-key     = "tariff-duty-calculator.tfstate"
-region  = "eu-west-2"
-encrypt = true
+bucket         = "terraform-state-development-844815912454"
+key            = "tariff-duty-calculator.tfstate"
+region         = "eu-west-2"
+encrypt        = true
+dynamodb_table = "duty-calculator-lock-844815912454"
