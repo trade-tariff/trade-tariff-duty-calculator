@@ -1,5 +1,26 @@
----
 version: 2.1
+
+deploy-feature-branch: &ignore-main
+  filters:
+    branches:
+      ignore:
+        - main
+        - /^dependabot/(?!docker/).*/
+        - /^hotfix\/.+/
+
+only-main: &only-main
+  filters:
+    branches:
+      only:
+        - main
+        - /^hotfix\/.+/
+
+deploy-release: &release
+  filters:
+    tags:
+      only: /^release-202[\d-]+/
+    branches:
+      ignore: /.*/
 
 orbs:
   aws-cli: circleci/aws-cli@2.0.3
@@ -298,55 +319,43 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test:
+
+  Deploy_to_Development:
     jobs:
       - write_docker_tag:
+          name: write_docker_tag_dev
           environment: development
+          <<: *ignore-main
 
-      - checking
+      - checking:
+          <<: *ignore-main
 
       - test:
           context: trade-tariff
-          filters:
-            branches:
-              ignore:
-                - main
+          <<: *ignore-main
 
       - fmt_validate_terraform:
+          name: fmt_terraform_dev
           context: trade-tariff-terraform-aws-development
           environment: development
-          filters:
-            branches:
-              ignore:
-                - main
-                - /^dependabot/(?!docker/).*/
-                - /^hotfix\/.+/
+          <<: *ignore-main
 
       - plan_terraform:
+          name: plan_terraform_dev
           context: trade-tariff-terraform-aws-development
           environment: development
           requires:
-            - write_docker_tag
-            - fmt_validate_terraform
-          filters:
-            branches:
-              ignore:
-                - main
-                - /^dependabot/(?!docker/).*/
-                - /^hotfix\/.+/
+            - write_docker_tag_dev
+            - fmt_terraform_dev
+          <<: *ignore-main
 
       - build:
-          name: build_paas_development
+          name: build_dev
           context: trade-tariff
           dev-build: true
-          filters:
-            branches:
-              ignore:
-                - main
-                - /^hotfix\/.+/
-                - /^dependabot/(?!docker/).*/
           requires:
             - test
+          <<: *ignore-main
 
       - tariff/build-and-push:
           name: build_and_push_dev
@@ -354,35 +363,22 @@ workflows:
           environment: development
           image_name: tariff-duty-calculator
           ssm_parameter: "/development/DUTY_CALCULATOR_ECR_URL"
-          filters:
-            branches:
-              ignore:
-                - main
-                - /^dependabot/(?!docker/).*/
-                - /^hotfix\/.+/
+          <<: *ignore-main
 
       - deploy_dev:
           context: trade-tariff
-          filters:
-            branches:
-              ignore:
-                - main
-                - /^hotfix\/.+/
-                - /^dependabot/(?!docker/).*/
           requires:
-            - build_paas_development
+            - build_dev
+          <<: *ignore-main
 
       - apply_terraform:
+          name: apply_terraform_dev
           context: trade-tariff-terraform-aws-development
           environment: development
           requires:
-            - plan_terraform
+            - plan_terraform_dev
             - build_and_push_dev
-          filters:
-            branches:
-              ignore:
-                - /^dependabot/(?!docker/).*/
-                - /^hotfix\/.+/
+          <<: *ignore-main
 
       - tariff/smoketests:
           name: smoketest_dev
@@ -391,92 +387,101 @@ workflows:
           yarn_run: dev-tariff-duty-calculator-smoketests
           requires:
             - deploy_dev
-          filters:
-            branches:
-              ignore:
-                - /^dependabot/(?!docker/).*/
-                - /^hotfix\/.+/
+          <<: *ignore-main
+
+  Deploy_to_Staging:
+    jobs:
+      - write_docker_tag:
+          name: write_docker_tag_staging
+          environment: staging
+
+      - plan_terraform:
+          name: plan_terraform_staging
+          context: trade-tariff-terraform-aws-staging
+          environment: staging
+          requires:
+            - write_docker_tag_staging
+          <<: *ignore-main
 
       - build:
-          name: build_paas_live
+          name: build_live
           context: trade-tariff
-          filters:
-            branches:
-              only:
-                - main
-                - /^hotfix\/.+/
+          <<: *only-main
+
+      - tariff/build-and-push:
+          name: build_and_push_live
+          context: trade-tariff-terraform-aws-staging
+          environment: staging
+          image_name: tariff-duty-calculator
+          ssm_parameter: "/staging/DUTY_CALCULATOR_ECR_URL"
+          <<: *only-main
+
+      - apply_terraform:
+          name: apply_terraform_staging
+          context: trade-tariff-terraform-aws-staging
+          environment: staging
+          requires:
+            - plan_terraform_staging
+            - build_and_push_live
+          <<: *only-main
 
       - deploy_main_to_staging:
           context: trade-tariff
-          filters:
-            branches:
-              only:
-                - main
-                - /^hotfix\/.+/
           requires:
-            - build_paas_live
+            - build_live
+          <<: *only-main
+
+      - apply_terraform:
+          context: trade-tariff-terraform-aws-staging
+          environment: staging
+          requires:
+            - write_docker_tag_staging
+            - build_and_push_live
+          <<: *only-main
 
       - tariff/smoketests:
-          name: smoketest_staging
           context: trade-tariff
           url: https://staging.trade-tariff.service.gov.uk
           yarn_run: staging-tariff-duty-calculator-smoketests
           requires:
             - deploy_main_to_staging
-          filters:
-            branches:
-              ignore:
-                - /^dependabot/(?!docker/).*/
-                - /^hotfix\/.+/
+          <<: *only-main
 
-      - hold_create_release:
-          type: approval
-          filters:
-            branches:
-              only:
-                - main
-                - /^hotfix\/.+/
+  Deploy-to-Production:
+    jobs:
+      - write_docker_tag:
+          name: write_docker_tag_prod
+          environment: production
+
+      - plan_terraform:
+          name: plan_terraform_prod
+          context: trade-tariff-terraform-aws-production
+          environment: production
           requires:
-            - deploy_main_to_staging
+            - write_docker_tag_prod
+          <<: *ignore-main
+
+      - Promote_to_Production?:
+          type: approval
+          <<: *only-main
 
       - tariff/create-production-release:
           context: trade-tariff
           image-name: tariff-dutycalculator
-          filters:
-            branches:
-              only:
-                - main
-                - /^hotfix\/.+/
           requires:
-            - hold_create_release
-
-      - tariff/smoketests:
-          name: smoketest_release_to_staging
-          context: trade-tariff
-          url: https://staging.trade-tariff.service.gov.uk
-          yarn_run: staging-tariff-duty-calculator-smoketests
-          requires:
-            - deploy_main_to_staging
-          filters:
-            tags:
-              only: /^release-202[\d-]+/
-            branches:
-              ignore: /.*/
-
-      - hold_deploy_production:
-          type: approval
-          filters:
-            tags:
-              only: /^release-202[\d-]+/
-            branches:
-              ignore: /.*/
+            - Promote_to_Production?
+          <<: *only-main
 
       - deploy_production:
           context: trade-tariff
-          filters:
-            tags:
-              only: /^release-202[\d-]+/
-            branches:
-              ignore: /.*/
+          <<: *release
           requires:
-            - hold_deploy_production
+            - Promote_to_Production?
+
+      - apply_terraform:
+          context: trade-tariff-terraform-aws-staging
+          environment: production
+          requires:
+            - write_docker_tag_prod
+            - Promote_to_Production?
+          <<: *only-main

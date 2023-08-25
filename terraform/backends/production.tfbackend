@@ -1,0 +1,5 @@
+bucket         = "terraform-state-production-382373577178"
+key            = "tariff-duty-calculator.tfstate"
+region         = "eu-west-2"
+encrypt        = true
+dynamodb_table = "duty-calculator-lock-382373577178"
