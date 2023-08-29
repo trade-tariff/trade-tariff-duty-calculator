@@ -431,14 +431,6 @@ workflows:
             - build-live
           <<: *filter-main
 
-      - apply-terraform:
-          context: trade-tariff-terraform-aws-staging
-          environment: staging
-          requires:
-            - write-docker-tag-staging
-            - build-and-push-live
-          <<: *filter-main
-
       - tariff/smoketests:
           context: trade-tariff
           url: https://staging.trade-tariff.service.gov.uk
@@ -479,6 +471,7 @@ workflows:
             - promote-to-production?
 
       - apply-terraform:
+          name: apply-terraform-prod
           context: trade-tariff-terraform-aws-staging
           environment: production
           requires:
