@@ -1,6 +1,6 @@
 version: 2.1
 
-deploy-feature-branch: &ignore-main
+filter-not-main: &filter-not-main
   filters:
     branches:
       ignore:
@@ -8,14 +8,14 @@ deploy-feature-branch: &ignore-main
         - /^dependabot/(?!docker/).*/
         - /^hotfix\/.+/
 
-only-main: &only-main
+filter-main: &filter-main
   filters:
     branches:
       only:
         - main
         - /^hotfix\/.+/
 
-deploy-release: &release
+filter-release: &filter-release
   filters:
     tags:
       only: /^release-202[\d-]+/
@@ -36,7 +36,7 @@ orbs:
 executors:
   terraform:
     docker:
-      - image: hashicorp/terraform:1.4.6
+      - image: hashicorp/terraform:1.5.5
     resource_class: small
     working_directory: "/tmp/terraform"
     environment:
@@ -44,7 +44,7 @@ executors:
       TF_IN_AUTOMATION: 1
 
 commands:
-  cf_deploy_docker:
+  cf-deploy-docker:
     parameters:
       docker_tag:
         type: string
@@ -116,7 +116,7 @@ commands:
           template: basic_success_1
 
 jobs:
-  write_docker_tag:
+  write-docker-tag:
     parameters:
       environment:
         type: string
@@ -130,7 +130,7 @@ jobs:
           paths:
             - terraform/
 
-  fmt_validate_terraform:
+  fmt-validate-terraform:
     executor: terraform
     parameters:
       environment:
@@ -147,7 +147,7 @@ jobs:
       - terraform/validate:
           path: terraform/
 
-  plan_terraform:
+  plan-terraform:
     executor: terraform
     parameters:
       environment:
@@ -164,7 +164,7 @@ jobs:
           backend_config_file: backends/<< parameters.environment >>.tfbackend
           var_file: config_<< parameters.environment >>.tfvars
 
-  apply_terraform:
+  apply-terraform:
     executor: terraform
     parameters:
       environment:
@@ -254,7 +254,7 @@ jobs:
           event: fail
           template: basic_fail_1
 
-  deploy_dev:
+  deploy-dev:
     docker:
       - image: cimg/ruby:3.2.2
     environment:
@@ -264,7 +264,7 @@ jobs:
           time: "10"
           consider-branch: false
           dont-quit: true
-      - cf_deploy_docker:
+      - cf-deploy-docker:
           docker_tag: dev-$CIRCLE_SHA1
           space: "development"
           environment_key: "dev"
@@ -272,7 +272,7 @@ jobs:
       - tariff/sentry-release:
           environment: development
 
-  deploy_main_to_staging:
+  deploy-main-to-staging:
     docker:
       - image: cimg/ruby:3.2.2
     environment:
@@ -281,7 +281,7 @@ jobs:
       - queue/until_front_of_line:
           time: "10"
           dont-quit: true
-      - cf_deploy_docker:
+      - cf-deploy-docker:
           docker_tag: $CIRCLE_SHA1
           space: "staging"
           environment_key: "staging"
@@ -289,23 +289,23 @@ jobs:
       - tariff/sentry-release:
           environment: staging
 
-  deploy_release_to_staging:
+  deploy-release-to-staging:
     docker:
       - image: cimg/ruby:3.2.2
     steps:
-      - cf_deploy_docker:
+      - cf-deploy-docker:
           docker_tag: $CIRCLE_TAG
           space: "staging"
           environment_key: "staging"
           app_domain_prefix: "staging"
 
-  deploy_production:
+  deploy-production:
     docker:
       - image: cimg/ruby:3.2.2
     environment:
       SENTRY_ENVIRONMENT: "production"
     steps:
-      - cf_deploy_docker:
+      - cf-deploy-docker:
           docker_tag: $CIRCLE_TAG
           space: "production"
           environment_key: "production"
@@ -320,168 +320,168 @@ jobs:
 workflows:
   version: 2
 
-  Deploy_to_Development:
+  deploy-to-development:
     jobs:
-      - write_docker_tag:
-          name: write_docker_tag_dev
+      - write-docker-tag:
+          name: write-docker-tag-dev
           environment: development
-          <<: *ignore-main
+          <<: *filter-not-main
 
       - checking:
-          <<: *ignore-main
+          <<: *filter-not-main
 
       - test:
           context: trade-tariff
-          <<: *ignore-main
+          <<: *filter-not-main
 
-      - fmt_validate_terraform:
-          name: fmt_terraform_dev
+      - fmt-validate-terraform:
+          name: fmt-terraform-dev
           context: trade-tariff-terraform-aws-development
           environment: development
-          <<: *ignore-main
+          <<: *filter-not-main
 
-      - plan_terraform:
-          name: plan_terraform_dev
+      - plan-terraform:
+          name: plan-terraform-dev
           context: trade-tariff-terraform-aws-development
           environment: development
           requires:
-            - write_docker_tag_dev
-            - fmt_terraform_dev
-          <<: *ignore-main
+            - write-docker-tag-dev
+            - fmt-terraform-dev
+          <<: *filter-not-main
 
       - build:
-          name: build_dev
+          name: build-dev
           context: trade-tariff
           dev-build: true
           requires:
             - test
-          <<: *ignore-main
+          <<: *filter-not-main
 
       - tariff/build-and-push:
-          name: build_and_push_dev
+          name: build-and-push-dev
           context: trade-tariff-terraform-aws-development
           environment: development
           image_name: tariff-duty-calculator
           ssm_parameter: "/development/DUTY_CALCULATOR_ECR_URL"
-          <<: *ignore-main
+          <<: *filter-not-main
 
-      - deploy_dev:
+      - deploy-dev:
           context: trade-tariff
           requires:
-            - build_dev
-          <<: *ignore-main
+            - build-dev
+          <<: *filter-not-main
 
-      - apply_terraform:
-          name: apply_terraform_dev
+      - apply-terraform:
+          name: apply-terraform-dev
           context: trade-tariff-terraform-aws-development
           environment: development
           requires:
-            - plan_terraform_dev
-            - build_and_push_dev
-          <<: *ignore-main
+            - plan-terraform-dev
+            - build-and-push-dev
+          <<: *filter-not-main
 
       - tariff/smoketests:
-          name: smoketest_dev
+          name: smoketest-dev
           context: trade-tariff
           url: https://dev.trade-tariff.service.gov.uk
           yarn_run: dev-tariff-duty-calculator-smoketests
           requires:
-            - deploy_dev
-          <<: *ignore-main
+            - deploy-dev
+          <<: *filter-not-main
 
-  Deploy_to_Staging:
+  deploy-to-staging:
     jobs:
-      - write_docker_tag:
-          name: write_docker_tag_staging
+      - write-docker-tag:
+          name: write-docker-tag-staging
           environment: staging
 
-      - plan_terraform:
-          name: plan_terraform_staging
+      - plan-terraform:
+          name: plan-terraform-staging
           context: trade-tariff-terraform-aws-staging
           environment: staging
           requires:
-            - write_docker_tag_staging
-          <<: *ignore-main
+            - write-docker-tag-staging
+          <<: *filter-not-main
 
       - build:
-          name: build_live
+          name: build-live
           context: trade-tariff
-          <<: *only-main
+          <<: *filter-main
 
       - tariff/build-and-push:
-          name: build_and_push_live
+          name: build-and-push-live
           context: trade-tariff-terraform-aws-staging
           environment: staging
           image_name: tariff-duty-calculator
           ssm_parameter: "/staging/DUTY_CALCULATOR_ECR_URL"
-          <<: *only-main
+          <<: *filter-main
 
-      - apply_terraform:
-          name: apply_terraform_staging
+      - apply-terraform:
+          name: apply-terraform-staging
           context: trade-tariff-terraform-aws-staging
           environment: staging
           requires:
-            - plan_terraform_staging
-            - build_and_push_live
-          <<: *only-main
+            - plan-terraform-staging
+            - build-and-push-live
+          <<: *filter-main
 
-      - deploy_main_to_staging:
+      - deploy-main-to-staging:
           context: trade-tariff
           requires:
-            - build_live
-          <<: *only-main
+            - build-live
+          <<: *filter-main
 
-      - apply_terraform:
+      - apply-terraform:
           context: trade-tariff-terraform-aws-staging
           environment: staging
           requires:
-            - write_docker_tag_staging
-            - build_and_push_live
-          <<: *only-main
+            - write-docker-tag-staging
+            - build-and-push-live
+          <<: *filter-main
 
       - tariff/smoketests:
           context: trade-tariff
           url: https://staging.trade-tariff.service.gov.uk
           yarn_run: staging-tariff-duty-calculator-smoketests
           requires:
-            - deploy_main_to_staging
-          <<: *only-main
+            - deploy-main-to-staging
+          <<: *filter-main
 
-  Deploy-to-Production:
+  deploy-to-production:
     jobs:
-      - write_docker_tag:
-          name: write_docker_tag_prod
+      - write-docker-tag:
+          name: write-docker-tag-prod
           environment: production
 
-      - plan_terraform:
-          name: plan_terraform_prod
+      - plan-terraform:
+          name: plan-terraform-prod
           context: trade-tariff-terraform-aws-production
           environment: production
           requires:
-            - write_docker_tag_prod
-          <<: *ignore-main
+            - write-docker-tag-prod
+          <<: *filter-not-main
 
-      - Promote_to_Production?:
+      - promote-to-production?:
           type: approval
-          <<: *only-main
+          <<: *filter-main
 
       - tariff/create-production-release:
           context: trade-tariff
           image-name: tariff-dutycalculator
           requires:
-            - Promote_to_Production?
-          <<: *only-main
+            - promote-to-production?
+          <<: *filter-main
 
-      - deploy_production:
+      - deploy-production:
           context: trade-tariff
-          <<: *release
+          <<: *filter-release
           requires:
-            - Promote_to_Production?
+            - promote-to-production?
 
-      - apply_terraform:
+      - apply-terraform:
           context: trade-tariff-terraform-aws-staging
           environment: production
           requires:
-            - write_docker_tag_prod
-            - Promote_to_Production?
-          <<: *only-main
+            - write-docker-tag-prod
+            - promote-to-production?
+          <<: *filter-main
