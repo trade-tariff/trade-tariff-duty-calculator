@@ -421,6 +421,7 @@ workflows:
           context: trade-tariff-terraform-aws-staging
           environment: staging
           requires:
+            - write-docker-tag-staging
             - plan-terraform-staging
             - build-and-push-live
           <<: *filter-main
