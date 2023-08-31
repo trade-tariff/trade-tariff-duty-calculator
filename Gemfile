@@ -20,7 +20,7 @@ gem 'sentry-rails'
 gem 'uktt', git: 'https://github.com/trade-tariff/uktt.git'
 gem 'webpacker'
 
-gem 'multipart-post', '= 2.2.3'
+gem 'multipart-post', '2.3.0'
 
 group :development, :test do
   gem 'brakeman'
