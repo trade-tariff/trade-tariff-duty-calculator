@@ -149,6 +149,8 @@ jobs:
 
   plan-terraform:
     executor: terraform
+    environment:
+      TF_CLI_ARGS: "-lock=false"
     parameters:
       environment:
         type: string
@@ -180,8 +182,9 @@ jobs:
           path: terraform/
           backend_config_file: backends/<< parameters.environment >>.tfbackend
           var_file: config_<< parameters.environment >>.tfvars
+          lock-timeout: 5m
 
-  checking:
+  ruby-checks:
     docker:
       - image: cimg/ruby:3.2.2-node
     steps:
@@ -322,17 +325,20 @@ workflows:
 
   deploy-to-development:
     jobs:
-      - write-docker-tag:
-          name: write-docker-tag-dev
-          environment: development
-          <<: *filter-not-main
-
-      - checking:
+      - ruby-checks:
           <<: *filter-not-main
 
       - test:
           context: trade-tariff
           <<: *filter-not-main
+
+      - write-docker-tag:
+          name: write-docker-tag-dev
+          environment: development
+          <<: *filter-not-main
+          requires:
+            - ruby-checks
+            - test
 
       - fmt-validate-terraform:
           name: fmt-terraform-dev
@@ -368,6 +374,8 @@ workflows:
       - deploy-dev:
           context: trade-tariff
           requires:
+            - test
+            - ruby-checks
             - build-dev
           <<: *filter-not-main
 
@@ -376,6 +384,7 @@ workflows:
           context: trade-tariff-terraform-aws-development
           environment: development
           requires:
+            - test
             - plan-terraform-dev
             - build-and-push-dev
           <<: *filter-not-main
@@ -468,14 +477,16 @@ workflows:
       - deploy-production:
           context: trade-tariff
           <<: *filter-release
-          requires:
-            - promote-to-production?
+
+      - write-docker-tag:
+          name: write-docker-tag-prod-release
+          environment: production
+          <<: *filter-release
 
       - apply-terraform:
           name: apply-terraform-prod
           context: trade-tariff-terraform-aws-staging
           environment: production
           requires:
-            - write-docker-tag-prod
-            - promote-to-production?
-          <<: *filter-main
+            - write-docker-tag-prod-release
+          <<: *filter-release
