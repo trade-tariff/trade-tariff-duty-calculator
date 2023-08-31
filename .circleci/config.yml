@@ -485,7 +485,7 @@ workflows:
 
       - apply-terraform:
           name: apply-terraform-prod
-          context: trade-tariff-terraform-aws-staging
+          context: trade-tariff-terraform-aws-production
           environment: production
           requires:
             - write-docker-tag-prod-release
