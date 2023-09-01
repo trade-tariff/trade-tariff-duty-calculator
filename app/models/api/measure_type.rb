@@ -15,6 +15,7 @@ module Api
       '123' => ::DutyOptions::Quota::NonPreferentialEndUse,
       '143' => ::DutyOptions::Quota::Preferential,
       '146' => ::DutyOptions::Quota::PreferentialEndUse,
+      '147' => ::DutyOptions::Quota::CustomsUnion,
     }.freeze
 
     TYPE_ADDITIONAL_OPTION_MAPPING = {

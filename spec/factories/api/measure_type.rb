@@ -77,6 +77,12 @@ FactoryBot.define do
       measure_type_series_id { 'C' }
     end
 
+    trait :customs_union do
+      id { '147' }
+      description { 'Customs Union Quota' }
+      measure_type_series_id { 'C' }
+    end
+
     trait :vat do
       id { '305' }
       description { 'Value added tax' }
