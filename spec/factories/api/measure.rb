@@ -82,6 +82,11 @@ FactoryBot.define do
       scheme_code { 'andean' }
     end
 
+    trait :customs_union do
+      measure_type { attributes_for :measure_type, :customs_union }
+      scheme_code { 'albania' }
+    end
+
     trait :vat do
       measure_type { attributes_for :measure_type, :vat }
       vat { true }

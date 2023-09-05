@@ -147,7 +147,7 @@ en:
 
     '145': >- # Preference under end-use
       <p class="govuk-body">
-        A tariff preference is the rate available if a free trade agreement or another arrangement is in place between the UK and an overseas country. Goods will need to comply with the <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">rules of origin</a> to benefit from this rate and you will need to provide evidence of compliance with your shipment.  
+        A tariff preference is the rate available if a free trade agreement or another arrangement is in place between the UK and an overseas country. Goods will need to comply with the <a target="_blank" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" class="govuk-link">rules of origin</a> to benefit from this rate and you will need to provide evidence of compliance with your shipment.
       </p>
       <p class="govuk-body">
         This reduced duty rate applies only when the goods are being imported for certain uses. In order to benefit from this you have to first be authorised. <a href="https://www.gov.uk/guidance/apply-to-pay-less-duty-on-goods-you-import-for-specific-uses" class="govuk-link" target="_blank">Apply to pay less duty on goods you import for specific uses</a>.
@@ -163,6 +163,7 @@ en:
 
     '147': >- # Customs Union Quota
       <p class="govuk-body">
+        A Customs Union Quota (CUQ) applies to this commodity code. A quota allows you to import goods into the UK at a reduced or zero customs duty rate. Read more about <a target="_blank" href="https://www.gov.uk/government/publications/notice-375-tariff-quotas/notice-375-tariff-quotas" class="govuk-link"> claiming quotas to reduce your duty liability</a>.
       </p>
 
     '166': >- # Provisional exclusion
@@ -1179,7 +1180,7 @@ en:
       <p class="govuk-body">
       </p>
 
-  
+
   row_to_ni_measure_type_footnotes_suffixes:
     third_country_tariff:
       uk_html:
