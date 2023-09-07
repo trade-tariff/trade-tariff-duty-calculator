@@ -9,7 +9,6 @@ data "aws_iam_policy_document" "secrets" {
     ]
     resources = [
       data.aws_secretsmanager_secret.duty_calculator_secret_key_base.arn,
-      data.aws_secretsmanager_secret.newrelic_license_key.arn
     ]
   }
 
