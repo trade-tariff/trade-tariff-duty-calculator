@@ -25,10 +25,6 @@ data "aws_secretsmanager_secret" "duty_calculator_secret_key_base" {
   name = "duty-calculator-secret-key-base"
 }
 
-data "aws_secretsmanager_secret" "newrelic_license_key" {
-  name = "newrelic-license-key"
-}
-
 data "aws_kms_key" "secretsmanager_key" {
   key_id = "alias/secretsmanager-key"
 }

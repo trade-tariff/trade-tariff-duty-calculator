@@ -44,15 +44,6 @@ module Steps
       params[:referred_service] || user_session.commodity_source
     end
 
-    def track_session
-      ::NewRelic::Agent.add_custom_attributes({
-        session: user_session.session.to_h.except('_csrf_token'),
-        commodity_code: user_session.commodity_code,
-        commodity_source: user_session.commodity_source,
-        referred_service: user_session.referred_service,
-      })
-    end
-
     def handle_exception(exception)
       with_session_tracking do
         raise exception
