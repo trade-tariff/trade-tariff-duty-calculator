@@ -63,4 +63,10 @@ Rails.application.configure do
   config.logger = ActiveSupport::Logger.new($stdout)
   config.lograge.enabled = true
   config.lograge.formatter = Lograge::Formatters::Logstash.new
+
+  config.lograge.ignore_actions = [
+    'HealthcheckController#index',
+    'HealthcheckController#checkz',
+  ]
+
 end
