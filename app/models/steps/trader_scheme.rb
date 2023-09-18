@@ -1,10 +1,5 @@
 module Steps
   class TraderScheme < Steps::Base
-    OPTIONS = [
-      OpenStruct.new(id: 'yes', name: 'Yes, I am authorised under the UK Trader Scheme'),
-      OpenStruct.new(id: 'no', name: 'No, I am not authorised under the UK Trader Scheme'),
-    ].freeze
-
     STEPS_TO_REMOVE_FROM_SESSION = %w[
       final_use
       certificate_of_origin
@@ -16,6 +11,13 @@ module Steps
     attribute :trader_scheme, :string
 
     validates :trader_scheme, presence: true
+
+    def options
+      [
+        OpenStruct.new(id: 'yes', name: "Yes, I am authorised under the #{uk_internal_market_scheme}"),
+        OpenStruct.new(id: 'no', name: "No, I am not authorised under the #{uk_internal_market_scheme}"),
+      ].freeze
+    end
 
     def trader_scheme
       super || user_session.trader_scheme
