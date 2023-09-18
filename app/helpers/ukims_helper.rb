@@ -21,6 +21,7 @@ module UkimsHelper
 
   def ukims_application_link
     if after_cut_off_date?
+
       'https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-internal-market-scheme-if-you-bring-goods-into-northern-ireland'
     else
       'https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland-from-1-january-2021'
