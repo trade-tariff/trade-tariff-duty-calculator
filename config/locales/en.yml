@@ -181,17 +181,17 @@ en:
         </p>
       gb_to_ni_html: >
         <p class="govuk-hint">
-          If the turnover of your company was less than &pound;500,000 in the latest complete financial year, then your goods will not be considered to be subject to commercial processing, and therefore not 'at risk' of subsequently being moved into Ireland.
+          If the turnover of your company was less than &pound;500,000 in the latest complete financial year, then your goods will not be considered to be subject to commercial processing, and therefore 'not at risk' of subsequently being moved into Ireland.
         </p>
     fieldset_legend_text: >
       What was your annual turnover in the most recent complete financial year?
   planned_processing:
     fieldset_hint_text_html: >
       <p class="govuk-hint">
-        If your goods are for sale to, or final use by, end consumers in the United Kingdom, you may be able to declare goods as not 'at risk', and pay no duty on those goods.
+        If your goods are for sale to, or final use by, end consumers in the United Kingdom, you may be able to declare goods as 'not at risk', and pay no duty on those goods.
       </p>
       <p class="govuk-hint">
-        You will not be able to declare your goods not 'at risk' if your goods are for commercial processing in Northern Ireland, unless they meet one of these exemptions.
+        You will not be able to declare your goods 'not at risk' if your goods are for commercial processing in Northern Ireland, unless they meet one of these exemptions.
       </p>
     fieldset_legend_text: >
       How will these goods be processed after they are moved into Northern Ireland?
