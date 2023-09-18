@@ -4,7 +4,6 @@ module UkimsHelper
 
   def uk_internal_market_scheme
     if after_cut_off_date
-
       'UK Internal Market Scheme'
     else
       'UK Trader Scheme'
