@@ -2,6 +2,7 @@ class ConfirmationDecorator < SimpleDelegator
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::TagHelper
   include CommodityHelper
+  include UkimsHelper
 
   ORDERED_STEPS = %w[
     additional_code
@@ -118,9 +119,9 @@ class ConfirmationDecorator < SimpleDelegator
   alias_method :format_country_of_origin, :format_country_name
 
   def format_annual_turnover(value, _key)
-    return 'Less than £500,000' if value == 'yes'
+    return "Less than #{ukims_annual_turnover}" if value == 'yes'
 
-    '£500,000 or more'
+    "#{ukims_annual_turnover} or more"
   end
 
   def format_vat(value, _key)

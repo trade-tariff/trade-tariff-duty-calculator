@@ -45,8 +45,8 @@ module Steps
 
     def options
       [
-        OpenStruct.new(id: 'yes', name: "My company's turnover was less than £500,000"),
-        OpenStruct.new(id: 'no', name: "My company's turnover was £500,000 or more"),
+        OpenStruct.new(id: 'yes', name: "My company's turnover was less than #{ukims_annual_turnover}"),
+        OpenStruct.new(id: 'no', name: "My company's turnover was #{ukims_annual_turnover} or more"),
       ]
     end
   end

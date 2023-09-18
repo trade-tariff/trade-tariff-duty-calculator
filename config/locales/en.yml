@@ -177,11 +177,11 @@ en:
     fieldset_hint_text:
       row_to_ni_html: >
         <p class="govuk-hint">
-          If the turnover of your company was less than &pound;500,000 in the latest complete financial year, then your goods will not be considered to be subject to commercial processing. This influences whether or not the goods are seen to be 'at risk' of subsequently being moved into Ireland.
+          If the turnover of your company was less than %{turnover_amount} in the latest complete financial year, then your goods will not be considered to be subject to commercial processing. This influences whether or not the goods are seen to be 'at risk' of subsequently being moved into Ireland.
         </p>
       gb_to_ni_html: >
         <p class="govuk-hint">
-          If the turnover of your company was less than &pound;500,000 in the latest complete financial year, then your goods will not be considered to be subject to commercial processing, and therefore 'not at risk' of subsequently being moved into Ireland.
+          If the turnover of your company was less than %{turnover_amount} in the latest complete financial year, then your goods will not be considered to be subject to commercial processing, and therefore 'not at risk' of subsequently being moved into Ireland.
         </p>
     fieldset_legend_text: >
       What was your annual turnover in the most recent complete financial year?

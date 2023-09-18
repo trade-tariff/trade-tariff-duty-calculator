@@ -4,6 +4,7 @@ module Steps
     include ActiveModel::Attributes
     include Rails.application.routes.url_helpers
     include CommodityHelper
+    include UkimsHelper
 
     STEPS_TO_REMOVE_FROM_SESSION = [].freeze
 

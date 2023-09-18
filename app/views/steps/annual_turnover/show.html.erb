@@ -4,7 +4,7 @@
   <%= f.govuk_error_summary %>
   <span class="govuk-caption-xl">Calculate import duties</span>
 
-  <%= f.govuk_collection_radio_buttons :annual_turnover, @step.options, :id, :name, hint: { text: t("annual_turnover.fieldset_hint_text.#{current_route}_html") }, legend: { text: t('annual_turnover.fieldset_legend_text'), size: 'xl', tag: 'h1' }, include_hidden: true %>
+  <%= f.govuk_collection_radio_buttons :annual_turnover, @step.options, :id, :name, hint: { text: t("annual_turnover.fieldset_hint_text.#{current_route}_html", turnover_amount: ukims_annual_turnover) }, legend: { text: t('annual_turnover.fieldset_legend_text'), size: 'xl', tag: 'h1' }, include_hidden: true %>
 
   <%= f.govuk_submit %>
 <% end %>

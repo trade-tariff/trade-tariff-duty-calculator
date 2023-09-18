@@ -2,6 +2,7 @@ module Steps
   class BaseController < ::ApplicationController
     include CommodityHelper
     include ServiceHelper
+    include UkimsHelper
 
     rescue_from Errors::SessionIntegrityError, with: :handle_session_integrity_error
     rescue_from StandardError, with: :handle_exception
