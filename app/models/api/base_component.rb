@@ -41,6 +41,12 @@ module Api
       spq: %w[SPQ],
     }
 
+    def duty_zero?
+      return true if duty_amount.nil?
+
+      duty_amount.zero?
+    end
+
     def ad_valorem?
       no_specific_duty?
     end

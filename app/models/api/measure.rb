@@ -87,7 +87,7 @@ module Api
     def all_duties_zero?
       return false if vat.present?
 
-      applicable_components.all? { |component| component.duty_amount.zero? }
+      applicable_components.all?(&:duty_zero?)
     end
 
     def vat_type

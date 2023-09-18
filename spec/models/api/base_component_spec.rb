@@ -63,6 +63,28 @@ RSpec.describe Api::BaseComponent do
     end
   end
 
+  describe '#duty_zero?' do
+    subject(:component) { described_class.new(duty_amount:) }
+
+    context 'when duty_amount is zero' do
+      let(:duty_amount) { 0 }
+
+      it { expect(component.duty_zero?).to be true }
+    end
+
+    context 'when duty_amount is nil' do
+      let(:duty_amount) { nil }
+
+      it { expect(component.duty_zero?).to be true }
+    end
+
+    context 'when duty_amount is present' do
+      let(:duty_amount) { 1.1589 }
+
+      it { expect(component.duty_zero?).to be false }
+    end
+  end
+
   describe '#specific_duty?' do
     subject(:component) { described_class.new(measurement_unit_code:) }
 
