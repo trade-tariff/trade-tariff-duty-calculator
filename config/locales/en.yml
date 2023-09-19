@@ -132,7 +132,7 @@ en:
         body: As this commodity attracts a trade defence measure, imports of this commodity are treated as 'at risk'.
       trader_scheme:
         heading: EU duties apply to this import
-        body_html: As you are not authorised under the %{uk_internal_market_scheme}, imports of this commodity are treated as 'at risk'. <a href='https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland' class='govuk-link' target='_blank'>Find out more about applying for authorisation for the UK Trader Scheme</a>.
+        body_html: As you are not authorised under the %{uk_internal_market_scheme}, imports of this commodity are treated as 'at risk'. <a href='https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland' class='govuk-link' target='_blank'>Find out more about applying for authorisation for the %{uk_internal_market_scheme}</a>.
       final_use:
         heading: EU duties apply to this import
         body: As your goods are not for final use in Northern Ireland, imports of this commodity are treated as 'at risk'.
@@ -202,13 +202,7 @@ en:
       label_text_html: >
         The goods will undergo <strong>commercial processing</strong> for one of these purposes:
       hint_text_html: >
-        <ul>
-          <li>the sale of <strong>food</strong> to end consumers in the UK</li>
-          <li><strong>construction</strong>, where the processed goods form a permanent part of a structure that is constructed and located in NI by the importer</li>
-          <li>direct provision of <strong>health or care services</strong> by the importer in NI</li>
-          <li><strong>not for profit</strong> activities in NI, where there is no subsequent sale of the processed good by the importer</li>
-          <li>the final use of <strong>animal feed</strong> on premises located in NI by the importer.</li>
-        </ul>
+        %{commercial_processing_hint_text}
     commercial_purposes:
       label_text_html: >
         The goods will be processed for <strong>commercial purposes other than those listed above</strong>

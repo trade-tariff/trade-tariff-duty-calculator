@@ -72,8 +72,7 @@ RSpec.describe InterstitialHelper, :user_session do
       it 'returns correct partial options' do
         expected_options = {
           locals: {
-            # See how this comes out in the tests
-            body: "As you are not authorised under the UK Internal Market Scheme, imports of this commodity are treated as 'at risk'. <a href='https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland' class='govuk-link' target='_blank'>Find out more about applying for authorisation for the UK Trader Scheme</a>.",
+            body: "As you are not authorised under the UK Internal Market Scheme, imports of this commodity are treated as 'at risk'. <a href='https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland' class='govuk-link' target='_blank'>Find out more about applying for authorisation for the UK Internal Market Scheme</a>.",
             heading: 'EU duties apply to this import',
           },
           partial: 'steps/interstitial/shared/context',
