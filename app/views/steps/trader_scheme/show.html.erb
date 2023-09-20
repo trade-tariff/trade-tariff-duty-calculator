@@ -4,7 +4,7 @@
   <%= f.govuk_error_summary %>
   <span class="govuk-caption-xl">Calculate import duties</span>
 
-  <%= f.govuk_collection_radio_buttons :trader_scheme, Steps::TraderScheme::OPTIONS, :id, :name, legend: { text: 'Are you authorised under the UK Trader Scheme?', size: 'xl', tag: 'h1' }, hint: { text: 'If you are moving goods into Northern Ireland which are for sale to, or final use by, end consumers located in the UK and you are authorised under the UK Trader Scheme, then you may declare your goods as being \'not at risk\' where the requirements are met. A not ‘at risk’ good entering Northern Ireland from Great Britain will not be subject to duty.' }, include_hidden: true %>
+  <%= f.govuk_collection_radio_buttons :trader_scheme, Steps::TraderScheme::OPTIONS, :id, :name, legend: { text: 'Are you authorised under the UK Trader Scheme?', size: 'xl', tag: 'h1' }, hint: { text: 'If you are moving goods into Northern Ireland which are for sale to, or final use by, end consumers located in the UK and you are authorised under the UK Trader Scheme, then you may declare your goods as being \'not at risk\' where the requirements are met. A \'not at risk\' good entering Northern Ireland from Great Britain will not be subject to duty.' }, include_hidden: true %>
 
   <%= f.govuk_submit %>
 <% end %>
