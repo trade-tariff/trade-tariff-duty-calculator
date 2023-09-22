@@ -11,12 +11,12 @@ RSpec.describe UkimsHelper, :user_session do
     )
   end
 
-  describe '#uk_internal_market_scheme' do
+  describe '#market_scheme_type' do
     context 'when the import date is after the cut off' do
       let(:import_date) { Date.new(2023, 9, 30).strftime('%Y-%m-%d') }
 
       it 'returns the corect string when the import_date is after cut off date' do
-        expect(helper.uk_internal_market_scheme).to eq('UK Internal Market Scheme')
+        expect(helper.market_scheme_type).to eq('UK Internal Market Scheme')
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe UkimsHelper, :user_session do
       let(:import_date) { Date.new(2023, 9, 29).strftime('%Y-%m-%d') }
 
       it 'returns the corect string when the import_date is after cut off date' do
-        expect(helper.uk_internal_market_scheme).to eq('UK Trader Scheme')
+        expect(helper.market_scheme_type).to eq('UK Trader Scheme')
       end
     end
   end

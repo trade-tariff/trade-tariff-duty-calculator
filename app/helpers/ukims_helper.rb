@@ -2,7 +2,7 @@
 module UkimsHelper
   CUT_OFF_DATE = Date.new(2023, 9, 30)
 
-  def uk_internal_market_scheme
+  def market_scheme_type
     if after_cut_off_date?
       'UK Internal Market Scheme'
     else
@@ -42,32 +42,11 @@ module UkimsHelper
     end
   end
 
-  concerning :PlannedProcessingText do
-    def commercial_processing_hint_text
-      html_data = if after_cut_off_date?
-                    <<-PARAGRAPH
-          <ul>
-            <li>the sale of <strong>food</strong> to end consumers in the UK</li>
-            <li><strong>construction</strong>, where the processed goods form a permanent part of a structure that is constructed and located in Northern Ireland by the importer or one subsequent entity</li>
-            <li>direct provision to the recipient of <strong>health or care services<strong> in Northern Ireland by the importer or one subsequent entity</li>
-            <li><strong>not for profit</strong> activities in Northern Ireland by the importer or one subsequent entity, where there is no subsequent sale of the processed goods</li>
-            <li>the final use of <strong>animal feed</strong> on premises located in Northern Ireland by the importer or one subsequent entity.</li>
-          </ul>
-                    PARAGRAPH
-
-                  else
-                    <<-PARAGRAPH
-          <ul>
-            <li>the sale of <strong>food</strong> to end consumers in the UK</li>
-            <li><strong>construction</strong>, where the processed goods form a permanent part of a structure that is constructed and located in NI by the importer</li>
-            <li>direct provision of <strong>health or care services</strong> by the importer in NI</li>
-            <li><strong>not for profit</strong> activities in NI, where there is no subsequent sale of the processed good by the importer</li>
-            <li>the final use of <strong>animal feed</strong> on premises located in NI by the importer.</li>
-          </ul>
-                    PARAGRAPH
-                  end
-
-      html_data.html_safe
+  def commercial_processing_hint_text
+    if after_cut_off_date?
+      t('planned_processing.commercial_purposes.hint_text.after_windsor_framework_html')
+    else
+      t('planned_processing.commercial_purposes.hint_text.before_windsor_framework_html')
     end
   end
 

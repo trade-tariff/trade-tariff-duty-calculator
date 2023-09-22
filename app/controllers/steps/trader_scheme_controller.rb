@@ -1,5 +1,7 @@
 module Steps
   class TraderSchemeController < BaseController
+    helper_method :title
+
     def show
       @step = Steps::TraderScheme.new
     end
@@ -8,6 +10,10 @@ module Steps
       @step = Steps::TraderScheme.new(permitted_params)
 
       validate(@step)
+    end
+
+    def title
+      t("page_titles.#{@step.class.try(:id)}", market_scheme_type:, default: super)
     end
 
     private

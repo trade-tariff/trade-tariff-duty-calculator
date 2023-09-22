@@ -38,7 +38,7 @@ en:
     meursing_additional_code: Enter a 'Meursing Code' for this commodity - Online Tariff Duty calculator
     customs_value: What is the customs value of this import - Online Tariff Duty calculator
     document_code: Do you have any of the following documents - Online Tariff Duty Calculator
-    trader_scheme: Are you authorised under the %{uk_internal_market_scheme} - Online Tariff Duty calculator
+    trader_scheme: Are you authorised under the %{market_scheme_type} - Online Tariff Duty calculator
     measure_amount: Enter import quantity - Online Tariff Duty calculator
     additional_code: Describe your goods in more detail - Online Tariff Duty Calculator
     country_of_origin: Which country are the goods dispatched from - Online Tariff Duty calculator
@@ -132,7 +132,7 @@ en:
         body: As this commodity attracts a trade defence measure, imports of this commodity are treated as 'at risk'.
       trader_scheme:
         heading: EU duties apply to this import
-        body_html: As you are not authorised under the %{uk_internal_market_scheme}, imports of this commodity are treated as 'at risk'. <a href='https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland' class='govuk-link' target='_blank'>Find out more about applying for authorisation for the %{uk_internal_market_scheme}</a>.
+        body_html: As you are not authorised under the %{market_scheme_type}, imports of this commodity are treated as 'at risk'. <a href='https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland' class='govuk-link' target='_blank'>Find out more about applying for authorisation for the %{market_scheme_type}</a>.
       final_use:
         heading: EU duties apply to this import
         body: As your goods are not for final use in Northern Ireland, imports of this commodity are treated as 'at risk'.
@@ -201,8 +201,23 @@ en:
     commercial_processing:
       label_text_html: >
         The goods will undergo <strong>commercial processing</strong> for one of these purposes:
-      hint_text_html: >
-        %{commercial_processing_hint_text}
+      hint_text_html:
+        after_windsor_framework_html: >
+          <ul>
+            <li>the sale of <strong>food</strong> to end consumers in the UK</li>
+            <li><strong>construction</strong>, where the processed goods form a permanent part of a structure that is constructed and located in Northern Ireland by the importer or one subsequent entity</li>
+            <li>direct provision to the recipient of <strong>health or care services<strong> in Northern Ireland by the importer or one subsequent entity</li>
+            <li><strong>not for profit</strong> activities in Northern Ireland by the importer or one subsequent entity, where there is no subsequent sale of the processed goods</li>
+            <li>the final use of <strong>animal feed</strong> on premises located in Northern Ireland by the importer or one subsequent entity.</li>
+          </ul>
+        before_windsor_framework_html: >
+          <ul>
+            <li>the sale of <strong>food</strong> to end consumers in the UK</li>
+            <li><strong>construction</strong>, where the processed goods form a permanent part of a structure that is constructed and located in NI by the importer</li>
+            <li>direct provision of <strong>health or care services</strong> by the importer in NI</li>
+            <li><strong>not for profit</strong> activities in NI, where there is no subsequent sale of the processed good by the importer</li>
+            <li>the final use of <strong>animal feed</strong> on premises located in NI by the importer.</li>
+          </ul>
     commercial_purposes:
       label_text_html: >
         The goods will be processed for <strong>commercial purposes other than those listed above</strong>

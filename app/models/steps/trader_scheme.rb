@@ -14,8 +14,8 @@ module Steps
 
     def options
       [
-        OpenStruct.new(id: 'yes', name: "Yes, I am authorised under the #{uk_internal_market_scheme}"),
-        OpenStruct.new(id: 'no', name: "No, I am not authorised under the #{uk_internal_market_scheme}"),
+        OpenStruct.new(id: 'yes', name: "Yes, I am authorised under the #{market_scheme_type}"),
+        OpenStruct.new(id: 'no', name: "No, I am not authorised under the #{market_scheme_type}"),
       ].freeze
     end
 

@@ -5,12 +5,12 @@
   <span class="govuk-caption-xl">Calculate import duties</span>
 
 
-  <%= f.govuk_collection_radio_buttons :trader_scheme, @step.options, :id, :name, legend: { text: "Are you authorised under the #{uk_internal_market_scheme}?", size: 'xl', tag: 'h1' }, hint: { text: "If you are moving goods into Northern Ireland which are for sale to, or final use by, end consumers located in the UK and you are authorised under the #{uk_internal_market_scheme}, then you may declare your goods as being 'not at risk' where the requirements are met. A 'not at risk' good entering Northern Ireland from Great Britain will not be subject to duty." }, include_hidden: true %>
+  <%= f.govuk_collection_radio_buttons :trader_scheme, @step.options, :id, :name, legend: { text: "Are you authorised under the #{market_scheme_type}?", size: 'xl', tag: 'h1' }, hint: { text: "If you are moving goods into Northern Ireland which are for sale to, or final use by, end consumers located in the UK and you are authorised under the #{market_scheme_type}, then you may declare your goods as being 'not at risk' where the requirements are met. A 'not at risk' good entering Northern Ireland from Great Britain will not be subject to duty." }, include_hidden: true %>
 
   <%= f.govuk_submit %>
 <% end %>
 
-<p class='govuk-body'>If you are not yet authorised, then you can <%= link_to("find out more about applying for authorisation for the #{uk_internal_market_scheme}", ukims_application_link, class: 'govuk-link') %>.</p>
+<p class='govuk-body'>If you are not yet authorised, then you can <%= link_to("find out more about applying for authorisation for the #{market_scheme_type}", ukims_application_link, class: 'govuk-link') %>.</p>
 
 <%= render 'shared/commodity_details' %>
 
@@ -18,7 +18,7 @@
   <h2 class="govuk-heading-m govuk-!-margin-top-3"><%= explore_topic_title %></h2>
   <ul class="govuk-list">
     <li>
-      <%= link_to("Apply for authorisation for the #{uk_internal_market_scheme}", ukims_info_url, class: 'govuk-link') %>
+      <%= link_to("Apply for authorisation for the #{market_scheme_type}", ukims_info_url, class: 'govuk-link') %>
     </li>
   </ul>
 </div>

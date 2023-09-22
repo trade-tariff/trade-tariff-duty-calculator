@@ -35,7 +35,7 @@ module InterstitialHelper
     elsif user_session.trader_scheme == 'no'
       {
         heading: t('interstitial.row_to_ni.trader_scheme.heading'),
-        body: t('interstitial.row_to_ni.trader_scheme.body_html', uk_internal_market_scheme:),
+        body: t('interstitial.row_to_ni.trader_scheme.body_html', market_scheme_type:),
       }
     elsif user_session.final_use == 'no'
       {

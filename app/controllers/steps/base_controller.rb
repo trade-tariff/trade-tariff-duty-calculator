@@ -66,7 +66,7 @@ module Steps
     end
 
     def title
-      t("page_titles.#{@step.class.try(:id)}", uk_internal_market_scheme:, default: super)
+      t("page_titles.#{@step.class.try(:id)}", default: super)
     end
 
     def with_session_tracking
