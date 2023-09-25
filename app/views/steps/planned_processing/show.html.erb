@@ -9,7 +9,7 @@
     <div class='govuk-!-margin-bottom-3' >
       <%= f.govuk_radio_button :planned_processing, 'without_any_processing', label: { text: t('planned_processing.without_any_processing.label_text_html') } %>
     </div>
-    <%= f.govuk_radio_button :planned_processing, 'commercial_processing', label: { text: t('planned_processing.commercial_processing.label_text_html') }, hint: { text: t('planned_processing.commercial_processing.hint_text_html') } %>
+    <%= f.govuk_radio_button :planned_processing, 'commercial_processing', label: { text: t('planned_processing.commercial_processing.label_text_html') }, hint: { text: commercial_processing_hint_text, commercial_processing_hint_text: commercial_processing_hint_text } %>
     <%= f.govuk_radio_button :planned_processing, 'commercial_purposes', label: { text: t('planned_processing.commercial_purposes.label_text_html') } %>
   <% end %>
 
