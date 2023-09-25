@@ -44,9 +44,9 @@ module UkimsHelper
 
   def commercial_processing_hint_text
     if after_cut_off_date?
-      t('planned_processing.commercial_purposes.hint_text.after_windsor_framework_html')
+      t('planned_processing.commercial_processing.hint_text_html.after_windsor_framework_html')
     else
-      t('planned_processing.commercial_purposes.hint_text.before_windsor_framework_html')
+      t('planned_processing.commercial_processing.hint_text_html.before_windsor_framework_html')
     end
   end
 
