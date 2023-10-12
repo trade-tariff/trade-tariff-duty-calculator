@@ -4,6 +4,8 @@ RSpec.describe UkimsHelper, :user_session do
     allow(helper).to receive(:user_session).and_return(user_session)
   end
 
+  let(:import_date) { Date.new(2023, 9, 30).strftime('%Y-%m-%d') }
+
   let(:user_session) do
     build(
       :user_session,
@@ -13,8 +15,6 @@ RSpec.describe UkimsHelper, :user_session do
 
   describe '#market_scheme_type' do
     context 'when the import date is after the cut off' do
-      let(:import_date) { Date.new(2023, 9, 30).strftime('%Y-%m-%d') }
-
       it 'returns the corect string when the import_date is after cut off date' do
         expect(helper.market_scheme_type).to eq('UK Internal Market Scheme')
       end
@@ -29,10 +29,72 @@ RSpec.describe UkimsHelper, :user_session do
     end
   end
 
+  describe '#trader_scheme_header' do
+    context 'when the import date is after the cut off' do
+      it 'returns the corect string when the import_date is after cut off date' do
+        expect(helper.trader_scheme_header).to eq('Are you authorised under the UK Internal Market Scheme - Online Tariff Duty calculator')
+      end
+    end
+
+    context 'when the import date is before the cut off' do
+      let(:import_date) { Date.new(2023, 9, 29).strftime('%Y-%m-%d') }
+
+      it 'returns the corect string when the import_date is after cut off date' do
+        expect(helper.trader_scheme_header).to eq('Were you authorised under the UK Trader Scheme (UKTS) or the UK Internal Market Scheme (UKIMS)')
+      end
+    end
+  end
+
+  describe '#trader_scheme_body' do
+    context 'when the import date is after the cut off' do
+      it 'returns the corect string when the import_date is after cut off date' do
+        expect(helper.trader_scheme_body).to include('or final use by, end consumers located in the UK and you are authorised under the UK Internal Market Scheme')
+      end
+    end
+
+    context 'when the import date is before the cut off' do
+      let(:import_date) { Date.new(2023, 9, 29).strftime('%Y-%m-%d') }
+
+      it 'returns the corect string when the import_date is after cut off date' do
+        expect(helper.trader_scheme_body).to include('or final use by, end consumers located in the UK and you were authorised under the UK Trader Scheme or the UK Internal Market Scheme')
+      end
+    end
+  end
+
+  describe '#trader_scheme_bullet_point_true' do
+    context 'when the import date is after the cut off' do
+      it 'returns the corect string when the import_date is after cut off date' do
+        expect(helper.trader_scheme_bullet_point_true).to eq('Yes, I am authorised under the UK Internal Market Scheme')
+      end
+    end
+
+    context 'when the import date is before the cut off' do
+      let(:import_date) { Date.new(2023, 9, 29).strftime('%Y-%m-%d') }
+
+      it 'returns the corect string when the import_date is after cut off date' do
+        expect(helper.trader_scheme_bullet_point_true).to eq('Yes, I was authorised under the UK Trader Scheme or UK Internal Market Scheme at the time of the trade')
+      end
+    end
+  end
+
+  describe '#trader_scheme_bullet_point_no' do
+    context 'when the import date is after the cut off' do
+      it 'returns the corect string when the import_date is after cut off date' do
+        expect(helper.trader_scheme_bullet_point_no).to eq('No, I am not authorised under the UK Internal Market Scheme')
+      end
+    end
+
+    context 'when the import date is before the cut off' do
+      let(:import_date) { Date.new(2023, 9, 29).strftime('%Y-%m-%d') }
+
+      it 'returns the corect string when the import_date is after cut off date' do
+        expect(helper.trader_scheme_bullet_point_no).to eq('No, I was not authorised under the UK Trader Scheme or UK Internal Market Scheme at the time of the trade')
+      end
+    end
+  end
+
   describe '#ukims_annual_turnover' do
     context 'when the import date is after the cut off' do
-      let(:import_date) { Date.new(2023, 9, 30).strftime('%Y-%m-%d') }
-
       it 'returns the corect string when the import_date is after cut off date' do
         expect(helper.ukims_annual_turnover).to eq('£2,000,000')
       end
@@ -47,46 +109,8 @@ RSpec.describe UkimsHelper, :user_session do
     end
   end
 
-  describe '#ukims_application_link' do
-    context 'when the import date is after the cut off' do
-      let(:import_date) { Date.new(2023, 9, 30).strftime('%Y-%m-%d') }
-
-      it 'returns the corect string when the import_date is after cut off date' do
-        expect(helper.ukims_application_link).to eq('https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-internal-market-scheme-if-you-bring-goods-into-northern-ireland')
-      end
-    end
-
-    context 'when the import date is before the cut off' do
-      let(:import_date) { Date.new(2023, 9, 29).strftime('%Y-%m-%d') }
-
-      it 'returns the corect string when the import_date is after cut off date' do
-        expect(helper.ukims_application_link).to eq('https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland-from-1-january-2021')
-      end
-    end
-  end
-
-  describe '#ukims_info_url' do
-    context 'when the import date is after the cut off' do
-      let(:import_date) { Date.new(2023, 9, 30).strftime('%Y-%m-%d') }
-
-      it 'returns the corect string when the import_date is after cut off date' do
-        expect(helper.ukims_info_url).to eq('https://www.gov.uk/government/news/windsor-framework-unveiled-to-fix-problems-of-the-northern-ireland-protocol')
-      end
-    end
-
-    context 'when the import date is before the cut off' do
-      let(:import_date) { Date.new(2023, 9, 29).strftime('%Y-%m-%d') }
-
-      it 'returns the corect string when the import_date is after cut off date' do
-        expect(helper.ukims_info_url).to eq('https://www.gov.uk/guidance/apply-for-authorisation-for-the-uk-trader-scheme-if-you-bring-goods-into-northern-ireland')
-      end
-    end
-  end
-
   describe '#explore_topic_title' do
     context 'when the import date is after the cut off' do
-      let(:import_date) { Date.new(2023, 9, 30).strftime('%Y-%m-%d') }
-
       it 'returns the corect string when the import_date is after cut off date' do
         expect(helper.explore_topic_title).to eq('Find out more about the Windsor Framework')
       end
