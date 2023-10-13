@@ -7,6 +7,8 @@
 
   <%= f.govuk_collection_radio_buttons :trader_scheme, @step.options, :id, :name, legend: { text: "#{trader_scheme_header}?", size: 'xl', tag: 'h1' }, hint: { text: "#{trader_scheme_body}" }, include_hidden: true %>
 
+  <%= internal_market_scheme_note.html_safe %>
+
   <%= f.govuk_submit %>
 <% end %>
 
