@@ -12,7 +12,7 @@ module UkimsHelper
 
   def trader_scheme_header
     if after_cut_off_date?
-      'Are you authorised under the UK Internal Market Scheme - Online Tariff Duty calculator'
+      'Are you authorised under the UK Internal Market Scheme'
     else
       'Were you authorised under the UK Trader Scheme (UKTS) or the UK Internal Market Scheme (UKIMS)'
     end
@@ -22,8 +22,19 @@ module UkimsHelper
     if after_cut_off_date?
       "If you are moving goods into Northern Ireland which are for sale to, or final use by, end consumers located in the UK and you are authorised under the UK Internal Market Scheme, then you may declare your goods as being 'not at risk' where the requirements are met. A 'not at risk' good entering Northern Ireland from Great Britain will not be subject to duty."
     else
-      "If you were moving goods into Northern Ireland which are for sale to, or final use by, end consumers located in the UK and you were authorised under the UK Trader Scheme or the UK Internal Market Scheme, then you may declare your goods as being 'not at risk' where the requirements are met. A 'not at risk' good entering Northern Ireland from Great Britain will not be subject to duty.
-       Please note that UK Internal Market scheme trades cannot benefit from expanded processing rules before 30 September 2023. Trades before this date will use the UK Trader Scheme rules on processing"
+      "If you were moving goods into Northern Ireland which are for sale to, or final use by, end consumers located in the UK and you were authorised under the UK Trader Scheme or the UK Internal Market Scheme, then you may declare your goods as being 'not at risk' where the requirements are met. A 'not at risk' good entering Northern Ireland from Great Britain will not be subject to duty."
+    end
+  end
+
+  def internal_market_scheme_note
+    if after_cut_off_date?
+      ''
+    else
+      <<NOTE
+      <p>
+      Please note that UK Internal Market scheme trades cannot benefit from expanded processing rules before 30 September 2023. Trades before this date will use the UK Trader Scheme rules on processing
+      </p>
+NOTE
     end
   end
 
