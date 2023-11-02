@@ -84,6 +84,10 @@ class UserSession
     end
   end
 
+  def can_redirect_to_start?
+    commodity_code.present? && referred_service.present?
+  end
+
   def remove_step_ids(ids)
     ids.map { |id| session['answers'].delete(id) } unless ids.empty?
   end

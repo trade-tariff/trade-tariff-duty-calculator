@@ -46,14 +46,15 @@ module Steps
 
     def handle_exception(exception)
       with_session_tracking do
-        raise exception
+        Sentry.capture_exception(exception)
+        redirect_to_start
       end
     end
 
     def handle_session_integrity_error(exception)
       with_session_tracking do
         Sentry.capture_exception(exception)
-        redirect_to sections_url, allow_other_host: true
+        redirect_to_start
       end
     end
 
@@ -72,6 +73,14 @@ module Steps
     def with_session_tracking
       Sentry.set_user(user_session.session.to_h.except('_csrf_token'))
       yield
+    end
+
+    def redirect_to_start
+      if user_session.can_redirect_to_start?
+        redirect_to import_date_path(referred_service: user_session.referred_service, commodity_code: user_session.commodity_code)
+      else
+        redirect_to sections_url, allow_other_host: true
+      end
     end
   end
 end
