@@ -257,51 +257,6 @@ jobs:
           event: fail
           template: basic_fail_1
 
-  deploy-dev:
-    docker:
-      - image: cimg/ruby:3.2.2
-    environment:
-      SENTRY_ENVIRONMENT: "development"
-    steps:
-      - queue/until_front_of_line:
-          time: "10"
-          consider-branch: false
-          dont-quit: true
-      - cf-deploy-docker:
-          docker_tag: dev-$CIRCLE_SHA1
-          space: "development"
-          environment_key: "dev"
-          app_domain_prefix: "dev"
-      - tariff/sentry-release:
-          environment: development
-
-  deploy-main-to-staging:
-    docker:
-      - image: cimg/ruby:3.2.2
-    environment:
-      SENTRY_ENVIRONMENT: "staging"
-    steps:
-      - queue/until_front_of_line:
-          time: "10"
-          dont-quit: true
-      - cf-deploy-docker:
-          docker_tag: $CIRCLE_SHA1
-          space: "staging"
-          environment_key: "staging"
-          app_domain_prefix: "staging"
-      - tariff/sentry-release:
-          environment: staging
-
-  deploy-release-to-staging:
-    docker:
-      - image: cimg/ruby:3.2.2
-    steps:
-      - cf-deploy-docker:
-          docker_tag: $CIRCLE_TAG
-          space: "staging"
-          environment_key: "staging"
-          app_domain_prefix: "staging"
-
   deploy-production:
     docker:
       - image: cimg/ruby:3.2.2
@@ -355,28 +310,12 @@ workflows:
             - fmt-terraform-dev
           <<: *filter-not-main
 
-      - build:
-          name: build-dev
-          context: trade-tariff
-          dev-build: true
-          requires:
-            - test
-          <<: *filter-not-main
-
       - tariff/build-and-push:
           name: build-and-push-dev
           context: trade-tariff-terraform-aws-development
           environment: development
           image_name: tariff-duty-calculator
           ssm_parameter: "/development/DUTY_CALCULATOR_ECR_URL"
-          <<: *filter-not-main
-
-      - deploy-dev:
-          context: trade-tariff
-          requires:
-            - test
-            - ruby-checks
-            - build-dev
           <<: *filter-not-main
 
       - apply-terraform:
@@ -395,7 +334,7 @@ workflows:
           url: https://dev.trade-tariff.service.gov.uk
           yarn_run: dev-tariff-duty-calculator-smoketests
           requires:
-            - deploy-dev
+            - apply-terraform-dev
           <<: *filter-not-main
 
   deploy-to-staging:
@@ -411,11 +350,6 @@ workflows:
           requires:
             - write-docker-tag-staging
           <<: *filter-not-main
-
-      - build:
-          name: build-live
-          context: trade-tariff
-          <<: *filter-main
 
       - tariff/build-and-push:
           name: build-and-push-live
@@ -435,18 +369,12 @@ workflows:
             - build-and-push-live
           <<: *filter-main
 
-      - deploy-main-to-staging:
-          context: trade-tariff
-          requires:
-            - build-live
-          <<: *filter-main
-
       - tariff/smoketests:
           context: trade-tariff
           url: https://staging.trade-tariff.service.gov.uk
           yarn_run: staging-tariff-duty-calculator-smoketests
           requires:
-            - deploy-main-to-staging
+            - apply-terraform-staging
           <<: *filter-main
 
   deploy-to-production:
