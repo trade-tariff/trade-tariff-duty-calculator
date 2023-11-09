@@ -379,6 +379,11 @@ workflows:
 
   deploy-to-production:
     jobs:
+      - build:
+          name: build-live
+          context: trade-tariff
+          <<: *filter-main
+
       - write-docker-tag:
           name: write-docker-tag-prod
           environment: production
@@ -402,16 +407,9 @@ workflows:
             - promote-to-production?
           <<: *filter-main
 
-      - build:
-          name: build-live
-          context: trade-tariff
-          <<: *filter-release
-
       - deploy-production:
           context: trade-tariff
           <<: *filter-release
-          requires:
-            - build-live
 
       - write-docker-tag:
           name: write-docker-tag-prod-release
