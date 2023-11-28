@@ -80,5 +80,9 @@ module "service" {
       name      = "SECRET_KEY_BASE"
       valueFrom = data.aws_secretsmanager_secret.duty_calculator_secret_key_base.arn
     },
+    {
+      name      = "SENTRY_DSN"
+      valueFrom = data.aws_secretsmanager_secret.sentry_dsn.arn
+    },
   ]
 }
