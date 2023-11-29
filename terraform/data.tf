@@ -25,6 +25,10 @@ data "aws_secretsmanager_secret" "duty_calculator_secret_key_base" {
   name = "duty-calculator-secret-key-base"
 }
 
+data "aws_secretsmanager_secret" "sentry_dsn" {
+  name = "duty-calculator-sentry-dsn"
+}
+
 data "aws_kms_key" "secretsmanager_key" {
   key_id = "alias/secretsmanager-key"
 }
