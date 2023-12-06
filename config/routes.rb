@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: proc { [404, {}, ['Not found.']] }
+  root to: proc { [404, {'Content-Type' => 'text/html'}, ['Not found.']] }
 
   get 'healthcheckz', to: 'healthcheck#checkz'
 
