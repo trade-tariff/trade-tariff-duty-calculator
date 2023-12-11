@@ -180,7 +180,7 @@ workflows:
           <<: *filter-not-main
 
       - test:
-          context: trade-tariff-testing
+          context: trade-tariff-notifications
           <<: *filter-not-main
 
       - write-docker-tag:
