@@ -1,3 +1,5 @@
+require 'active_record/attribute_assignment'
+
 module Steps
   class ImportDate < Steps::Base
     include ActiveRecord::AttributeAssignment
