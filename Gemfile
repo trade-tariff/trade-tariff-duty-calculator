@@ -3,11 +3,7 @@ source 'https://rubygems.org'
 ruby File.read('.ruby-version').chomp
 
 gem 'rails', '~> 7.1'
-# gem 'actionpack', '~> 7'
-# gem 'actionview', '~> 7'
-# gem 'activemodel', '~> 7'
-# gem 'activerecord', '~> 7'
-# gem 'activesupport', '~> 7.1'
+
 gem 'bootsnap', require: false
 gem 'foreman'
 gem 'govspeak'
@@ -15,7 +11,6 @@ gem 'govuk_design_system_formbuilder'
 gem 'lograge'
 gem 'logstash-event'
 gem 'puma'
-# gem 'railties', '~> 7'
 gem 'sentry-rails'
 gem 'uktt', git: 'https://github.com/trade-tariff/uktt.git'
 gem 'webpacker'
