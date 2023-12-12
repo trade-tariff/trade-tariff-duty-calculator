@@ -162,6 +162,15 @@ jobs:
           event: fail
           template: basic_fail_1
 
+  notify-production-deployment:
+    docker:
+      - image: cimg/ruby:3.2.2
+    steps:
+      - tariff/notify-production-release:
+          app-name: Duty Calculator
+          slack-channel: trade_tariff
+          release-tag: $CIRCLE_TAG
+
 workflows:
   version: 2
 
@@ -171,7 +180,7 @@ workflows:
           <<: *filter-not-main
 
       - test:
-          context: trade-tariff
+          context: trade-tariff-notifications
           <<: *filter-not-main
 
       - write-docker-tag:
@@ -257,7 +266,7 @@ workflows:
           <<: *filter-main
 
       - tariff/smoketests:
-          context: trade-tariff
+          context: trade-tariff-testing
           url: https://staging.trade-tariff.service.gov.uk
           yarn_run: staging-tariff-duty-calculator-smoketests
           requires:
@@ -283,7 +292,7 @@ workflows:
           <<: *filter-main
 
       - tariff/create-production-release:
-          context: trade-tariff
+          context: trade-tariff-releases
           image-name: tariff-dutycalculator
           requires:
             - promote-to-production?
@@ -300,4 +309,10 @@ workflows:
           environment: production
           requires:
             - write-docker-tag-prod-release
+          <<: *filter-release
+
+      - notify-production-deployment:
+          context: trade-tariff-releases
+          requires:
+            - apply-terraform-prod
           <<: *filter-release
