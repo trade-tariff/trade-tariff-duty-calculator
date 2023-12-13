@@ -97,6 +97,7 @@ en:
           vatz: Zero rate
           vatr: Reduced rate
           vat: Standard rate
+        autonomous: "-"
       heading:
         third_country_tariff:
           third_country_tariff: "Option %{option_no}: Third-country duty"
