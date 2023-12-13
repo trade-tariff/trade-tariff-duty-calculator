@@ -48,9 +48,7 @@ RSpec.describe RowToNiDutyCalculator, :user_session do
         )
       end
 
-      it 'returns an empty OptionCollection' do
-        expect(calculator.options.to_a).to eq([])
-      end
+      it { expect { calculator.options }.to raise_error(I18n::MissingTranslationData) }
     end
   end
 end

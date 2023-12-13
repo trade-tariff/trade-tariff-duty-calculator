@@ -1247,3 +1247,7 @@ en:
           <p class="govuk-body">
             The UK quota %{uk_only_text} is not available, as the difference between the UK quota duty and the EU third-country duty exceeds 3% of the customs value of your trade.
           </p>
+      xi_only:
+        xi_html: "-"
+      uk_html: "-"
+      xi_html: "-"
