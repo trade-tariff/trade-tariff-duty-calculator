@@ -628,6 +628,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionpack (~> 7.1)
+  actionview (~> 7.1)
+  activemodel (~> 7.1)
+  activerecord (~> 7.1)
+  activesupport (~> 7.1)
   bootsnap
   brakeman
   dotenv-rails
@@ -642,8 +647,8 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   puma
-  rails (~> 7.1)
   rails-controller-testing
+  railties (~> 7.1)
   rspec-rails
   rspec_junit_formatter
   rubocop-govuk

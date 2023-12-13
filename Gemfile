@@ -2,7 +2,12 @@ source 'https://rubygems.org'
 
 ruby File.read('.ruby-version').chomp
 
-gem 'rails', '~> 7.1'
+gem 'actionpack', '~> 7.1'
+gem 'actionview', '~> 7.1'
+gem 'activemodel', '~> 7.1'
+gem 'activerecord', '~> 7.1'
+gem 'activesupport', '~> 7.1'
+gem 'railties', '~> 7.1'
 
 gem 'bootsnap', require: false
 gem 'foreman'
