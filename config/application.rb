@@ -46,6 +46,5 @@ module TradeTariffDutyCalculator
     config.exceptions_app            = routes
     config.trade_tariff_frontend_url = ENV['TRADE_TARIFF_FRONTEND_URL']
     config.duty_calculator_host      = ENV.fetch('DUTY_CALCULATOR_HOST', 'http://localhost')
-
   end
 end

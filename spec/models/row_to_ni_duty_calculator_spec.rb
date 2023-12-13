@@ -48,9 +48,7 @@ RSpec.describe RowToNiDutyCalculator, :user_session do
         )
       end
 
-      it 'raises a missing transation exception' do
-        expect { calculator.options.to_a }.to raise_error(I18n::MissingTranslationData)
-      end
+      it { expect { calculator.options }.to raise_error(I18n::MissingTranslationData) }
     end
   end
 end
