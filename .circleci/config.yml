@@ -293,7 +293,7 @@ workflows:
 
       - tariff/create-production-release:
           context: trade-tariff-releases
-          image-name: tariff-dutycalculator
+          image-name: tariff-duty-calculator-production
           requires:
             - promote-to-production?
           <<: *filter-main
