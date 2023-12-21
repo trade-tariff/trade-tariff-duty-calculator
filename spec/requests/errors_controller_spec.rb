@@ -67,7 +67,7 @@ RSpec.describe ErrorsController, type: :request do
   describe 'GET /404' do
     let(:make_request) { get '/404' }
 
-    it { expect(body).to include "The page you were looking for does not exist." }
+    it { expect(body).to include 'The page you were looking for does not exist.' }
   end
 
   describe 'GET /406' do
@@ -90,7 +90,7 @@ RSpec.describe ErrorsController, type: :request do
 
   describe 'GET #501' do
     let(:make_request) { get '/501' }
-    
+
     it { expect(body).to include 'Not implemented' }
   end
 end
