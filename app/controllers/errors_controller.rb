@@ -3,7 +3,6 @@ class ErrorsController < ApplicationController
 
   helper_method :user_session
 
-  # /400
   def bad_request
     message = "The request you made is not valid.<br>
                Please contact support for assistance or try a different request.".html_safe
@@ -15,7 +14,6 @@ class ErrorsController < ApplicationController
     end
   end
 
-  # /404
   def not_found
     message = 'You may have mistyped the address or the page may have moved.'
 
@@ -26,7 +24,6 @@ class ErrorsController < ApplicationController
     end
   end
 
-  # /405
   def method_not_allowed
     message = "We're sorry, but this request method is not supported.<br>
                 Please contact support for assistance or try a different request.".html_safe
@@ -38,7 +35,6 @@ class ErrorsController < ApplicationController
     end
   end
 
-  # /406
   def not_acceptable
     message = "Unfortunately, we cannot fulfill your request as it is not in a format we can accept.<br>
                 Please contact support for assistance or try a different request.".html_safe
@@ -50,7 +46,6 @@ class ErrorsController < ApplicationController
     end
   end
 
-  # /422
   def unprocessable_entity
     message = "Maybe you tried to change something you didn't have access to."
 
@@ -64,7 +59,6 @@ class ErrorsController < ApplicationController
     end
   end
 
-  # /500
   def internal_server_error
     message = 'We could not proceed with calculating your duty.'
 
@@ -78,7 +72,6 @@ class ErrorsController < ApplicationController
     end
   end
 
-  # /501
   def not_implemented
     message = 'We\'re sorry, but the requested action is not supported by our server at this time.<br>
                Please contact support for assistance or try a different request.'.html_safe

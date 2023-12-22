@@ -12,8 +12,6 @@ RSpec.describe ErrorsController, type: :request do
     it { expect(json_response).to include 'error' => message }
   end
 
-  # Tests Json error responses
-
   describe 'GET /400.json' do
     let(:make_request) { get '/400.json' }
 
@@ -55,8 +53,6 @@ RSpec.describe ErrorsController, type: :request do
 
     it_behaves_like 'a json error response', 501, 'Not implemented'
   end
-
-  # Test html error responses
 
   describe 'GET /400' do
     let(:make_request) { get '/400' }
