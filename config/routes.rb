@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: proc { [404, {'Content-Type' => 'text/html'}, ['Not found.']] }
+  root to: proc { [404, { 'Content-Type' => 'text/html' }, ['Not found.']] }
 
   get 'healthcheckz', to: 'healthcheck#checkz'
 
@@ -64,7 +64,11 @@ Rails.application.routes.draw do
     get 'prefill', to: 'steps/prefill_user_session#show'
   end
 
+  get '400', to: 'errors#bad_request', via: :all
   get '404', to: 'errors#not_found', via: :all
+  get '405', to: 'errors#method_not_allowed', via: :all
+  get '406', to: 'errors#not_acceptable', via: :all
   get '422', to: 'errors#unprocessable_entity', via: :all
   get '500', to: 'errors#internal_server_error', via: :all
+  get '501', to: 'errors#not_implemented', via: :all
 end
