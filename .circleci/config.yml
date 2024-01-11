@@ -123,7 +123,7 @@ jobs:
 
   ruby-checks:
     docker:
-      - image: cimg/ruby:3.2.2-node
+      - image: cimg/ruby:3.3.0-node
     steps:
       - checkout
       - ruby/install-deps
@@ -142,7 +142,7 @@ jobs:
 
   test:
     docker:
-      - image: cimg/ruby:3.2.2-node
+      - image: cimg/ruby:3.3.0-node
         environment:
           BUNDLE_JOBS: "3"
           BUNDLE_RETRY: "3"
@@ -164,7 +164,7 @@ jobs:
 
   notify-production-deployment:
     docker:
-      - image: cimg/ruby:3.2.2
+      - image: cimg/ruby:3.3.0
     steps:
       - tariff/notify-production-release:
           app-name: Duty Calculator
