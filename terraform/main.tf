@@ -42,20 +42,12 @@ module "service" {
       value = "true"
     },
     {
-      name  = "NEW_RELIC_APP_NAME"
-      value = "tariff-${local.service}-${var.environment}"
+      name  = "GOVUK_APP_DOMAIN"
+      value = "${local.govuk_app_domain}.london.cloudapps.digital"
     },
     {
-      name  = "NEW_RELIC_ENV"
-      value = var.environment
-    },
-    {
-      name  = "NEW_RELIG_LOG"
-      value = "stdout"
-    },
-    {
-      name  = "NEW_RELIC_DISTRIBUTED_TRACING"
-      value = "false"
+      name  = "GOVUK_WEBSITE_ROOT"
+      value = "https://www.gov.uk"
     },
     {
       name  = "RAILS_ENV"
