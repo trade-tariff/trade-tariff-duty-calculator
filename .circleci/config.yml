@@ -5,7 +5,6 @@ filter-not-main: &filter-not-main
     branches:
       ignore:
         - main
-        - /^dependabot/(?!docker/).*/
         - /^hotfix\/.+/
 
 filter-main: &filter-main
@@ -214,14 +213,20 @@ workflows:
           ssm_parameter: "/development/DUTY_CALCULATOR_ECR_URL"
           <<: *filter-not-main
 
+      - confirm-deploy-for-qa?:
+          type: approval
+          requires:
+            - test
+            - plan-terraform-dev
+            - build-and-push-dev
+          <<: *filter-not-main
+
       - apply-terraform:
           name: apply-terraform-dev
           context: trade-tariff-terraform-aws-development
           environment: development
           requires:
-            - test
-            - plan-terraform-dev
-            - build-and-push-dev
+            - confirm-deploy-for-qa?
           <<: *filter-not-main
 
       - tariff/smoketests:
