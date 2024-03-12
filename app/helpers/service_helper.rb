@@ -48,8 +48,12 @@ module ServiceHelper
     service_url_for("/commodities/#{commodity_code}")
   end
 
-  def feedback_url
-    service_url_for('/feedback')
+  def feedback_url(choice = nil)
+    if choice && %w[yes no].include?(choice)
+      service_url_for("/feedback?page_useful=#{choice}")
+    else
+      service_url_for('/feedback')
+    end
   end
 
   def trade_tariff_frontend_url
