@@ -134,6 +134,35 @@ RSpec.describe ServiceHelper, :user_session do
     end
   end
 
+  describe '#feedback_url' do
+    context 'when choice is nil' do
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
+
+      it { expect(helper.feedback_url).to eq('https://dev.trade-tariff.service.gov.uk/feedback') }
+    end
+
+    context 'when choice is no' do
+      let(:choice) { 'no' }
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
+
+      it { expect(helper.feedback_url(choice)).to eq("https://dev.trade-tariff.service.gov.uk/feedback?page_useful=#{choice}") }
+    end
+
+    context 'when choice is yes' do
+      let(:choice) { 'yes' }
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
+
+      it { expect(helper.feedback_url(choice)).to eq("https://dev.trade-tariff.service.gov.uk/feedback?page_useful=#{choice}") }
+    end
+
+    context 'when choice is invalid' do
+      let(:choice) { 'invalid' }
+      let(:frontend_url) { 'https://dev.trade-tariff.service.gov.uk' }
+
+      it { expect(helper.feedback_url(choice)).to eq('https://dev.trade-tariff.service.gov.uk/feedback') }
+    end
+  end
+
   describe '#referred_service' do
     subject(:result) { helper.referred_service }
 

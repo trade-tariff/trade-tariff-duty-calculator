@@ -51,10 +51,10 @@
         <div class="govuk-phase-banner">
           <p class="govuk-phase-banner__content">
             <strong class="govuk-tag govuk-phase-banner__content__tag">
-            beta
+            FEEDBACK
             </strong>
             <span class="govuk-phase-banner__text">
-            This is a Beta service - your <%= link_to('feedback', feedback_url, class:'govuk-link') %> will help us to improve it.
+            Tell us what you think - your <%= link_to('feedback', feedback_url, class:'govuk-link') %>  will help us improve.
             </span>
           </p>
         </div>
@@ -67,6 +67,8 @@
         </main>
       </div>
     </div>
+
+    <%= render 'shared/feedback_useful_banner' %>
 
     <footer class="govuk-footer " role="contentinfo">
       <div class="govuk-width-container ">
