@@ -1,4 +1,4 @@
-require.context('govuk-frontend/govuk/assets');
+require.context('govuk-frontend/dist/govuk/assets');
 
 import '../styles/application.scss';
 import Rails from 'rails-ujs';
