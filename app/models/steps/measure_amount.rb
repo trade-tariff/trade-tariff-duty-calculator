@@ -52,7 +52,7 @@ module Steps
       @attributes = attributes
       @answers = attributes['measure_amount']
       @applicable_measure_units = attributes['applicable_measure_units']
-      @applicable_measure_units.each do |key, _values|
+      @applicable_measure_units.each_key do |key|
         key = key.downcase
 
         define_singleton_method(key) do

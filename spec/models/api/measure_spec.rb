@@ -93,7 +93,7 @@ RSpec.describe Api::Measure, :user_session do
   describe '#evaluator_for_compound_component' do
     subject(:measure) { described_class.new({}) }
 
-    let(:component) { instance_double('Api::MeasureComponent') }
+    let(:component) { instance_double(Api::MeasureComponent) }
     let(:ad_valorem) { false }
     let(:specific_duty) { false }
     let(:retail_price) { false }
@@ -102,12 +102,7 @@ RSpec.describe Api::Measure, :user_session do
     let(:spq) { false }
 
     before do
-      allow(component).to receive(:ad_valorem?).and_return(ad_valorem)
-      allow(component).to receive(:specific_duty?).and_return(specific_duty)
-      allow(component).to receive(:retail_price?).and_return(retail_price)
-      allow(component).to receive(:alcohol_volume?).and_return(alcohol_volume)
-      allow(component).to receive(:sucrose?).and_return(sucrose)
-      allow(component).to receive(:spq?).and_return(spq)
+      allow(component).to receive_messages(ad_valorem?: ad_valorem, specific_duty?: specific_duty, retail_price?: retail_price, alcohol_volume?: alcohol_volume, sucrose?: sucrose, spq?: spq)
     end
 
     shared_examples_for 'a compound measure evaluator' do |expected_evaluator|
@@ -289,7 +284,7 @@ RSpec.describe Api::Measure, :user_session do
       let(:vat) { false }
 
       it 'returns nil' do
-        expect(measure.vat_type).to be nil
+        expect(measure.vat_type).to be_nil
       end
     end
 

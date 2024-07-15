@@ -32,9 +32,7 @@ RSpec.configure do |config|
   end
 
   config.before :each, :user_session do
-    allow(UserSession).to receive(:build).and_return(user_session)
-    allow(UserSession).to receive(:build_from_params).and_return(user_session)
-    allow(UserSession).to receive(:get).and_return(user_session)
+    allow(UserSession).to receive_messages(build: user_session, build_from_params: user_session, get: user_session)
   end
 end
 
