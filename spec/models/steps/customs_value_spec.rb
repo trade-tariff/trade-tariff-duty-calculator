@@ -304,8 +304,7 @@ RSpec.describe Steps::CustomsValue, :step, :user_session do
       let(:applicable_vat_options) { {} }
 
       before do
-        allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(applicable_additional_codes)
-        allow(filtered_commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
+        allow(filtered_commodity).to receive_messages(applicable_additional_codes:, applicable_vat_options:)
       end
 
       context 'when there are applicable additional codes available' do

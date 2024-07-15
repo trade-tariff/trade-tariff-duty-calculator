@@ -34,7 +34,7 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
   describe '#meursing_code?' do
     subject(:commodity) { described_class.new(meursing_code: false) }
 
-    it { expect(commodity.meursing_code?).to eq(false) }
+    it { expect(commodity.meursing_code?).to be(false) }
   end
 
   describe '#description' do
@@ -203,7 +203,7 @@ RSpec.describe Api::Commodity, :user_session, type: :model do
   end
 
   describe '#applicable_excise_measures' do
-    it { expect(commodity.applicable_excise_measures.all?(:excise)).to eq(true) }
+    it { expect(commodity.applicable_excise_measures.all?(:excise)).to be(true) }
   end
 
   describe '#applicable_excise_measure_units' do

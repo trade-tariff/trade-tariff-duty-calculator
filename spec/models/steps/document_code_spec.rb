@@ -19,9 +19,7 @@ RSpec.describe Steps::DocumentCode, :step, :user_session do
 
   before do
     allow(Api::Commodity).to receive(:build).and_return(filtered_commodity)
-    allow(filtered_commodity).to receive(:applicable_additional_codes).and_return(additional_codes)
-    allow(filtered_commodity).to receive(:stopping_conditions_met?).and_return(stopping_conditions_met)
-    allow(filtered_commodity).to receive(:applicable_vat_options).and_return(applicable_vat_options)
+    allow(filtered_commodity).to receive_messages(applicable_additional_codes: additional_codes, stopping_conditions_met?: stopping_conditions_met, applicable_vat_options:)
   end
 
   describe 'STEPS_TO_REMOVE_FROM_SESSION' do

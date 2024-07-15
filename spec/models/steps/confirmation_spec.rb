@@ -3,7 +3,7 @@ RSpec.describe Steps::Confirmation, :step, :user_session do
 
   let(:filtered_commodity) do
     instance_double(
-      'Api::Commodity',
+      Api::Commodity,
       applicable_additional_codes:,
       applicable_vat_options:,
     )
@@ -45,7 +45,7 @@ RSpec.describe Steps::Confirmation, :step, :user_session do
       it { expect(step.previous_step_path).to eq(vat_path) }
     end
 
-    context 'when there us just one  applicable vat option available' do
+    context 'when there us just one applicable vat option available' do
       let(:applicable_vat_options) do
         {
           'VATZ' => 'flibble',

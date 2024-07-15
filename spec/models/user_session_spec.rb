@@ -27,7 +27,7 @@ RSpec.describe UserSession do
     subject(:user_session) { build(:user_session) }
 
     it 'returns nil if the key is not on the session' do
-      expect(user_session.import_date).to be nil
+      expect(user_session.import_date).to be_nil
     end
 
     context 'when the key is present on the session' do

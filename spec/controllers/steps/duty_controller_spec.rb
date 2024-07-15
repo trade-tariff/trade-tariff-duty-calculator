@@ -5,7 +5,7 @@ RSpec.describe Steps::DutyController, :user_session do
   end
 
   let(:user_session) { build(:user_session, import_destination: 'XI', commodity_code: '0103921100', country_of_origin: 'AF') }
-  let(:duty_calculator) { instance_double('DutyCalculator', options: []) }
+  let(:duty_calculator) { instance_double(DutyCalculator, options: []) }
 
   describe 'GET #show' do
     subject(:response) { get :show }
@@ -40,7 +40,7 @@ RSpec.describe Steps::DutyController, :user_session do
 
     context 'when on ROW to NI' do
       let(:user_session) { build(:user_session, :with_commodity_information, :deltas_applicable, commodity_code: '0103921100') }
-      let(:row_to_ni_duty_calculator) { instance_double('RowToNiDutyCalculator', options: []) }
+      let(:row_to_ni_duty_calculator) { instance_double(RowToNiDutyCalculator, options: []) }
 
       it 'calls the RowToNiDutyCalculator' do
         allow(RowToNiDutyCalculator).to receive(:new).and_return(row_to_ni_duty_calculator)

@@ -154,7 +154,7 @@ RSpec.describe CommodityHelper, :user_session do
   end
 
   describe '#applicable_meursing_codes?' do
-    it { expect(helper.applicable_meursing_codes?).to eq(true) }
+    it { expect(helper.applicable_meursing_codes?).to be(true) }
 
     it 'passes xi to the Commodity builder' do
       helper.applicable_meursing_codes?
