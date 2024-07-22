@@ -227,7 +227,7 @@ GEM
     mini_portile2 (2.8.7)
     minitest (5.24.1)
     msgpack (1.7.2)
-    multipart-post (2.3.0)
+    multipart-post (2.4.1)
     mutex_m (0.2.0)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
@@ -652,7 +652,7 @@ DEPENDENCIES
   listen
   lograge
   logstash-event
-  multipart-post (= 2.3.0)
+  multipart-post (= 2.4.1)
   pry-byebug
   pry-rails
   puma
