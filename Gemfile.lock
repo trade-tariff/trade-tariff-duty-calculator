@@ -241,7 +241,7 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.3)
-    nokogiri (1.16.6)
+    nokogiri (1.16.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     opentelemetry-api (1.2.5)
@@ -589,10 +589,10 @@ GEM
     scss_lint-govuk (0.2.0)
       scss_lint
     semantic_range (3.0.0)
-    sentry-rails (5.18.1)
+    sentry-rails (5.18.2)
       railties (>= 5.0)
-      sentry-ruby (~> 5.18.1)
-    sentry-ruby (5.18.1)
+      sentry-ruby (~> 5.18.2)
+    sentry-ruby (5.18.2)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shoulda-matchers (6.2.0)
