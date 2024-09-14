@@ -28,6 +28,7 @@ group :development, :test do
 end
 group :development do
   gem 'listen'
+  gem 'solargraph'
   gem 'spring'
   gem 'spring-watcher-listen'
   gem 'web-console'
