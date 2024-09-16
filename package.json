@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@rails/webpacker": "^5.4.4",
-    "accessible-autocomplete": "^3.0.0",
+    "accessible-autocomplete": "^3.0.1",
     "govuk-frontend": "5.4.1",
     "rails-ujs": "^5.2.8",
     "serialize-javascript": "^6.0.2",
