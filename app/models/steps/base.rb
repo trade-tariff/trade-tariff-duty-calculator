@@ -9,7 +9,11 @@ module Steps
     STEPS_TO_REMOVE_FROM_SESSION = [].freeze
 
     def initialize(attributes = {})
-      clean_user_session if attributes.except(:measure_type_id).empty?
+      attributes = HashWithIndifferentAccess.new(attributes)
+
+      if attributes.except(:measure_type_id, :"import_date(3i)", :"import_date(2i)", :"import_date(1i)").empty?
+        clean_user_session
+      end
 
       super(attributes)
     end

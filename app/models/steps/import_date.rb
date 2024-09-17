@@ -25,7 +25,6 @@ module Steps
 
     def initialize(attributes = {})
       check_attributes_validity(attributes)
-
       super
     end
 
