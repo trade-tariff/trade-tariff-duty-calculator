@@ -37,3 +37,5 @@ yarn-debug.log*
 dump.rdb
 
 .nvimlog
+
+.direnv

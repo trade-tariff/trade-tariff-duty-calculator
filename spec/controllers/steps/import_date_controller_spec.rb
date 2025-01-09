@@ -17,6 +17,27 @@ RSpec.describe Steps::ImportDateController, :user_session do
     it { expect { response }.to change(user_session, :commodity_source).from(nil).to(referred_service) }
     it { expect { response }.to change(user_session, :referred_service).from(nil).to(referred_service) }
     it { expect { response }.to change(user_session, :country_of_origin).from('GB').to(nil) }
+    it { expect { response }.to change(user_session, :import_date).from(nil).to(Time.zone.today) }
+
+    context 'when the url path includes a day, month, year' do
+      subject(:response) do
+        get :show, params: {
+          commodity_code:,
+          referred_service:,
+          day:,
+          month:,
+          year:,
+        }
+      end
+
+      let(:day) { '12' }
+      let(:month) { '12' }
+      let(:year) { 1.year.from_now.year.to_s }
+
+      let(:expected) { Date.new(year.to_i, month.to_i, day.to_i) }
+
+      it { expect { response }.to change(user_session, :import_date).from(nil).to(expected) }
+    end
   end
 
   describe 'POST #create' do

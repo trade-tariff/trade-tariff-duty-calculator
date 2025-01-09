@@ -136,7 +136,7 @@ RSpec.describe Steps::MeasureAmount, :step, :user_session do
     it 'saves the measure_amount to the session' do
       step.save
 
-      expect(user_session.measure_amount).to eq(measure_amount)
+      expect(user_session.measure_amount.to_unsafe_hash).to eq(measure_amount)
     end
   end
 
