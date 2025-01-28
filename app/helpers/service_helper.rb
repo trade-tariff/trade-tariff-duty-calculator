@@ -68,6 +68,10 @@ module ServiceHelper
     params_referred_service.presence || session_referred_service.presence || DEFAULT_REFERRED_SERVICE
   end
 
+  def google_tag_manager_container_id
+    @google_tag_manager_container_id ||= ENV.fetch('GOOGLE_TAG_MANAGER_CONTAINER_ID', '')
+  end
+
   private
 
   def service_url_for(path)

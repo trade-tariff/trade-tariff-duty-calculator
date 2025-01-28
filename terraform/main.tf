@@ -64,7 +64,11 @@ module "service" {
     {
       name  = "TRADE_TARIFF_FRONTEND_URL"
       value = "https://${var.base_domain}"
-    }
+    },
+    {
+      name  = "GOOGLE_TAG_MANAGER_CONTAINER_ID"
+      value = var.google_tag_manager_container_id
+    },
   ]
 
   service_secrets_config = [

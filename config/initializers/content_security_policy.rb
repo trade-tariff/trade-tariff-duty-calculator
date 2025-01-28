@@ -8,7 +8,7 @@ Rails.application.configure do
     policy.font_src    :self, :data
     policy.img_src     :self, :data
     policy.object_src  :none
-    policy.script_src  :self
+    policy.script_src  :self, :https, 'https://www.googletagmanager.com'
     # policy.style_src   :self
     # Specify URI for violation reports
     policy.report_uri ENV['SENTRY_CSP_ENDPOINT'] if ENV['SENTRY_CSP_ENDPOINT'].present?

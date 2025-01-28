@@ -6,7 +6,8 @@
     "rails-ujs": "^5.2.8",
     "serialize-javascript": "^6.0.2",
     "set-value": "^4.1.0",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "js-cookie": "^3.0.5"
   },
   "license": "MIT"
 }

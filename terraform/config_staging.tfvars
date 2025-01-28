@@ -6,3 +6,4 @@ memory        = 2048
 service_count = 3
 min_capacity  = 2
 max_capacity  = 5
+google_tag_manager_container_id = "GTM-M48MSVMQ"
