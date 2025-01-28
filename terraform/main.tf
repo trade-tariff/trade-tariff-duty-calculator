@@ -68,7 +68,7 @@ module "service" {
     {
       name  = "GOOGLE_TAG_MANAGER_CONTAINER_ID"
       value = var.google_tag_manager_container_id
-    },
+    }
   ]
 
   service_secrets_config = [
