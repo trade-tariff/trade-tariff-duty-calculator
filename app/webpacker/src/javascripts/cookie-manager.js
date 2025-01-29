@@ -10,36 +10,15 @@ export default class CookieManager {
   }
 
   rememberSettings() {
-    if (this.getCookiesPolicy()) {
-      const rememberSettings = this.getCookiesPolicy().remember_settings;
-
-      if (rememberSettings === 'true') {
-        return true;
-      } else if (rememberSettings === 'false') {
-        return false;
-      } else {
-        return rememberSettings;
-      }
-    } else {
-      return false;
-    }
+    const rememberSettings = this.getCookiesPolicy()?.remember_settings;
+    return rememberSettings === 'true' ? true : rememberSettings === 'false' ? false : rememberSettings || false;
   }
-
+  
   usage() {
-    if (this.getCookiesPolicy()) {
-      const usage = this.getCookiesPolicy().usage;
-
-      if (usage === 'true') {
-        return true;
-      } else if (usage === 'false') {
-        return false;
-      } else {
-        return usage;
-      }
-    } else {
-      return false;
-    }
+    const usage = this.getCookiesPolicy()?.usage;
+    return usage === 'true' ? true : usage === 'false' ? false : usage || false;
   }
+  
 
   shouldOpenTree() {
     if (this.getCookiesTreeOpenClosedDefault()) {
