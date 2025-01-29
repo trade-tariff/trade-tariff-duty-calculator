@@ -1,104 +1,47 @@
 {
-  description = "trade-tariff-duty-calculator";
-
-  nixConfig = {
-    extra-substituters = "https://nixpkgs-ruby.cachix.org";
-    extra-trusted-public-keys = "nixpkgs-ruby.cachix.org-1:vrcdi50fTolOxWCZZkw0jakOnUI1T19oYJ+PRYdK4SM=";
-  };
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?rev=205fd4226592cc83fd4c0885a3e4c9c400efabb5"; # 
-    ruby-nix.url = "github:inscapist/ruby-nix";
-    # a fork that supports platform dependant gem
-    bundix = {
-      url = "github:inscapist/bundix/main";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs-ruby = {
+      url = "github:bobvanderlinden/nixpkgs-ruby";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
-    fu.url = "github:numtide/flake-utils";
-    bob-ruby.url = "github:bobvanderlinden/nixpkgs-ruby";
-    bob-ruby.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      fu,
-      ruby-nix,
-      bundix,
-      bob-ruby,
-    }:
-    with fu.lib;
-    eachDefaultSystem (
-      system:
+  outputs = { self, nixpkgs, flake-utils, nixpkgs-ruby }:
+    flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ bob-ruby.overlays.default ];
+          system = system;
           config.allowUnfree = true;
+          overlays = [nixpkgs-ruby.overlays.default];
         };
-        rubyNix = ruby-nix.lib pkgs;
 
-        gemset = if builtins.pathExists ./gemset.nix then import ./gemset.nix else { };
+        rubyVersion = builtins.head (builtins.split "\n" (builtins.readFile ./.ruby-version));
+        ruby = pkgs."ruby-${rubyVersion}";
 
-        # If you want to override gem build config, see
-        #   https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/ruby-modules/gem-config/default.nix
-        gemConfig = { };
+        lint = pkgs.writeScriptBin "lint" ''
+          changed_files=$(git diff --name-only --diff-filter=ACM --merge-base main)
 
-        # Read Ruby version from the .ruby-version file
-        rubyVersion = builtins.readFile ./.ruby-version;
-
-        # Remove newline or extra whitespace characters
-        sanitizedRubyVersion = builtins.substring 0 (builtins.stringLength rubyVersion - 1) rubyVersion;
-
-        # See available versions here: https://github.com/bobvanderlinden/nixpkgs-ruby/blob/master/ruby/versions.json
-        ruby = pkgs."ruby-${sanitizedRubyVersion}";
-
-        # Running bundix would regenerate `gemset.nix`
-        bundixcli = bundix.packages.${system}.default;
-
-        # Use these instead of the original `bundle <mutate>` commands
-        bundleLock = pkgs.writeShellScriptBin "bundle-lock" ''
-          export BUNDLE_PATH=vendor/bundle
-          bundle lock
+          bundle exec rubocop --autocorrect-all --force-exclusion $changed_files Gemfile
         '';
-        bundleUpdate = pkgs.writeShellScriptBin "bundle-update" ''
-          export BUNDLE_PATH=vendor/bundle
-          bundle lock --update
-        '';
-        chrome = pkgs.writeShellScriptBin "chrome" ''
-          binary=$(find ${pkgs.google-chrome.outPath} -type f -name 'google-chrome-stable')
-          exec $binary "$@"
-        '';
-      in
-      rec {
-        inherit
-          (rubyNix {
-            inherit gemset ruby;
-            name = "trade-tariff-duty-calculator";
-            gemConfig = pkgs.defaultGemConfig // gemConfig;
-          })
-          env
-          ;
+      in {
+        devShells.default = pkgs.mkShell {
+          shellHook = ''
+            export GEM_HOME=$PWD/.nix/ruby/$(${ruby}/bin/ruby -e "puts RUBY_VERSION")
+            mkdir -p $GEM_HOME
 
-        devShells = rec {
-          default = dev;
-          dev = pkgs.mkShell {
-            buildInputs =
-              [
-                env
-                bundixcli
-                bundleLock
-                bundleUpdate
-                chrome
-              ]
-              ++ (with pkgs; [
-                yarn
-                rufo
-                google-chrome
-              ]);
-          };
+            export GEM_PATH=$GEM_HOME
+            export PATH=$GEM_HOME/bin:$PATH
+          '';
+
+          buildInputs = [
+            lint
+            pkgs.rufo
+            pkgs.yarn
+            ruby
+          ];
         };
-      }
-    );
+      });
 }
