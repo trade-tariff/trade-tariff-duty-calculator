@@ -13,41 +13,22 @@ export default class CookieManager {
     const rememberSettings = this.getCookiesPolicy()?.remember_settings;
     return rememberSettings === 'true' ? true : rememberSettings === 'false' ? false : rememberSettings || false;
   }
-  
+
   usage() {
     const usage = this.getCookiesPolicy()?.usage;
     return usage === 'true' ? true : usage === 'false' ? false : usage || false;
   }
-  
 
   shouldOpenTree() {
-    if (this.getCookiesTreeOpenClosedDefault()) {
-      const value = this.getCookiesTreeOpenClosedDefault();
-
-      if (value === 'open') {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return true;
-    }
+    return this.getCookiesTreeOpenClosedDefault() === 'open';
   }
 
   showAcceptRejectCookiesBanner() {
-    if (!this.getCookiesPolicy()) {
-      return true;
-    } else {
-      return false;
-    }
+    return !this.getCookiesPolicy();
   }
 
   showHideConfirmCookiesBanner() {
-    if (this.getCookiesHideConfirm() === null) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.getCookiesHideConfirm() === null;
   }
 
   setCookiesPolicy(value = {usage: true, remember_settings: true}) {
@@ -71,12 +52,7 @@ export default class CookieManager {
   }
 
   getCookiesTreeOpenClosedDefault() {
-    const cookie = this.#getCookie(this.cookiesTreeOpenClosedDefault);
-    if (cookie) {
-      return cookie.value;
-    } else {
-      return 'open';
-    }
+    return this.#getCookie(this.cookiesTreeOpenClosedDefault)?.value || 'open';
   }
 
   #setCookie(name, value, expires) {
