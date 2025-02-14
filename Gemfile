@@ -27,8 +27,9 @@ group :development, :test do
   gem 'scss_lint-govuk'
 end
 group :development do
+  gem 'awesome_print'
   gem 'listen'
-  gem 'solargraph'
+  gem 'solargraph-rails'
   gem 'spring'
   gem 'spring-watcher-listen'
   gem 'web-console'

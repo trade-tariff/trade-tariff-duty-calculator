@@ -1,6 +1,4 @@
-require 'client_builder'
-
-Rails.application.config.public_routing = ENV.fetch('ROUTE_THROUGH_FRONTEND', 'false') == 'true'
+require_relative '../../app/services/client_builder'
 
 api_options = ENV['API_SERVICE_BACKEND_URL_OPTIONS'] || '{}'
 
