@@ -122,7 +122,7 @@ jobs:
 
   ruby-checks:
     docker:
-      - image: cimg/ruby:3.3.4-node
+      - image: cimg/ruby:3.3.7-node
     steps:
       - checkout
       - ruby/install-deps
@@ -141,7 +141,7 @@ jobs:
 
   test:
     docker:
-      - image: cimg/ruby:3.3.4-node
+      - image: cimg/ruby:3.3.7-node
         environment:
           BUNDLE_JOBS: "3"
           BUNDLE_RETRY: "3"
