@@ -55,4 +55,19 @@ RSpec.describe ExpressionEvaluators::AlcoholVolumeMeasureUnit, :user_session do
 
     it_behaves_like 'an evaluation that uses the measure unit merger'
   end
+
+  context 'with an irregular value' do
+    let(:user_session) do
+      build(
+        :user_session,
+        :with_commodity_information,
+        :with_customs_value,
+        :with_compound_measure_amount,
+      )
+    end
+
+    it 'rounds values down' do
+      expect(evaluator.formatted_value(2.789)).to(eq('£2.78'))
+    end
+  end
 end

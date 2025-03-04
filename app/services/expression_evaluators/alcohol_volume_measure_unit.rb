@@ -6,8 +6,12 @@ module ExpressionEvaluators
       {
         calculation: sanitized_duty_expression,
         value:,
-        formatted_value: number_to_currency(value),
+        formatted_value: formatted_value(value),
       }
+    end
+
+    def formatted_value(value)
+      number_to_currency(value.floor(2))
     end
 
     private
