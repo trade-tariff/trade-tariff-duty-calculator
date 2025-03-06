@@ -321,6 +321,14 @@ workflows:
             - build-and-push-live
           <<: *filter-main
 
+      - trigger-github-e2e-tests:
+          name: trigger-e2e-tests-staging
+          test_url: https://dev.trade-tariff.service.gov.uk
+          context: trade-tariff-terraform-aws-staging
+          requires:
+            - apply-terraform-staging
+          <<: *filter-main
+
       - tariff/smoketests:
           context: trade-tariff-testing
           url: https://staging.trade-tariff.service.gov.uk
