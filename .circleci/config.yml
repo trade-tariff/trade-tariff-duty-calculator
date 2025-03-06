@@ -22,14 +22,12 @@ filter-release: &filter-release
       ignore: /.*/
 
 orbs:
-  aws-cli: circleci/aws-cli@2.0.3
-  terraform: circleci/terraform@3.2.1
-  cypress: cypress-io/cypress@1.27.0
+  github-cli: circleci/github-cli@2.7.0
   node: circleci/node@5
   ruby: circleci/ruby@2
   slack: circleci/slack@4.3.0
   tariff: trade-tariff/trade-tariff-ci-orb@0
-  github-cli: circleci/github-cli@2.7.0
+  terraform: circleci/terraform@3.2.1
 
 executors:
   terraform:
