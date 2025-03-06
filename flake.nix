@@ -46,7 +46,7 @@
 
           buildInputs = [
             lint
-            pkgs.rufo
+            pkgs.circleci-cli
             pkgs.yarn
             ruby
           ];
