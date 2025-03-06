@@ -25,6 +25,10 @@ data "aws_secretsmanager_secret" "duty_calculator_secret_key_base" {
   name = "duty-calculator-secret-key-base"
 }
 
+data "aws_secretsmanager_secret" "new_relic_license_key" {
+  name = "backend-new-relic-license-key"
+}
+
 data "aws_secretsmanager_secret" "sentry_dsn" {
   name = "duty-calculator-sentry-dsn"
 }
