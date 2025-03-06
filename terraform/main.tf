@@ -73,6 +73,10 @@ module "service" {
 
   service_secrets_config = [
     {
+      name      = "NEW_RELIC_LICENSE_KEY"
+      valueFrom = data.aws_secretsmanager_secret.new_relic_license_key.arn
+    },
+    {
       name      = "SECRET_KEY_BASE"
       valueFrom = data.aws_secretsmanager_secret.duty_calculator_secret_key_base.arn
     },
