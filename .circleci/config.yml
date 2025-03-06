@@ -263,20 +263,21 @@ workflows:
           ssm_parameter: "/development/DUTY_CALCULATOR_ECR_URL"
           <<: *filter-not-main
 
-      - confirm-deploy-for-qa?:
-          type: approval
-          requires:
-            - test
-            - plan-terraform-dev
-            - build-and-push-dev
-          <<: *filter-not-main
-
       - apply-terraform:
           name: apply-terraform-dev
           context: trade-tariff-terraform-aws-development
           environment: development
           requires:
-            - confirm-deploy-for-qa?
+            - plan-terraform-dev
+            - build-and-push-dev
+          <<: *filter-not-main
+
+      - trigger-github-e2e-tests:
+          name: trigger-e2e-tests-dev
+          test_url: https://dev.trade-tariff.service.gov.uk
+          context: trade-tariff-terraform-aws-development
+          requires:
+            - apply-terraform-dev
           <<: *filter-not-main
 
       - tariff/smoketests:
@@ -288,13 +289,6 @@ workflows:
             - apply-terraform-dev
           <<: *filter-not-main
 
-      - trigger-github-e2e-tests:
-          name: trigger-e2e-tests-dev
-          test_url: https://dev.trade-tariff.service.gov.uk
-          context: trade-tariff-dev
-          requires:
-            - apply-terraform-dev
-          <<: *filter-not-main
   deploy-to-staging:
     jobs:
       - write-docker-tag:
