@@ -22,24 +22,27 @@ filter-release: &filter-release
       ignore: /.*/
 
 orbs:
-  aws-cli: circleci/aws-cli@2.0.3
-  terraform: circleci/terraform@3.2.1
-  cypress: cypress-io/cypress@1.27.0
+  github-cli: circleci/github-cli@2.7.0
   node: circleci/node@5
   ruby: circleci/ruby@2
   slack: circleci/slack@4.3.0
   tariff: trade-tariff/trade-tariff-ci-orb@0
-  github-cli: circleci/github-cli@2.7.0
+  terraform: circleci/terraform@3.2.1
 
 executors:
   terraform:
     docker:
-      - image: hashicorp/terraform:1.5.5
+      - image: hashicorp/terraform:1.9.8
     resource_class: small
     working_directory: "/tmp/terraform"
     environment:
       TF_INPUT: 0
       TF_IN_AUTOMATION: 1
+  python-executor:
+    docker:
+      - image: circleci/python:latest
+    environment:
+      TERRAFORM_VERSION: 1.9.8
 
 jobs:
   trigger-github-e2e-tests:
@@ -198,6 +201,12 @@ jobs:
       - store_artifacts:
           path: brakeman_results.html
 
+  pre-commit:
+    executor: python-executor
+    steps:
+      - tariff/pre-commit:
+          terraform_version: 1.9.8
+
   test:
     docker:
       - image: cimg/ruby:3.4.2-node
@@ -226,6 +235,9 @@ workflows:
   deploy-to-development:
     jobs:
       - ruby-checks:
+          <<: *filter-not-main
+
+      - pre-commit:
           <<: *filter-not-main
 
       - test:
@@ -323,7 +335,7 @@ workflows:
 
       - trigger-github-e2e-tests:
           name: trigger-e2e-tests-staging
-          test_url: https://dev.trade-tariff.service.gov.uk
+          test_url: https://staging.trade-tariff.service.gov.uk
           context: trade-tariff-terraform-aws-staging
           requires:
             - apply-terraform-staging
