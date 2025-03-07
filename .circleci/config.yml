@@ -22,6 +22,7 @@ filter-release: &filter-release
       ignore: /.*/
 
 orbs:
+  aws-cli: circleci/aws-cli@5.2.0
   github-cli: circleci/github-cli@2.7.0
   node: circleci/node@5
   ruby: circleci/ruby@2
@@ -124,6 +125,9 @@ jobs:
         type: string
     steps:
       - checkout
+      - aws-cli/setup:
+          role_arn: arn:aws:iam::$AWS_ACCOUNT_ID:role/CircleCi_Terraform-Role
+          role_session_name: CircleCi_Terraform-Role
       - attach_workspace:
           at: .
       - terraform/init:
@@ -145,6 +149,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
+      - aws-cli/setup:
+          role_arn: arn:aws:iam::$AWS_ACCOUNT_ID:role/CircleCi_Terraform-Role
+          role_session_name: CircleCi_Terraform-Role
       - terraform/init:
           path: terraform/
           backend_config_file: backends/<< parameters.environment >>.tfbackend
@@ -165,6 +172,9 @@ jobs:
           command: apk --no-cache add curl jq
       - attach_workspace:
           at: .
+      - aws-cli/setup:
+          role_arn: arn:aws:iam::$AWS_ACCOUNT_ID:role/CircleCi_Terraform-Role
+          role_session_name: CircleCi_Terraform-Role
       - terraform/init:
           path: terraform/
           backend_config_file: backends/<< parameters.environment >>.tfbackend
