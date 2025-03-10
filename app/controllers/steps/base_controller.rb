@@ -52,7 +52,7 @@ module Steps
 
     def handle_session_integrity_error(exception)
       with_session_tracking do
-        Sentry.capture_exception(exception)
+        NewRelic::Agent.notice_error(exception)
         redirect_to sections_url, allow_other_host: true
       end
     end
@@ -70,7 +70,6 @@ module Steps
     end
 
     def with_session_tracking
-      Sentry.set_user(user_session.session.to_h.except('_csrf_token'))
       yield
     end
   end
