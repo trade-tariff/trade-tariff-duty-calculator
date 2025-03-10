@@ -13,7 +13,6 @@ gem 'logstash-event'
 gem 'multipart-post', '2.4.1'
 gem 'newrelic_rpm'
 gem 'puma'
-gem 'sentry-rails'
 gem 'uktt', git: 'https://github.com/trade-tariff/uktt.git'
 gem 'webpacker'
 

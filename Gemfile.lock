@@ -720,7 +720,6 @@ DEPENDENCIES
   rspec_junit_formatter
   rubocop-govuk
   scss_lint-govuk
-  sentry-rails
   shoulda-matchers
   simplecov
   solargraph-rails
