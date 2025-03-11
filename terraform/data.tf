@@ -29,10 +29,6 @@ data "aws_secretsmanager_secret" "new_relic_license_key" {
   name = "backend-new-relic-license-key"
 }
 
-data "aws_secretsmanager_secret" "sentry_dsn" {
-  name = "duty-calculator-sentry-dsn"
-}
-
 data "aws_kms_key" "secretsmanager_key" {
   key_id = "alias/secretsmanager-key"
 }

@@ -24,7 +24,6 @@ RSpec.describe Steps::BaseController, :user_session do
   end
 
   before do
-    allow(Sentry).to receive(:set_user)
     allow(Rails.configuration).to receive(:trade_tariff_frontend_url).and_return(trade_tariff_host)
   end
 
@@ -46,16 +45,6 @@ RSpec.describe Steps::BaseController, :user_session do
       let(:user_session) { build(:user_session, :with_commodity_information) }
 
       it { expect(response).not_to redirect_to(trade_tariff_host) }
-    end
-  end
-
-  describe 'GET #error' do
-    subject(:response) { get :create }
-
-    it 'adds session context for the user on error' do
-      response
-    rescue ArgumentError
-      expect(Sentry).to have_received(:set_user).with(user_session.session.to_h.except('_csrf_token'))
     end
   end
 

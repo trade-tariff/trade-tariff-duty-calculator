@@ -10,8 +10,6 @@ Rails.application.configure do
     policy.object_src  :none
     policy.script_src  :self, :https, 'https://www.googletagmanager.com'
     # policy.style_src   :self
-    # Specify URI for violation reports
-    policy.report_uri ENV['SENTRY_CSP_ENDPOINT'] if ENV['SENTRY_CSP_ENDPOINT'].present?
   end
 
   # Generate session nonces for permitted importmap and inline scripts
