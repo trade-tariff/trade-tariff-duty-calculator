@@ -51,7 +51,10 @@ WORKDIR /app
 
 ENV RAILS_SERVE_STATIC_FILES=true \
   RAILS_ENV=production \
-  PORT=8080
+  PORT=8080 \
+  GOVUK_APP_DOMAIN=https://www.trade-tariff.service.gov.uk \
+  GOVUK_WEBSITE_ROOT=http://www.trade-tariff.service.gov.uk
+
 
 RUN bundle config set without 'development test'
 
