@@ -1,0 +1,50 @@
+name: Deploy to production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'The git ref to deploy'
+        required: true
+        default: 'main'
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  AWS_REGION: eu-west-2
+  ECR_URL: 382373577178.dkr.ecr.eu-west-2.amazonaws.com/tariff-duty-calculator-production
+  ENVIRONMENT: production
+  IAM_ROLE_ARN: arn:aws:iam::382373577178:role/CircleCi_Terraform-Role
+  SECRET_ID: duty-calculator-configuration
+  TF_INPUT: 0
+  TF_IN_AUTOMATION: 1
+
+jobs:
+  deploy:
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.0
+      - id: docker-tag
+        run: echo "DOCKER_TAG=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: ./.github/actions/terraform-apply
+        with:
+          environment: ${{ env.ENVIRONMENT }}
+          ref: ${{ inputs.ref || steps.docker-tag.outputs.DOCKER_TAG }}
+          ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
+
+  notifications:
+      runs-on: ubuntu-latest
+      needs: deploy
+      if: always()
+      steps:
+        - uses: actions/checkout@v4.1.0
+        - uses: ./.github/actions/slack-notify
+          with:
+            result: ${{ needs.deploy.result }}
+            slack_webhook: ${{ secrets.SLACK_WEBHOOK }}

@@ -1,0 +1,27 @@
+name: Notify Slack
+description: 'Notify Slack channel about the status of the Deployment'
+
+inputs:
+  slack_channel:
+    required: false
+    description: Slack channel in which message needs to be sent
+    default: 'deployments'
+  result:
+    required: true
+    description: The result of the deployment
+  slack_webhook:
+    required: true
+    description: Slack webhook URL
+
+runs:
+  using: composite
+  steps:
+    - uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_CHANNEL: "deployments"
+        SLACK_USERNAME: "Deploy Bot"
+        SLACK_WEBHOOK: ${{ inputs.slack_webhook }}
+        SLACK_ICON_EMOJI: ":robot_face:"
+        SLACK_COLOR: ${{ inputs.result }}
+        SLACK_TITLE: Deployment finished with - ${{ inputs.result }}
+        SLACK_MESSAGE: "${{ inputs.result }}"

@@ -1,0 +1,16 @@
+name: 'Setup SSH'
+description: 'Setup SSH key for Git operations'
+
+inputs:
+  ssh-key:
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - run: |
+        mkdir -p ~/.ssh
+        echo "${{ inputs.ssh-key }}" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+        ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+        git config --global url."git@github.com:".insteadOf "https://github.com/"
+      shell: bash
