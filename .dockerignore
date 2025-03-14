@@ -19,5 +19,3 @@ node_modules
 vendor
 yarn-debug.log*
 .yarn-integrity
-
-.env

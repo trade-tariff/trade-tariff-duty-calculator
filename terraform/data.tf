@@ -20,15 +20,3 @@ data "aws_lb_target_group" "this" {
 data "aws_security_group" "this" {
   name = "trade-tariff-ecs-security-group-${var.environment}"
 }
-
-data "aws_secretsmanager_secret" "duty_calculator_secret_key_base" {
-  name = "duty-calculator-secret-key-base"
-}
-
-data "aws_secretsmanager_secret" "new_relic_license_key" {
-  name = "backend-new-relic-license-key"
-}
-
-data "aws_kms_key" "secretsmanager_key" {
-  key_id = "alias/secretsmanager-key"
-}

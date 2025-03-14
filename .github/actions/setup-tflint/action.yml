@@ -1,0 +1,9 @@
+name: 'Setup TFLint'
+description: 'Setup TFLint for linting Terraform code'
+
+runs:
+  using: 'composite'
+  steps:
+    - run: |
+        curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+      shell: bash

@@ -28,11 +28,6 @@ variable "max_capacity" {
   type        = number
 }
 
-variable "base_domain" {
-  description = "URL of the service."
-  type        = string
-}
-
 variable "cpu" {
   description = "CPU units to use."
   type        = number
@@ -41,9 +36,4 @@ variable "cpu" {
 variable "memory" {
   description = "Memory to allocate in MB. Powers of 2 only."
   type        = number
-}
-
-variable "google_tag_manager_container_id" {
-  description = "Google Tag Manager container ID"
-  type        = string
 }
