@@ -3,7 +3,7 @@ module "service" {
 
   region = var.region
 
-  service_name  = local.service
+  service_name  = "duty-calculator"
   service_count = var.service_count
 
   cluster_name              = "trade-tariff-cluster-${var.environment}"
@@ -15,7 +15,7 @@ module "service" {
   min_capacity = var.min_capacity
   max_capacity = var.max_capacity
 
-  docker_image = data.aws_ssm_parameter.ecr_url.value
+  docker_image = "382373577178.dkr.ecr.eu-west-2.amazonaws.com/tariff-duty-calculator-production"
   docker_tag   = var.docker_tag
   skip_destroy = true
 
@@ -26,6 +26,10 @@ module "service" {
 
   execution_role_policy_arns = [
     aws_iam_policy.secrets.arn
+  ]
+
+  task_role_policy_arns = [
+    aws_iam_policy.exec.arn,
   ]
 
   service_environment_config = [
@@ -81,4 +85,5 @@ module "service" {
       valueFrom = data.aws_secretsmanager_secret.duty_calculator_secret_key_base.arn
     },
   ]
+  enable_ecs_exec = true
 }
