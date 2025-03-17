@@ -22,7 +22,7 @@ env:
   AWS_REGION: eu-west-2
   ECR_URL: 382373577178.dkr.ecr.eu-west-2.amazonaws.com/tariff-duty-calculator-production
   ENVIRONMENT: staging
-  IAM_ROLE_ARN: arn:aws:iam::451934005581:role/CircleCi_Terraform-Role
+  IAM_ROLE_ARN: arn:aws:iam::451934005581:role/GithubActions-ECS-Deployments-Role
   SECRET_ID: duty-calculator-configuration
   TF_INPUT: 0
   TF_IN_AUTOMATION: 1

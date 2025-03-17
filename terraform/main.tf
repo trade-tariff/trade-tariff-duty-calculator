@@ -36,8 +36,8 @@ locals {
   secret_map   = jsondecode(local.secret_value)
   secret_env_vars = [
     for key, value in local.secret_map : {
-      name      = key
-      valueFrom = value
+      name  = key
+      value = value
     }
   ]
 }

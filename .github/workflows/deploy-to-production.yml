@@ -22,7 +22,7 @@ env:
   AWS_REGION: eu-west-2
   ECR_URL: 382373577178.dkr.ecr.eu-west-2.amazonaws.com/tariff-duty-calculator-production
   ENVIRONMENT: production
-  IAM_ROLE_ARN: arn:aws:iam::382373577178:role/CircleCi_Terraform-Role
+  IAM_ROLE_ARN: arn:aws:iam::382373577178:role/GithubActions-ECS-Deployments-Role
   SECRET_ID: duty-calculator-configuration
   TF_INPUT: 0
   TF_IN_AUTOMATION: 1
@@ -56,6 +56,25 @@ jobs:
           environment: ${{ env.ENVIRONMENT }}
           ref: ${{ inputs.ref || steps.docker-tag.outputs.DOCKER_TAG }}
           ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
+
+  tag:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - uses: actions/checkout@v4.1.0
+      - id: docker-tag
+        run: echo "DOCKER_TAG=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: ./.github/actions/tag-production
+        with:
+          ecr-url: ${{ env.ECR_URL }}
+          ref: ${{ inputs.ref || steps.docker-tag.outputs.DOCKER_TAG }}
+
+  post-deploy:
+    uses: trade-tariff/trade-tariff-tools/.github/workflows/e2e-tests.yml@main
+    needs: deploy
+    with:
+      test-url: "https://www.trade-tariff.service.gov.uk"
+      ref: main
 
   notifications:
       runs-on: ubuntu-latest
