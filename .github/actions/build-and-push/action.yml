@@ -6,8 +6,6 @@ inputs:
     required: true
   ref:
     required: true
-  application-secret-id:
-    required: true
   region:
     required: false
     default: 'eu-west-2'
@@ -15,11 +13,46 @@ runs:
   using: 'composite'
   steps:
     - run: |
+        # Input ref
+        REF=${{ inputs.ref }}
+        # Extract repository name from ecr-url (assumes format: <account>.dkr.ecr.<region>.amazonaws.com/<repo>)
+        REPO_NAME=$(echo "${{ inputs.ecr-url }}" | cut -d'/' -f2)
+
+        # Log in to ECR
         aws ecr get-login-password --region ${{ inputs.region }} \
           | docker login --username AWS --password-stdin "${{ inputs.ecr-url }}"
 
-        echo ${{ inputs.ref }} >REVISION
+        if ! git rev-parse --verify "$REF" 2>/dev/null; then
+          echo "::error::The ref $REF does not exist in the Git repository."
+          exit 1
+        fi
 
-        docker build -t "${{ inputs.ecr-url }}:${{ inputs.ref }}" .
-        docker push "${{ inputs.ecr-url }}:${{ inputs.ref }}"
+        # Resolve the ref to a short SHA (or use the input ref directly if not a Git SHA)
+        RESOLVED_REF=$(git rev-parse --short "$REF")
+        echo "::notice::Resolved ref: $RESOLVED_REF"
+
+        # Define the full image name
+        IMAGE_NAME="${{ inputs.ecr-url }}:$RESOLVED_REF"
+
+        # Check if the image already exists in ECR
+        if aws ecr describe-images \
+          --repository-name "$REPO_NAME" \
+          --image-ids imageTag="$RESOLVED_REF" \
+          --region "${{ inputs.region }}" \
+          > /dev/null 2>&1; then
+          echo "::notice::Image $IMAGE_NAME already exists in ECR. Skipping build and push."
+          exit 0
+        else
+          echo "::notice::Image $IMAGE_NAME not found in ECR. Proceeding with build and push."
+        fi
+
+        echo "$RESOLVED_REF" > REVISION
+
+        echo "Building image: $IMAGE_NAME"
+        docker build -t "$IMAGE_NAME" .
+
+        echo "Pushing image: $IMAGE_NAME"
+        docker push "$IMAGE_NAME"
+
+        echo "::notice::Successfully built and pushed $IMAGE_NAME"
       shell: bash
