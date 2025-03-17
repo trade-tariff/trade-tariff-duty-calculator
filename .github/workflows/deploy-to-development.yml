@@ -24,7 +24,7 @@ env:
   ENVIRONMENT: development
   IAM_ROLE_ARN: arn:aws:iam::844815912454:role/CircleCi_Terraform-Role
   SECRET_ID: duty-calculator-configuration
-  SKIP: terraform_docs,circleci_validate,actionlint-docker
+  SKIP: terraform_docs,actionlint-docker
   TF_INPUT: 0
   TF_IN_AUTOMATION: 1
 
