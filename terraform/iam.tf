@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "task" {
 }
 
 resource "aws_iam_policy" "task" {
-  name   = "duty-calculator-tasks-role-exec-policy"
+  name   = "duty-calculator-tasks-role-policy"
   policy = data.aws_iam_policy_document.task.json
 }
 
