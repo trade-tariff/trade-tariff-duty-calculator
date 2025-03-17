@@ -14,6 +14,19 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - id: resolved-ref
+      run: |
+        REF=${{ inputs.ref }}
+
+        if ! git rev-parse --verify "$REF" 2>/dev/null; then
+          echo "::error::The ref $REF does not exist in the Git repository."
+          exit 1
+        else
+          echo "::notice::Resolved ref: $(git rev-parse --short "$REF")"
+        fi
+
+        echo RESOLVED_REF=$(git rev-parse --short "$REF") >> "$GITHUB_OUTPUT"
+      shell: bash
     - uses: actions/checkout@v4.1.0
     - uses: aws-actions/configure-aws-credentials@v4
       with:
@@ -30,4 +43,4 @@ runs:
     - run: cd terraform && terraform apply -var-file=config_${{ inputs.environment }}.tfvars -auto-approve
       shell: bash
       env:
-        TF_VAR_docker_tag: ${{ inputs.ref }}
+        TF_VAR_docker_tag: ${{ steps.resolved-ref.outputs.RESOLVED_REF }}

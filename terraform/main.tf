@@ -28,7 +28,7 @@ module "service" {
   task_role_policy_arns      = [aws_iam_policy.task.arn]
   enable_ecs_exec            = true
 
-  service_secrets_config = local.secret_env_vars
+  service_environment_config = local.secret_env_vars
 }
 
 locals {
@@ -36,8 +36,8 @@ locals {
   secret_map   = jsondecode(local.secret_value)
   secret_env_vars = [
     for key, value in local.secret_map : {
-      name  = key
-      value = value
+      name      = key
+      valueFrom = value
     }
   ]
 }

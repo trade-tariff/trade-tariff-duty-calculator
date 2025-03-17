@@ -41,9 +41,8 @@ jobs:
           ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
       - uses: ./.github/actions/build-and-push
         with:
-          application-secret-id: ${{ env.SECRET_ID }}
           ecr-url: ${{ env.ECR_URL }}
-          ref: ${{ steps.docker-tag.outputs.DOCKER_TAG }}
+          ref: ${{ inputs.ref || steps.docker-tag.outputs.DOCKER_TAG }}
 
   deploy:
     runs-on: ubuntu-latest
