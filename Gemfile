@@ -5,7 +5,6 @@ ruby File.read('.ruby-version').chomp
 gem 'rails', '~> 7.1'
 
 gem 'bootsnap', require: false
-gem 'dotenv-rails'
 gem 'foreman'
 gem 'govspeak'
 gem 'govuk_design_system_formbuilder'
@@ -19,12 +18,14 @@ gem 'webpacker'
 
 group :development, :test do
   gem 'brakeman'
+  gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rails-controller-testing'
   gem 'rubocop-govuk'
   gem 'scss_lint-govuk'
 end
+
 group :development do
   gem 'awesome_print'
   gem 'listen'
@@ -34,6 +35,7 @@ group :development do
   gem 'spring-watcher-listen'
   gem 'web-console'
 end
+
 group :test do
   gem 'factory_bot_rails'
   gem 'rspec_junit_formatter'

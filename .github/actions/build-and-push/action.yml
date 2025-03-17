@@ -15,13 +15,6 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        aws secretsmanager \
-          get-secret-value \
-          --secret-id "${{ inputs.application-secret-id }}" \
-          --region 'eu-west-2' \
-          --query 'SecretString' \
-          --output text | jq -r 'to_entries | map("\(.key)=\(.value)") | join("\n")' > .env.production
-
         aws ecr get-login-password --region ${{ inputs.region }} \
           | docker login --username AWS --password-stdin "${{ inputs.ecr-url }}"
 
