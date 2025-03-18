@@ -25,14 +25,17 @@ group :development, :test do
   gem 'rubocop-govuk'
   gem 'scss_lint-govuk'
 end
+
 group :development do
   gem 'awesome_print'
   gem 'listen'
-  gem 'solargraph-rails'
+  gem 'ruby-lsp-rails'
+  gem 'ruby-lsp-rspec'
   gem 'spring'
   gem 'spring-watcher-listen'
   gem 'web-console'
 end
+
 group :test do
   gem 'factory_bot_rails'
   gem 'rspec_junit_formatter'

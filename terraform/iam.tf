@@ -1,41 +1,4 @@
-data "aws_iam_policy_document" "secrets" {
-  statement {
-    effect = "Allow"
-    actions = [
-      "secretsmanager:GetResourcePolicy",
-      "secretsmanager:GetSecretValue",
-      "secretsmanager:DescribeSecret",
-      "secretsmanager:ListSecretVersionIds"
-    ]
-    resources = [
-      data.aws_secretsmanager_secret.duty_calculator_secret_key_base.arn,
-      data.aws_secretsmanager_secret.new_relic_license_key.arn,
-    ]
-  }
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "kms:Encrypt",
-      "kms:Decrypt",
-      "kms:ReEncryptFrom",
-      "kms:ReEncryptTo",
-      "kms:GenerateDataKeyPair",
-      "kms:GenerateDataKeyPairWithoutPlainText",
-      "kms:GenerateDataKeyWithoutPlaintext"
-    ]
-    resources = [
-      data.aws_kms_key.secretsmanager_key.arn
-    ]
-  }
-}
-
-resource "aws_iam_policy" "secrets" {
-  name   = "${local.service}-execution-role-secrets-policy"
-  policy = data.aws_iam_policy_document.secrets.json
-}
-
-data "aws_iam_policy_document" "exec" {
+data "aws_iam_policy_document" "task" {
   statement {
     effect = "Allow"
     actions = [
@@ -51,7 +14,39 @@ data "aws_iam_policy_document" "exec" {
   }
 }
 
+resource "aws_iam_policy" "task" {
+  name   = "duty-calculator-tasks-role-policy"
+  policy = data.aws_iam_policy_document.task.json
+}
+
+data "aws_iam_policy_document" "exec" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "secretsmanager:GetResourcePolicy",
+      "secretsmanager:GetSecretValue",
+      "secretsmanager:DescribeSecret",
+      "secretsmanager:ListSecretVersionIds"
+    ]
+    resources = [data.aws_secretsmanager_secret.this.arn]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncryptFrom",
+      "kms:ReEncryptTo",
+      "kms:GenerateDataKeyPair",
+      "kms:GenerateDataKeyPairWithoutPlainText",
+      "kms:GenerateDataKeyWithoutPlaintext"
+    ]
+    resources = [data.aws_kms_key.this.arn]
+  }
+}
+
 resource "aws_iam_policy" "exec" {
-  name   = "duty-calculator-task-role-exec-policy"
+  name   = "duty-calculator-execs-role-policy"
   policy = data.aws_iam_policy_document.exec.json
 }
