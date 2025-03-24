@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: proc { [404, { 'Content-Type' => 'text/html' }, ['Not found.']] }
 
-  get 'healthcheckz', to: 'healthcheck#checkz'
+  get "healthcheckz" => "rails/health#show", as: :rails_health_check
 
   scope path: '/duty-calculator/:referred_service/:commodity_code/' do
     get 'import-date', to: 'steps/import_date#show'
