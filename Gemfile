@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby File.read('.ruby-version').chomp
 
-gem 'rails', '~> 7.1'
+gem 'rails', '~> 8.0'
 
 gem 'bootsnap', require: false
 gem 'foreman'
