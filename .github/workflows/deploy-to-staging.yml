@@ -47,11 +47,13 @@ jobs:
           ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
 
   post-deploy:
-    uses: trade-tariff/trade-tariff-tools/.github/workflows/e2e-tests.yml@main
     needs: deploy
+    uses: trade-tariff/trade-tariff-tools/.github/workflows/e2e-tests.yml@main
     with:
       test-url: "https://staging.trade-tariff.service.gov.uk"
-      ref: main
+      admin-test-url: "https://admin.staging.trade-tariff.service.gov.uk"
+    secrets:
+      basic_password: ${{ secrets.BASIC_PASSWORD }}
 
   notifications:
       runs-on: ubuntu-latest
