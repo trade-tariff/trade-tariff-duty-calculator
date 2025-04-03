@@ -67,7 +67,6 @@ jobs:
     needs: deploy
     with:
       test-url: "https://www.trade-tariff.service.gov.uk"
-      ref: main
 
   notifications:
       runs-on: ubuntu-latest
