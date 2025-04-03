@@ -6,20 +6,20 @@ Terraform to deploy the service into AWS.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.9.8 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.10 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.67.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.93.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_service"></a> [service](#module\_service) | git@github.com:trade-tariff/trade-tariff-platform-terraform-modules.git//aws/ecs-service | aws/ecs-service-v1.13.0 |
+| <a name="module_service"></a> [service](#module\_service) | git@github.com:trade-tariff/trade-tariff-platform-terraform-modules.git//aws/ecs-service | aws/ecs-service-v1.13.1 |
 
 ## Resources
 
