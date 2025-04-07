@@ -65,3 +65,4 @@ jobs:
           with:
             result: ${{ needs.post-deploy.result }}
             slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
+        - run: if [[ "${{ needs.post-deploy.result }}" != "success" ]]; then exit 1; fi
